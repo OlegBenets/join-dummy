@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'inter';
+    src: url('./assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+
 /* navbar-section */
 .navbar-container {
     height: 100vh;
@@ -6,7 +11,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    bottom: 0;
+    font-family: inter;
 }
 
 .join_logo {
@@ -21,10 +26,8 @@
     height: 300px;
 }
 
-.menubar-link-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+.menubar {
+    height: 343px;
 }
 
 .menubar a {
@@ -38,23 +41,47 @@
 .menubar li {
     height: 46px;
     width: 100%;
-    background: red;
+    background: #2A3647;
     margin-bottom: 15px;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
+}
+
+.menubar li:hover {
+    background: #2A3D59;
 }
 
 .menubar-img-container {
-    width: 45px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 55px;
+    margin-left: 56px;
+    margin-right: 8px;
 }
 
+.navbar-privacy-container {
+    height: 317px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 44px;
+    margin-left: 52px;
+}
 
-/* .menubar img {
-    min-width: 60px;
-} */
+.navbar-privacy-container p {
+    color: #A8A8A8;
+    margin-bottom: 20px;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.navbar-privacy-container p:hover {
+    color: #29ABE2;
+    scale: 1.05;
+}
