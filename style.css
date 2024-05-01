@@ -85,3 +85,26 @@
     color: #29ABE2;
     scale: 1.05;
 }
+
+/* header-section */
+
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: red;
+    height: 96px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inter;
+}
+
+.header-txt-container {
+    margin-left: 348px;
+}
+
+.header-txt-container p {
+    font-size: 20px;
+}
