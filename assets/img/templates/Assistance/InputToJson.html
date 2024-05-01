@@ -9,7 +9,7 @@
 <body>
    <h1>Form to JSON</h1>
     <div>
-        <form onsubmit="add()"  style="display: flex; flex-direction: column; justify-content: flex-start; width: 400px;">
+        <form onsubmit="add(); return false;"  style="display: flex; flex-direction: column; justify-content: flex-start; width: 400px;">
         <input required type="text" placeholder="Titel" id="title">
         <textarea required placeholder="Beschreibung..." id="description"></textarea>
 

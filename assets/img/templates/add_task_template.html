@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../style.css" />
+  </head>
+  <body>
+    <div class="task-template">
+      <h2 class="add-task-header">Add Task</h2>
+      <div class="seperate-description-deadline">
+        <form class="task-description">
+          <span>Title</span>
+          <input type="text" placeholder="Enter a title" />
+          <span>Description</span>
+          <textarea placeholder="Enter a Description"></textarea>
+          <span>Assigned to</span>
+          <select>
+            <option value="" disabled selected hidden>
+              Select contacts to assign
+            </option>
+            <option>Marketing</option>
+            <option>Development</option>
+            <option>Design</option>
+          </select>
+        </form>
+        <div class="alert">
+          <span>This field is required</span>
+        </div>
+        <div class="seperator"></div>
+        <form class="task-deadline">
+            <span>Due date</span>
+            <input type="date">
+            <span>Prio</span>
+            <div class="prio-container">
+            <button>Urgent</button>
+            <button>Medium</button>
+            <button>Low</button>
+        </div>
+            <span>Category</span>
+            <select>
+                <option value="" disabled selected hidden>
+                  Select task category
+                </option>
+                <option>Marketing</option>
+                <option>Development</option>
+                <option>Design</option>
+              </select>
+              <span>Subtasks</span>
+              <input type="text" placeholder="Add new subtask">
+        </form>
+      </div>
+      <button class="close-task">x</button>
+      <div class="task-buttons">
+       <button class="cancel-button">Cancel</button>
+       <button class="create-button">Create Task</button>
+      </div>
+    </div>
+  </body>
+</html>
