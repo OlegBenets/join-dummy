@@ -4,7 +4,213 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../../../style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter";
+        background-color: rgb(245, 245, 245);
+      }
+
+      .task-template {
+        width: 1116px;
+        height: 870px;
+        border-radius: 30px;
+        background-color: #ffffff;
+        overflow: auto;
+        box-shadow: rgba(0, 0, 0, 0.1);
+      }
+
+      .add-task-header {
+        margin: 64px 0 0 74px;
+        font-weight: 700;
+        font-size: 61px;
+      }
+
+      .task-description {
+        width: 440px;
+        height: 376px;
+        margin: 64px 0 0 74px;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .task-description span {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .task-description input {
+        width: 440px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 21px 12px 21px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+      }
+
+      .task-description textarea {
+        width: 440px;
+        height: 120px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 18px 16px 18px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+      }
+
+      .task-description select {
+        width: 440px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+      }
+
+      .task-description,
+      input::placeholder textarea::placeholder {
+        font-size: 20px;
+        font-weight: 400;
+        color: #d1d1d1;
+      }
+
+      .alert {
+        font-size: 16px;
+        font-weight: 400;
+        position: absolute;
+        top: 779px;
+        left: 74px;
+      }
+
+      .seperator {
+        height: 424px;
+        border: 1px solid #d1d1d1;
+        position: absolute;
+        top: 174px;
+        left: 582.25px;
+      }
+
+      .seperate-description-deadline {
+        display: flex;
+      }
+
+      .task-deadline {
+        width: 440px;
+        height: 376px;
+        margin: 64px 0 0 96.25px;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .task-deadline span {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .task-deadline,
+      input::placeholder textarea::placeholder {
+        font-size: 20px;
+        font-weight: 400;
+        color: #d1d1d1;
+      }
+
+      .task-deadline input {
+        width: 440px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+      }
+
+      .prio-container {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        margin-bottom: 24px;
+      }
+
+      .prio-container button {
+        font-size: 20px;
+        font-weight: 400;
+        width: 136px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px 10px 16px 10px;
+        background-color: #ffffff;
+      }
+
+      .prio-container button:hover {
+        cursor: pointer;
+        background-color: #ffa800;
+        color: white;
+      }
+
+      .task-deadline select {
+        width: 440px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+      }
+
+      .close-task {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        top: 64px;
+        left: 1044px;
+        border: none;
+        background-color: #ffffff;
+        font-size: 20px;
+      }
+
+      .task-buttons {
+        display: flex;
+        gap: 25px;
+        width: 334px;
+        height: 56px;
+        position: absolute;
+        top: 750px;
+        left: 716.25px;
+      }
+
+      .task-buttons button {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .cancel-button {
+        width: 126px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        background-color: #ffffff;
+      }
+
+      .create-button {
+        width: 183px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        background-color: #ffffff;
+      }
+
+      .task-buttons button:hover {
+        cursor: pointer;
+        background-color: #2a3647;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <div class="task-template">
@@ -30,31 +236,31 @@
         </div>
         <div class="seperator"></div>
         <form class="task-deadline">
-            <span>Due date</span>
-            <input type="date">
-            <span>Prio</span>
-            <div class="prio-container">
+          <span>Due date</span>
+          <input type="date" />
+          <span>Prio</span>
+          <div class="prio-container">
             <button>Urgent</button>
             <button>Medium</button>
             <button>Low</button>
-        </div>
-            <span>Category</span>
-            <select>
-                <option value="" disabled selected hidden>
-                  Select task category
-                </option>
-                <option>Marketing</option>
-                <option>Development</option>
-                <option>Design</option>
-              </select>
-              <span>Subtasks</span>
-              <input type="text" placeholder="Add new subtask">
+          </div>
+          <span>Category</span>
+          <select>
+            <option value="" disabled selected hidden>
+              Select task category
+            </option>
+            <option>Marketing</option>
+            <option>Development</option>
+            <option>Design</option>
+          </select>
+          <span>Subtasks</span>
+          <input type="text" placeholder="Add new subtask" />
         </form>
       </div>
       <button class="close-task">x</button>
       <div class="task-buttons">
-       <button class="cancel-button">Cancel</button>
-       <button class="create-button">Create Task</button>
+        <button class="cancel-button">Cancel</button>
+        <button class="create-button">Create Task</button>
       </div>
     </div>
   </body>
