@@ -1,7 +1,12 @@
+/* navbar-section */
 .navbar-container {
     height: 100vh;
     width: 232px;
     background-color: #2A3647;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .join_logo {
@@ -16,14 +21,40 @@
     height: 300px;
 }
 
-.menubar {
+.menubar-link-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 
 .menubar a {
     text-decoration: none;
     color: #FFFFFF;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
+
+.menubar li {
+    height: 46px;
+    width: 100%;
+    background: red;
+    margin-bottom: 15px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.menubar-img-container {
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 55px;
+}
+
+
+/* .menubar img {
+    min-width: 60px;
+} */
