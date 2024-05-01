@@ -1,13 +1,26 @@
+<<<<<<< HEAD
 body {
     margin: 0;
     font-family: 'Inter';
     background-color: rgb(245, 245, 245);
 }
 
+=======
+@font-face {
+    font-family: 'inter';
+    src: url('./assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+
+/* navbar-section */
+>>>>>>> cc5ba034e9031257b180e7a693cb0b40e3f7d607
 .navbar-container {
     height: 100vh;
     width: 232px;
     background-color: #2A3647;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: inter;
 }
 
 .join_logo {
@@ -23,15 +36,13 @@ body {
 }
 
 .menubar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    height: 343px;
 }
 
 .menubar a {
     text-decoration: none;
     color: #FFFFFF;
+<<<<<<< HEAD
 }
 
 .task-template {
@@ -235,3 +246,57 @@ textarea::placeholder {
     background-color: #2A3647;
     color: white;
 }
+=======
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.menubar li {
+    height: 46px;
+    width: 100%;
+    background: #2A3647;
+    margin-bottom: 15px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.menubar li:hover {
+    background: #2A3D59;
+}
+
+.menubar-img-container {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 56px;
+    margin-right: 8px;
+}
+
+.navbar-privacy-container {
+    height: 317px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 44px;
+    margin-left: 52px;
+}
+
+.navbar-privacy-container p {
+    color: #A8A8A8;
+    margin-bottom: 20px;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.navbar-privacy-container p:hover {
+    color: #29ABE2;
+    scale: 1.05;
+}
+>>>>>>> cc5ba034e9031257b180e7a693cb0b40e3f7d607
