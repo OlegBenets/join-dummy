@@ -14,35 +14,49 @@
 
 <body onload="loadPage()">
     <div class="logo" id="logo">
-        <img class="logo_image" src="./assets/img/join_logo.svg" alt="join logo">
+        <img class="logo_image" src="./assets/img/Capa 2.svg" alt="join logo">
     </div>
-    <div class="sign_up_frame">
+    <div id="content" class="hidden">
+        <div class="sign_up_frame">
         Not a Join user?
-        <button>Sign up</button>
+        <button class="button dark">Sign up</button>
     </div>
     <section>
         <h1>Log in</h1>
         <div class="blue_line"></div>
         <form action="">
+            <label for="mail" class="input_frame">
+                <input class="input" name="mail" type="email" placeholder="Email">
+                <div><img src="./assets/img/mail.png" alt="Mail icon"></div>
+            </label>
+
+            <!-- <div class="input_frame">
+                <input class="input" name="mail" type="email" placeholder="Email">
+                <div><img src="./assets/img/mail.png" alt="Mail icon"></div>
+            </div> -->
             <div class="input_frame">
-            <input class="input" type="email" placeholder="Email">
-        <img src="./assets/img/mail.png" alt="Mail icon"></div>
-            <input class="input" type="password" placeholder="Password">
+                <input class="input" type="password" placeholder="Password">
+                <div><img src="./assets/img/lock.png" alt="Lock icon"></div>
+            </div>
+
             <div class="checkbox">
                 <input type="checkbox" name="remenber_me" id="remenber_me">
                 <label for="remenber_me">Remenber Me</label>
             </div>
-            <div>
-                <button>Log in</button>
-                <button>Guest Log in</button>
+            <div class="button_frame">
+                <button class="button dark">Log in</button>
+                <button class="button light">Guest Log in</button>
             </div>
 
         </form>
     </section>
-    <div class="legal_links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Legal notice</a>
+    <div class="legal_links_frame">
+        <div><a class="legal_links" href="#">Privacy Policy</a></div>
+        <div><a class="legal_links" href="#">Legal notice</a></div>
     </div>
+    </div>
+    
 </body>
 
 </html>
+

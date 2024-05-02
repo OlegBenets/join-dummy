@@ -23,6 +23,23 @@ body {
     justify-content: space-between;
 }
 
+#content {
+    background-color: #f6f7f8;
+    font-family: 'inter';
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 500ms ease-in-out;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0 !important;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -41,9 +58,9 @@ form {
     width: 422px;
     border: 1px solid var(--color_5);
     gap: 10px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 12px 21px 12px 21px;
     font-size: 24px;
+
 }
 
 .input_img {
@@ -60,6 +77,10 @@ form {
     font-size: 24px;
 }
 
+.input:focus {
+    outline: none;
+}
+
 .logo {
     position: fixed;
     top: 0;
@@ -71,16 +92,18 @@ form {
     justify-content: center;
     align-items: center;
 
-    transition: all 175ms ease-in-out;
+    transition: all 500ms ease-in-out;
 
-    background-color: blueviolet;
+    background-color: none;
+    z-index: 9;
 
 }
 
 .logo img {
     width: 274px;
     height: 334px;
-    transition: all 125ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    
 }
 
 .logo_slide {
@@ -95,9 +118,12 @@ form {
     width: 100px;
 }
 
+/* sign in button anpassen  */
+
 .sign_up_frame {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin-top: 67px;
     margin-right: 30px;
     gap: 20px;
@@ -121,18 +147,36 @@ section h1 {
     margin-bottom: 16px;
 }
 
-.legal_links {
+.legal_links_frame {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 25px;
-    gap: 25px;
+    width: 246px;
+    height: 35px;
+    align-self: center;
 }
 
-.legal_links a {
+.legal_links_frame div {
+    width: 123px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.legal_links {
     font-size: 16px;
+    font-weight: 400;
     text-decoration: none;
     color: var(--color_4);
+    transition: transform;
+}
+
+.legal_links:hover {
+    color: var(--color_3);
+    font-weight: 700;
+
 }
 
 .blue_line {
@@ -146,4 +190,59 @@ section h1 {
     justify-content: flex-start;
     align-items: flex-start;
     width: 422px;
+}
+
+.button_frame {
+    display: flex;
+    gap: 35px;
+}
+
+.button {
+    border: none;
+    border-radius: 8px;
+    height: 48px;
+    font-size: 21px;
+    font-weight: 700;
+    padding: 15px 24px 15px 24px;
+    display: flex;
+    align-items: center;
+}
+
+.dark {
+    background-color: var(--color_1);
+    color: white;
+}
+
+.dark:hover {
+    background-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.light {
+    background-color: white;
+    color: var(--color_1);
+    border: 1px solid var(--color_1);
+}
+
+.light:hover {
+    color: var(--color_3);
+    border-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* svg test versuche */
+.svg_test {
+    border: 1px solid black;
+    background-color: blueviolet;
+}
+
+.svg_test:hover {
+    background-color: #29abe2;
+}
+
+.svg_test:hover .svg_medium path {
+    fill: black;
+
 }
