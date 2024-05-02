@@ -1,0 +1,259 @@
+@font-face {
+    font-family: 'inter';
+    src: url('../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+     }
+
+      body {
+        margin: 0;
+        font-family: 'inter';
+        background-color: rgb(245, 245, 245);
+      }
+
+      p {
+        margin: 0;
+        color: red;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .task-template {
+        width: 1116px;
+        height: 870px;
+        border-radius: 30px;
+        background-color: #ffffff;
+        overflow: auto;
+        box-shadow: rgba(0, 0, 0, 0.1);
+      }
+
+      .add-task-header {
+        margin: 64px 0 0 74px;
+        font-weight: 700;
+        font-size: 61px;
+      }
+
+      .task-description {
+        width: 440px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        margin-top: 64px;
+      }
+
+      .task-description span {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .task-description input {
+        width: 90%;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        font-size: 20px;
+      }
+
+      .task-description textarea {
+        width: 90%;
+        height: 120px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 18px 16px 18px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        font-size: 20px;
+      }
+
+      .task-description select {
+        width: 430px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+        font-size: 20px;
+      }
+
+      .task-description input::placeholder,
+       textarea::placeholder {
+        font-size: 20px;
+        font-weight: 400;
+        color: #d1d1d1;
+      }
+
+      .alert {
+        font-size: 16px;
+        font-weight: 400;
+        position: absolute;
+        top: 779px;
+        left: 74px;
+      }
+
+      .seperator {
+        height: 500px;
+        border: 1px solid #d1d1d1;
+        margin-top: 40px;
+      }
+
+      .seperate-description-deadline {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .task-deadline {
+        width: 440px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        margin-top: 64px;
+      }
+
+      .task-deadline input::placeholder,
+       textarea::placeholder {
+        font-size: 20px;
+        font-weight: 400;
+        color: #d1d1d1;
+      }
+
+      .task-deadline span {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .task-deadline input {
+        width: 90%;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        font-size: 20px;
+      }
+
+      .prio-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 24px;
+      }
+
+      .prio-container button {
+        font-size: 20px;
+        font-weight: 400;
+        width: 136px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px 10px 16px 10px;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .prio-container button:hover {
+        cursor: pointer;
+        box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .task-deadline select {
+        width: 430px;
+        height: 48px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 12px 16px 12px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        font-size: 20px;
+      }
+
+      .close-task {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 64px;
+        left: 1044px;
+        border: none;
+        background-color: #ffffff;
+      }
+
+      .close-task:hover {
+        cursor: pointer;
+      }
+
+      .task-buttons {
+        display: flex;
+        gap: 25px;
+        width: 334px;
+        height: 56px;
+        position: absolute;
+        top: 750px;
+        left: 716.25px;
+      }
+
+      .task-buttons button {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .cancel-button {
+        width: 126px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      .cancel-button-image {
+        width: 16px;
+        height: 16px;
+      }
+
+      .cancel-button:hover {
+        cursor: pointer;
+        border-color: rgb(41, 171, 226);
+        color: rgb(41, 171, 226);
+        box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .create-button {
+        width: 183px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        color: white;
+        background-color: rgba(42, 54, 71, 1);
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      .create-button-image {
+        width: 16px;
+        height: 16px;
+      }
+
+      .create-button:hover {
+        background-color: rgb(41, 171, 226);
+        box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
+
+      .cancel-svg-container {
+        background: none;
+      }
+
+      .cancel-button:hover .cancel-svg path{
+        stroke: #29abe2; 
+      }

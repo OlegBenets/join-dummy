@@ -173,10 +173,18 @@ section h1 {
     transition: transform;
 }
 
+<<<<<<< HEAD
 .legal_links:hover {
     color: var(--color_3);
     font-weight: 700;
 
+=======
+.legal_links a:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    color: blue;
+    font-weight: 600;
+>>>>>>> a0cf0451bc3090ec39b5956d123337d6e82df41e
 }
 
 .blue_line {

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/js/includeHTML.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload="initInclude()">
+    <div w3-include-html="/assets/templates/header_template.html"></div>
+    <div w3-include-html="/assets/templates/navbar_template.html"></div>
+
+    <div class="main-container">
+        <div class="board-header">
+            <div class="title">
+                <h1>Board</h1>
+            </div>
+            <div class="board-header-right">
+                <div class="input-container">
+                    <div class="input-box">
+                        <input type="text" placeholder="Find Task">
+                        <div class="search-container">
+                            <div class="search-seperator"></div>
+                            <div class="search-icon-container">
+                                <img src="/assets/img/search.svg" alt="search-icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
