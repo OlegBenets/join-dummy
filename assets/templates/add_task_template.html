@@ -11,8 +11,10 @@
       <h2 class="add-task-header">Add Task</h2>
       <div class="seperate-description-deadline">
         <form class="task-description">
-          <span>Title</span>
-          <input type="text" placeholder="Enter a title" />
+          <div class="flex">
+          <span>Title</span><p>*</p>
+        </div>
+          <input required type="text" placeholder="Enter a title"/>
           <span>Description</span>
           <textarea placeholder="Enter a Description"></textarea>
           <span>Assigned to</span>
@@ -26,11 +28,15 @@
           </select>
         </form>
         <div class="alert">
-          <span>This field is required</span>
+          <div class="flex">
+            <p>*</p><span>This field is required</span>
+          </div>
         </div>
         <div class="seperator"></div>
         <form class="task-deadline">
-          <span>Due date</span>
+          <div class="flex">
+          <span>Due date</span><p>*</p>
+        </div>
           <input type="date"/>
           <span>Prio</span>
           <div class="prio-container">
@@ -38,7 +44,9 @@
             <button>Medium<img src="../img/medium.svg"></button>
             <button>Low<img src="../img/low.svg"></button>
           </div>
-          <span>Category</span>
+          <div class="flex">
+          <span>Category</span><p>*</p>
+        </div>
           <select>
             <option value="" disabled selected hidden>
               Select task category
@@ -48,12 +56,18 @@
             <option>Design</option>
           </select>
           <span>Subtasks</span>
-          <input type="text" placeholder="Add new subtask" />
+          <input type="text" placeholder="Add new subtask"/>
         </form>
       </div>
       <button class="close-task"><img src="../img/close.svg"></button>
       <div class="task-buttons">
-        <button class="cancel-button">Cancel<img src="../img/cancel.svg"></button>
+        <button class="cancel-button">Cancel
+          <div class="cancel-svg-container">
+          <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
+            <path d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" strocke=""/>
+            </svg>            
+          </div>
+      </button>
         <button class="create-button">Create Task<img src="../img/check.svg"></button>
       </div>
     </div>

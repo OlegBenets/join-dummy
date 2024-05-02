@@ -133,6 +133,14 @@ section h1 {
     font-size: 16px;
     text-decoration: none;
     color: var(--color_4);
+    transition: transform;
+}
+
+.legal_links a:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    color: blue;
+    font-weight: 600;
 }
 
 .blue_line {
