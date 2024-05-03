@@ -148,7 +148,6 @@ h1 {
     justify-content: space-between;
     width: 100%;
     height: 24px;
-    background-color: red;
 }
 
 .todo-section-add-icon {
@@ -157,6 +156,9 @@ h1 {
     align-items: center;
     width: 24px;
     height: 24px;
+    border: solid var(--color_1) 2px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .section-title-container p {
@@ -172,5 +174,13 @@ h1 {
     justify-content: space-between;
     align-items: center;
     width: 244px;
+    
+}
+
+.marginLeft64 {
     margin-left: 64px;
+}
+
+.marginRight64 {
+    margin-right: 64px;
 }
