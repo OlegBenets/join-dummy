@@ -1,3 +1,17 @@
+:root {
+    --color_1: #2a3647;
+    --color_2: #f6f7f8;
+    --color_3: #29abe2;
+    --color_4: #a8a8a8;
+    --color_5: #d1d1d1;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('./assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+
+
 .main-container {
     margin-left: 232px;
     margin-top: 96px;
