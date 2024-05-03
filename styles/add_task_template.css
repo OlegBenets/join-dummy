@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'inter';
-    src: url('../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+    src: url('../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
      }
 
       body {
@@ -49,7 +49,7 @@
 
       .task-description input {
         width: 90%;
-        height: 48px;
+        height: 36px;
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
@@ -126,15 +126,6 @@
         font-weight: 400;
       }
 
-      .task-deadline input {
-        width: 90%;
-        border: 1px solid #d1d1d1;
-        border-radius: 10px;
-        padding: 16px;
-        margin-top: 10px;
-        margin-bottom: 28px;
-        font-size: 20px;
-      }
 
       .prio-container {
         display: flex;
@@ -256,4 +247,41 @@
 
       .cancel-button:hover .cancel-svg path{
         stroke: #29abe2; 
+      }
+
+      .subtask-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 90%;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 10px 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+      }
+
+      .subtask-container img {
+        margin-left: 100px;
+      }
+
+      .subtask-input {
+        width: 70%;
+        border: none;
+        height: 32px;
+        font-size: 20px;
+      }
+
+      .subtask-input:focus {
+        outline: none;
+      }
+
+      .date-input {
+        width: 90%;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        font-size: 20px;
       }
