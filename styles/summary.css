@@ -70,6 +70,36 @@ h3 {
     left: 390px;
 }
 
+.amount-tasks:hover {
+    cursor: pointer;
+    background-color: #2A3647;
+    color: white;
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(5px, 0px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.tasks-progress:hover {
+    cursor: pointer;
+    background-color: #2A3647;
+    color: white;
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(0px, 0px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.tasks-feedback:hover {
+    cursor: pointer;
+    background-color: #2A3647;
+    color: white;
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(-5px, 0px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
 .overwiev-tasks h4 {
     margin: -8px;
     font-size: 64px;
@@ -96,6 +126,20 @@ h3 {
     border-radius: 30px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.prio-date:hover {
+    cursor: pointer;
+    background-color: #2A3647;
+    color: white;
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(14px, 10px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.prio-date:hover .task-date b {
+    color: white;
 }
 
 .task-prio {
@@ -192,8 +236,10 @@ h3 {
     cursor: pointer;
     background-color: #2A3647;
     color: white;
-    transition: background-color 175ms;
-    transform: scale(1.1);
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(5px, 5px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
 .todo:hover .todo-icon-container {
@@ -205,8 +251,10 @@ h3 {
     cursor: pointer;
     background-color: #2A3647;
     color: white;
-    transition: background-color 175ms;
-    transform: scale(1.1);
+    transition: background-color 175ms ,transform 175ms;
+    transform: translate(-5px, 5px);
+    scale: 1.05;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
 .done:hover .todo-icon-container {
@@ -224,10 +272,11 @@ h3 {
     border-radius: 50%;
 }
 
-.todo-icon-container:hover .done-svg path {
+.todo:hover .todo-icon-container .todo-svg path {
     fill: #2A3647;
 }
-.todo-icon-container:hover .todo-svg path {
+
+.done:hover .todo-icon-container .done-svg path {
     stroke: #2A3647;
 }
 
