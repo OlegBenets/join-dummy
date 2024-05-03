@@ -5,6 +5,7 @@
     --color_4: #a8a8a8;
     --color_5: #d1d1d1;
     --color_6: #42526E;
+    --color_7: #0038FF;
 }
 
 @font-face {
@@ -14,7 +15,10 @@
 
 
 .main-container {
-    margin-left: 232px;
-    margin-top: 96px;
-    max-width: 1208px;
+    position: fixed;
+    top: 96px;
+    left: 232px;
+    bottom: 0;
+    width: 1208px;
+    height: 100%;
 }

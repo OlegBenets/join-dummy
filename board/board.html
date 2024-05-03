@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="/styles/header.css">
     <link rel="stylesheet" href="/styles/navbar.css">
     <link rel="stylesheet" href="/styles/style.css">
+    <script src="/js/board.js"></script>
     <script src="/js/includeHTML.js"></script>
     <title>Document</title>
 </head>
 
-<body onload="initInclude()">
+<body onload="initInclude(), loadCards()">
     <div w3-include-html="/assets/templates/header_template.html"></div>
     <div w3-include-html="/assets/templates/navbar_template.html"></div>
 
@@ -63,8 +64,21 @@
                 </div>
                 <div class="todo-title-container marginRight64">
                     <p>Done</p>
-                    
                 </div>
+            </div>
+        </div>
+        <div class="column-container">
+            <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')" ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
+
+            </div>
+            <div id="progress-column" class="progress-column" ondrop="moveTo('progress'); removeHighlight('progress-column')" ondragleave="removeHighlight('progress-column')" ondragover="allowDrop(event); highlight('progress-column')">
+
+            </div>
+            <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')" ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
+
+            </div>
+            <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')" ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
+
             </div>
         </div>
     </div>
