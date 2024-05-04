@@ -89,3 +89,7 @@
     color: #29ABE2;
     scale: 1.05;
 }
+
+.navbar-privacy-container a {
+    text-decoration: none;
+}
