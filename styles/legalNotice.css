@@ -5,6 +5,9 @@ body {
 
 h1 {
     margin: 0;
+    font-family: inter;
+    font-size: 61px;
+    font-weight: 700;
 }
 
 h2 {
@@ -17,7 +20,7 @@ h2 {
 h3 {
     font-family: inter;
     font-weight: 700;
-    font-size: 21px;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -32,12 +35,6 @@ span {
     margin-left: 96px;
     margin-right: 98.5px;
     margin-top: 110px;
-}
-
-.title h1 {
-    font-family: inter;
-    font-size: 61px;
-    font-weight: 700;
 }
 
 .arrow-left-blue-container {
