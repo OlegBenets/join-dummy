@@ -192,6 +192,7 @@ h1 {
     width: 100%;
     height: calc(100% - 232px);
     justify-content: space-between;
+    flex: 1 1 auto;
     overflow-y: auto;
 }
 

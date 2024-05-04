@@ -15,10 +15,12 @@
 
 
 .main-container {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 96px;
     left: 232px;
-    bottom: 0;
+    /* bottom: 0; */
     width: 1208px;
     height: 100%;
 }
