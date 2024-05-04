@@ -17,11 +17,12 @@
 .main-container {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    margin-left: 232px;
+    margin-top: 96px;
+    /* position: fixed;
     top: 96px;
-    left: 232px;
+    left: 232px; */
     /* bottom: 0; */
     width: 1208px;
     height: 100%;
-    overflow-y: auto;
 }
