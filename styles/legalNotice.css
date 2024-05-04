@@ -21,6 +21,10 @@ h3 {
     margin: 0;
 }
 
+span {
+    color: var(--color_3);
+}
+
 .title {
     display: flex;
     justify-content: space-between;
