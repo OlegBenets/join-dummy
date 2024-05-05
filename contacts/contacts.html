@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/navbar.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
+    <script src="../js/includeHTML.js"></script>
+    <title>JOIN</title>
+  </head>
+  <body onload="initInclude()">
+    <div w3-include-html="../assets/templates/header_template.html"></div>
+    <div w3-include-html="../assets/templates/navbar_template.html"></div>
+    <div class="main-container">
+        <div class="contacts-title">
+            <h3>Contacts</h3>
+            <div class="title-border"></div>
+            <span>Better with a team</span>
+        </div>
+      <div class="contacts-container">
+        <div class="add-contact-container">
+          <button class="add-new-contact">
+            <h4>Add new contact</h4>
+            <img src="/assets/img/person_add.svg" />
+          </button>
+        </div>
+        <div class="all-contacts">
+         <div class="sort-contacts"><h4>A</h4></div>
+         <div class="border-container">
+         <div class="border"></div>
+        </div>
+        <div class="contact">
+            <div class="image-container"><span>AM</span></div>
+            <div class="contact-data">
+                <h4>Anton Müller</h4>
+                <a href="#">anton@gmail.com</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
