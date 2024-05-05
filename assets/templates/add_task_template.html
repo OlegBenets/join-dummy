@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
     <link rel="stylesheet" href="../../styles/add_task_template.css">
+    <link rel="stylesheet" href="/styles/style.css">
   </head>
   <body>
     <div class="task-template">
@@ -12,7 +13,7 @@
       <div class="seperate-description-deadline">
         <form class="task-description">
           <div class="flex">
-          <span>Title</span><p>*</p>
+          <span>Title</span><p class="important">*</p>
         </div>
           <input required type="text" placeholder="Enter a title"/>
           <span>Description</span>
@@ -29,23 +30,23 @@
         </form>
         <div class="alert">
           <div class="flex">
-            <p>*</p><span>This field is required</span>
+            <p class="important">*</p><span>This field is required</span>
           </div>
         </div>
         <div class="seperator"></div>
         <form class="task-deadline">
           <div class="flex">
-          <span>Due date</span><p>*</p>
+          <span>Due date</span><p class="important">*</p>
         </div>
           <input class="date-input" type="date"/>
           <span>Prio</span>
           <div class="prio-container">
-            <button>Urgent<img src="../img/urgent.svg"></button>
-            <button>Medium<img src="../img/medium.svg"></button>
-            <button>Low<img src="../img/low.svg"></button>
+            <button>Urgent<img src="/assets/img/urgent.svg"></button>
+            <button>Medium<img src="/assets/img/medium.svg"></button>
+            <button>Low<img src="/assets/img/low.svg"></button>
           </div>
           <div class="flex">
-          <span>Category</span><p>*</p>
+          <span>Category</span><p class="important">*</p>
         </div>
           <select>
             <option value="" disabled selected hidden>
@@ -58,11 +59,11 @@
           <span>Subtasks</span>
           <div class="subtask-container">
           <input class="subtask-input" type="text" placeholder="Add new subtask"/>
-          <img src="../img/add.svg">
+          <img src="/assets/img/add.svg">
         </div>
         </form>
       </div>
-      <button class="close-task"><img src="../img/close.svg"></button>
+      <button class="close-task"><img src="/assets/img/close.svg"></button>
       <div class="task-buttons">
         <button class="cancel-button">Cancel
           <div class="cancel-svg-container">
@@ -71,7 +72,7 @@
             </svg>            
           </div>
       </button>
-        <button class="create-button">Create Task<img src="../img/check.svg"></button>
+        <button class="create-button">Create Task<img src="/assets/img/check.svg"></button>
       </div>
     </div>
   </body>
