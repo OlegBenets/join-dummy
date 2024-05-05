@@ -3,9 +3,9 @@ let todos = [
         'id': 0,
         'title': 'Kochwelt Page & Recipe Recommender',
         'description': 'Build start page with recipe recommendation',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Anna Peters', 'Jens Rauer'],
         'date': 'test',
-        'prio': 'medium',
+        'prio': 'low',
         'category': 'Technical Task',
         'subtasks': [],
         'amountOfSubtasks': 0,
@@ -16,7 +16,7 @@ let todos = [
         'id': 1,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': [],
         'date': 'test',
         'prio': 'medium',
         'category': 'User Story',
@@ -29,10 +29,10 @@ let todos = [
         'id': 2,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Birgit Brauer', 'Bernd Brot', 'Willi Gold'],
         'date': 'test',
-        'prio': 'medium',
-        'category': 'User Story',
+        'prio': 'urgent',
+        'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
         'amountOfSubtasks': 0,
         'checkedSubtasks': 1,
@@ -42,7 +42,7 @@ let todos = [
         'id': 3,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Patrick Batke', 'Sascha Siegert'],
         'date': 'test',
         'prio': 'medium',
         'category': 'User Story',
@@ -55,7 +55,7 @@ let todos = [
         'id': 4,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Harald Nalle'],
         'date': 'test',
         'prio': 'medium',
         'category': 'User Story',
@@ -68,10 +68,10 @@ let todos = [
         'id': 5,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Susie Kalle'],
         'date': 'test',
         'prio': 'medium',
-        'category': 'User Story',
+        'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
         'amountOfSubtasks': 0,
         'checkedSubtasks': 1,
@@ -81,7 +81,7 @@ let todos = [
         'id': 6,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Jasmin Lauer'],
         'date': 'test',
         'prio': 'medium',
         'category': 'User Story',
@@ -94,10 +94,10 @@ let todos = [
         'id': 7,
         'title': 'progress title',
         'description': 'test',
-        'assigned_to': 'Anna',
+        'assigned_to': ['Kalle Uso', 'Regina Test', 'Paul Berger'],
         'date': 'test',
         'prio': 'medium',
-        'category': 'User Story',
+        'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
         'amountOfSubtasks': 0,
         'checkedSubtasks': 2,
@@ -116,6 +116,9 @@ function loadCards() {
         const card = todo[i];
         document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
         calculateProgressBar(card);
+        checkPriority(card);
+        loadCategoryColor(card);
+        
     }
 
 
@@ -127,6 +130,8 @@ function loadCards() {
         const card = progress[i];
         document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
         calculateProgressBar(card);
+        checkPriority(card);
+        loadCategoryColor(card);
     }
 
     let await = todos.filter(t => t['column'] == 'await');
@@ -137,6 +142,8 @@ function loadCards() {
         const card = await[i];
         document.getElementById('await-column').innerHTML += generateTodoHTML(card);
         calculateProgressBar(card);
+        checkPriority(card);
+        loadCategoryColor(card);
     }
 
     let done = todos.filter(t => t['column'] == 'done');
@@ -147,23 +154,97 @@ function loadCards() {
         const card = done[i];
         document.getElementById('done-column').innerHTML += generateTodoHTML(card);
         calculateProgressBar(card);
+        checkPriority(card);
+        loadCategoryColor(card);
     }
 }
 
 function generateTodoHTML(card) {
     return `
     <div draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
-        <div class='category-container'>
+        <div id='category-container${card['id']}' class='category-container'>
             <p>${card['category']}</p>
         </div>
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>
             <p class='small-card-description'>${card['description']}</p>
             ${checkSubtasks(card)}
+            <div class='contacts-prio-container'>
+                <div class='contacts-order'>
+                    ${checkAssignedTo(card)}
+                </div>
+                <img id='prio${card['id']}' src=''>
+            </div>
         </div>
     </div>
     `;
 }
+
+
+function loadCategoryColor(card) {
+    let currentCategory = card['category'];
+
+    if (currentCategory === 'User Story') {
+        document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_7)';
+    } 
+    else {
+        document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_10)';
+    }
+}
+
+
+function checkPriority(card) {
+    let currentPrio = card['prio'];
+    let prioContainer = document.getElementById('prio' + card['id']);
+
+    if (currentPrio === 'low') {
+        prioContainer.src = '/assets/img/prio_small_cards_low.svg';
+    }
+    else if (currentPrio === 'medium') {
+        prioContainer.src = '/assets/img/prio_small_cards_medium.svg';
+    }
+    else {
+        prioContainer.src = '/assets/img/prio_small_cards_urgent.svg';
+    }
+}
+
+
+function checkAssignedTo(card) {
+    let allContacts = card['assigned_to'];
+
+    if (allContacts.length !== 0) {
+        let initials = [];
+        for (let i = 0; i < allContacts.length; i++) {
+            let words = allContacts[i].split(' ');
+            let initialsForName = '';
+        
+            for (let j = 0; j < words.length && j < 2; j++) {
+                initialsForName += words[j].charAt(0);
+            }
+            initials.push(initialsForName);
+            
+        }
+        return generateHTMLAssignedTo(initials);
+    }
+    else {
+        return '';
+    }
+}
+
+function generateHTMLAssignedTo(initialsArray) {
+    let circlesHTML = '';
+
+    for (let i = 0; i < initialsArray.length; i++) {
+        circlesHTML += `
+            <div class='circle'>
+                <div class='initials'>${initialsArray[i]}</div>
+            </div>
+        `;
+    }
+
+    return circlesHTML;
+}
+
 
 
 function checkSubtasks(card) {
