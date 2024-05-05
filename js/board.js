@@ -109,55 +109,100 @@ let todos = [
 let currentDraggedItem;
 
 function loadCards() {
+    loadTodoCards();
+    loadProgressCards();
+    loadAwaitCards();
+    loadDoneCards();
+}
+
+function loadTodoCards() {
     let todo = todos.filter(t => t['column'] == 'todo');
 
     document.getElementById('todo-column').innerHTML = '';
-    for (let i = 0; i < todo.length; i++) {
-        const card = todo[i];
-        document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
-        calculateProgressBar(card);
-        checkPriority(card);
-        loadCategoryColor(card);
-        
+
+    if (todo.length !== 0) {
+        for (let i = 0; i < todo.length; i++) {
+            const card = todo[i];
+            document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
+            calculateProgressBar(card);
+            checkPriority(card);
+            loadCategoryColor(card);
+        }
     }
+    else {
+        document.getElementById('todo-column').innerHTML += generateEmptyColumnHTML('To do');
+    }
+}
 
 
+function loadProgressCards() {
     let progress = todos.filter(t => t['column'] == 'progress');
     
     document.getElementById('progress-column').innerHTML = '';
 
-    for (let i = 0; i < progress.length; i++) {
-        const card = progress[i];
-        document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
-        calculateProgressBar(card);
-        checkPriority(card);
-        loadCategoryColor(card);
+    if (progress.length !== 0) {
+        for (let i = 0; i < progress.length; i++) {
+            const card = progress[i];
+            document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
+            calculateProgressBar(card);
+            checkPriority(card);
+            loadCategoryColor(card);
+        }
     }
+    else {
+        document.getElementById('progress-column').innerHTML += generateEmptyColumnHTML('in progress');
+    }
+}
 
+
+function loadAwaitCards() {
     let await = todos.filter(t => t['column'] == 'await');
     
     document.getElementById('await-column').innerHTML = '';
 
-    for (let i = 0; i < await.length; i++) {
-        const card = await[i];
-        document.getElementById('await-column').innerHTML += generateTodoHTML(card);
-        calculateProgressBar(card);
-        checkPriority(card);
-        loadCategoryColor(card);
+    if (await.length !== 0) {
+        for (let i = 0; i < await.length; i++) {
+            const card = await[i];
+            document.getElementById('await-column').innerHTML += generateTodoHTML(card);
+            calculateProgressBar(card);
+            checkPriority(card);
+            loadCategoryColor(card);
+        }
     }
+    else {
+        document.getElementById('await-column').innerHTML += generateEmptyColumnHTML('await feedback');
+    }
+}
 
+
+function loadDoneCards() {
     let done = todos.filter(t => t['column'] == 'done');
     
     document.getElementById('done-column').innerHTML = '';
 
-    for (let i = 0; i < done.length; i++) {
-        const card = done[i];
-        document.getElementById('done-column').innerHTML += generateTodoHTML(card);
-        calculateProgressBar(card);
-        checkPriority(card);
-        loadCategoryColor(card);
+    if (done.length !== 0) {
+        for (let i = 0; i < done.length; i++) {
+            const card = done[i];
+            document.getElementById('done-column').innerHTML += generateTodoHTML(card);
+            calculateProgressBar(card);
+            checkPriority(card);
+            loadCategoryColor(card);
+        }
+    }
+    else {
+        document.getElementById('done-column').innerHTML += generateEmptyColumnHTML('done');
     }
 }
+
+
+function generateEmptyColumnHTML(column) {
+    return `
+        <div class='empty-column-container'>
+            <span>No tasks ${column}</span>
+        </div>
+    `
+}
+
 
 function generateTodoHTML(card) {
     return `

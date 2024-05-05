@@ -345,3 +345,20 @@ h1 {
     height: 32px;
 }
 
+.empty-column-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border-radius: 10px;
+    background-color: var(--color_11);
+    border: 1px dashed var(--color_4);
+    margin-top: 16px;
+}
+
+.empty-column-container span {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: inter;
+    color: var(--color_4);
+}
