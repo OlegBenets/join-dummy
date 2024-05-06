@@ -1,0 +1,129 @@
+:root {
+    --color_1: #2a3647;
+    /* darkblue */
+    --color_2: #f6f7f8;
+    /* white */
+    --color_3: #29abe2;
+    /* lightblue */
+    --color_4: #a8a8a8;
+    /* gray */
+    --color_5: #d1d1d1;
+    /* lightgray */
+    --color_6: #42526E;
+    /* grayblue */
+}
+
+.color {
+    --customized_darkblue: #2a3647;
+    --customized_white: #f6f7f8;
+    --customized_lightblue: #29abe2;
+    --customized_gray: #a8a8a8;
+    --customized_lightgray: #d1d1d1;
+    --customized_grayblue: #42526E;
+    --customized_lightred: #FF8190;
+    --customized_red: #ff001f;
+}
+
+.button_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    border: 2px solid purple;
+    padding: 15px;
+}
+
+.help {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 25px;
+
+}
+
+.button_dark {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    height: 48px;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color_1);
+    color: white;
+    padding: 16px;
+}
+
+.button_dark:hover {
+    background-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.button_light {
+    cursor: pointer;
+    border-radius: 10px;
+    height: 48px;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: var(--color_1);
+    border: 1px solid var(--color_1);
+    padding: 16px;
+}
+
+.button_light:hover {
+    color: var(--color_3);
+    border-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+.rad_8 {
+    border-radius: 8px;
+}
+
+.text_w400 {
+    font-weight: 400;
+}
+
+.text_s20 {
+    font-size: 20px;
+}
+
+.text_s16 {
+    font-size: 16px;
+}
+
+.pad_15_24 {
+    padding: 15px 24px 15px 24px;
+}
+
+.pad_15_16 {
+    padding: 15px 16px 15px 16px;
+}
+
+.pad_8_16 {
+    padding: 8px 16px 8px 16px;
+}
+
+.pad_12_0 {
+    padding: 12px 0px 12px 0px;
+}
+
+.fix_width {
+    width: 352px;
+}

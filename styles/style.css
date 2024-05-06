@@ -1,15 +1,37 @@
 :root {
     --color_1: #2a3647;
+    --customized_darkblue: #2a3647;
+
     --color_2: #f6f7f8;
+    --customized_white: #f6f7f8;
+
     --color_3: #29abe2;
+    --customized_lightblue: #29abe2;
+
     --color_4: #a8a8a8;
+    --customized_gray: #a8a8a8;
+
     --color_5: #d1d1d1;
+    --customized_lightgray: #d1d1d1;
+
     --color_6: #42526E;
+    --customized_grayblue: #42526E;
+
     --color_7: #0038FF;
+
     --color_8: #4589FF;
+
     --color_9: #F4F4F4;
+
     --color_10: #1FD7C1;
+
     --color_11: #E7E7E7;
+
+    --color_12: #FF8190;
+    --customized_lightred: #FF8190;
+
+    --color_13: #FF001F;
+    --customized_red: #ff001f;
 }
 
 @font-face {
