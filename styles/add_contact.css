@@ -138,6 +138,7 @@ body {
     font-weight: 400;
   }
 
+.delete-button,
   .cancel-button {
     width: 126px;
     height: 56px;
@@ -155,11 +156,25 @@ body {
     height: 16px;
   }
 
+  .delete-button:hover,
   .cancel-button:hover {
     cursor: pointer;
     border-color: rgb(41, 171, 226);
     color: rgb(41, 171, 226);
     box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .save-button {
+    width: 111px;
+    height: 56px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    padding: 16px;
+    color: white;
+    background-color: rgba(42, 54, 71, 1);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .create-button {
@@ -180,6 +195,7 @@ body {
     height: 16px;
   }
 
+  .save-button:hover,
   .create-button:hover {
     background-color: rgb(41, 171, 226);
     box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
