@@ -9,7 +9,19 @@
         background-color: rgb(245, 245, 245);
       }
 
-      p {
+      input:hover {
+        cursor: pointer;
+      }
+
+      textarea:hover {
+        cursor: pointer;
+      }
+
+      select:hover {
+        cursor: pointer;
+      }
+
+      .important {
         margin: 0;
         color: red;
       }
@@ -25,6 +37,7 @@
         background-color: #ffffff;
         overflow: auto;
         box-shadow: rgba(0, 0, 0, 0.1);
+        position: relative;
       }
 
       .add-task-header {
@@ -259,14 +272,22 @@
         padding: 10px 16px;
         margin-top: 10px;
         margin-bottom: 28px;
+        background-color: #ffffff;
       }
 
       .subtask-container img {
+        padding: 2px;
+        border-radius: 50%;
         margin-left: 100px;
       }
 
+      .subtask-container img:hover {
+       cursor: pointer;
+       background-color: #e6e6e6;
+      }
+
       .subtask-input {
-        width: 70%;
+        width: 100%;
         border: none;
         height: 32px;
         font-size: 20px;

@@ -1,0 +1,9 @@
+.copied-content .task-template {
+    background-color: rgb(245, 245, 245);
+    border-radius: 0px;
+    margin: 50px 0 0 50px;
+}
+
+.copied-content .close-task {
+    background-color: rgb(245, 245, 245);
+}

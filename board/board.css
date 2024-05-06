@@ -9,6 +9,7 @@
 
 body {
     margin: 0;
+    background-color: var(--color_2);
 }
 
 h1 {
@@ -20,6 +21,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin-bottom: 16px;
 }
 
 .board-header {
@@ -53,6 +55,7 @@ h1 {
     border-radius: 10px;
     font-size: 20px;
     border: solid #A8A8A8 1px;
+    background-color: #FFFFFF;
 }
 
 .input-box {
@@ -183,4 +186,286 @@ h1 {
 
 .marginRight64 {
     margin-right: 64px;
+}
+
+.column-container {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 232px);
+    justify-content: space-between;
+    flex: 1 1 auto;
+}
+
+.todo-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 380px);
+    margin-left: 48px;
+    border-radius: 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+
+
+.progress-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 380px);
+    border-radius: 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+ 
+}
+
+.await-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 380px);
+    border-radius: 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+.done-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 380px);
+    margin-right: 48px;
+    border-radius: 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+.small-card-container {
+    background-color: #FFFFFF;
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    margin-top: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    width: 214px;
+}
+
+.small-card-container p {
+    margin: 0;
+}
+
+.category-container {
+    display: inline-block;
+    justify-content: center;
+    background-color: var(--color_7);
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px;
+}
+
+.category-container p {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.small-card-title {
+    font-family: inter;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color_1);
+}
+
+.small-card-text-container {
+    margin-top: 24px;
+}
+
+.small-card-description {
+    margin-top: 8px !important;
+    font-family:  inter;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color_4);
+}
+
+.drag-area {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    width: 64px;
+    height: 8px;
+    border-radius: 8px;
+    background-color: var(--color_9);
+    padding: 0 64px 0 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--color_8);
+    width: 0%;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 16px;
+    margin-top: 24px;
+}
+
+.progress-container p {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.progress-txt-container {
+    margin-left: 11px;
+}
+
+.circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    background-color: red;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle:not(:first-child) {
+    margin-left: -8px;
+}
+
+.initials {
+    font-size: 12px;
+    font-family: inter;
+    font-weight: 400;
+    color: white; 
+}
+
+.contacts-order {
+    display: flex;
+}
+
+.contacts-prio-container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+}
+
+.empty-column-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border-radius: 10px;
+    background-color: var(--color_11);
+    border: 1px dashed var(--color_4);
+    margin-top: 16px;
+    width: 246px;
+}
+
+.empty-column-container span {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: inter;
+    color: var(--color_4);
+}
+
+/* add task section */
+
+.add-task-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    transition: 100ms;
+}
+
+.show-add-task {
+    transform: translateX(0);
+}
+
+.remove-add-task {
+    transform: translateX(100vw);
+}
+
+/* ====== Column Scrollbar ====== */
+
+.todo-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.todo-column::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.todo-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.progress-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.progress-column::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.progress-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.await-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.await-column::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.await-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.done-column::-webkit-scrollbar {
+    width: 8px;
+}
+
+.done-column::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.done-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
