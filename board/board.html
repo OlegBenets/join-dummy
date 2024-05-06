@@ -17,6 +17,10 @@
     <div w3-include-html="/assets/templates/header_template.html"></div>
     <div w3-include-html="/assets/templates/navbar_template.html"></div>
 
+    <div id="add-task-container" class="add-task-container remove-add-task">
+        <div w3-include-html="/assets/templates/add_task_template.html"></div>
+    </div>
+
     <div class="main-container">
         <div class="board-header-container">
             <div class="board-header">
@@ -35,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="addTask-btn">
+                    <div onclick="showAddTask('show')" id="add-task-btn" class="addTask-btn">
                         <p>Add Task</p>
                         <div class="add-task-icon">
                             <img src="/assets/img/addTask_btn_icon.svg" alt="add-task-icon">
@@ -68,16 +72,22 @@
             </div>
         </div>
         <div class="column-container">
-            <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')" ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
+            <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')"
+                ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
 
             </div>
-            <div id="progress-column" class="progress-column" ondrop="moveTo('progress'); removeHighlight('progress-column')" ondragleave="removeHighlight('progress-column')" ondragover="allowDrop(event); highlight('progress-column')">
+            <div id="progress-column" class="progress-column"
+                ondrop="moveTo('progress'); removeHighlight('progress-column')"
+                ondragleave="removeHighlight('progress-column')"
+                ondragover="allowDrop(event); highlight('progress-column')">
 
             </div>
-            <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')" ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
+            <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')"
+                ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
 
             </div>
-            <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')" ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
+            <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
+                ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
 
             </div>
         </div>

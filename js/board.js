@@ -355,3 +355,14 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area');
 }
+
+function showAddTask(parameter) {
+    if (parameter == 'show') {
+        document.getElementById('add-task-container').classList.add('show-add-task');
+        document.getElementById('add-task-container').classList.remove('remove-add-task');
+    }
+    else {
+        document.getElementById('add-task-container').classList.add('remove-add-task');
+        document.getElementById('add-task-container').classList.remove('show-add-task');
+    }
+}
