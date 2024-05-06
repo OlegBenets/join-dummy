@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOIN</title>
+    <link rel="shortcut icon" href="./assets/img/Capa 2.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <script src="./js/login.js"></script>
 
 
@@ -18,45 +20,50 @@
     </div>
     <div id="content" class="hidden">
         <div class="sign_up_frame">
-        Not a Join user?
-        <button class="button dark">Sign up</button>
-    </div>
-    <section>
-        <h1>Log in</h1>
-        <div class="blue_line"></div>
-        <form action="">
-            <label for="mail" class="input_frame">
-                <input class="input" name="mail" type="email" placeholder="Email">
-                <div><img src="./assets/img/mail.png" alt="Mail icon"></div>
-            </label>
+            Not a Join user?
+            <a href="./sign_up.html"><button class="button dark">Sign up</button></a>
+        </div>
 
-            <!-- <div class="input_frame">
-                <input class="input" name="mail" type="email" placeholder="Email">
-                <div><img src="./assets/img/mail.png" alt="Mail icon"></div>
-            </div> -->
-            <div class="input_frame">
-                <input class="input" type="password" placeholder="Password">
-                <div><img src="./assets/img/lock.png" alt="Lock icon"></div>
+        <div class="login_frame">
+            <div class="headline">
+                <h1>Log in</h1>
+                <div class="blue_line"></div>
             </div>
-
-            <div class="checkbox">
-                <input type="checkbox" name="remenber_me" id="remenber_me">
-                <label for="remenber_me">Remenber Me</label>
+            <div>
+                <div>
+                    <div class="input_frame">
+                        <input class="input" placeholder="Email" type="email">
+                        <div class="icon_frame">
+                            <img src="./assets/img/mail.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="input_frame">
+                        <input class="input" placeholder="Password" type="password">
+                        <div class="icon_frame">
+                            <img src="./assets/img/lock.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="error_text">This field is required</div>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" name="remenber_me" id="remenber_me">
+                    <label for="remenber_me">Remenber Me</label>
+                </div>
             </div>
             <div class="button_frame">
                 <button class="button dark">Log in</button>
                 <button class="button light">Guest Log in</button>
             </div>
+        </div>
 
-        </form>
-    </section>
-    <div class="legal_links_frame">
-        <div><a class="legal_links" href="#">Privacy Policy</a></div>
-        <div><a class="legal_links" href="#">Legal notice</a></div>
-    </div>
-    
-    
+        <div class="legal_links_frame">
+            <div><a class="legal_links" href="#">Privacy Policy</a></div>
+            <div><a class="legal_links" href="#">Legal notice</a></div>
+        </div>
+
+
 </body>
 
 </html>
-

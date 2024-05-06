@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'inter';
-    src: url('./assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
+    src: url('../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
 }
 
 
@@ -32,6 +32,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     transition: all 500ms ease-in-out;
     opacity: 1;
 }
@@ -43,7 +44,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 32px;
     justify-content: center;
     align-items: center;
     margin-bottom: 24px;
@@ -52,33 +53,66 @@ form {
     margin-right: 24px;
 }
 
-.input_frame {
+.login_frame{
     display: flex;
-    border-radius: 10px;
-    width: 422px;
-    border: 1px solid var(--color_5);
-    gap: 10px;
-    padding: 12px 21px 12px 21px;
-    font-size: 24px;
-
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    padding: 48px 115px 48px 115px;
+    gap: 32px;
+    background-color: white;
 }
 
-.input_img {
-    width: 20px;
-    height: 16px;
+.input_frame {
+    width: 422px;
+    border-radius: 10px;
+    border: 1px solid var(--color_5);
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 21px 0px 21px;
+    margin-bottom: 24px;
 }
 
 .input {
-    border-radius: 10px;
-    width: 422px;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color_5);
     border: none;
-    gap: 10px;
-    /* padding-left: 16px; */
-    font-size: 24px;
+    width: 356px;
+    /* margin: 0px 21px 0px 21px; */
+    padding: 12px 0px 12px 0px;
 }
 
 .input:focus {
     outline: none;
+}
+
+.icon_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+}
+
+
+
+.error_text{
+    font-size: 12px;
+    font-weight: 400;
+    /* font-family: 'Poppins'; */
+    width: 119px;
+    height: 12px;
+    color: var(--color_7);
+    margin-top: 8px;
+}
+
+.error_border{
+    border-color: var(--color_8);
 }
 
 .logo {
@@ -135,12 +169,25 @@ section {
     background-color: white;
     width: fit-content;
     align-self: center;
+    padding: 48px 115px 48px 115px;
     box-shadow: 0px 0 20px 0 rgba(0, 0, 0, 0.15);
 }
 
-section h1 {
-    font-size: 71px;
-    margin-bottom: 16px;
+.headline {
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.headline h1 {
+    width: 315px;
+    height: 73px;
+    font-size: 61px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
 }
 
 .legal_links_frame {
