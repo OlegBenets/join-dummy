@@ -30,7 +30,7 @@
                 <div class="board-header-right">
                     <div class="input-container">
                         <div class="input-box">
-                            <input type="text" placeholder="Find Task">
+                            <input id="search-input" oninput="filterTodos()" type="text" placeholder="Find Task">
                             <div class="search-container">
                                 <div class="search-seperator"></div>
                                 <div class="search-icon-container">
@@ -50,19 +50,19 @@
             <div class="section-title-container">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
-                    <div class="todo-section-add-icon">
+                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>In progress</p>
-                    <div class="todo-section-add-icon">
+                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>Await feedback</p>
-                    <div class="todo-section-add-icon">
+                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>

@@ -366,3 +366,56 @@ function showAddTask(parameter) {
         document.getElementById('add-task-container').classList.remove('show-add-task');
     }
 }
+
+// function taskSearch() {
+//     let inputfield = document.getElementById('searchTasks').value;
+//     let input = inputfield.trim().toLowerCase();
+//     filteredTasks = [];
+
+// '    allDisplayedPokemon = loadedPokemon;'
+
+//     if (input.length > 0) {
+//         checkTasks(input, filteredTasks);
+//     }
+//     else if (input.length == 0) {
+//         'renderCards();'
+//     }
+// }
+
+// function checkTasks(input, filteredTasks) {
+//     for (let i = 0; i < todos.length; i++) {
+//         const curTask = todos[i];
+
+//         if (curTask['title'].includes(input) || curTask['description'].includes(input)) {
+//             filteredTasks.push(curTask)
+//         }
+//     }
+//     allDisplayedPokemon = filteredPokemon;
+//     renderCards();
+// }
+
+
+
+
+// function filterTodos() {
+//     let input = document.getElementById('search-input').value.toLowerCase();
+//     let filteredTodos = todos.filter(todo => {
+//         let title = todo.title.toLowerCase();
+//         let description = todo.description.toLowerCase();
+//         return title.includes(input) || description.includes(input);
+//     });
+
+//     if (input === '') {
+//         loadCards(); // Wenn das Eingabefeld leer ist, lade alle Todos
+//     } else {
+//         // Ansonsten lade nur die gefilterten Todos
+//         document.getElementById('todo-column').innerHTML = '';
+//         for (let i = 0; i < filteredTodos.length; i++) {
+//             const card = filteredTodos[i];
+//             document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
+//             calculateProgressBar(card);
+//             checkPriority(card);
+//             loadCategoryColor(card);
+//         }
+//     }
+// }
