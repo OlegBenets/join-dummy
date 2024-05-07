@@ -11,6 +11,8 @@
     /* lightgray */
     --color_6: #42526E;
     /* grayblue */
+
+    --button-background-color: var(--color_1);
 }
 
 .color {
@@ -63,6 +65,15 @@ body {
     background-color: var(--color_1);
     color: white;
     padding: 16px;
+    content: "<div> hallo Welt</div>";
+}
+
+.button_dark div::after {
+    content: "";
+    width: 24px;
+    height: 24px;
+    /* background-image: ; */
+    background-image: url("./assets/img/cancel.svg");
 }
 
 .button_dark:hover {
@@ -126,4 +137,141 @@ body {
 
 .fix_width {
     width: 352px;
+}
+
+
+
+/* .test {
+    background-color: #29abe2;
+    width: 100px;
+    height: 100px;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.test div::after {
+    color: transparent;
+    content: "O";
+    margin-left: 8px;
+    width: 32px;
+    height: 32px;
+    background-image: url(./assets/img/cancel.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+
+/* versuch 2  */
+
+/* 
+.test {
+    position: relative;
+    background-color: #29abe2;
+     padding: 25px;
+}
+
+.test div {
+    position: relative;
+    display: inline-block; 
+}
+
+.test div::after {
+    content: ""; 
+    position: absolute; 
+    top: 25px; 
+    left: calc(100% + 8px); 
+    width: 32px;
+    height: 32px;
+    background-image: url(./assets/img/cancel.svg);
+    background-size: cover;
+}
+
+versuch 3  */
+
+.test {
+    cursor: pointer;
+    border-radius: 10px;
+    height: 48px;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: var(--color_1);
+    border: 1px solid var(--color_1);
+    padding: 16px;
+}
+
+.test div {
+    position: relative;
+    display: flex;
+    margin-right: 32px;
+    white-space: nowrap;
+}
+
+.test div::after {
+    content: ""; /* Inhalt hinzufügen */
+    position: absolute; /* Positionierung relativ zum Elternelement */
+    top: calc(50% - 12px); 
+    left: calc(100% + 4px);
+    width: 24px;
+    height: 24px;
+    background-image: url(./assets/img/iconoir_cancel.svg);
+    background-size: cover;
+    /* transform: translateY(-50%);  */
+}
+
+
+.test:hover{
+    color: var(--color_3);
+    border-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.test:hover div::after{
+    background-image: url(./assets/img/iconoir_cancel_blue.svg);
+}
+
+/* versuch 4 */
+
+.add{
+    cursor: pointer;
+    border-radius: 10px;
+    height: 48px;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: white; */
+    color: var(--color_1);
+    border: 1px solid var(--color_1);
+    padding: 16px;
+}
+
+.add div{
+    display: flex;
+}
+
+.add div::after{
+    content: "";
+    background-image: url(./assets/img/iconoir_cancel.svg);
+    background-size: contain;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 4px;
+}
+
+.add:hover{
+    color: var(--color_3);
+    border-color: var(--color_3);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.add:hover div::after{
+    background-image: url(./assets/img/iconoir_cancel_blue.svg);
 }
