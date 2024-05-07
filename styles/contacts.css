@@ -5,6 +5,7 @@
 
 body {
     margin: 0;
+    font-family: "inter";
     background-color: var(--color_2);
 }
 
