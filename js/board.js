@@ -4,7 +4,7 @@ let todos = [
         'title': 'Kochwelt Page & Recipe Recommender',
         'description': 'Build start page with recipe recommendation',
         'assigned_to': ['Anna Peters', 'Jens Rauer'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'low',
         'category': 'Technical Task',
         'subtasks': [],
@@ -17,7 +17,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': [],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'User Story',
         'subtasks': ['test', 'test2', 'test3'],
@@ -30,7 +30,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Birgit Brauer', 'Bernd Brot', 'Willi Gold'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'urgent',
         'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
@@ -43,7 +43,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Patrick Batke', 'Sascha Siegert'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'User Story',
         'subtasks': ['test', 'test2'],
@@ -56,7 +56,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Harald Nalle'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'User Story',
         'subtasks': ['test', 'test2'],
@@ -69,7 +69,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Susie Kalle'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
@@ -82,7 +82,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Jasmin Lauer'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'User Story',
         'subtasks': ['test', 'test2'],
@@ -95,7 +95,7 @@ let todos = [
         'title': 'progress title',
         'description': 'test',
         'assigned_to': ['Kalle Uso', 'Regina Test', 'Paul Berger'],
-        'date': 'test',
+        'date': '10/05/2023',
         'prio': 'medium',
         'category': 'Technical Task',
         'subtasks': ['test', 'test2'],
@@ -206,7 +206,7 @@ function generateEmptyColumnHTML(column) {
 
 function generateTodoHTML(card) {
     return `
-    <div draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
+    <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
         <div id='category-container${card['id']}' class='category-container'>
             <p>${card['category']}</p>
         </div>
@@ -216,7 +216,7 @@ function generateTodoHTML(card) {
             ${checkSubtasks(card)}
             <div class='contacts-prio-container'>
                 <div class='contacts-order'>
-                    ${checkAssignedTo(card)}
+                    ${checkAssignedTo(card, 'small-card')}
                 </div>
                 <img id='prio${card['id']}' src=''>
             </div>
@@ -254,7 +254,7 @@ function checkPriority(card) {
 }
 
 
-function checkAssignedTo(card) {
+function checkAssignedTo(card, whichCard) {
     let allContacts = card['assigned_to'];
 
     if (allContacts.length !== 0) {
@@ -269,7 +269,14 @@ function checkAssignedTo(card) {
             initials.push(initialsForName);
             
         }
-        return generateHTMLAssignedTo(initials);
+
+        if (whichCard == 'small-card') {
+            return generateHTMLAssignedTo(initials);
+        }
+        else if(whichCard == 'big-card') {
+            return generateHTMLAssignedToBigCard(initials);
+        }
+        
     }
     else {
         return '';
@@ -356,66 +363,83 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area');
 }
 
-function showAddTask(parameter) {
-    if (parameter == 'show') {
-        document.getElementById('add-task-container').classList.add('show-add-task');
-        document.getElementById('add-task-container').classList.remove('remove-add-task');
+function showMovableContainer(parameter, container) {
+    if (parameter == 'show' && container == 'addTask') {
+        document.getElementById('add-task-container').classList.add('show-moveable');
+        document.getElementById('add-task-container').classList.remove('remove-moveable');
     }
-    else {
-        document.getElementById('add-task-container').classList.add('remove-add-task');
-        document.getElementById('add-task-container').classList.remove('show-add-task');
+    else if (parameter == 'remove' && container == 'addTask') {
+        document.getElementById('add-task-container').classList.add('remove-moveable');
+        document.getElementById('add-task-container').classList.remove('show-moveable');
+    }
+    else if (parameter == 'show' && container == 'bigCard') {
+        document.getElementById('big-card-background').classList.add('show-moveable');
+        document.getElementById('big-card-background').classList.remove('remove-moveable');
+    }
+    else if (parameter == 'remove' && container == 'bigCard') {
+        document.getElementById('big-card-background').classList.remove('show-moveable');
+        document.getElementById('big-card-background').classList.add('remove-moveable');
     }
 }
 
-// function taskSearch() {
-//     let inputfield = document.getElementById('searchTasks').value;
-//     let input = inputfield.trim().toLowerCase();
-//     filteredTasks = [];
 
-// '    allDisplayedPokemon = loadedPokemon;'
+function renderBigCard(cardId) {
+    let container = document.getElementById('big-card-container');
+    let currentCard = todos.find(todo => todo.id === cardId);
+    container.innerHTML = '';
 
-//     if (input.length > 0) {
-//         checkTasks(input, filteredTasks);
-//     }
-//     else if (input.length == 0) {
-//         'renderCards();'
-//     }
-// }
-
-// function checkTasks(input, filteredTasks) {
-//     for (let i = 0; i < todos.length; i++) {
-//         const curTask = todos[i];
-
-//         if (curTask['title'].includes(input) || curTask['description'].includes(input)) {
-//             filteredTasks.push(curTask)
-//         }
-//     }
-//     allDisplayedPokemon = filteredPokemon;
-//     renderCards();
-// }
+    if (currentCard) {
+        container.innerHTML = generateHTMLbigCard(currentCard);
+    } else {
+        console.error("Card not found");
+    }
+    loadCategoryColor(currentCard);
+    checkPriority(currentCard);
+}
 
 
+function generateHTMLbigCard(currentCard) {
+    return `
+    <div class='space-between'>
+        <div id='category-container${currentCard['id']}' class='big-card-category-container'>
+            <p>${currentCard['category']}</p>
+        </div>
+        <div onclick="showMovableContainer('remove', 'bigCard')" class='close-img-container'>
+            <img src='/assets/img/close.svg'>
+        </div>
+    </div>
+    <p class='big-card-title'>${currentCard['title']}</p>
+    <p class='big-card-description'>${currentCard['description']}</p>
+    <div class='big-card-date-container'>
+        <p class='big-card-data-txt'>Due date:</p>
+        <p class='big-card-data'>${currentCard['date']}</p>
+    </div>
+    <div class='big-card-prio-container'>
+        <p class='big-card-data-txt'>Priority:</p>
+        <div class='big-card-prio'>
+            <p class='big-card-data'>${currentCard['prio']}</p>
+            <img id='prio${currentCard['id']}' src=''>
+        </div>
+    </div>
+    <div class='big-card-assigned-container'>
+        <p>Assigned To:</p>
+        <div>
+            ${checkAssignedTo(currentCard, 'big-card')}
+        </div>
+    </div>
+    `
+}
 
+function generateHTMLAssignedToBigCard(initialsArray) {
+    let circlesHTML = '';
 
-// function filterTodos() {
-//     let input = document.getElementById('search-input').value.toLowerCase();
-//     let filteredTodos = todos.filter(todo => {
-//         let title = todo.title.toLowerCase();
-//         let description = todo.description.toLowerCase();
-//         return title.includes(input) || description.includes(input);
-//     });
+    for (let i = 0; i < initialsArray.length; i++) {
+        circlesHTML += `
+            <div class='circle-big-card'>
+                <div class='initials'>${initialsArray[i]}</div>
+            </div>
+        `;
+    }
 
-//     if (input === '') {
-//         loadCards(); // Wenn das Eingabefeld leer ist, lade alle Todos
-//     } else {
-//         // Ansonsten lade nur die gefilterten Todos
-//         document.getElementById('todo-column').innerHTML = '';
-//         for (let i = 0; i < filteredTodos.length; i++) {
-//             const card = filteredTodos[i];
-//             document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
-//             calculateProgressBar(card);
-//             checkPriority(card);
-//             loadCategoryColor(card);
-//         }
-//     }
-// }
+    return circlesHTML;
+}

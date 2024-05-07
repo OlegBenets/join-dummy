@@ -17,7 +17,13 @@
     <div w3-include-html="/assets/templates/header_template.html"></div>
     <div w3-include-html="/assets/templates/navbar_template.html"></div>
 
-    <div id="add-task-container" class="add-task-container remove-add-task">
+    <div id="big-card-background" class="moveable-container remove-moveable">
+        <div id="big-card-container" class="big-card-container">
+
+        </div>
+    </div>
+
+    <div id="add-task-container" class="moveable-container remove-moveable">
         <div w3-include-html="/assets/templates/add_task_template.html"></div>
     </div>
 
@@ -39,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div onclick="showAddTask('show')" id="add-task-btn" class="addTask-btn">
+                    <div onclick="showMovableContainer('show', 'addTask')" id="add-task-btn" class="addTask-btn">
                         <p>Add Task</p>
                         <div class="add-task-icon">
                             <img src="/assets/img/addTask_btn_icon.svg" alt="add-task-icon">
@@ -50,19 +56,19 @@
             <div class="section-title-container">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
-                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>In progress</p>
-                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>Await feedback</p>
-                    <div onclick="showAddTask('show')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
                         <img src="/assets/img/addTask_board_lists_icon.svg" alt="">
                     </div>
                 </div>

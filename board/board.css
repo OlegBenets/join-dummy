@@ -389,7 +389,7 @@ h1 {
 
 /* add task section */
 
-.add-task-container {
+.moveable-container {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -404,13 +404,138 @@ h1 {
     transition: 100ms;
 }
 
-.show-add-task {
+.show-moveable {
     transform: translateX(0);
 }
 
-.remove-add-task {
+.remove-moveable {
     transform: translateX(100vw);
 }
+
+/* big card section */
+
+.big-card-background {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    transition: 100ms;
+}
+
+.big-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+    padding: 48px 40px 48px 40px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+}
+
+.big-card-category-container {
+    display: inline-block;
+    background-color: var(--color_7);
+    border-radius: 8px;
+    padding: 4px 24px 4px 24px;
+}
+
+.big-card-category-container p {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 23px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-img-container {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.big-card-title {
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-weight: 700;
+    font-family: inter;
+    font-size: 61px;
+}
+
+.big-card-description {
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: inter;
+}
+
+.big-card-data-txt {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--customized_darkblue);
+    margin: 0;
+}
+
+.big-card-data {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.big-card-date-container {
+    margin-top: 24px;
+    display: flex;
+}
+
+.big-card-prio-container {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.big-card-prio {
+    display: flex;
+    padding: 4px 18px 4px 18px;
+    margin-left: 25px;
+}
+
+.big-card-prio p {
+    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.circle-big-card {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    background-color: red;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* ====== Column Scrollbar ====== */
 
