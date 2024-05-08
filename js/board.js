@@ -213,7 +213,7 @@ function generateTodoHTML(card) {
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>
             <p class='small-card-description'>${card['description']}</p>
-            ${checkSubtasks(card)}
+            ${checkSubtasks(card, 'small-card')}
             <div class='contacts-prio-container'>
                 <div class='contacts-order'>
                     ${checkAssignedTo(card, 'small-card')}
@@ -274,7 +274,7 @@ function checkAssignedTo(card, whichCard) {
             return generateHTMLAssignedTo(initials);
         }
         else if(whichCard == 'big-card') {
-            return generateHTMLAssignedToBigCard(initials);
+            return generateHTMLAssignedToBigCard(initials, card);
         }
         
     }
@@ -299,14 +299,21 @@ function generateHTMLAssignedTo(initialsArray) {
 
 
 
-function checkSubtasks(card) {
+function checkSubtasks(card, whichCard) {
     let allSubtasks = card['subtasks'];
     let amount = 0;
 
     if (allSubtasks.length !== 0) {
         amount = allSubtasks.length;
         card['amountOfSubtasks'] = amount;
-        return generateHTMLsubtasks(amount, card);
+
+        if (whichCard == 'small-card') {
+            return generateHTMLsubtasks(amount, card);
+        }
+        else if (whichCard == 'big-card') {
+            return generateHTMLsubtasksBig(amount, card);
+        }
+        
     }
     else {
         return '';
@@ -422,24 +429,76 @@ function generateHTMLbigCard(currentCard) {
         </div>
     </div>
     <div class='big-card-assigned-container'>
-        <p>Assigned To:</p>
+        <p class='big-card-data-txt'>Assigned To:</p>
         <div>
-            ${checkAssignedTo(currentCard, 'big-card')}
+            <div class='big-card-assigned-names'>
+                ${checkAssignedTo(currentCard, 'big-card')}
+            </div>
+        </div>
+    </div>
+    <div class='big-card-subtasks-container'>
+        <p class='big-card-data-txt'>Subtasks</p>
+        <div>
+            <div class='big-card-subtasks'>
+                ${checkSubtasks(currentCard, 'big-card')}
+            </div>
+        </div>
+    </div>
+    <div class='flex-end'>
+        <div class='delete-edit-container'>
+            <div class='delete-container'>
+                <div class='delete-img'>
+                    <img src='/assets/img/delete.svg'>
+                </div>
+                <p class='delete-txt'>Delete</p>
+            </div>
+            <div class='seperator-delete'></div>
+            <div class='edit-container'>
+                <div class='edit-img'>
+                    <img src='/assets/img/edit_normal.svg'>
+                </div>
+                <p class='edit-txt'>Edit</p>
+            </div>
         </div>
     </div>
     `
 }
 
-function generateHTMLAssignedToBigCard(initialsArray) {
+function generateHTMLAssignedToBigCard(initialsArray, card) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
         circlesHTML += `
+        <div class='big-card-one-assign'>
             <div class='circle-big-card'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
+            <div class='assigned-to-txt'>${card['assigned_to'][i]}</div>
+        </div>
         `;
     }
 
     return circlesHTML;
+}
+
+function generateHTMLsubtasksBig(amount, card) {
+    let subtasksHTML = '';
+
+    for (let i = 0; i < amount; i++) {
+        const element = card['subtasks'][i];
+        
+        subtasksHTML += `
+        <div class='big-card-one-subtask'>
+                <input type='checkbox' id="myCheckbox${i}">
+            
+            <label for="myCheckbox${i}" class="checkbox-label">
+                <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
+                <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
+            </label>
+            <div class='subtasks-txt'>${element}</div>
+        </div>
+    `
+    }
+    
+    return subtasksHTML;
 }
