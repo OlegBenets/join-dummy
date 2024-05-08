@@ -1,12 +1,3 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0%;
-    gap: 5px;
-    background-color: gray;
-}
 
 .button_hollow {
     cursor: pointer;
@@ -60,11 +51,11 @@ body {
 }
 
 .cancel:hover div::after {
-    background-image: url(./assets/img/iconoir_cancel_blue.svg);
+    background-image: url(../assets/img/iconoir_cancel_blue.svg);
 }
 
 .cancel:active div::after {
-    background-image: url(./assets/img/iconoir_cancel_black.svg);
+    background-image: url(../assets/img/iconoir_cancel_black.svg);
 }
 
 /* new button  */
@@ -117,7 +108,7 @@ body {
 
 .ctask div::after {
     content: "";
-    background-image: url(./assets/img/check.svg);
+    background-image: url(../assets/img/check.svg);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -136,7 +127,7 @@ body {
 
 .contact div::after {
     content: "";
-    background-image: url(./assets/img/person_add.svg);
+    background-image: url(../assets/img/person_add.svg);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -155,7 +146,7 @@ body {
 
 .atask div::after {
     content: "";
-    background-image: url(./assets/img/addTask_btn_icon.svg);
+    background-image: url(../assets/img/addTask_btn_icon.svg);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
