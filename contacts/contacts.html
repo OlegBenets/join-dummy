@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/navbar.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
     <link rel="stylesheet" href="../styles/add_contact.css" />
+    <link rel="stylesheet" href="../styles/floating_contact.css">
     <script src="../js/includeHTML.js"></script>
     <script src="../js/contact.js"></script>
     <title>JOIN Contacts</title>
@@ -18,6 +19,9 @@
     <div onclick="showAddContact()" id="contact-card" class="contact-card remove-contact-container">
       <div onclick="doNotClose(event)" w3-include-html="../contacts/add_contact.html"></div>
   </div>
+  <div onclick="showEditContact()" id="edit-card" class="contact-card remove-contact-container">
+    <div onclick="doNotClose(event)" w3-include-html="../contacts/edit_contact.html"></div>
+</div>
   <div id="contact-detail-data" class="contact-detail-data remove-contact-detail">
     <div w3-include-html="../contacts/floating_contact.html"></div>
 </div>
