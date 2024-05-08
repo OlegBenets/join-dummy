@@ -59,14 +59,18 @@ body {
 }
 
 .add-contact-container {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 456px;
+    width: calc(456px - 12px);
     height: 101px;
+    background-color: #ffffff;
+    z-index: 3;
 }
 
 .add-new-contact {
+    position: fixed;
    display: flex;
    justify-content: space-evenly;
    align-items: center;

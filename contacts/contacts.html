@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../assets/img/Capa 2.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/style.css" />
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/navbar.css" />
@@ -13,7 +14,7 @@
     <script src="../js/contact.js"></script>
     <title>JOIN Contacts</title>
   </head>
-  <body onload="initInclude()">
+  <body onload="initInclude(); init()">
     <div w3-include-html="../assets/templates/header_template.html"></div>
     <div w3-include-html="../assets/templates/navbar_template.html"></div>
     <div onclick="showAddContact()" id="contact-card" class="contact-card remove-contact-container">
@@ -39,18 +40,7 @@
             <img src="/assets/img/person_add.svg" />
           </button>
         </div>
-        <div class="all-contacts">
-         <div class="sort-contacts"><h4>A</h4></div>
-         <div class="border-container">
-         <div class="border-grey"></div>
-        </div>
-        <div onclick="showContact()" class="contact" id="contact">
-            <div class="image-container"><span>AM</span></div>
-            <div class="contact-data">
-                <h4>Anton Müller</h4>
-                <a href="#">anton@gmail.com</a>
-            </div>
-        </div>
+        <div class="all-contacts" id="all-contacts">
       </div>
     </div>
   </body>
