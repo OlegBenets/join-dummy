@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/navbar.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/add_contact.css" />
     <script src="../js/includeHTML.js"></script>
+    <script src="../js/contact.js"></script>
     <title>JOIN Contacts</title>
   </head>
   <body onload="initInclude()">
     <div w3-include-html="../assets/templates/header_template.html"></div>
     <div w3-include-html="../assets/templates/navbar_template.html"></div>
+    <div onclick="showAddContact()" id="contact-card" class="contact-card remove-contact-container">
+      <div onclick="doNotClose(event)" w3-include-html="../contacts/add_contact.html"></div>
+  </div>
+  <div id="contact-detail-data" class="contact-detail-data remove-contact-detail">
+    <div w3-include-html="../contacts/floating_contact.html"></div>
+</div>
+
     <div class="main-container">
         <div class="contacts-title">
             <h3>Contacts</h3>
@@ -21,7 +30,7 @@
         </div>
       <div class="contacts-container">
         <div class="add-contact-container">
-          <button class="add-new-contact">
+          <button onclick="showAddContact('show')" class="add-new-contact">
             <h4>Add new contact</h4>
             <img src="/assets/img/person_add.svg" />
           </button>
@@ -29,9 +38,9 @@
         <div class="all-contacts">
          <div class="sort-contacts"><h4>A</h4></div>
          <div class="border-container">
-         <div class="border"></div>
+         <div class="border-grey"></div>
         </div>
-        <div class="contact">
+        <div onclick="showContact()" class="contact" id="contact">
             <div class="image-container"><span>AM</span></div>
             <div class="contact-data">
                 <h4>Anton Müller</h4>

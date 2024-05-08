@@ -37,7 +37,7 @@ body {
 }
 
 .contacts-container {
-    position: relative;
+    position:fixed;
     display: flex;
     flex-direction: column;
     width: 456px;
@@ -126,7 +126,7 @@ body {
     padding: 8px 0;
 }
 
-.border {
+.border-grey {
     width: 352px;
     border: 1px solid var(--color_5);
 }
@@ -139,6 +139,12 @@ body {
     width: calc(352px - 48px);
     height: 78px;
     padding: 15px 24px;
+    border-radius: 10px;
+}
+
+.contact:hover {
+    cursor: pointer;
+    background-color: var(--customized_white);
 }
 
 .image-container {
@@ -147,6 +153,7 @@ body {
     align-items: center;
     width: 42px;
     height: 42px;
+    border: 2px solid #ffffff;
     border-radius: 50%;
     background-color: #ff7a00;
 }
@@ -174,4 +181,41 @@ body {
     font-weight: 400;
     text-decoration: none;
     color: #007cee;
+}
+
+.contact-card {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    transition: 100ms;
+}
+
+.show-contact-container {
+    transform: translateX(0);
+}
+
+.remove-contact-container {
+    transform: translateX(100vw);
+}
+
+.contact-detail-data  {
+    position: absolute;
+    top: 306px;
+    left: 743px;
+    height: 500px;
+    width: 500px;
+    overflow-x: hidden;
+    transition: 100ms;
+}
+
+.remove-contact-detail {
+    transform: translateX(100vw);
 }

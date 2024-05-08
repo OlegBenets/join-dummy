@@ -10,9 +10,7 @@ body {
 }
 
 .create-contact-container {
-  position: absolute;
-  top: 200px;
-  left: 42px;
+  position: relative;
   display: flex;
   width: 1212px;
   height: 592px;
