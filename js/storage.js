@@ -19,3 +19,10 @@ let tasks =[
         "title":""        
     }
 ]
+
+let validation = [
+    {
+        "user":"",
+        "password":""
+    }
+]
