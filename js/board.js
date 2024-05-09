@@ -106,6 +106,20 @@ let todos = [
 
 ]
 
+function test() {
+    let testPush = {
+        "asigntTo":['Anna Peters', 'Jens Rauer'],
+        "category":true,
+        "date":"10/05/2023",
+        "id":"0",
+        "prio":"Low",
+        "status":"todo",
+        "subTasks":"'test', 'test2', 'test3'",
+        "title":"Kochwelt Page & Recipe Recommender"  
+    }
+    console.log(tasks);
+}
+
 let currentDraggedItem;
 
 function loadCards() {
