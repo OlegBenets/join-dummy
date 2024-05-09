@@ -489,8 +489,7 @@ function generateHTMLsubtasksBig(amount, card) {
         
         subtasksHTML += `
         <div class='big-card-one-subtask'>
-                <input type='checkbox' id="myCheckbox${i}">
-            
+            <input type='checkbox' id="myCheckbox${i}">
             <label for="myCheckbox${i}" class="checkbox-label">
                 <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
                 <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
