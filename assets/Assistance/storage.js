@@ -1,5 +1,4 @@
-const STORAGE_TOKEN = 'K2H841139CE7VU76UX77VFULORU4DEX4ZOXGEVWX';
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+const STORAGE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
 
 async function setItem(key, value) {

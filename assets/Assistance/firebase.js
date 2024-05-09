@@ -1,13 +1,14 @@
-function onloadFunc() {
+async function onloadFunc() {
     console.log('test');
-    deleteData("");
+    let test = await loadData("");
+    console.log(test);
 }
 
-const BASE_URL = 'https://remotestorage-dc45f-default-rtdb.europe-west1.firebasedatabase.app/';
+const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
 async function loadData(path="") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
-    return responseAsJson = response.json();
+    return responseAsJson = await response.json();
 }
 
 //CRUD-Operationen "Create, Read, Update, Delete"
