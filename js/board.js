@@ -1,116 +1,117 @@
-let todos = [
-    {
-        'id': 0,
-        'title': 'Kochwelt Page & Recipe Recommender',
-        'description': 'Build start page with recipe recommendation',
-        'assigned_to': ['Anna Peters', 'Jens Rauer'],
-        'date': '10/05/2023',
-        'prio': 'low',
-        'category': 'Technical Task',
-        'subtasks': [],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 0,
-        'column': 'todo'
-    },
-    {
-        'id': 1,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': [],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'User Story',
-        'subtasks': ['test', 'test2', 'test3'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'progress'
-    },
-    {
-        'id': 2,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Birgit Brauer', 'Bernd Brot', 'Willi Gold'],
-        'date': '10/05/2023',
-        'prio': 'urgent',
-        'category': 'Technical Task',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'await'
-    },
-    {
-        'id': 3,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Patrick Batke', 'Sascha Siegert'],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'User Story',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'progress'
-    },
-    {
-        'id': 4,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Harald Nalle'],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'User Story',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'done'
-    },
-    {
-        'id': 5,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Susie Kalle'],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'Technical Task',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'done'
-    },
-    {
-        'id': 6,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Jasmin Lauer'],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'User Story',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 1,
-        'column': 'done'
-    },
-    {
-        'id': 7,
-        'title': 'progress title',
-        'description': 'test',
-        'assigned_to': ['Kalle Uso', 'Regina Test', 'Paul Berger'],
-        'date': '10/05/2023',
-        'prio': 'medium',
-        'category': 'Technical Task',
-        'subtasks': ['test', 'test2'],
-        'amountOfSubtasks': 0,
-        'checkedSubtasks': 2,
-        'column': 'todo'
-    },
+// let todos = [
+//     {
+//         'id': 0,
+//         'title': 'Kochwelt Page & Recipe Recommender',
+//         'description': 'Build start page with recipe recommendation',
+//         'assigned_to': ['Anna Peters', 'Jens Rauer'],
+//         'date': '10/05/2023',
+//         'prio': 'low',
+//         'category': 'Technical Task',
+//         'subtasks': [],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 0,
+//         'column': 'todo'
+//     },
+//     {
+//         'id': 1,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': [],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'User Story',
+//         'subtasks': ['test', 'test2', 'test3'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'progress'
+//     },
+//     {
+//         'id': 2,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Birgit Brauer', 'Bernd Brot', 'Willi Gold'],
+//         'date': '10/05/2023',
+//         'prio': 'urgent',
+//         'category': 'Technical Task',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'await'
+//     },
+//     {
+//         'id': 3,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Patrick Batke', 'Sascha Siegert'],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'User Story',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'progress'
+//     },
+//     {
+//         'id': 4,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Harald Nalle'],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'User Story',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'done'
+//     },
+//     {
+//         'id': 5,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Susie Kalle'],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'Technical Task',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'done'
+//     },
+//     {
+//         'id': 6,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Jasmin Lauer'],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'User Story',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 1,
+//         'column': 'done'
+//     },
+//     {
+//         'id': 7,
+//         'title': 'progress title',
+//         'description': 'test',
+//         'assigned_to': ['Kalle Uso', 'Regina Test', 'Paul Berger'],
+//         'date': '10/05/2023',
+//         'prio': 'medium',
+//         'category': 'Technical Task',
+//         'subtasks': ['test', 'test2'],
+//         'amountOfSubtasks': 0,
+//         'checkedSubtasks': 2,
+//         'column': 'todo'
+//     },
 
-]
+// ]
 
 function test() {
     let testPush = {
         "asigntTo":['Anna Peters', 'Jens Rauer'],
         "category":true,
         "date":"10/05/2023",
+        "description": "Build start page with recipe recommendation",
         "id":"0",
         "prio":"Low",
         "status":"todo",
@@ -130,7 +131,7 @@ function loadCards() {
 }
 
 function loadTodoCards() {
-    let todo = todos.filter(t => t['column'] == 'todo');
+    let todo = tasks.filter(t => t['status'] == 'todo');
 
     document.getElementById('todo-column').innerHTML = '';
 
@@ -150,7 +151,7 @@ function loadTodoCards() {
 
 
 function loadProgressCards() {
-    let progress = todos.filter(t => t['column'] == 'progress');
+    let progress = tasks.filter(t => t['status'] == 'progress');
     
     document.getElementById('progress-column').innerHTML = '';
 
@@ -170,7 +171,7 @@ function loadProgressCards() {
 
 
 function loadAwaitCards() {
-    let await = todos.filter(t => t['column'] == 'await');
+    let await = tasks.filter(t => t['status'] == 'await');
     
     document.getElementById('await-column').innerHTML = '';
 
@@ -190,7 +191,7 @@ function loadAwaitCards() {
 
 
 function loadDoneCards() {
-    let done = todos.filter(t => t['column'] == 'done');
+    let done = tasks.filter(t => t['status'] == 'done');
     
     document.getElementById('done-column').innerHTML = '';
 
@@ -217,12 +218,21 @@ function generateEmptyColumnHTML(column) {
     `
 }
 
+function checkCategory(category) {
+    if (category) {
+        return `<p>User Story</p>`
+    }
+    else {
+        return `<p>Technical Task</p>`
+    }
+}
+
 
 function generateTodoHTML(card) {
     return `
     <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
         <div id='category-container${card['id']}' class='category-container'>
-            <p>${card['category']}</p>
+            ${checkCategory(card['category'])}
         </div>
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>
@@ -243,7 +253,7 @@ function generateTodoHTML(card) {
 function loadCategoryColor(card) {
     let currentCategory = card['category'];
 
-    if (currentCategory === 'User Story') {
+    if (currentCategory) {
         document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_7)';
     } 
     else {
@@ -256,7 +266,7 @@ function checkPriority(card) {
     let currentPrio = card['prio'];
     let prioContainer = document.getElementById('prio' + card['id']);
 
-    if (currentPrio === 'low') {
+    if (currentPrio === 'Low') {
         prioContainer.src = '/assets/img/prio_small_cards_low.svg';
     }
     else if (currentPrio === 'medium') {
@@ -267,6 +277,7 @@ function checkPriority(card) {
     }
 }
 
+// ab hier weiter schauen
 
 function checkAssignedTo(card, whichCard) {
     let allContacts = card['assigned_to'];
