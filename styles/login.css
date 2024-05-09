@@ -113,6 +113,27 @@ form {
     display: none;
 }
 
+#checkbox{
+    display: none;
+}
+
+#img_check_off{
+    display: flex;
+}
+
+#img_check_on{
+    display: none;
+}
+
+
+#checkbox:checked + #img_check_off{
+    display: none;
+}
+
+#checkbox:checked + #img_check_on{
+    display: flex;
+}
+
 
 .icon_frame {
     display: flex;
