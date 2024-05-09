@@ -12,6 +12,7 @@ let tasks =[
         "asigntTo":[],
         "category":true,
         "date":"",
+        "description":"",
         "id":"",
         "prio":"",
         "status":"",
