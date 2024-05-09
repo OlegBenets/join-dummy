@@ -89,6 +89,7 @@
 .button_full div {
     display: flex;
     white-space: nowrap;
+    align-items: center;
 }
 
 .big {
@@ -150,6 +151,7 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 19px;
     width: 32px;
     height: 32px;
     margin-left: 4px;
