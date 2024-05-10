@@ -275,7 +275,7 @@ function checkPriority(card) {
     if (currentPrio === 'Low') {
         prioContainer.src = '/assets/img/prio_small_cards_low.svg';
     }
-    else if (currentPrio === 'medium') {
+    else if (currentPrio === 'Medium') {
         prioContainer.src = '/assets/img/prio_small_cards_medium.svg';
     }
     else {
