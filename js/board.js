@@ -110,13 +110,15 @@ function test() {
     let testPush = {
         "asigntTo":['Anna Peters', 'Jens Rauer'],
         "category":true,
+        "checkedSubtasks": 1,
         "date":"10/05/2023",
         "description": "Build start page with recipe recommendation",
         "id":"0",
         "prio":"Low",
         "status":"todo",
         "subTasks":"'test', 'test2', 'test3'",
-        "title":"Kochwelt Page & Recipe Recommender"  
+        "title":"Kochwelt Page & Recipe Recommender"
+         
     }
     console.log(tasks);
 }
@@ -280,7 +282,7 @@ function checkPriority(card) {
 // ab hier weiter schauen
 
 function checkAssignedTo(card, whichCard) {
-    let allContacts = card['assigned_to'];
+    let allContacts = card['asigntTo'];
 
     if (allContacts.length !== 0) {
         let initials = [];
@@ -323,14 +325,14 @@ function generateHTMLAssignedTo(initialsArray) {
 }
 
 
-
+// umschreiben
 function checkSubtasks(card, whichCard) {
-    let allSubtasks = card['subtasks'];
+    let allSubtasks = card['subTasks'];
     let amount = 0;
 
     if (allSubtasks.length !== 0) {
         amount = allSubtasks.length;
-        card['amountOfSubtasks'] = amount;
+        // card['amountOfSubtasks'] = amount;
 
         if (whichCard == 'small-card') {
             return generateHTMLsubtasks(amount, card);
@@ -345,7 +347,7 @@ function checkSubtasks(card, whichCard) {
     }
 }
 
-
+//umschreiben
 function generateHTMLsubtasks(amount, card) {
     return `
         <div class='progress-container'>
@@ -359,7 +361,7 @@ function generateHTMLsubtasks(amount, card) {
     `
 }
 
-
+// umschreiben
 function calculateProgressBar(card) {
     let progressValue = card['checkedSubtasks'];
     let maxProgressValue = card['amountOfSubtasks'];
@@ -383,7 +385,7 @@ function allowDrop(ev) {
 
 
 function moveTo(category) {
-    todos[currentDraggedItem]['column'] = category;
+    tasks[currentDraggedItem]['status'] = category;
     loadCards();
 }
 
@@ -498,7 +500,7 @@ function generateHTMLAssignedToBigCard(initialsArray, card) {
             <div class='circle-big-card'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
-            <div class='assigned-to-txt'>${card['assigned_to'][i]}</div>
+            <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
         </div>
         `;
     }
@@ -510,7 +512,7 @@ function generateHTMLsubtasksBig(amount, card) {
     let subtasksHTML = '';
 
     for (let i = 0; i < amount; i++) {
-        const element = card['subtasks'][i];
+        const element = card['subTasks'][i];
         
         subtasksHTML += `
         <div class='big-card-one-subtask'>

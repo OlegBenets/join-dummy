@@ -11,6 +11,7 @@ let tasks =[
     {
         "asigntTo":[],
         "category":true,
+        "checkedSubtasks": 0,
         "date":"",
         "description":"",
         "id":"",
