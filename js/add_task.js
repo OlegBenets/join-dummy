@@ -1,7 +1,8 @@
 let maxId = 0;
 let currentPrio = 'Medium';
+let currentStatus;
 
-function addTask(status) {
+function addTask() {
     let title = document.getElementById('input-title');
     let description = document.getElementById('input-description');
     let asigntTo = document.getElementById('input-asignTo');
@@ -9,6 +10,7 @@ function addTask(status) {
     let categoryTxt = document.getElementById('input-category').value;
     let category;
     let prio = currentPrio;
+    let status = currentStatus;
     maxId++
     
     if (categoryTxt == 'User Story') {

@@ -547,3 +547,8 @@ function generateHTMLsubtasksBig(amount, card) {
     
     return subtasksHTML;
 }
+
+
+function getCurrentStatus(state) {
+    currentStatus = state;
+}

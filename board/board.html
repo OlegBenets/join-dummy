@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="showMovableContainer('show', 'addTask')" id="add-task-btn" class="button_full atask">
+                    <button onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo')" id="add-task-btn" class="button_full atask">
                         <div>
                             Add Task
                         </div>
@@ -59,19 +59,19 @@
             <div class="section-title-container">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
-                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo')" class="todo-section-add-icon">
                         <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>In progress</p>
-                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('progress')" class="todo-section-add-icon">
                         <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>Await feedback</p>
-                    <div onclick="showMovableContainer('show', 'addTask')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('await')" class="todo-section-add-icon">
                         <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
                     </div>
                 </div>
