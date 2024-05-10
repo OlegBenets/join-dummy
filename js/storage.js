@@ -14,7 +14,7 @@ let tasks =[
         "checkedSubtasks": 0,
         "date":"",
         "description":"",
-        "id":"",
+        "id": 0,
         "prio":"",
         "status":"",
         "subTasks":"",

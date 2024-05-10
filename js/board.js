@@ -113,23 +113,27 @@ function test() {
         "checkedSubtasks": 1,
         "date":"10/05/2023",
         "description": "Build start page with recipe recommendation",
-        "id":"0",
+        "id":1,
         "prio":"Low",
         "status":"todo",
-        "subTasks":"'test', 'test2', 'test3'",
+        "subTasks":['test', 'test2'],
         "title":"Kochwelt Page & Recipe Recommender"
          
     }
+    
+    tasks.push(testPush);
     console.log(tasks);
 }
 
 let currentDraggedItem;
 
 function loadCards() {
+   
     loadTodoCards();
     loadProgressCards();
     loadAwaitCards();
     loadDoneCards();
+    console.log(tasks);
 }
 
 function loadTodoCards() {
@@ -332,7 +336,6 @@ function checkSubtasks(card, whichCard) {
 
     if (allSubtasks.length !== 0) {
         amount = allSubtasks.length;
-        // card['amountOfSubtasks'] = amount;
 
         if (whichCard == 'small-card') {
             return generateHTMLsubtasks(amount, card);
@@ -340,7 +343,6 @@ function checkSubtasks(card, whichCard) {
         else if (whichCard == 'big-card') {
             return generateHTMLsubtasksBig(amount, card);
         }
-        
     }
     else {
         return '';
@@ -364,19 +366,25 @@ function generateHTMLsubtasks(amount, card) {
 // umschreiben
 function calculateProgressBar(card) {
     let progressValue = card['checkedSubtasks'];
-    let maxProgressValue = card['amountOfSubtasks'];
+    let allSubtasks = card['subTasks'];
 
-    let progress = ((progressValue / maxProgressValue) * 100) *2;
+    if (allSubtasks.length !== 0) {
+        amount = allSubtasks.length;
+    
+        let maxProgressValue = amount;
 
-    let progressBar = document.getElementById('progress' + card['id']);
-    if (progressBar) {
+        let progress = ((progressValue / maxProgressValue) * 100) *2;
+
+        let progressBar = document.getElementById('progress' + card['id']);
+        if (progressBar) {
         progressBar.style.width = progress + "%";
+        }
     }
 }
 
 
 function startDragging(id) {
-    currentDraggedItem = id;
+    currentDraggedItem = id +1;
 }
 
 function allowDrop(ev) {
@@ -419,7 +427,7 @@ function showMovableContainer(parameter, container) {
 
 function renderBigCard(cardId) {
     let container = document.getElementById('big-card-container');
-    let currentCard = todos.find(todo => todo.id === cardId);
+    let currentCard = tasks.find(todo => todo.id === cardId);
     container.innerHTML = '';
 
     if (currentCard) {
