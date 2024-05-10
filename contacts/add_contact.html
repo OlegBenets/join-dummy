@@ -21,18 +21,18 @@
       <div class="contact-img">
         <img src="../assets/img/person (2).svg" alt="profile-image" />
       </div>
-      <form>
+      <form onsubmit="AddContact(); return false">
         <div class="create-contact-data">
           <div class="input-container">
-            <input required type="text" placeholder="Name" />
+            <input id="contact-name" required type="text" placeholder="Name" />
             <img src="../assets/img/person (1).svg" />
           </div>
           <div class="input-container">
-            <input required type="email" placeholder="Email" />
+            <input id="contact-email" required type="email" placeholder="Email" />
             <img src="../assets/img/mail.svg" />
           </div>
           <div class="input-container">
-            <input required class="number" type="tel" placeholder="Phone" />
+            <input id="contact-tel" required class="number" type="tel" placeholder="Phone" />
             <img src="../assets/img/call.svg" />
           </div>
         </div>

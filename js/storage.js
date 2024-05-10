@@ -4,10 +4,13 @@ let contacts = [
         "name": "",
         "email": "",
         "password": "",
-        "phone": ""
+        "phone": "",
+        "profileColor":""
     }
+
 ]
-let tasks =[
+
+let tasks = [
     {
         "asigntTo":[],
         "category":true,
