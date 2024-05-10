@@ -109,7 +109,7 @@
 function test() {
     let testPush = {
         "asigntTo":['Anna Peters', 'Jens Rauer'],
-        "category":true,
+        "category":false,
         "checkedSubtasks": 1,
         "date":"10/05/2023",
         "description": "Build start page with recipe recommendation",
@@ -283,7 +283,7 @@ function checkPriority(card) {
     }
 }
 
-// ab hier weiter schauen
+
 
 function checkAssignedTo(card, whichCard) {
     let allContacts = card['asigntTo'];
@@ -329,7 +329,7 @@ function generateHTMLAssignedTo(initialsArray) {
 }
 
 
-// umschreiben
+
 function checkSubtasks(card, whichCard) {
     let allSubtasks = card['subTasks'];
     let amount = 0;
@@ -349,7 +349,7 @@ function checkSubtasks(card, whichCard) {
     }
 }
 
-//umschreiben
+
 function generateHTMLsubtasks(amount, card) {
     return `
         <div class='progress-container'>
@@ -363,7 +363,7 @@ function generateHTMLsubtasks(amount, card) {
     `
 }
 
-// umschreiben
+
 function calculateProgressBar(card) {
     let progressValue = card['checkedSubtasks'];
     let allSubtasks = card['subTasks'];
@@ -384,7 +384,7 @@ function calculateProgressBar(card) {
 
 
 function startDragging(id) {
-    currentDraggedItem = id +1;
+    currentDraggedItem = id;
 }
 
 function allowDrop(ev) {
@@ -439,12 +439,23 @@ function renderBigCard(cardId) {
     checkPriority(currentCard);
 }
 
+function generateHTMLcategory(currentCard) {
+    let category = currentCard['category'];
+
+    if (category) {
+        return `<p>User Story</p>`
+    }
+    else {
+        return `<p>Technical Task</p>`
+    }
+}
+
 
 function generateHTMLbigCard(currentCard) {
     return `
     <div class='space-between'>
         <div id='category-container${currentCard['id']}' class='big-card-category-container'>
-            <p>${currentCard['category']}</p>
+            ${generateHTMLcategory(currentCard)}
         </div>
         <div onclick="showMovableContainer('remove', 'bigCard')" class='close-img-container'>
             <img src='/assets/img/close.svg'>
