@@ -39,7 +39,14 @@ async function saveAllData() {
     await putData("validations", validations);
 }
 
-
+/**
+  * Creates a new contact.
+  * @param {number} id - The ID of the contact.
+  * @param {string} name - The name of the contact.
+  * @param {string} email - The contact's email address.
+  * @param {number} phone - The contact's phone number.
+  * @returns {Object} An object representing the newly created contact.
+  */
 function creatContact(id, name, email, phone) {
     let contact = {
         "id": id,
