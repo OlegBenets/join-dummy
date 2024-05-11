@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
+    <script src="/js/add_task.js"></script>
     <link rel="stylesheet" href="../../styles/add_task_template.css">
     <link rel="stylesheet" href="/styles/style.css">
   </head>
@@ -15,11 +16,11 @@
           <div class="flex">
           <span>Title</span><p class="important">*</p>
         </div>
-          <input required type="text" placeholder="Enter a title"/>
+          <input id="input-title" required type="text" placeholder="Enter a title"/>
           <span>Description</span>
-          <textarea placeholder="Enter a Description"></textarea>
+          <textarea id="input-description" placeholder="Enter a Description"></textarea>
           <span>Assigned to</span>
-          <select>
+          <select id="input-asignTo">
             <option value="" disabled selected hidden>
               Select contacts to assign
             </option>
@@ -38,23 +39,22 @@
           <div class="flex">
           <span>Due date</span><p class="important">*</p>
         </div>
-          <input class="date-input" type="date"/>
+          <input id="input-date" class="date-input" type="date"/>
           <span>Prio</span>
           <div class="prio-container">
-            <button>Urgent<img src="/assets/img/urgent.svg"></button>
-            <button>Medium<img src="/assets/img/medium.svg"></button>
-            <button>Low<img src="/assets/img/low.svg"></button>
+            <button type="button" onclick="getPrio('Urgent')">Urgent<img src="/assets/img/urgent.svg"></button>
+            <button type="button" onclick="getPrio('Medium')">Medium<img src="/assets/img/medium.svg"></button>
+            <button type="button" onclick="getPrio('Low')">Low<img src="/assets/img/low.svg"></button>
           </div>
           <div class="flex">
           <span>Category</span><p class="important">*</p>
         </div>
-          <select>
+          <select id="input-category">
             <option value="" disabled selected hidden>
               Select task category
             </option>
-            <option>Marketing</option>
-            <option>Development</option>
-            <option>Design</option>
+            <option>User Story</option>
+            <option>Technical Task</option>
           </select>
           <span>Subtasks</span>
           <div class="subtask-container">
@@ -72,7 +72,7 @@
             </svg>            
           </div>
       </button>
-        <button class="create-button">Create Task<img src="/assets/img/check.svg"></button>
+        <button onclick="addTask()" class="create-button">Create Task<img src="/assets/img/check.svg"></button>
       </div>
     </div>
   </body>

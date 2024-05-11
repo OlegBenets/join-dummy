@@ -47,7 +47,7 @@
 .edit-delet-contact {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
     width: 287px;
     height: 88px;
 }
@@ -56,13 +56,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 287px;
+    width: 280px;
     height: 56px;
 }
 
 .name h3 {
     margin: 0;
-    font-size: 47px;
+    font-size: 44px;
     font-weight: 500;
     color: #000000;
 }

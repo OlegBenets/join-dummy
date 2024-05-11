@@ -4,16 +4,20 @@ let contacts = [
         "name": "",
         "email": "",
         "password": "",
-        "phone": ""
+        "phone": "",
+        "profileColor": ""
     }
-];
+
+]
+
 let tasks = [
     {
         "asigntTo": [],
         "category": true,
+        "checkedSubtasks": 0,
         "date": "",
         "description": "",
-        "id": "",
+        "id": 0,
         "prio": "",
         "status": "",
         "subTasks": "",
@@ -30,9 +34,9 @@ async function loadAllData() {
 }
 
 async function saveAllData() {
-    await putData("contacts",contacts);
-    await putData("tasks",tasks);
-    await putData("validations",validations);
+    await putData("contacts", contacts);
+    await putData("tasks", tasks);
+    await putData("validations", validations);
 }
 
 
@@ -46,10 +50,11 @@ function creatContact(id, name, email, phone) {
     return contact;
 }
 
-function creatTask(asigntTo, category, date, description, id, prio, status, subTasks, title) {
+function creatTask(asigntTo, category, checkedSubtasks, date, description, id, prio, status, subTasks, title) {
     let task = {
         "asigntTo": asigntTo, // is an array
         "category": category,
+        "checkedSubtasks": checkedSubtasks,
         "date": date,
         "description": description,
         "id": id,
