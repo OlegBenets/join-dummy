@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./styles/login.css">
     <link rel="stylesheet" href="./styles/buttons.css">
     <script src="./js/login.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./assets/Assistance/firebase.js"></script>
 
 
 </head>
@@ -34,10 +36,10 @@
 
             <div>
 
-                <div class="input_frame_holder">
+                <form class="input_frame_holder" id="login_form" onsubmit="formCheck(event)" onclick="formCheck(event)">
 
                     <div>
-                        <div class="input_frame">
+                        <div class="input_frame" id="input_email_frame">
                             <input class="input" id="input_email" placeholder="Email" type="email" required>
                             <div class="icon_frame">
                                 <img src="./assets/img/mail.svg" alt="">
@@ -46,7 +48,7 @@
                     </div>
 
                     <div>
-                        <div class="input_frame">
+                        <div class="input_frame" id="input_password_frame">
                             <input class="input" id="input_password" placeholder="Password" type="password" required>
                             <div class="icon_frame">
                                 <img id="img_2" src="./assets/img/visibility_off.svg" alt="" onclick="showPassword()">
@@ -56,8 +58,7 @@
                         <div class="error_text error_text_noshow">This field is required</div>
                     </div>
 
-                </div>
-
+                </form>
 
                 <div class="checkbox">
                     <input type="checkbox"  id="checkbox">
@@ -73,7 +74,7 @@
             </div>
 
             <div class="button_frame">
-                <button class="button_full big">Log in</button>
+                <button class="button_full big" type="submit" form="login_form" onclick="test()">Log in</button>
                 <button class="button_hollow big">Guest Log in</button>
             </div>
 
