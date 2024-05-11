@@ -60,9 +60,10 @@ function extractInitialsAndName(contact) {
 function renderContacts(contact, i) {
   let { initials, name } = extractInitialsAndName(contact);
 
+  let randomColor = contact.profileColor;
   return /*html*/ `
         <div onclick="showContact(${i})" class="contact" id="contact${i}">
-            <div class="image-container">
+            <div class="image-container" style="background-color: #${randomColor};">
                 <span>${initials}</span> 
             </div>
             <div class="contact-data">
@@ -83,32 +84,64 @@ function renderFloatingContact(contact) {
   let detailName = (document.getElementById("card-name").innerHTML = name);
   let detailInitial = (document.getElementById("card-initial").innerHTML =
     initials);
+  let iconColor = document.getElementById('card-icon-color');
+  iconColor.style.backgroundColor = '#'+contact.profileColor;
 }
 
 //Add Contact Js
 
 function AddContact() {
-  let name = document.getElementById("contact-name");
-  let email = document.getElementById("contact-email");
-  let tel = document.getElementById("contact-tel");
+  let name = document.getElementById("contact-name").value;
+  let email = document.getElementById("contact-email").value;
+  let tel = document.getElementById("contact-tel").value;
+
+  let color = generateProfileColor();
 
   let newContact = {
     id: "",
-    name: name.value,
-    email: email.value,
+    name: name,
+    email: email,
     password: "",
-    phone: tel.value,
-    profileColor: "",
+    phone: tel,
+    profileColor: color,
   };
 
-  name.value = "";
-  email.value = "";
-  tel.value = "";
+  AddContactToContacts(newContact);
+}
 
+function AddContactToContacts(newContact) {
   contacts.push(newContact);
   save();
+
+  document.getElementById("contact-name").value = "";
+  document.getElementById("contact-email").value = "";
+  document.getElementById("contact-tel").value = "";
+
   showAddContact();
   loadContacts();
+
+  contactCreatedMessage();
+
+  let newIndex = contacts.findIndex(contact => contact === newContact);
+
+  scrollToAddedContact(newIndex);
+  showContact(newIndex);
+}
+
+function contactCreatedMessage() {
+  let createdContact = document.getElementById("created-contact");
+  createdContact.classList.remove("remove-contact-message");
+  setTimeout(contactCreatedHideMessage, 2000);
+}
+
+function contactCreatedHideMessage() {
+  let createdContact = document.getElementById("created-contact");
+  createdContact.classList.add("remove-contact-message");
+}
+
+function scrollToAddedContact(newIndex) {
+  let newContactElement = document.getElementById(`contact${newIndex}`);
+  newContactElement.scrollIntoView({behavior: "smooth", block: "center"});
 }
 
 function save() {
@@ -201,3 +234,10 @@ function deleteContact(i) {
   save();
   loadContacts();
 }
+
+function generateProfileColor() {
+ let color = ['ff7a00','9327ff','6e52ff','fc71ff','ffbb2b','1fd7c1','462f8a','ff4646','00bee8'];
+ let randomColor = color[Math.floor(Math.random()*color.length)];
+ return randomColor;
+}
+

@@ -159,7 +159,6 @@ body {
     height: 42px;
     border: 2px solid #ffffff;
     border-radius: 50%;
-    background-color: #ff7a00;
 }
 
 .image-container span {
@@ -218,4 +217,29 @@ body {
 
 .remove-contact-detail {
     transform: translateX(100vw);
+}
+
+.created-contact {
+    position: absolute;
+    top: 906px;
+    left: 743px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 100px;
+    border-radius: 20px;
+    background-color: var(--customized_darkblue);
+    overflow-x: hidden;
+    transition: 100ms;
+}
+
+.remove-contact-message {
+    transform: translateX(100vw);
+}
+
+.created-contact span {
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
 }
