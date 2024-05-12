@@ -1,3 +1,5 @@
+let previousContactIndex = null;
+
 function init() {
   load();
   loadContacts();
@@ -77,15 +79,54 @@ function renderContacts(contact, i) {
 function renderFloatingContact(contact) {
   let { initials, name } = extractInitialsAndName(contact);
 
-  let phoneNum = (document.getElementById("card-tel").innerHTML =
-    contact.phone);
-  let detailEmail = (document.getElementById("card-email").innerHTML =
-    contact.email);
-  let detailName = (document.getElementById("card-name").innerHTML = name);
-  let detailInitial = (document.getElementById("card-initial").innerHTML =
-    initials);
-  let iconColor = document.getElementById('card-icon-color');
-  iconColor.style.backgroundColor = '#'+contact.profileColor;
+  document.getElementById("card-tel").innerHTML = contact.phone;
+  document.getElementById("card-email").innerHTML = contact.email;
+  document.getElementById("card-name").innerHTML = name;
+  document.getElementById("card-initial").innerHTML = initials;
+  let iconColor = document.getElementById("card-icon-color");
+  iconColor.style.backgroundColor = "#" + contact.profileColor;
+
+  renderEditContact(contact);
+}
+
+function renderEditContact(contact) {
+  console.log("renderEditContact", contact);
+  let { initials } = extractInitialsAndName(contact);
+
+  document.getElementById("edit-initial").innerHTML = initials;
+  document.getElementById("edit-contact-name").value = contact.name;
+  document.getElementById("edit-contact-email").value = contact.email;
+  document.getElementById("edit-contact-tel").value = contact.phone;
+  document.getElementById("profile-color").style.backgroundColor =
+    "#" + contact.profileColor;
+}
+
+function showEditContact(parameter) {
+  let contactIndex = previousContactIndex;
+  let contact = contacts[contactIndex];
+  console.log("showEditContact", contact);
+  let editCard = document.getElementById("edit-card");
+  if (parameter == "show") {
+    editCard.classList.remove("remove-contact-container");
+  } else if (parameter == "hide") {
+    editCard.classList.add("remove-contact-container");
+  }
+
+  renderEditContact(contact);
+}
+
+function editContact() {
+  let contactIndex = previousContactIndex;
+
+  contacts[contactIndex].name = document.getElementById("edit-contact-name").value;
+  contacts[contactIndex].email = document.getElementById("edit-contact-email").value;
+  contacts[contactIndex].phone = document.getElementById("edit-contact-tel").value;
+ 
+  renderFloatingContact(contacts[contactIndex]);
+  save();
+  showEditContact("hide");
+  showContact(contactIndex);
+  loadContacts();
 }
 
 //Add Contact Js
@@ -122,7 +163,7 @@ function AddContactToContacts(newContact) {
 
   contactCreatedMessage();
 
-  let newIndex = contacts.findIndex(contact => contact === newContact);
+  let newIndex = contacts.findIndex((contact) => contact === newContact);
 
   scrollToAddedContact(newIndex);
   showContact(newIndex);
@@ -141,7 +182,7 @@ function contactCreatedHideMessage() {
 
 function scrollToAddedContact(newIndex) {
   let newContactElement = document.getElementById(`contact${newIndex}`);
-  newContactElement.scrollIntoView({behavior: "smooth", block: "center"});
+  newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function save() {
@@ -165,20 +206,9 @@ function showAddContact(parameter) {
   }
 }
 
-function showEditContact(parameter) {
-  let editCard = document.getElementById("edit-card");
-  if (parameter == "show") {
-    editCard.classList.remove("remove-contact-container");
-  } else {
-    editCard.classList.add("remove-contact-container");
-  }
-}
-
 function doNotClose(event) {
   event.stopPropagation();
 }
-
-let previousContactIndex = null;
 
 function showContact(i) {
   let menu = document.getElementById("contact-detail-data");
@@ -223,21 +253,37 @@ function deleteCurrentContact() {
 }
 
 function deleteContact(i) {
-  let menu = document.getElementById('contact-detail-data');
+  let menu = document.getElementById("contact-detail-data");
   let contact = document.getElementById(`contact${i}`);
+  let editCard = document.getElementById("edit-card");
 
   contact.style.backgroundColor = "";
   contact.style.color = "";
-  menu.classList.add('remove-contact-detail');
+  menu.classList.add("remove-contact-detail");
+  editCard.classList.add("remove-contact-container");
 
   contacts.splice(i, 1);
   save();
   loadContacts();
+
+  // Überprüfe, ob der gelöschte Kontakt der zuvor ausgewählte Kontakt war
+  if (previousContactIndex === i) {
+    previousContactIndex = null;
+  }
 }
 
 function generateProfileColor() {
- let color = ['ff7a00','9327ff','6e52ff','fc71ff','ffbb2b','1fd7c1','462f8a','ff4646','00bee8'];
- let randomColor = color[Math.floor(Math.random()*color.length)];
- return randomColor;
+  let color = [
+    "ff7a00",
+    "9327ff",
+    "6e52ff",
+    "fc71ff",
+    "ffbb2b",
+    "1fd7c1",
+    "462f8a",
+    "ff4646",
+    "00bee8",
+  ];
+  let randomColor = color[Math.floor(Math.random() * color.length)];
+  return randomColor;
 }
-

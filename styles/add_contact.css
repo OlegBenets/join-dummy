@@ -82,6 +82,13 @@ body {
     background-color: var(--color_5);
 }
 
+.contact-img h3 {
+  margin: 0;
+  font-size: 47px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
 .create-contact-data {
     position: absolute;
     top: 137px;

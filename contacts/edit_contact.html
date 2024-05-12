@@ -16,30 +16,30 @@
           <div class="border"></div>
         </div>
       </div>
-      <div class="contact-img">
-        <img src="../assets/img/person (2).svg" alt="profile-image" />
+      <div class="contact-img" id="profile-color">
+        <h3 id="edit-initial">AM</h3>
       </div>
       <form>
         <div class="create-contact-data">
           <div class="input-container">
-            <input required type="text" placeholder="Name" />
+            <input id="edit-contact-name" required type="text" placeholder="Name" />
             <img src="../assets/img/person (1).svg" />
           </div>
           <div class="input-container">
-            <input required type="email" placeholder="Email" />
+            <input id="edit-contact-email" required type="email" placeholder="Email" />
             <img src="../assets/img/mail.svg" />
           </div>
           <div class="input-container">
-            <input required class="number" type="tel" placeholder="Phone" />
+            <input id="edit-contact-tel" required class="number" type="tel" placeholder="Phone" />
             <img src="../assets/img/call.svg" />
           </div>
         </div>
         <div class="button-container">
-            <button class="delete-button">Delete</button>
-            <button class="save-button">Save<img src="/assets/img/check.svg"></button>
+            <button onclick="deleteCurrentContact()" class="delete-button">Delete</button>
+            <button onclick="editContact()" class="save-button">Save<img src="/assets/img/check.svg"></button>
           </div>
       </form>
-      <button onclick="showEditContact()" class="close-contact"><img src="/assets/img/close.svg"></button>
+      <button onclick="showEditContact('hide')" class="close-contact"><img src="/assets/img/close.svg"></button>
     </div>
   </body>
 </html>
