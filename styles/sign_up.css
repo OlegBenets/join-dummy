@@ -189,3 +189,7 @@ body {
     color: var(--color_3);
     font-weight: 700;
 }
+
+#privacy_policy:checked ~ #sign_up{
+    disabled
+}

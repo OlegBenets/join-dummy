@@ -35,67 +35,49 @@ function showPassword(set) {
     }
 }
 
-function test() {
-    let userframe = document.getElementById('input_email_frame');
+
+function validityCheck() {
     let user = document.getElementById('input_email');
-    let uservalid = user.checkValidity();
-    let passwordframe = document.getElementById('input_password_frame');
     let password = document.getElementById('input_password');
-    let passwordvalid = password.checkValidity();
-    let passwordempty = password.value;
 
-    if (passwordvalid) {
-        passwordframe.classList.remove('error_border')
+    setRedBorder(user);
+    setRedBorder(password);
+
+}
+
+function setRedBorder(element) {
+    if (element.checkValidity()) {
+        element.parentElement.classList.remove('error_border')
     } else {
-        passwordframe.classList.add('error_border')
+        element.parentElement.classList.add('error_border')
     }
+}
 
-    if (uservalid) {
-        userframe.classList.remove('error_border')
-    } else {
-        userframe.classList.add('error_border')
+function userValidation(form) {
+    const email = form.elements['email'].value
+    const password = form.elements['password'].value
+    console.log('email ' + email);
+    console.log('password '+ password);
+    for (let i = 0; i < validations.length; i++) {
+        const element = validations[i];
+        if (email==element.user && password==element.password) {
+            console.log('access granted');
+        }
     }
-
-
-    console.log('User ' + uservalid);
-    console.log('password ' + passwordvalid);
-    console.log('inhalt ' + passwordempty);
 }
 
 function formCheck(event) {
     event.preventDefault();
 
     let element = event.target;
-    // console.log(element);
 
     if (element.checkValidity()) {
         console.log('form ist valid');
+        userValidation(element);
+
     } else {
         console.log('form is invalid');
     }
 }
 
-function test() {
-    console.log(validations);
-    // deleteValidations(0);
 
-    for (let i = 0; i < 10; i++) {
-        let ding = creatValidaion(`user_${i}`, `${i}_admin`);
-        addValidaions(ding);
-    }
-    console.log(validations);
-
-    let thing = creatValidaion('user1', 'admin')
-    addValidaions(thing);
-    console.log(validations);
-    thing = creatValidaion('user2', 'admin');
-    editValidations(3, thing);
-    console.log(validations);
-    deleteValidations(0);
-    console.log(validations);
-}
-let wert="";
-async function test2() {
-    await putData("test", validations);
-    wert = await loadData("test")
-}

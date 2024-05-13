@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOIN</title>
+    <link rel="shortcut icon" href="./assets/img/Capa 2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/login_signup.css">
+    <link rel="stylesheet" href="./styles/buttons.css">
+
+    <script src="./js/password_shower.js"></script>
+</head>
+
+<body onload="startPage()">
+    <div class="logo">
+        <img src="./assets/img/Capa 2.svg" alt="Join logo">
+    </div>
+
+    <form id="signUpForm" class="signUpForm">
+
+        <div class="haedline">
+            <h1>Sign up</h1>
+            <img src="./assets/img/blue_line.svg" alt="">
+        </div>
+
+        <div>
+
+            <div class="gap24">
+
+                <div class="inputFrame">
+                    <input class="input" type="text" placeholder="Name" required>
+                    <div class="iconFrame">
+                        <img src="./assets/img/person (1).svg" alt="person icon">
+                    </div>
+                </div>
+
+                <div class="inputFrame">
+                    <input class="input" type="email" placeholder="Email" required>
+                    <div class="iconFrame">
+                        <img src="./assets/img/mail.svg" alt="mail icon">
+                    </div>
+                </div>
+
+                <div class="inputFrame">
+                    <input class="input" type="password" placeholder="Password" id="input_password" required>
+                    <div class="iconFrame">
+                        <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
+                            onclick="showPassword(event)">
+                        <img class="lock" src="./assets/img/lock.svg" alt="lock icon">
+                    </div>
+                </div>
+                <div>
+                    <div class="inputFrame">
+                        <input class="input" type="password" placeholder="Confirm Password" id="input_confirm_password"
+                            required>
+                        <div class="iconFrame">
+                            <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
+                                onclick="showPassword(event)">
+                            <img class="lock" src="./assets/img/lock.svg" alt="lock icon">
+                        </div>
+                    </div>
+                    <div class="errorInfo">
+                        Ups! your password don`t match
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="checkbox signUp">
+                <input type="checkbox" id="checkboxSignUp">
+                <label for="checkboxSignUp" id="checkboxSignUp_label">
+
+                    <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
+                    <img class="checkOn" id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
+
+                    <div>I accept the</div>
+                    <a href="#" target="_blank" rel="noopener noreferrer">Privacy policy</a>
+                </label>
+            </div>
+
+        </div>
+
+        <div>
+            <button class="button_full big" disabled="true"><div>Sign up</div></button>
+        </div>
+
+        <a href="./login.html" class="backArrow"><img src="./assets/img/arrow_blue.svg" alt=""></a>
+
+    </form>
+
+    <div class="legalLinksBox">
+        <div><a class="legalLinks" href="./Legal_Folder/privacy_policy.html" target="_blank">Privacy Policy</a>
+        </div>
+        <div><a class="legalLinks" href="./Legal_Folder/legal_notice.html" target="_blank">Legal notice</a></div>
+    </div>
+
+</body>
+
+</html>
