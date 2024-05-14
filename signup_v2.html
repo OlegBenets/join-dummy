@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="./styles/buttons.css">
 
     <script src="./js/password_shower.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/form_validation.js"></script>
+
 </head>
 
 <body onload="startPage()">
@@ -70,7 +73,7 @@
             </div>
 
             <div class="checkbox signUp">
-                <input type="checkbox" id="checkboxSignUp">
+                <input type="checkbox" id="checkboxSignUp" onclick="enabledButton(event)">
                 <label for="checkboxSignUp" id="checkboxSignUp_label">
 
                     <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
@@ -84,7 +87,7 @@
         </div>
 
         <div>
-            <button class="button_full big" disabled="true"><div>Sign up</div></button>
+            <button class="button_full big" disabled="true" onclick="validationCheck(event)"><div>Sign up</div></button>
         </div>
 
         <a href="./login.html" class="backArrow"><img src="./assets/img/arrow_blue.svg" alt=""></a>

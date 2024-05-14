@@ -122,12 +122,12 @@ form {
     display: none;
 }
 
-.errorInfo{
+.errorInfo {
     color: var(--customized_lightred);
     visibility: hidden;
 }
 
-.errorBorder{
+.errorBorder {
     border-color: var(--customized_red);
 }
 
@@ -147,52 +147,52 @@ form {
 
 }
 
-.signUp{
+.signUp {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.signUp label{
+.signUp label {
     display: flex;
     margin-top: 16px;
 }
 
-.signUp label div{
-    padding: 0px 8px 0px 4px ;
+.signUp label div {
+    padding: 0px 8px 0px 4px;
     color: var(--customized_gray);
     font-size: 16px;
     font-weight: 400;
 }
 
-.signUp label a{
+.signUp label a {
     color: var(--customized_lightblue);
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
 }
 
-.signUp label a:hover{
+.signUp label a:hover {
     text-decoration: underline;
     font-weight: 500;
 }
 
-.checkOff{
+.checkOff {
     display: block;
     width: 24px;
     height: 24px;
 }
 
-.checkOn{
+.checkOn {
     display: none;
 }
 
-.checkOff:hover{
+.checkOff:hover {
     border-radius: 6px;
     background-color: var(--customized_paleblue);
 }
 
-.checkOn:hover{
+.checkOn:hover {
     border-radius: 6px;
     background-color: var(--customized_paleblue);
 }
@@ -201,23 +201,23 @@ form {
     display: none;
 }
 
-.checkbox input:checked +label .checkOff{
+.checkbox input:checked+label .checkOff {
     display: none;
 }
 
-.checkbox input:checked +label .checkOn{
+.checkbox input:checked+label .checkOn {
     display: block;
     width: 24px;
     height: 24px;
 
 }
 
-.buttonbox{
+.buttonbox {
     display: flex;
     gap: 35px;
 }
 
-.backArrow{
+.backArrow {
     position: absolute;
     top: 64px;
     left: 48px;
@@ -229,12 +229,12 @@ form {
     cursor: pointer;
 }
 
-.backArrow:hover{
+.backArrow:hover {
     border-radius: 16px;
-    background-color: var(--customized_paleblue) ;
+    background-color: var(--customized_paleblue);
 }
 
-.legalLinksBox{
+.legalLinksBox {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -245,10 +245,29 @@ form {
     bottom: 90px;
 }
 
-.legalLinks{
+.legalLinks {
     padding: 8px;
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
     color: var(--customized_gray);
+}
+
+.signUpLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+
+    position: fixed;
+    top: 67px;
+    right: 122px;
+
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+}
+
+.signUpLink a {
+    text-decoration: none;
 }

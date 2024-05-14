@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="./styles/buttons.css">
 
     <script src="./js/password_shower.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/form_validation.js"></script>
+
 </head>
 
 <body onload="startPage()">
@@ -18,7 +21,12 @@
         <img src="./assets/img/Capa 2.svg" alt="Join logo">
     </div>
 
-    <form id="logInForm" class="logInForm">
+    <div class="signUpLink">
+        Not a Join user?
+        <a href="./sign_up.html"><button class="button_full">Sign up</button></a>
+    </div>
+
+    <form class="logInForm" onsubmit="passwordValidation(event)">
 
         <div class="haedline">
             <h1>Log in</h1>
@@ -28,14 +36,14 @@
         <div>
             <div class="gap32">
                 <div class="inputFrame">
-                    <input class="input" type="email" placeholder="Email" required>
+                    <input name="email" class="input" type="email" placeholder="Email" required>
                     <div class="iconFrame">
                         <img src="./assets/img/mail.svg" alt="mail icon">
                     </div>
                 </div>
                 <div>
                     <div class="inputFrame">
-                        <input class="input" type="password" placeholder="Password" id="input_password" required>
+                        <input name="password" class="input" type="password" placeholder="Password"  required>
                         <div class="iconFrame">
                             <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
                                 onclick="showPassword(event)">
@@ -49,20 +57,20 @@
             </div>
 
             <div class="checkbox login">
-                <input type="checkbox" id="checkboxLogin">
-                <label for="checkboxLogin" id="checkboxLogin_label">
+                <input name="remember" type="checkbox" id="rememberMe">
+                <label for="rememberMe">
 
                     <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
                     <img class="checkOn" id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
 
-                    <div>Remenber Me</div>
+                    <div>Remember Me</div>
                 </label>
             </div>
 
         </div>
 
         <div class="buttonbox">
-            <button class="button_full big">
+            <button class="button_full big" onclick="validationCheck(event)">
                 <div>Log in</div>
             </button>
             <button class="button_hollow big">

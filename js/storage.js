@@ -29,6 +29,23 @@ let validations = [];
 
 let activUser = "guest";
 
+const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
+
+async function loadData(path="") {
+    let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
+    return responseAsJson = await response.json();
+}
+//PUT
+async function putData(path="", data={}) {
+    let response = await fetch(BASE_URL + path + ".json",{
+        method: "PUT",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return responseAsJson = response.json();
+}
 
 /**
  * load all data from the server and saves in the specific variable
@@ -51,6 +68,20 @@ async function saveAllData() {
 function idGenerator() {
     let date = new Date;
     return date.getTime();
+}
+
+async function encrypt(data) {
+    const encoder = new TextEncoder();
+
+    const dataBuffer = encoder.encode(data);
+
+    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+    const hashedData = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+    return hashedData;
 }
 
 /**
@@ -132,6 +163,7 @@ function deleteValidations(index) {
     }
 
 }
+
 /**
   * Edits the validations array based on the index and updated validation data. with an deep copy of the valdation
   * @param {number} index - The index of the validation to process.
@@ -148,6 +180,6 @@ function editValidations(index, validation) {
   * @returns {object} - The validation data.
   */
 function getValidations(index) {
-    let buffer = JSON.stringify(Validations[index]);
+    let buffer = JSON.stringify(validations[index]);
     return JSON.parse(buffer);
 }
