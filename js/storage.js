@@ -48,17 +48,21 @@ async function saveAllData() {
     await putData("validations", validations);
 }
 
+function idGenerator() {
+    let date = new Date;
+    return date.getTime();
+}
+
 /**
   * Creates a new contact.
-  * @param {number} id - The ID of the contact.
   * @param {string} name - The name of the contact.
   * @param {string} email - The contact's email address.
   * @param {number} phone - The contact's phone number.
   * @returns {Object} An object representing the newly created contact.
   */
-function creatContact(id, name, email, phone) {
+function creatContact(name, email, phone) {
     let contact = {
-        "id": id,
+        "id": idGenerator(),
         "name": name,
         "email": email,
         "phone": phone
@@ -73,21 +77,20 @@ function creatContact(id, name, email, phone) {
  * @param {Array} checkedSubtasks 
  * @param {number} date - the due date of the task
  * @param {string} description - the text that describe the task
- * @param {number} id - the unique id of the task
  * @param {number} prio - the priority the task have (high medium low)
  * @param {number} status - the status of the task
  * @param {Array} subTasks - the list of subtask of the task
  * @param {string} title - the title of the task
  * @returns {object} An object representing the newly created task.
  */
-function creatTask(asigntTo, category, checkedSubtasks, date, description, id, prio, status, subTasks, title) {
+function creatTask(asigntTo, category, checkedSubtasks, date, description, prio, status, subTasks, title) {
     let task = {
-        "asigntTo": asigntTo, // is an array
+        "asigntTo": asigntTo, 
         "category": category,
         "checkedSubtasks": checkedSubtasks,
         "date": date,
         "description": description,
-        "id": id,
+        "id": idGenerator(),
         "prio": prio,
         "status": status,
         "subTasks": subTasks,
