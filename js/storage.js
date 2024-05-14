@@ -68,8 +68,8 @@ async function saveAllData() {
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
-    console.log(typeof(id));
-    return id;
+    let string = toString(id);
+    return string;
 }
 
 async function encrypt(data) {
