@@ -1,43 +1,18 @@
-let contacts = [
-    {
-        "id": "",
-        "name": "",
-        "email": "",
-        "password": "",
-        "phone": "",
-        "profileColor": ""
-    }
-
-]
-
-let tasks = [
-    {
-        "asigntTo": [],
-        "category": true,
-        "checkedSubtasks": 0,
-        "date": "",
-        "description": "",
-        "id": 0,
-        "prio": "",
-        "status": "",
-        "subTasks": "",
-        "title": ""
-    }
-];
-
+let contacts = []
+let tasks = [];
 let validations = [];
 
 let activUser = "guest";
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
-async function loadData(path="") {
+async function loadData(path = "") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
     return responseAsJson = await response.json();
 }
 //PUT
-async function putData(path="", data={}) {
-    let response = await fetch(BASE_URL + path + ".json",{
+async function putData(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
         header: {
             "Content-Type": "application/json",
@@ -68,8 +43,7 @@ async function saveAllData() {
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
-    let string = toString(id);
-    return string;
+    return id;
 }
 
 async function encrypt(data) {
@@ -85,6 +59,8 @@ async function encrypt(data) {
 
     return hashedData;
 }
+
+//Contact handling functions
 
 /**
   * Creates a new contact.
@@ -103,6 +79,38 @@ function creatContact(name, email, phone) {
     return contact;
 }
 
+function addContacts(contact) {
+    let buffer = JSON.stringify(contact);
+    contacts.push(JSON.parse(buffer));
+}
+
+function deleteContacts(index) {
+    if (index < contacts.length) {
+        contacts.splice(index, 1);
+    }
+}
+
+function editContacts(index, contact) {
+    if (index < contacts.length) {
+        let buffer = JSON.stringify(contact);
+        contacts[index] = JSON.parse(buffer);
+    }
+}
+
+function getContacts(index) {
+    if (index < contacts.length) {
+        let buffer = JSON.stringify(contacts[index]);
+        return JSON.parse(buffer);
+    }
+}
+
+function getContactsArray() {
+    let buffer = JSON.stringify(contacts);
+    return JSON.parse(buffer);
+}
+
+//Task handling functions
+
 /**
  * Creates a new task
  * @param {Array} asigntTo  - the list of asignt users
@@ -118,7 +126,7 @@ function creatContact(name, email, phone) {
  */
 function creatTask(asigntTo, category, checkedSubtasks, date, description, prio, status, subTasks, title) {
     let task = {
-        "asigntTo": asigntTo, 
+        "asigntTo": asigntTo,
         "category": category,
         "checkedSubtasks": checkedSubtasks,
         "date": date,
@@ -131,6 +139,86 @@ function creatTask(asigntTo, category, checkedSubtasks, date, description, prio,
     };
     return task;
 }
+
+function addTasks(task) {
+    let buffer = JSON.stringify(task);
+    tasks.push(JSON.parse(buffer));
+}
+
+function deleteTasks(index) {
+    if (index < tasks.length) {
+        tasks.splice(index, 1);
+    }
+}
+
+function editTasks(index, task) {
+    if (index < tasks.length) {
+        let buffer = JSON.stringify(task);
+        tasks[index] = JSON.parse(buffer);
+    }
+}
+
+function getTasks(index) {
+    if (index < tasks.length) {
+        let buffer = JSON.stringify(tasks[index]);
+        return JSON.parse(buffer);
+    }
+}
+
+function getTasksArray() {
+    let buffer = JSON.stringify(tasks);
+    return JSON.parse(buffer);
+}
+
+//Subtask handling functions
+
+function creatSubTask(subtitle, checked = "false") {
+    let subtask = {
+        "subtitle": subtitle,
+        "checked": checked
+    }
+    return subtask;
+}
+
+function addSubTasks(index, subtask) {
+    let buffer = JSON.stringify(subtask);
+    tasks[index].subtask.push(JSON.parse(buffer));
+}
+
+function deleteSubTasks(index, subindex) {
+    if (index < tasks.length) {
+        if (subindex < tasks[index].subtask.length) {
+            tasks[index].subtask.splice(subindex, 1);
+        }
+    }
+}
+
+function editSubTasks(index, subindex, subtask) {
+    if (index < tasks.length) {
+        if (subindex < tasks[index].subtask.length) {
+            let buffer = JSON.stringify(subtask);
+            tasks[index].subtask[subindex] = JSON.parse(buffer);
+        }
+    }
+}
+
+function getSubTasks(index, subindex) {
+    if (index < tasks.length) {
+        if (subindex < tasks[index].subtask.length) {
+            let buffer = JSON.stringify(tasks[index].subtask[subindex]);
+            return JSON.parse(buffer);
+        }
+    }
+}
+
+function getSubTasks(index) {
+    if (index < tasks.length) {
+        let buffer = JSON.stringify(tasks[index].subtask);
+        return JSON.parse(buffer);
+    }
+}
+
+//Validation handling functions
 
 /**
  * Creates a validation object with username and password.
@@ -163,7 +251,6 @@ function deleteValidations(index) {
     if (index < validations.length) {
         validations.splice(index, 1);
     }
-
 }
 
 /**
@@ -172,8 +259,10 @@ function deleteValidations(index) {
   * @param {object} validation - The updated validation data.
   */
 function editValidations(index, validation) {
-    let buffer = JSON.stringify(validation);
-    validations[index] = JSON.parse(buffer);
+    if (index < validations.length) {
+        let buffer = JSON.stringify(validation);
+        validations[index] = JSON.parse(buffer);
+    }
 }
 
 /**
@@ -182,6 +271,13 @@ function editValidations(index, validation) {
   * @returns {object} - The validation data.
   */
 function getValidations(index) {
-    let buffer = JSON.stringify(validations[index]);
+    if (index < validations.length) {
+        let buffer = JSON.stringify(validations[index]);
+        return JSON.parse(buffer);
+    }
+}
+
+function getValidationsArray() {
+    let buffer = JSON.stringify(validations);
     return JSON.parse(buffer);
 }
