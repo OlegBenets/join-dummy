@@ -62,7 +62,7 @@ function extractInitialsAndName(contact) {
 function renderContacts(contact, i) {
   let { initials, name } = extractInitialsAndName(contact);
 
-  let randomColor = contact.profileColor;
+  let randomColor = contact.color;
   return /*html*/ `
         <div onclick="showContact(${i})" class="contact" id="contact${i}">
             <div class="image-container" style="background-color: #${randomColor};">
@@ -77,6 +77,7 @@ function renderContacts(contact, i) {
 }
 
 function renderFloatingContact(contact) {
+  console.log(contact);
   let { initials, name } = extractInitialsAndName(contact);
 
   document.getElementById("card-tel").innerHTML = contact.phone;
@@ -84,7 +85,7 @@ function renderFloatingContact(contact) {
   document.getElementById("card-name").innerHTML = name;
   document.getElementById("card-initial").innerHTML = initials;
   let iconColor = document.getElementById("card-icon-color");
-  iconColor.style.backgroundColor = "#" + contact.profileColor;
+  iconColor.style.backgroundColor = "#" + contact.color;
 
   renderEditContact(contact);
 }
@@ -98,7 +99,7 @@ function renderEditContact(contact) {
   document.getElementById("edit-contact-email").value = contact.email;
   document.getElementById("edit-contact-tel").value = contact.phone;
   document.getElementById("profile-color").style.backgroundColor =
-    "#" + contact.profileColor;
+    "#" + contact.color;
 }
 
 function showEditContact(parameter) {
