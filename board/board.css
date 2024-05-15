@@ -783,6 +783,11 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     border: 1px solid var(--customized_lightgray);
 }
 
+.edit-task-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .edit-content::-webkit-scrollbar {
     width: 8px;
 }

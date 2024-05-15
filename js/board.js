@@ -1,6 +1,13 @@
 let currentDraggedItem;
-let allTasks = [];
-allTasks = tasks;
+let allTasks;
+let filterdtasks = [];
+
+
+async function init() {
+    await loadAllData();
+    allTasks = await getTasksArray();
+    loadCards();
+}
 
 function loadCards() {
     loadTodoCards();
@@ -10,8 +17,8 @@ function loadCards() {
     console.log(tasks);
 }
 
-function loadTodoCards() {
-    let todo = tasks.filter(t => t['status'] == 'todo');
+async function loadTodoCards() {
+    let todo = allTasks.filter(t => t['status'] == 'todo');
 
     document.getElementById('todo-column').innerHTML = '';
 
@@ -30,8 +37,9 @@ function loadTodoCards() {
 }
 
 
-function loadProgressCards() {
-    let progress = tasks.filter(t => t['status'] == 'progress');
+async function loadProgressCards() {
+
+    let progress = allTasks.filter(t => t['status'] == 'progress');
     
     document.getElementById('progress-column').innerHTML = '';
 
@@ -50,14 +58,15 @@ function loadProgressCards() {
 }
 
 
-function loadAwaitCards() {
-    let await = tasks.filter(t => t['status'] == 'await');
+async function loadAwaitCards() {
+
+    let feedback = allTasks.filter(t => t['status'] == 'await');
     
     document.getElementById('await-column').innerHTML = '';
 
-    if (await.length !== 0) {
-        for (let i = 0; i < await.length; i++) {
-            const card = await[i];
+    if (feedback.length !== 0) {
+        for (let i = 0; i < feedback.length; i++) {
+            const card = feedback[i];
             document.getElementById('await-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
             checkPriority(card);
@@ -70,8 +79,9 @@ function loadAwaitCards() {
 }
 
 
-function loadDoneCards() {
-    let done = tasks.filter(t => t['status'] == 'done');
+async function loadDoneCards() {
+
+    let done = allTasks.filter(t => t['status'] == 'done');
     
     document.getElementById('done-column').innerHTML = '';
 
@@ -266,9 +276,11 @@ function allowDrop(ev) {
 }
 
 
-function moveTo(category) {
-    task = tasks.filter(task => task.id === currentDraggedItem);
-    task[0].status = category;
+async function moveTo(category) {
+    indexOfTask = allTasks.findIndex(task => task.id === currentDraggedItem);
+    let task = allTasks[indexOfTask];
+    task.status = category;
+    await editTasks(indexOfTask, task)
     loadCards();
 }
 
@@ -302,7 +314,7 @@ function showMovableContainer(parameter, container) {
 
 function renderBigCard(cardId) {
     let container = document.getElementById('big-card-container');
-    let currentCard = tasks.find(todo => todo.id === cardId);
+    let currentCard = allTasks.find(todo => todo.id === cardId);
     container.innerHTML = '';
 
     if (currentCard) {
@@ -389,7 +401,7 @@ function generateHTMLbigCard(currentCard) {
 function showEditTask(id) {
     let container = document.getElementById('big-card-container');
 
-    let indexOfCurTask = tasks.findIndex(t => t.id === id);
+    let indexOfCurTask = allTasks.findIndex(t => t.id === id);
 
     container.innerHTML = generateHTMLEditTask(indexOfCurTask);
 }
@@ -454,6 +466,13 @@ function generateHTMLEditTask(indexOfCurTask) {
             </div>
         </div>
     </div>
+    <div class='edit-task-btn-container'>
+        <button class='button_full ctask'>
+                <div>
+                    OK
+                </div>
+        </button>
+    </div>
     `
 }
 
@@ -470,10 +489,10 @@ function changeBigCardContainer(parameter) {
     
 }
 
-function deleteTask(id) {
-    let indexOfTask = tasks.findIndex(t => t.id === id);
-
-    tasks.splice(indexOfTask, 1);
+async function deleteTask(id) {
+    let indexOfTask = allTasks.findIndex(t => t.id === id);
+    await deleteTasks(indexOfTask);
+    allTasks = await getTasksArray();
     loadCards();
     showMovableContainer('remove', 'bigCard');
 }
@@ -522,14 +541,14 @@ function getCurrentStatus(state) {
     currentStatus = state;
 }
 
-function taskSearch() {
+async function taskSearch() {
     let inputfield = document.getElementById('search-input').value;
     let input = inputfield.trim().toLowerCase();
     filteredTasks = [];
+    allTasks = await getTasksArray();
 
-    tasks = allTasks;
 
-    if (input.length > 0) {
+    if (input.length >= 0) {
         checkTasks(input, filteredTasks);
     }
     else if (input.length == 0) {
@@ -538,14 +557,14 @@ function taskSearch() {
 }
 
 
-function checkTasks(input, filteredTasks) {
-    for (let i = 0; i < tasks.length; i++) {
-        const curTask = tasks[i];
+function checkTasks(filter, filteredTasks) {
+    for (let i = 0; i < allTasks.length; i++) {
+        const curTask = allTasks[i];
 
-        if (curTask['title'].includes(input) || curTask['description'].includes(input)) {
+        if (curTask['title'].includes(filter) || curTask['description'].includes(filter)) {
             filteredTasks.push(curTask)
         }
     }
-    tasks = filteredTasks;
+    allTasks = filteredTasks;
     loadCards();
 }

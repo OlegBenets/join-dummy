@@ -1,10 +1,10 @@
 let currentPrio = 'Medium';
 let currentStatus;
 
-function addTask() {
+async function addTask() {
     let title = document.getElementById('input-title').value;
     let description = document.getElementById('input-description').value;
-    let asigntTo = document.getElementById('input-asignTo').value;
+    let asigntTo = document.getElementById('input-assignTo').value;
     let date = document.getElementById('input-date').value;
     let categoryTxt = document.getElementById('input-category').value;
     let category;
@@ -19,8 +19,7 @@ function addTask() {
     }
 
     let task = creatTask([asigntTo], category, 1, date, description, prio, status, ['test1', 'test2'], title);
-
-    tasks.push(task);
+    await addTasks(task);
     loadCards();
     resetForm();
     showAddTaskConfirmation();
@@ -41,7 +40,7 @@ function showAddTaskConfirmation() {
 function resetForm() {
     let title = document.getElementById('input-title').value = '';
     let description = document.getElementById('input-description').value = '';
-    let asigntTo = document.getElementById('input-asignTo').value = '';
+    let asigntTo = document.getElementById('input-assignTo').value = '';
     let date = document.getElementById('input-date').value = '';
     let categoryTxt = document.getElementById('input-category').value = '';
 }
