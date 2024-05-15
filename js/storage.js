@@ -95,6 +95,7 @@ async function encrypt(data) {
   * @param {string} name - The name of the contact.
   * @param {string} email - The contact's email address.
   * @param {number} phone - The contact's phone number.
+  * @param {string} color  -
   * @returns {Object} An object representing the newly created contact.
   */
 function creatContact(name, email, phone ,color) {
