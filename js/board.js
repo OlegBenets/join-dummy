@@ -106,24 +106,24 @@
 
 // ]
 
-function test() {
-    let testPush = {
-        "asigntTo":['Anna Peters', 'Jens Rauer'],
-        "category":false,
-        "checkedSubtasks": 1,
-        "date":"10/05/2023",
-        "description": "Build start page with recipe recommendation",
-        "id":1,
-        "prio":"Low",
-        "status":"todo",
-        "subTasks":['test', 'test2'],
-        "title":"Kochwelt Page & Recipe Recommender"
+// function test() {
+//     let testPush = {
+//         "asigntTo":['Anna Peters', 'Jens Rauer'],
+//         "category":false,
+//         "checkedSubtasks": 1,
+//         "date":"10/05/2023",
+//         "description": "Build start page with recipe recommendation",
+//         "id":1,
+//         "prio":"Low",
+//         "status":"todo",
+//         "subTasks":['test', 'test2'],
+//         "title":"Kochwelt Page & Recipe Recommender"
          
-    }
+//     }
     
-    tasks.push(testPush);
-    console.log(tasks);
-}
+//     tasks.push(testPush);
+//     console.log(tasks);
+// }
 
 let currentDraggedItem;
 
@@ -393,7 +393,8 @@ function allowDrop(ev) {
 
 
 function moveTo(category) {
-    tasks[currentDraggedItem]['status'] = category;
+    task = tasks.filter(task => task.id === currentDraggedItem);
+    task[0].status = category;
     loadCards();
 }
 

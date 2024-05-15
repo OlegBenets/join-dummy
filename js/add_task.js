@@ -20,12 +20,14 @@ function addTask() {
         category = false;
     }
 
-    let task = creatTask([asigntTo], category, 0, date, description, maxId, prio, status, ['test1', 'test2'], title);
+    let task = creatTask([asigntTo], category, 1, date, description, prio, status, ['test1', 'test2'], title);
 
     tasks.push(task);
     loadCards();
     resetForm();
     showAddTaskConfirmation();
+    console.log(tasks);
+    console.log(typeof(task['id']));
     
     
 
