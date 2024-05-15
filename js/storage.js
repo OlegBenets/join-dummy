@@ -111,7 +111,7 @@ function creatContact(name, email, phone ,color) {
 
 async function addContacts(contact) {
     let buffer = JSON.stringify(contact);
-    contacts.push(JSON.parse(buffer));
+    contacts.push(await JSON.parse(buffer));
     await saveAllData('contacts');
 }
 
@@ -125,21 +125,21 @@ async function deleteContacts(index) {
 async function editContacts(index, contact) {
     if (index < contacts.length) {
         let buffer = JSON.stringify(contact);
-        contacts[index] = JSON.parse(buffer);
+        contacts[index] = await JSON.parse(buffer);
     }
     await saveAllData('contacts');
 }
 
-function getContacts(index) {
+async function getContacts(index) {
     if (index < contacts.length) {
         let buffer = JSON.stringify(contacts[index]);
-        return JSON.parse(buffer);
+        return await JSON.parse(buffer);
     }
 }
 
-function getContactsArray() {
+async function getContactsArray() {
     let buffer = JSON.stringify(contacts);
-    return JSON.parse(buffer);
+    return await JSON.parse(buffer);
 }
 
 //Task handling functions
@@ -175,7 +175,7 @@ function creatTask(asigntTo, category, checkedSubtasks, date, description, prio,
 
 async function addTasks(task) {
     let buffer = JSON.stringify(task);
-    tasks.push(JSON.parse(buffer));
+    tasks.push(await JSON.parse(buffer));
     await saveAllData('tasks');
 }
 
@@ -189,21 +189,21 @@ async function deleteTasks(index) {
 async function editTasks(index, task) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(task);
-        tasks[index] = JSON.parse(buffer);
+        tasks[index] = await JSON.parse(buffer);
     }
     await saveAllData('tasks');
 }
 
-function getTasks(index) {
+async function getTasks(index) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(tasks[index]);
-        return JSON.parse(buffer);
+        return await JSON.parse(buffer);
     }
 }
 
-function getTasksArray() {
+async function getTasksArray() {
     let buffer = JSON.stringify(tasks);
-    return JSON.parse(buffer);
+    return await JSON.parse(buffer);
 }
 
 //Subtask handling functions
@@ -218,7 +218,7 @@ function creatSubTask(subtitle, checked = "false") {
 
 async function addSubTasks(index, subtask) {
     let buffer = JSON.stringify(subtask);
-    tasks[index].subtask.push(JSON.parse(buffer));
+    tasks[index].subtask.push(await JSON.parse(buffer));
     await saveAllData('tasks');
 }
 
@@ -235,25 +235,25 @@ async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
         if (subindex < tasks[index].subtask.length) {
             let buffer = JSON.stringify(subtask);
-            tasks[index].subtask[subindex] = JSON.parse(buffer);
+            tasks[index].subtask[subindex] = await JSON.parse(buffer);
         }
     }
     await saveAllData('tasks');
 }
 
-function getSubTasks(index, subindex) {
+async function getSubTasks(index, subindex) {
     if (index < tasks.length) {
         if (subindex < tasks[index].subtask.length) {
             let buffer = JSON.stringify(tasks[index].subtask[subindex]);
-            return JSON.parse(buffer);
+            return await JSON.parse(buffer);
         }
     }
 }
 
-function getSubTasks(index) {
+async function getSubTasks(index) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(tasks[index].subtask);
-        return JSON.parse(buffer);
+        return await JSON.parse(buffer);
     }
 }
 
@@ -279,7 +279,7 @@ function creatValidaion(user, password) {
  */
 async function addValidations(validation) {
     let buffer = JSON.stringify(validation);
-    validations.push(JSON.parse(buffer));
+    validations.push(await JSON.parse(buffer));
     await saveAllData('validations');
 }
 
@@ -302,7 +302,7 @@ async function deleteValidations(index) {
 async function editValidations(index, validation) {
     if (index < validations.length) {
         let buffer = JSON.stringify(validation);
-        validations[index] = JSON.parse(buffer);
+        validations[index] = await JSON.parse(buffer);
     }
     await saveAllData('validations');
 }
@@ -312,14 +312,14 @@ async function editValidations(index, validation) {
   * @param {number} index - The index of the validation to retrieve.
   * @returns {object} - The validation data.
   */
-function getValidations(index) {
+async function getValidations(index) {
     if (index < validations.length) {
         let buffer = JSON.stringify(validations[index]);
-        return JSON.parse(buffer);
+        return await JSON.parse(buffer);
     }
 }
 
-function getValidationsArray() {
+async function getValidationsArray() {
     let buffer = JSON.stringify(validations);
-    return JSON.parse(buffer);
+    return await JSON.parse(buffer);
 }
