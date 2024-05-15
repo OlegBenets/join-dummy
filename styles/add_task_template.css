@@ -66,8 +66,6 @@
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
-        margin-top: 10px;
-        margin-bottom: 28px;
         font-size: 20px;
       }
 
@@ -77,8 +75,6 @@
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 18px 16px 18px 16px;
-        margin-top: 10px;
-        margin-bottom: 28px;
         font-size: 20px;
       }
 
@@ -88,7 +84,6 @@
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
-        margin-top: 10px;
         font-size: 20px;
       }
 
@@ -172,8 +167,6 @@
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
-        margin-top: 10px;
-        margin-bottom: 28px;
         font-size: 20px;
       }
 
@@ -299,10 +292,59 @@
 
       .date-input {
         width: 90%;
+        height: 36px;
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 16px;
-        margin-top: 10px;
-        margin-bottom: 28px;
         font-size: 20px;
       }
+
+      .input-container {
+        display: flex;
+        position: relative;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 28px;
+        background-color: #ffffff;
+        width: 90%;
+    }
+    
+    .mb {
+      margin-bottom: 0;
+    }
+
+    .focused {
+        border-color: var(--customized_lightblue);
+    }
+    
+    .error {
+        border-color: var(--customized_red);
+    }
+    
+    .input-container input,
+    .input-container textarea,
+    .input-container select {
+        width: 100%;
+        border: none;
+        outline: none;
+        padding: 8px;
+        box-sizing: border-box;
+        resize: none;
+    }
+    
+    .error-text-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 90%;
+      height: 20px;
+      margin-bottom: 16px;
+    }
+
+    .error-text {
+      display: none;
+      font-size: 14px;
+      color: var(--customized_lightred);
+    }
