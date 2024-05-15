@@ -1,7 +1,7 @@
 let previousContactIndex = null;
 
-function init() {
-  load();
+async function init() {
+  await loadAllData();
   loadContacts();
   console.log(contacts);
 }
@@ -123,7 +123,6 @@ function editContact() {
   contacts[contactIndex].phone = document.getElementById("edit-contact-tel").value;
  
   renderFloatingContact(contacts[contactIndex]);
-  save();
   showEditContact("hide");
   showContact(contactIndex);
   loadContacts();
@@ -138,21 +137,12 @@ function AddContact() {
 
   let color = generateProfileColor();
 
-  let newContact = {
-    id: "",
-    name: name,
-    email: email,
-    password: "",
-    phone: tel,
-    profileColor: color,
-  };
-
+  let newContact = creatContact(name, email, tel, color)
+  addContacts(newContact);
   AddContactToContacts(newContact);
 }
 
 function AddContactToContacts(newContact) {
-  contacts.push(newContact);
-  save();
 
   document.getElementById("contact-name").value = "";
   document.getElementById("contact-email").value = "";
@@ -163,7 +153,7 @@ function AddContactToContacts(newContact) {
 
   contactCreatedMessage();
 
-  let newIndex = contacts.findIndex((contact) => contact === newContact);
+  let newIndex = contacts.findIndex(contact => contact.id === newContact.id);
 
   scrollToAddedContact(newIndex);
   showContact(newIndex);
@@ -183,16 +173,6 @@ function contactCreatedHideMessage() {
 function scrollToAddedContact(newIndex) {
   let newContactElement = document.getElementById(`contact${newIndex}`);
   newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-function save() {
-  let contactAsText = JSON.stringify(contacts);
-  localStorage.setItem("contact", contactAsText);
-}
-
-function load() {
-  let contactAsText = localStorage.getItem("contact");
-  contacts = contactAsText ? JSON.parse(contactAsText) : [];
 }
 
 // Add Contact Js
@@ -262,14 +242,12 @@ function deleteContact(i) {
   menu.classList.add("remove-contact-detail");
   editCard.classList.add("remove-contact-container");
 
-  contacts.splice(i, 1);
-  save();
-  loadContacts();
-
   // Überprüfe, ob der gelöschte Kontakt der zuvor ausgewählte Kontakt war
   if (previousContactIndex === i) {
     previousContactIndex = null;
   }
+  deleteContacts(i);
+  loadContacts();
 }
 
 function generateProfileColor() {
