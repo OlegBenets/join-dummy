@@ -493,16 +493,16 @@ function generateHTMLbigCard(currentCard) {
     </div>
     <div class='flex-end'>
         <div class='delete-edit-container'>
-            <div class='delete-container'>
+            <div onclick='deleteTask(${currentCard['id']})' class='delete-container'>
                 <div class='delete-img'>
-                    <img src='/assets/img/delete.svg'>
+                    <div class='delete-icon'></div>
                 </div>
                 <p class='delete-txt'>Delete</p>
             </div>
             <div class='seperator-delete'></div>
             <div class='edit-container'>
                 <div class='edit-img'>
-                    <img src='/assets/img/edit_normal.svg'>
+                    <div class='edit-icon'></div>
                 </div>
                 <p class='edit-txt'>Edit</p>
             </div>
@@ -510,6 +510,16 @@ function generateHTMLbigCard(currentCard) {
     </div>
     `
 }
+
+
+function deleteTask(id) {
+    let indexOfTask = tasks.findIndex(t => t.id === id);
+
+    tasks.splice(indexOfTask, 1);
+    loadCards();
+    showMovableContainer('remove', 'bigCard');
+}
+
 
 function generateHTMLAssignedToBigCard(initialsArray, card) {
     let circlesHTML = '';

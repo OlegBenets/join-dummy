@@ -640,6 +640,13 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.delete-icon {
+    width: 16px;
+    height: 18px;
+    background-image: url(/assets/img/delete.svg);
 }
 
 .delete-edit-container {
@@ -660,6 +667,15 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
 .delete-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+
+.delete-container:hover {
+    color: var(--customized_lightblue);
+}
+
+.delete-container:hover .delete-icon {
+    background-image: url(/assets/img/delete_blue.svg);
 }
 
 .seperator-delete {
@@ -673,6 +689,21 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
 .edit-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+
+.edit-icon {
+    width: 18.5px;
+    height: 18.5px;
+    background-image: url(/assets/img/edit_normal.svg);
+}
+
+.edit-container:hover {
+    color: var(--customized_lightblue);
+}
+
+.edit-container:hover .edit-icon {
+    background-image: url(/assets/img/edit_blue.svg);
 }
 
 .edit-img {

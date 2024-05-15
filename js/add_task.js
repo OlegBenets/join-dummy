@@ -1,4 +1,3 @@
-let maxId = 0;
 let currentPrio = 'Medium';
 let currentStatus;
 
@@ -11,7 +10,6 @@ function addTask() {
     let category;
     let prio = currentPrio;
     let status = currentStatus;
-    maxId++
 
     if (categoryTxt == 'User Story') {
         category = true;
@@ -26,29 +24,6 @@ function addTask() {
     loadCards();
     resetForm();
     showAddTaskConfirmation();
-    console.log(tasks);
-    console.log(typeof(task['id']));
-    
-    
-
-    // let task = {
-    //     "asigntTo": [asigntTo.value],
-    //     "category":category,
-    //     "checkedSubtasks": 0,
-    //     "date":date.value,
-    //     "description": description.value,
-    //     "id": maxId,
-    //     "prio": prio,
-    //     "status":status,
-    //     "subTasks":['test', 'test2'],
-    //     "title": title.value
-    // }
-
-    // tasks.push(task);
-    // loadCards();
-    // resetForm();
-
-    // console.log(tasks);
 }
 
 function showAddTaskConfirmation() {
