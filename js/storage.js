@@ -25,28 +25,57 @@ async function putData(path = "", data = {}) {
 /**
  * load all data from the server and saves in the specific variable
  */
-async function loadAllData() {
-    contacts = await loadData("contacts");
-    tasks = await loadData("tasks");
-    validations = await loadData("validations");
+async function loadAllData(target = "all") {
+    switch (target) {
+        case "all":
+            contacts = await loadData("contacts");
+            tasks = await loadData("tasks");
+            validations = await loadData("validations");
+            break;
+
+        case "contacts":
+            contacts = await loadData("contacts");
+            break;
+
+        case "tasks":
+            tasks = await loadData("tasks");
+            break;
+
+        case "validations":
+            validations = await loadData("validations");
+            break;
+    }
+
 }
 
 /**
  * sends all data to the server
  */
-async function saveAllData() {
-    await putData("contacts", contacts);
-    await putData("tasks", tasks);
-    await putData("validations", validations);
+async function saveAllData(target = "all") {
+    switch (target) {
+        case "all":
+            await putData("contacts", contacts);
+            await putData("tasks", tasks);
+            await putData("validations", validations);
+            break;
+
+        case "contacts":
+            await putData("contacts", contacts);
+            break;
+
+        case "tasks":
+            await putData("tasks", tasks);
+            break;
+
+        case "validations":
+            await putData("validations", validations);
+            break;
+    }
 }
 
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
-<<<<<<< HEAD
-=======
-    // let string = toString(id);
->>>>>>> b5c5c27f1ad50433a493cccaa3ea013436aaeaab
     return id;
 }
 
