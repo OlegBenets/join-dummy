@@ -97,12 +97,13 @@ async function encrypt(data) {
   * @param {number} phone - The contact's phone number.
   * @returns {Object} An object representing the newly created contact.
   */
-function creatContact(name, email, phone) {
+function creatContact(name, email, phone ,color) {
     let contact = {
         "id": idGenerator(),
         "name": name,
         "email": email,
-        "phone": phone
+        "phone": phone,
+        "color":color
     };
     return contact;
 }

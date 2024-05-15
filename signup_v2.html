@@ -21,7 +21,7 @@
         <img src="./assets/img/Capa 2.svg" alt="Join logo">
     </div>
 
-    <form id="signUpForm" class="signUpForm">
+    <form id="signUpForm" class="signUpForm" onsubmit="signUpUser(event)">
 
         <div class="haedline">
             <h1>Sign up</h1>
@@ -33,21 +33,21 @@
             <div class="gap24">
 
                 <div class="inputFrame">
-                    <input class="input" type="text" placeholder="Name" required>
+                    <input name="name" class="input" type="text" placeholder="Name" required>
                     <div class="iconFrame">
                         <img src="./assets/img/person (1).svg" alt="person icon">
                     </div>
                 </div>
 
                 <div class="inputFrame">
-                    <input class="input" type="email" placeholder="Email" required>
+                    <input name="email" class="input" type="email" placeholder="Email" required>
                     <div class="iconFrame">
                         <img src="./assets/img/mail.svg" alt="mail icon">
                     </div>
                 </div>
 
                 <div class="inputFrame">
-                    <input class="input" type="password" placeholder="Password" id="input_password" required>
+                    <input name="password" class="input" type="password" placeholder="Password"  required>
                     <div class="iconFrame">
                         <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
                             onclick="showPassword(event)">
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <div class="inputFrame">
-                        <input class="input" type="password" placeholder="Confirm Password" id="input_confirm_password"
+                        <input name="confirmPassword" class="input" type="password" placeholder="Confirm Password" 
                             required>
                         <div class="iconFrame">
                             <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"

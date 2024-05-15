@@ -127,8 +127,14 @@ form {
     visibility: hidden;
 }
 
+.errorVisibility {
+    visibility: visible;
+}
+
+
 .errorBorder {
     border-color: var(--customized_red);
+
 }
 
 .login {

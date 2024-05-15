@@ -1,6 +1,7 @@
 
-function startPage() {
-
+async function startPage() {
+    await loadAllData('validations');
+    console.log(validations);
 }
 
 function enabledButton(event) {
@@ -16,13 +17,18 @@ function enabledButton(event) {
 }
 
 function validationCheck(event) {
-    let form = event.target.closest('form');
-    let input = form.querySelectorAll('input:not([type="checkbox"])');
+    // let form = event.target.closest('form');
+    // let input = form.querySelectorAll('input:not([type="checkbox"])');
 
-    validityCheck(input)
+    let input = event.target.closest('form').querySelectorAll('input:not([type="checkbox"])');
+    validityCheck(input);
+}
 
-    // console.log(form.elements);
-    // console.log(input);
+function validityCheck(elements) {
+    for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        setRedBorder(element);
+    }
 }
 
 function setRedBorder(element) {
@@ -33,16 +39,7 @@ function setRedBorder(element) {
     }
 }
 
-function validityCheck(elements) {
-    // let formvalidity = "";
-    for (let i = 0; i < elements.length; i++) {
-        // let validity = elements[i].checkValidity()
-        let element = elements[i];
-        setRedBorder(element);
-        // formvalidity = formvalidity & validity;
-    }
-    // return formvalidity;
-}
+
 
 async function passwordValidation(event) {
     event.preventDefault();
@@ -51,7 +48,6 @@ async function passwordValidation(event) {
     let logindata = await encryptIput(form);
 
     console.log(logindata);
-    // console.log(password);
 }
 
 async function encryptIput(form) {
@@ -67,7 +63,7 @@ async function encryptIput(form) {
 }
 
 function lookAtLoginData(logindata) {
-    let valdationdata = gatheringValidations();
+    let valdationdata = getValidationsArray();
     for (let i = 0; i < valdationdata.length; i++) {
         let validation = valdationdata[i];
         if (validation.user == logindata.user && validation.password == logindata.password) {
@@ -77,10 +73,32 @@ function lookAtLoginData(logindata) {
     return false
 }
 
-function gatheringValidations() {
-    let list = [];
-    for (let i = 0; i < validations.length; i++) {
-        list.push(getValidations(i));
+function signUpUser(event) {
+    event.preventDefault();
+
+    let form = event.target;
+    confirmPassword(form);
+
+}
+let help = "";
+function confirmPassword(form) {
+    let password_1st = form.elements['password'];
+    let password_2nd = form.elements['confirmPassword'];
+    help = password_2nd;
+    let errorinfo = password_2nd.parentElement.parentElement;
+
+    console.log(password_1st);
+    console.log(password_2nd);
+    console.log(errorinfo);
+
+
+    if (password_1st.value == password_2nd.value) {
+        errorinfo.parentElement.classList.remove('errorInfo');
+        return true;
+    } else {
+        password_2nd.parentElement.classList.add('errorBorder');
+        errorinfo.classList.add('errorInfo');
+        return false
     }
-    return list;
+
 }
