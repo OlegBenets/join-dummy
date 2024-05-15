@@ -1,134 +1,8 @@
-// let todos = [
-//     {
-//         'id': 0,
-//         'title': 'Kochwelt Page & Recipe Recommender',
-//         'description': 'Build start page with recipe recommendation',
-//         'assigned_to': ['Anna Peters', 'Jens Rauer'],
-//         'date': '10/05/2023',
-//         'prio': 'low',
-//         'category': 'Technical Task',
-//         'subtasks': [],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 0,
-//         'column': 'todo'
-//     },
-//     {
-//         'id': 1,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': [],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'User Story',
-//         'subtasks': ['test', 'test2', 'test3'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'progress'
-//     },
-//     {
-//         'id': 2,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Birgit Brauer', 'Bernd Brot', 'Willi Gold'],
-//         'date': '10/05/2023',
-//         'prio': 'urgent',
-//         'category': 'Technical Task',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'await'
-//     },
-//     {
-//         'id': 3,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Patrick Batke', 'Sascha Siegert'],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'User Story',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'progress'
-//     },
-//     {
-//         'id': 4,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Harald Nalle'],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'User Story',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'done'
-//     },
-//     {
-//         'id': 5,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Susie Kalle'],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'Technical Task',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'done'
-//     },
-//     {
-//         'id': 6,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Jasmin Lauer'],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'User Story',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 1,
-//         'column': 'done'
-//     },
-//     {
-//         'id': 7,
-//         'title': 'progress title',
-//         'description': 'test',
-//         'assigned_to': ['Kalle Uso', 'Regina Test', 'Paul Berger'],
-//         'date': '10/05/2023',
-//         'prio': 'medium',
-//         'category': 'Technical Task',
-//         'subtasks': ['test', 'test2'],
-//         'amountOfSubtasks': 0,
-//         'checkedSubtasks': 2,
-//         'column': 'todo'
-//     },
-
-// ]
-
-function test() {
-    let testPush = {
-        "asigntTo":['Anna Peters', 'Jens Rauer'],
-        "category":false,
-        "checkedSubtasks": 1,
-        "date":"10/05/2023",
-        "description": "Build start page with recipe recommendation",
-        "id":1,
-        "prio":"Low",
-        "status":"todo",
-        "subTasks":['test', 'test2'],
-        "title":"Kochwelt Page & Recipe Recommender"
-         
-    }
-    
-    tasks.push(testPush);
-    console.log(tasks);
-}
-
 let currentDraggedItem;
+let allTasks = [];
+allTasks = tasks;
 
 function loadCards() {
-   
     loadTodoCards();
     loadProgressCards();
     loadAwaitCards();
@@ -393,7 +267,8 @@ function allowDrop(ev) {
 
 
 function moveTo(category) {
-    tasks[currentDraggedItem]['status'] = category;
+    task = tasks.filter(task => task.id === currentDraggedItem);
+    task[0].status = category;
     loadCards();
 }
 
@@ -492,16 +367,16 @@ function generateHTMLbigCard(currentCard) {
     </div>
     <div class='flex-end'>
         <div class='delete-edit-container'>
-            <div class='delete-container'>
+            <div onclick='deleteTask(${currentCard['id']})' class='delete-container'>
                 <div class='delete-img'>
-                    <img src='/assets/img/delete.svg'>
+                    <div class='delete-icon'></div>
                 </div>
                 <p class='delete-txt'>Delete</p>
             </div>
             <div class='seperator-delete'></div>
-            <div class='edit-container'>
+            <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit')" class='edit-container'>
                 <div class='edit-img'>
-                    <img src='/assets/img/edit_normal.svg'>
+                    <div class='edit-icon'></div>
                 </div>
                 <p class='edit-txt'>Edit</p>
             </div>
@@ -509,6 +384,100 @@ function generateHTMLbigCard(currentCard) {
     </div>
     `
 }
+
+
+function showEditTask(id) {
+    let container = document.getElementById('big-card-container');
+
+    let indexOfCurTask = tasks.findIndex(t => t.id === id);
+
+    container.innerHTML = generateHTMLEditTask(indexOfCurTask);
+}
+
+function generateHTMLEditTask(indexOfCurTask) {
+    return `
+    <div class='input-edit-cross'>
+        <div onclick="showMovableContainer('remove', 'bigCard'); changeBigCardContainer()" class='close-img-container'>
+            <img src='/assets/img/close.svg'>
+        </div>
+    </div>
+    <div class='edit-content'>
+        <div class='input-title-section'>
+            <p>Title</p>
+            <div class='input-title-field-section'>
+                <input type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
+                
+            </div>
+        </div>
+        <div class='input-description-section'>
+            <p class='input-txt'>Description</p>
+            <div>
+                <textarea class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
+            </div>
+        </div>
+        <div class='input-date-section'>
+            <p class='input-txt'>Due Date</p>
+            <div>
+                <input type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
+            </div>
+        </div>
+        <div class='input-prio-section'>
+            <p class='input-txt'>Priority</p>
+            <div>
+                <div class="prio-container">
+                    <button type="button" onclick="getPrio('Urgent')">Urgent<img src="/assets/img/urgent.svg"></button>
+                    <button type="button" onclick="getPrio('Medium')">Medium<img src="/assets/img/medium.svg"></button>
+                    <button type="button" onclick="getPrio('Low')">Low<img src="/assets/img/low.svg"></button>
+                </div>
+            </div>
+        </div>
+        <div class='input-assign-section'>
+            <p class='input-txt'>Assigned to</p>
+            <div>
+                <select id="input-asignTo">
+                    <option value="" disabled selected hidden>
+                    Select contacts to assign
+                    </option>
+                    <option>Marketing</option>
+                    <option>Development</option>
+                    <option>Design</option>
+                </select>
+            </div>
+        </div>
+        <div class='input-subtasks-section'>
+            <p class='input-txt'>Subtasks</p>
+            <div>
+                <div class="subtask-container">
+                    <input class="subtask-input" type="text" placeholder="Add new subtask"/>
+                    <img src="/assets/img/add.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+}
+
+
+function changeBigCardContainer(parameter) {
+    if (parameter === 'edit') {
+        document.getElementById('big-card-container').classList.add('big-card-edit');
+        document.getElementById('big-card-container').classList.remove('big-card-container');
+    }
+    else {
+        document.getElementById('big-card-container').classList.remove('big-card-edit');
+        document.getElementById('big-card-container').classList.add('big-card-container');
+    }
+    
+}
+
+function deleteTask(id) {
+    let indexOfTask = tasks.findIndex(t => t.id === id);
+
+    tasks.splice(indexOfTask, 1);
+    loadCards();
+    showMovableContainer('remove', 'bigCard');
+}
+
 
 function generateHTMLAssignedToBigCard(initialsArray, card) {
     let circlesHTML = '';
@@ -551,4 +520,32 @@ function generateHTMLsubtasksBig(amount, card) {
 
 function getCurrentStatus(state) {
     currentStatus = state;
+}
+
+function taskSearch() {
+    let inputfield = document.getElementById('search-input').value;
+    let input = inputfield.trim().toLowerCase();
+    filteredTasks = [];
+
+    tasks = allTasks;
+
+    if (input.length > 0) {
+        checkTasks(input, filteredTasks);
+    }
+    else if (input.length == 0) {
+        loadCards();
+    }
+}
+
+
+function checkTasks(input, filteredTasks) {
+    for (let i = 0; i < tasks.length; i++) {
+        const curTask = tasks[i];
+
+        if (curTask['title'].includes(input) || curTask['description'].includes(input)) {
+            filteredTasks.push(curTask)
+        }
+    }
+    tasks = filteredTasks;
+    loadCards();
 }

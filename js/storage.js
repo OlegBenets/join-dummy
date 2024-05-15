@@ -43,6 +43,10 @@ async function saveAllData() {
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
+<<<<<<< HEAD
+=======
+    // let string = toString(id);
+>>>>>>> b5c5c27f1ad50433a493cccaa3ea013436aaeaab
     return id;
 }
 
