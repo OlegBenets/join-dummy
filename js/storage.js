@@ -81,15 +81,10 @@ function idGenerator() {
 
 async function encrypt(data) {
     const encoder = new TextEncoder();
-
     const dataBuffer = encoder.encode(data);
-
     const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-
     const hashedData = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-
     return hashedData;
 }
 
@@ -112,22 +107,25 @@ function creatContact(name, email, phone) {
     return contact;
 }
 
-function addContacts(contact) {
+async function addContacts(contact) {
     let buffer = JSON.stringify(contact);
     contacts.push(JSON.parse(buffer));
+    await saveAllData('contacts');
 }
 
-function deleteContacts(index) {
+async function deleteContacts(index) {
     if (index < contacts.length) {
         contacts.splice(index, 1);
     }
+    await saveAllData('contacts');
 }
 
-function editContacts(index, contact) {
+async function editContacts(index, contact) {
     if (index < contacts.length) {
         let buffer = JSON.stringify(contact);
         contacts[index] = JSON.parse(buffer);
     }
+    await saveAllData('contacts');
 }
 
 function getContacts(index) {
@@ -173,22 +171,25 @@ function creatTask(asigntTo, category, checkedSubtasks, date, description, prio,
     return task;
 }
 
-function addTasks(task) {
+async function addTasks(task) {
     let buffer = JSON.stringify(task);
     tasks.push(JSON.parse(buffer));
+    await saveAllData('tasks');
 }
 
-function deleteTasks(index) {
+async function deleteTasks(index) {
     if (index < tasks.length) {
         tasks.splice(index, 1);
     }
+    await saveAllData('tasks');
 }
 
-function editTasks(index, task) {
+async function editTasks(index, task) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(task);
         tasks[index] = JSON.parse(buffer);
     }
+    await saveAllData('tasks');
 }
 
 function getTasks(index) {
@@ -213,26 +214,29 @@ function creatSubTask(subtitle, checked = "false") {
     return subtask;
 }
 
-function addSubTasks(index, subtask) {
+async function addSubTasks(index, subtask) {
     let buffer = JSON.stringify(subtask);
     tasks[index].subtask.push(JSON.parse(buffer));
+    await saveAllData('tasks');
 }
 
-function deleteSubTasks(index, subindex) {
+async function deleteSubTasks(index, subindex) {
     if (index < tasks.length) {
         if (subindex < tasks[index].subtask.length) {
             tasks[index].subtask.splice(subindex, 1);
         }
     }
+    await saveAllData('tasks');
 }
 
-function editSubTasks(index, subindex, subtask) {
+async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
         if (subindex < tasks[index].subtask.length) {
             let buffer = JSON.stringify(subtask);
             tasks[index].subtask[subindex] = JSON.parse(buffer);
         }
     }
+    await saveAllData('tasks');
 }
 
 function getSubTasks(index, subindex) {
@@ -271,19 +275,21 @@ function creatValidaion(user, password) {
  * this function makes a deep copy of the parameter and push it in the validations array
  * @param {object} validation 
  */
-function addValidations(validation) {
+async function addValidations(validation) {
     let buffer = JSON.stringify(validation);
     validations.push(JSON.parse(buffer));
+    await saveAllData('validations');
 }
 
 /**
  * this function deletes an entry of the validations array on the index position if the index is smaller than that array length
  * @param {number} index - the index number of the entry in the array that will be deleted
  */
-function deleteValidations(index) {
+async function deleteValidations(index) {
     if (index < validations.length) {
         validations.splice(index, 1);
     }
+    await saveAllData('validations');
 }
 
 /**
@@ -291,11 +297,12 @@ function deleteValidations(index) {
   * @param {number} index - The index of the validation to process.
   * @param {object} validation - The updated validation data.
   */
-function editValidations(index, validation) {
+async function editValidations(index, validation) {
     if (index < validations.length) {
         let buffer = JSON.stringify(validation);
         validations[index] = JSON.parse(buffer);
     }
+    await saveAllData('validations');
 }
 
 /**
