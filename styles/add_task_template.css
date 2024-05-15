@@ -299,7 +299,7 @@
         font-size: 20px;
       }
 
-      .input-container {
+      .add-task-input-container {
         display: flex;
         position: relative;
         border: 1px solid #d1d1d1;
@@ -323,9 +323,9 @@
         border-color: var(--customized_red);
     }
     
-    .input-container input,
-    .input-container textarea,
-    .input-container select {
+    .add-task-input-container input,
+    .add-task-input-container textarea,
+    .add-task-input-container select {
         width: 100%;
         border: none;
         outline: none;

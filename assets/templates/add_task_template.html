@@ -17,16 +17,16 @@
                     <span>Title</span><p class="important">*</p>
                 </div>
                 <form onsubmit="testTask(event); return false">
-                <div class="input-container mb" id="title-container">
+                <div class="add-task-input-container mb" id="title-container">
                     <input id="input-title" required type="text" placeholder="Enter a title"/>
                 </div>
                 <div class="error-text-container"><span class="error-text">This field is required</span></div>
                 <span>Description</span>
-                <div class="input-container">
+                <div class="add-task-input-container">
                     <textarea id="input-description" placeholder="Enter a Description"></textarea>
                 </div>
                 <span>Assigned to</span>
-                <div class="input-container">
+                <div class="add-task-input-container">
                     <select id="input-assignTo">
                         <option value="" disabled selected hidden>Select contacts to assign</option>
                         <option>Marketing</option>
@@ -45,7 +45,7 @@
                 <div class="flex">
                     <span>Due date</span><p class="important">*</p>
                 </div>
-                <div class="input-container mb" id="date-container">
+                <div class="add-task-input-container mb" id="date-container">
                     <input id="input-date" class="date-input" type="date"/>
                 </div>
                 <div class="error-text-container"><span class="error-text">This field is required</span></div>
@@ -58,7 +58,7 @@
                 <div class="flex">
                     <span>Category</span><p class="important">*</p>
                 </div>
-                <div class="input-container">
+                <div class="add-task-input-container">
                     <select id="input-category">
                         <option value="" disabled selected hidden>Select task category</option>
                         <option>User Story</option>
@@ -66,7 +66,7 @@
                     </select>
                 </div>
                 <span>Subtasks</span>
-                <div class="input-container">
+                <div class="add-task-input-container">
                       <input class="subtask-input" type="text" placeholder="Add new subtask"/>
                       <img src="/assets/img/add.svg">
               </div>
