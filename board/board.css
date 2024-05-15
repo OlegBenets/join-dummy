@@ -459,6 +459,11 @@ h1 {
     justify-content: space-between;
 }
 
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .close-img-container {
     width: 36px;
     height: 36px;
@@ -629,11 +634,6 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     font-family: inter;
 }
 
-.flex-end {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .delete-img {
     width: 24px;
     height: 24px;
@@ -721,6 +721,80 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 8px;
+}
+
+.input-edit-cross {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 28px;
+}
+
+
+.input-title-field-section {
+    height: 64px;
+}
+
+.edit-textarea {
+    height: 120px;
+    resize: none;
+}
+
+.big-card-edit {
+    display: flex;
+    flex-direction: column;
+    width: 445px;
+    padding: 48px 40px 48px 40px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    height: calc(100vh - 200px);
+}
+
+.edit-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.input-txt {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: inter;
+    color: var(--customized_darkblue);
+    margin-top: 28px;
+    margin-bottom: 8px;
+}
+
+.input-title-section p{
+    font-size: 20px;
+    font-weight: 400;
+    font-family: inter;
+    color: var(--customized_darkblue);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.input-title-field {
+    width: 383px;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: inter;
+    color: black;
+    border: 1px solid var(--customized_lightgray);
+}
+
+.edit-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.edit-content::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.edit-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 
 /* add task confirmation section */

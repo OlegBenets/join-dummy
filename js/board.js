@@ -500,7 +500,7 @@ function generateHTMLbigCard(currentCard) {
                 <p class='delete-txt'>Delete</p>
             </div>
             <div class='seperator-delete'></div>
-            <div class='edit-container'>
+            <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit')" class='edit-container'>
                 <div class='edit-img'>
                     <div class='edit-icon'></div>
                 </div>
@@ -511,6 +511,90 @@ function generateHTMLbigCard(currentCard) {
     `
 }
 
+
+function showEditTask(id) {
+    let container = document.getElementById('big-card-container');
+
+    let indexOfCurTask = tasks.findIndex(t => t.id === id);
+
+    container.innerHTML = generateHTMLEditTask(indexOfCurTask);
+}
+
+function generateHTMLEditTask(indexOfCurTask) {
+    return `
+    <div class='input-edit-cross'>
+        <div onclick="showMovableContainer('remove', 'bigCard'); changeBigCardContainer()" class='close-img-container'>
+            <img src='/assets/img/close.svg'>
+        </div>
+    </div>
+    <div class='edit-content'>
+        <div class='input-title-section'>
+            <p>Title</p>
+            <div class='input-title-field-section'>
+                <input type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
+                
+            </div>
+        </div>
+        <div class='input-description-section'>
+            <p class='input-txt'>Description</p>
+            <div>
+                <textarea class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
+            </div>
+        </div>
+        <div class='input-date-section'>
+            <p class='input-txt'>Due Date</p>
+            <div>
+                <input type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
+            </div>
+        </div>
+        <div class='input-prio-section'>
+            <p class='input-txt'>Priority</p>
+            <div>
+                <div class="prio-container">
+                    <button type="button" onclick="getPrio('Urgent')">Urgent<img src="/assets/img/urgent.svg"></button>
+                    <button type="button" onclick="getPrio('Medium')">Medium<img src="/assets/img/medium.svg"></button>
+                    <button type="button" onclick="getPrio('Low')">Low<img src="/assets/img/low.svg"></button>
+                </div>
+            </div>
+        </div>
+        <div class='input-assign-section'>
+            <p class='input-txt'>Assigned to</p>
+            <div>
+                <select id="input-asignTo">
+                    <option value="" disabled selected hidden>
+                    Select contacts to assign
+                    </option>
+                    <option>Marketing</option>
+                    <option>Development</option>
+                    <option>Design</option>
+                </select>
+            </div>
+        </div>
+        <div class='input-subtasks-section'>
+            <p class='input-txt'>Subtasks</p>
+            <div>
+                <div class="subtask-container">
+                    <input class="subtask-input" type="text" placeholder="Add new subtask"/>
+                    <img src="/assets/img/add.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+}
+
+
+function changeBigCardContainer(parameter) {
+    if (parameter === 'edit') {
+        document.getElementById('big-card-container').classList.add('big-card-edit');
+        document.getElementById('big-card-container').classList.remove('big-card-container');
+    }
+    else {
+        document.getElementById('big-card-container').classList.remove('big-card-edit');
+        document.getElementById('big-card-container').classList.add('big-card-container');
+    }
+    
+}
 
 function deleteTask(id) {
     let indexOfTask = tasks.findIndex(t => t.id === id);
