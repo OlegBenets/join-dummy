@@ -1,11 +1,12 @@
 let currentDraggedItem;
-let allTasks;
+let allTasks = [];
 let filterdtasks = [];
+let loadedTasks = [];
 
 
 async function init() {
     await loadAllData();
-    allTasks = await getTasksArray();
+    await getAllTasks();
     loadCards();
 }
 
@@ -14,10 +15,10 @@ function loadCards() {
     loadProgressCards();
     loadAwaitCards();
     loadDoneCards();
-    console.log(tasks);
 }
 
 async function loadTodoCards() {
+
     let todo = allTasks.filter(t => t['status'] == 'todo');
 
     document.getElementById('todo-column').innerHTML = '';
@@ -97,6 +98,11 @@ async function loadDoneCards() {
     else {
         document.getElementById('done-column').innerHTML += generateEmptyColumnHTML('done');
     }
+}
+
+async function getAllTasks() {
+    loadedTasks = await getTasksArray();
+    allTasks = loadedTasks;
 }
 
 
@@ -545,8 +551,8 @@ async function taskSearch() {
     let inputfield = document.getElementById('search-input').value;
     let input = inputfield.trim().toLowerCase();
     filteredTasks = [];
-    allTasks = await getTasksArray();
-
+    allTasks = loadedTasks;
+    console.log(loadedTasks);
 
     if (input.length >= 0) {
         checkTasks(input, filteredTasks);

@@ -20,6 +20,7 @@ async function addTask() {
 
     let task = creatTask([asigntTo], category, 1, date, description, prio, status, ['test1', 'test2'], title);
     await addTasks(task);
+    await getAllTasks();
     loadCards();
     resetForm();
     showAddTaskConfirmation();
