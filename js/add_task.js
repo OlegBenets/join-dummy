@@ -18,6 +18,7 @@ async function addTask() {
         category = false;
     }
 
+    testTask();
     let task = creatTask([asigntTo], category, 1, date, description, prio, status, ['test1', 'test2'], title);
     await addTasks(task);
     await getAllTasks();
@@ -57,3 +58,73 @@ function getPrio(prio) {
         currentPrio = 'Urgent';
     }
 }
+
+function setFocusedBorder(element) {
+    element.classList.add('focused');
+}
+
+function setErrorBorder(elements) {
+    elements.forEach(element => {
+        element.classList.add('error');
+    });
+}
+
+function removeErrorBorder(elements) {
+    elements.forEach(element => {
+        element.classList.remove('error');
+    });
+}
+
+function testTask() {
+    const titleInput = document.getElementById('input-title');
+    const dateInput = document.getElementById('input-date');
+    let input = document.querySelectorAll('.add-task-input-container');
+
+    let isTitleValid = titleInput.value.trim() !== '';
+    let isDateValid = dateInput.value.trim() !== '';
+
+    // Validierung für den Titel
+    if (!isTitleValid) {
+        setErrorBorder(input);
+        titleInput.querySelector('.error-text').style.display = 'block';
+    } else {
+        removeErrorBorder(input);
+        titleInput.querySelector('.error-text').style.display = 'none';
+    }
+
+    // Validierung für das Datum
+    if (!isDateValid) {
+        setErrorBorder(input);
+        dateInput.querySelector('.error-text').style.display = 'block';
+    } else {
+        removeErrorBorder(input);
+        dateInput.querySelector('.error-text').style.display = 'none';
+    }
+
+    // Überprüfen, ob beide Felder gültig sind
+    if (isTitleValid && isDateValid) {
+        console.log("Aufgabe erfolgreich erstellt!");
+    } else {
+        console.log("Bitte füllen Sie die erforderlichen Felder aus.");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const inputs = document.querySelectorAll('.add-task-input-container');
+
+    inputs.forEach(inputContainer => {
+        inputContainer.addEventListener('click', () => {
+            inputs.forEach(container => {
+                container.classList.remove('focused');
+            });
+            inputContainer.classList.add('focused');
+        });
+    });
+
+    // Eventlistener für Fokusborderrahmen
+    inputs.forEach(inputContainer => {
+        inputContainer.addEventListener('blur', () => {
+            inputContainer.classList.remove('focused');
+        });
+    });
+});

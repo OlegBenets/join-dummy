@@ -18,19 +18,19 @@
       <div class="seperate-description-deadline">
         <div class="task-description">
           <div class="flex">
-            <span>Title</span>
+            <span class="task-description-span">Title</span>
             <p class="important">*</p>
           </div>
 
           <div class="add-task-input-container mb" id="title-container">
-            <input id="input-title" required type="text" placeholder="Enter a title" />
+            <input required  id="input-title" type="text" placeholder="Enter a title" />
           </div>
           <div class="error-text-container"><span class="error-text">This field is required</span></div>
-          <span>Description</span>
+          <span class="task-description-span">Description</span>
           <div class="add-task-input-container">
             <textarea id="input-description" placeholder="Enter a Description"></textarea>
           </div>
-          <span>Assigned to</span>
+          <span class="task-description-span">Assigned to</span>
           <div class="add-task-input-container">
             <select id="input-assignTo">
               <option value="" disabled selected hidden>Select contacts to assign</option>
@@ -48,21 +48,21 @@
         <div class="seperator"></div>
         <div class="task-deadline">
           <div class="flex">
-            <span>Due date</span>
+            <span class="task-deadline-span">Due date</span>
             <p class="important">*</p>
           </div>
           <div class="add-task-input-container mb" id="date-container">
-            <input id="input-date" class="date-input" type="date" />
+            <input required id="input-date" class="date-input" type="date" />
           </div>
           <div class="error-text-container"><span class="error-text">This field is required</span></div>
-          <span>Prio</span>
+          <span class="task-deadline-span">Prio</span>
           <div class="prio-container">
             <button type="button" onclick="getPrio('Urgent')">Urgent<img src="/assets/img/urgent.svg"></button>
             <button type="button" onclick="getPrio('Medium')">Medium<img src="/assets/img/medium.svg"></button>
             <button type="button" onclick="getPrio('Low')">Low<img src="/assets/img/low.svg"></button>
           </div>
           <div class="flex">
-            <span>Category</span>
+            <span class="task-deadline-span">Category</span>
             <p class="important">*</p>
           </div>
           <div class="add-task-input-container">
@@ -72,7 +72,7 @@
               <option>Technical Task</option>
             </select>
           </div>
-          <span>Subtasks</span>
+          <span class="task-deadline-span">Subtasks</span>
           <div class="add-task-input-container">
             <input class="subtask-input" type="text" placeholder="Add new subtask" />
             <img src="/assets/img/add.svg">
@@ -95,53 +95,6 @@
       </div>
     </form>
   </div>
-
-  <script>
-    function setBorder() {
-      const inputElements = document.querySelectorAll('input, textarea, select');
-      inputElements.forEach(element => {
-        element.addEventListener('focus', () => {
-          element.parentElement.classList.add('focused');
-        });
-        element.addEventListener('blur', () => {
-          element.parentElement.classList.remove('focused');
-        });
-      });
-    }
-
-    function testTask(event) {
-      event.preventDefault();
-
-      const titleInput = document.getElementById('input-title');
-      const dateInput = document.getElementById('input-date');
-      const errorTextTitle = document.querySelector('#title-container .error-text');
-      const errorTextDate = document.querySelector('#date-container .error-text');
-
-      // Überprüfe beide Eingabefelder und zeige Fehlermeldungen an, falls erforderlich
-      const inputs = [
-        { input: titleInput, errorText: errorTextTitle },
-        { input: dateInput, errorText: errorTextDate }
-      ];
-
-      inputs.forEach(inputItem => {
-        if (inputItem.input.value.trim() === '') {
-          inputItem.input.parentElement.classList.add('error');
-          inputItem.errorText.style.display = 'block';
-        } else {
-          inputItem.input.parentElement.classList.remove('error');
-          inputItem.errorText.style.display = 'none';
-        }
-
-        // Füge Event-Listener hinzu, um die Fehlermeldung auszublenden, wenn Text eingegeben wird
-        inputItem.input.addEventListener('input', () => {
-          if (inputItem.input.value.trim() !== '') {
-            inputItem.input.parentElement.classList.remove('error');
-            inputItem.errorText.style.display = 'none';
-          }
-        });
-      });
-    }
-  </script>
 </body>
 
 </html>
