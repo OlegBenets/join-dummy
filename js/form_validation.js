@@ -85,7 +85,7 @@ function confirmPassword(form) {
     let password_1st = form.elements['password'];
     let password_2nd = form.elements['confirmPassword'];
     help = password_2nd;
-    let errorinfo = password_2nd.parentElement.parentElement;
+    let errorinfo = password_2nd.parentElement.parentElement.querySelector('.errorInfo');
 
     console.log(password_1st);
     console.log(password_2nd);
@@ -93,11 +93,11 @@ function confirmPassword(form) {
 
 
     if (password_1st.value == password_2nd.value) {
-        errorinfo.parentElement.classList.remove('errorInfo');
+        errorinfo.parentElement.classList.remove('errorVisibility');
         return true;
     } else {
         password_2nd.parentElement.classList.add('errorBorder');
-        errorinfo.classList.add('errorInfo');
+        errorinfo.classList.add('errorVisibility');
         return false
     }
 

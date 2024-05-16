@@ -148,7 +148,6 @@ async function getContactsArray() {
  * Creates a new task
  * @param {Array} asigntTo  - the list of asignt users
  * @param {boolean} category  - the flag that indicates whether it is a technical task or a user story
- * @param {Array} checkedSubtasks 
  * @param {number} date - the due date of the task
  * @param {string} description - the text that describe the task
  * @param {number} prio - the priority the task have (high medium low)
@@ -157,11 +156,10 @@ async function getContactsArray() {
  * @param {string} title - the title of the task
  * @returns {object} An object representing the newly created task.
  */
-function creatTask(asigntTo, category, checkedSubtasks, date, description, prio, status, subTasks, title) {
+function creatTask(asigntTo, category, date, description, prio, status, subTasks, title) {
     let task = {
         "asigntTo": asigntTo,
         "category": category,
-        "checkedSubtasks": checkedSubtasks,
         "date": date,
         "description": description,
         "id": idGenerator(),
