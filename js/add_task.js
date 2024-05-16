@@ -64,41 +64,40 @@ function setFocusedBorder(element) {
 }
 
 function setErrorBorder(elements) {
-    elements.forEach(element => {
-        element.classList.add('error');
-    });
+        elements.classList.add('error');
 }
 
 function removeErrorBorder(elements) {
-    elements.forEach(element => {
-        element.classList.remove('error');
-    });
+        elements.classList.remove('error');
 }
+
+//Set focused or error border for inputs
 
 function testTask() {
     const titleInput = document.getElementById('input-title');
     const dateInput = document.getElementById('input-date');
-    let input = document.querySelectorAll('.add-task-input-container');
+    let titleError = document.getElementById('title-error');
+    let dateError = document.getElementById('date-error');
 
     let isTitleValid = titleInput.value.trim() !== '';
     let isDateValid = dateInput.value.trim() !== '';
 
     // Validierung für den Titel
     if (!isTitleValid) {
-        setErrorBorder(input);
-        titleInput.querySelector('.error-text').style.display = 'block';
+        setErrorBorder(titleInput.parentElement);
+        titleError.querySelector('.error-text').style.display = 'block';
     } else {
-        removeErrorBorder(input);
-        titleInput.querySelector('.error-text').style.display = 'none';
+        removeErrorBorder(titleInput.parentElement);
+        titleError.querySelector('.error-text').style.display = 'none';
     }
 
     // Validierung für das Datum
     if (!isDateValid) {
-        setErrorBorder(input);
-        dateInput.querySelector('.error-text').style.display = 'block';
+        setErrorBorder(dateInput.parentElement);
+        dateError.querySelector('.error-text').style.display = 'block';
     } else {
-        removeErrorBorder(input);
-        dateInput.querySelector('.error-text').style.display = 'none';
+        removeErrorBorder(dateInput.parentElement);
+        dateError.querySelector('.error-text').style.display = 'none';
     }
 
     // Überprüfen, ob beide Felder gültig sind
@@ -109,22 +108,32 @@ function testTask() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function clickInputContainer() {
     const inputs = document.querySelectorAll('.add-task-input-container');
 
     inputs.forEach(inputContainer => {
-        inputContainer.addEventListener('click', () => {
-            inputs.forEach(container => {
-                container.classList.remove('focused');
-            });
-            inputContainer.classList.add('focused');
-        });
-    });
+        inputContainer.onclick = function() {
+            handleInputContainerClick(inputContainer);
+        };
 
-    // Eventlistener für Fokusborderrahmen
-    inputs.forEach(inputContainer => {
-        inputContainer.addEventListener('blur', () => {
-            inputContainer.classList.remove('focused');
-        });
+        inputContainer.onblur = function() {
+            handleInputContainerBlur(inputContainer);
+        };
     });
-});
+}
+
+function handleInputContainerClick(clickedInputContainer) {
+    const inputs = document.querySelectorAll('.add-task-input-container');
+    
+    inputs.forEach(container => {
+        container.classList.remove('focused');
+    });
+    
+    clickedInputContainer.classList.add('focused');
+}
+
+function handleInputContainerBlur(blurInputContainer) {
+    blurInputContainer.classList.remove('focused');
+}
+
+document.addEventListener("DOMContentLoaded", clickInputContainer);
