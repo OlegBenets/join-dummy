@@ -218,20 +218,25 @@ function generateHTMLAssignedTo(initialsArray) {
     return circlesHTML;
 }
 
-
+function checkCheckedSubtasks(allSubtasks) {
+    let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'true');
+    let amountOfCheckedSubtasks = checkedSubtasks.length;
+    return amountOfCheckedSubtasks;
+}
 
 function checkSubtasks(card, whichCard) {
     let allSubtasks = card['subTasks'];
-    let amount = 0;
+    let amountOfCheckedSubtasks = checkCheckedSubtasks(allSubtasks);
+    let amountOfSubtasks = 0;
 
     if (allSubtasks.length !== 0) {
-        amount = allSubtasks.length;
+        amountOfSubtasks = allSubtasks.length;
 
         if (whichCard == 'small-card') {
-            return generateHTMLsubtasks(amount, card);
+            return generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks);
         }
         else if (whichCard == 'big-card') {
-            return generateHTMLsubtasksBig(amount, card);
+            return generateHTMLsubtasksBig(amountOfSubtasks, card);
         }
     }
     else {
@@ -240,14 +245,14 @@ function checkSubtasks(card, whichCard) {
 }
 
 
-function generateHTMLsubtasks(amount, card) {
+function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
     return `
         <div class='progress-container'>
             <div class="progress-bar">
                 <div id='progress${card['id']}' class="progress"></div>
             </div>
             <div class='progress-txt-container'>
-                <p>${card['checkedSubtasks']}/${amount} Subtasks</p>
+                <p>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
             </div>
         </div> 
     `
@@ -521,25 +526,44 @@ function generateHTMLAssignedToBigCard(initialsArray, card) {
     return circlesHTML;
 }
 
-function generateHTMLsubtasksBig(amount, card) {
+function generateHTMLsubtasksBig(amountOfSubtasks, card) {
     let subtasksHTML = '';
 
-    for (let i = 0; i < amount; i++) {
-        const element = card['subTasks'][i];
+    for (let i = 0; i < amountOfSubtasks; i++) {
+        const subtask = card['subTasks'][i];
+        let checked = subtask['checked'];
         
         subtasksHTML += `
         <div class='big-card-one-subtask'>
-            <input type='checkbox' id="myCheckbox${i}">
+            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}', '${subtask['checked']}')" ${checked}>
             <label for="myCheckbox${i}" class="checkbox-label">
                 <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
                 <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
             </label>
-            <div class='subtasks-txt'>${element}</div>
+            <div class='subtasks-txt'>${subtask['subtitle']}</div>
         </div>
     `
     }
     
     return subtasksHTML;
+}
+
+
+
+async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName, subtaskStatus) {
+    indexOfTask = allTasks.findIndex(task => task.id === cardId);
+    let newSubtaskStatus;
+
+    if (subtaskStatus === 'unchecked') {
+        newSubtaskStatus = 'checked';
+    }
+    else if (subtaskStatus === 'checked') {
+        newSubtaskStatus = 'unchecked';
+    }
+    
+    let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
+    console.log(changedSubtask);
+    await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
 }
 
 

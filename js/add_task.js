@@ -1,6 +1,6 @@
 let currentPrio = 'Medium';
 let currentStatus;
-let currentSubtasks;
+let currentSubtasks = [];
 
 async function addTask() {
     let title = document.getElementById('input-title').value;
@@ -19,8 +19,8 @@ async function addTask() {
         category = false;
     }
 
-    testTask();
-    let task = creatTask([asigntTo], category, 1, date, description, prio, status, ['test1', 'test2'], title);
+    // testTask();
+    let task = creatTask([asigntTo], category, date, description, prio, status, currentSubtasks, title);
     await addTasks(task);
     await getAllTasks();
     loadCards();
@@ -63,14 +63,33 @@ function getPrio(prio) {
 function addSubtaskToPopup() {
     let subtitle = document.getElementById('subtasks-input').value;
 
-    let subtask = creatSubTask(subtitle, checked = "false");
+    let subtask = creatSubTask(subtitle, checked = "checked");
 
     currentSubtasks.push(subtask);
-
+    renderSubtasksInPopup();
 }
 
 function renderSubtasksInPopup() {
+    let container = document.getElementById('subtasks-popup-section');
+    container.innerHTML = '';
 
+    for (let i = 0; i < currentSubtasks.length; i++) {
+        const subtask = currentSubtasks[i];
+        
+        container.innerHTML += generateHTMLsubtasksPopup(subtask);
+    }
+}
+
+function generateHTMLsubtasksPopup(subtask) {
+    return `
+    <ul class='subtask-popup-ul-container'>
+        <li class='subtasks-popup-li'>${subtask['subtitle']}</li>
+    </ul>
+    `
+}
+
+function clearSubtaskInput() {
+    document.getElementById('subtasks-input').value = '';
 }
 
 function checkInput() {

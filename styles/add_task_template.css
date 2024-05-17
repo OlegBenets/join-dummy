@@ -380,3 +380,32 @@
       display: none;
       align-items: center;
     }
+
+    .subtask-popup-ul-container {
+      /* width: 440px; */
+      display: flex;
+      align-items: center;
+      height: 32px;
+      margin-top: 8px;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .subtask-popup-ul-container:hover {
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .subtasks-popup-ul {
+      margin-top: 8px;
+    }
+
+    .subtasks-popup-section {
+      height: 140px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .margin-bottom-0 {
+      margin-bottom: 0px !important;
+    }

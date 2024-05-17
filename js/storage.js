@@ -206,7 +206,7 @@ async function getTasksArray() {
 
 //Subtask handling functions
 
-function creatSubTask(subtitle, checked = "false") {
+function creatSubTask(subtitle, checked = "unchecked") {
     let subtask = {
         "subtitle": subtitle,
         "checked": checked
