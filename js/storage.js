@@ -1,6 +1,6 @@
 let contacts = []
 let tasks = [];
-let validations = [];
+let loginData = [];
 
 let activUser = "guest";
 
@@ -30,7 +30,7 @@ async function loadAllData(target = "all") {
         case "all":
             contacts = await loadData("contacts");
             tasks = await loadData("tasks");
-            validations = await loadData("validations");
+            loginData = await loadData("loginData");
             break;
 
         case "contacts":
@@ -41,8 +41,8 @@ async function loadAllData(target = "all") {
             tasks = await loadData("tasks");
             break;
 
-        case "validations":
-            validations = await loadData("validations");
+        case "loginData":
+            loginData = await loadData("loginData");
             break;
     }
 
@@ -56,7 +56,7 @@ async function saveAllData(target = "all") {
         case "all":
             await putData("contacts", contacts);
             await putData("tasks", tasks);
-            await putData("validations", validations);
+            await putData("loginData", loginData);
             break;
 
         case "contacts":
@@ -67,8 +67,8 @@ async function saveAllData(target = "all") {
             await putData("tasks", tasks);
             break;
 
-        case "validations":
-            await putData("validations", validations);
+        case "loginData":
+            await putData("loginData", loginData);
             break;
     }
 }
@@ -272,37 +272,37 @@ function creatValidaion(user, password) {
 }
 
 /**
- * this function makes a deep copy of the parameter and push it in the validations array
+ * this function makes a deep copy of the parameter and push it in the loginData array
  * @param {object} validation 
  */
-async function addValidations(validation) {
+async function addLoginData(validation) {
     let buffer = JSON.stringify(validation);
-    validations.push(await JSON.parse(buffer));
-    await saveAllData('validations');
+    loginData.push(await JSON.parse(buffer));
+    await saveAllData('loginData');
 }
 
 /**
- * this function deletes an entry of the validations array on the index position if the index is smaller than that array length
+ * this function deletes an entry of the loginData array on the index position if the index is smaller than that array length
  * @param {number} index - the index number of the entry in the array that will be deleted
  */
-async function deleteValidations(index) {
-    if (index < validations.length) {
-        validations.splice(index, 1);
+async function deleteLoginData(index) {
+    if (index < loginData.length) {
+        loginData.splice(index, 1);
     }
-    await saveAllData('validations');
+    await saveAllData('loginData');
 }
 
 /**
-  * Edits the validations array based on the index and updated validation data. with an deep copy of the valdation
+  * Edits the loginData array based on the index and updated validation data. with an deep copy of the valdation
   * @param {number} index - The index of the validation to process.
   * @param {object} validation - The updated validation data.
   */
-async function editValidations(index, validation) {
-    if (index < validations.length) {
+async function editLoginData(index, validation) {
+    if (index < loginData.length) {
         let buffer = JSON.stringify(validation);
-        validations[index] = await JSON.parse(buffer);
+        loginData[index] = await JSON.parse(buffer);
     }
-    await saveAllData('validations');
+    await saveAllData('loginData');
 }
 
 /**
@@ -310,14 +310,14 @@ async function editValidations(index, validation) {
   * @param {number} index - The index of the validation to retrieve.
   * @returns {object} - The validation data.
   */
-async function getValidations(index) {
-    if (index < validations.length) {
-        let buffer = JSON.stringify(validations[index]);
+async function getLoginData(index) {
+    if (index < loginData.length) {
+        let buffer = JSON.stringify(loginData[index]);
         return await JSON.parse(buffer);
     }
 }
 
-async function getValidationsArray() {
-    let buffer = JSON.stringify(validations);
+async function getLoginDataArray() {
+    let buffer = JSON.stringify(loginData);
     return await JSON.parse(buffer);
 }

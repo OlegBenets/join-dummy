@@ -80,17 +80,11 @@ function signUpUser(event) {
     confirmPassword(form);
 
 }
-let help = "";
+
 function confirmPassword(form) {
     let password_1st = form.elements['password'];
     let password_2nd = form.elements['confirmPassword'];
-    help = password_2nd;
     let errorinfo = password_2nd.parentElement.parentElement.querySelector('.errorInfo');
-
-    console.log(password_1st);
-    console.log(password_2nd);
-    console.log(errorinfo);
-
 
     if (password_1st.value == password_2nd.value) {
         errorinfo.parentElement.classList.remove('errorVisibility');
@@ -102,3 +96,7 @@ function confirmPassword(form) {
     }
 
 }
+
+{input.firstChild.addEventListener('focus',(event)=> {
+    funktion(event)
+}) } 
