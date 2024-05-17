@@ -97,11 +97,18 @@
             <span class="task-deadline-span">Subtasks</span>
             <div class="add-task-input-container">
               <input
+                oninput="checkInput()"
                 class="subtask-input"
                 type="text"
                 placeholder="Add new subtask"
+                id="subtasks-input"
               />
-              <img src="/assets/img/add.svg" />
+              <img id="subtasks-popup-empty-img" src="/assets/img/add.svg" />
+              <div id="subtasks-popup-full-img" class="display-none">
+                  <div class="subtask-popup-cross-container">
+                    <img src="/assets/img/cancel.svg" alt="cross-img">
+                  </div>
+              </div>
             </div>
           </div>
         </div>

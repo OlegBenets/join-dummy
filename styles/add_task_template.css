@@ -349,3 +349,12 @@
       font-size: 14px;
       color: var(--customized_lightred);
     }
+
+    .display-none {
+      display: none;
+    }
+
+    .subtask-popup-cross-container {
+      width: 24px;
+      height: 24px;
+    }

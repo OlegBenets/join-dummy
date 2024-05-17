@@ -1,5 +1,6 @@
 let currentPrio = 'Medium';
 let currentStatus;
+let currentSubtasks;
 
 async function addTask() {
     let title = document.getElementById('input-title').value;
@@ -56,6 +57,33 @@ function getPrio(prio) {
     }
     else if (prio == 'Urgent') {
         currentPrio = 'Urgent';
+    }
+}
+
+function addSubtaskToPopup() {
+    let subtitle = document.getElementById('subtasks-input').value;
+
+    let subtask = creatSubTask(subtitle, checked = "false");
+
+    currentSubtasks.push(subtask);
+
+}
+
+function renderSubtasksInPopup() {
+
+}
+
+function checkInput() {
+    const inputField = document.getElementById('subtasks-input');
+    const emptyInputImg = document.getElementById('subtasks-popup-empty-img');
+    const fullInputImgs = document.getElementById('subtasks-popup-full-img');
+
+    if (inputField.value.trim() !== '') {
+        emptyInputImg.classList.add('display-none');
+        fullInputImgs.classList.remove('display-none');
+    } else {
+        emptyInputImg.classList.remove('display-none');
+        fullInputImgs.classList.add('display-none');
     }
 }
 
