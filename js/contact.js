@@ -1,12 +1,17 @@
 let previousContactIndex = null;
+let realPreviousContactIndex = "";
+let contactList = [];
+let contactListUnsorted = [];
 
 async function init() {
   await loadAllData();
+  contactList = await getContactsArray();
   loadContacts();
-  console.log(contacts);
 }
 
-function loadContacts() {
+async function loadContacts() {
+  contactList = await getContactsArray();
+  contactListUnsorted = await getContactsArray();
   sortContacts();
 
   let allContacts = document.getElementById("all-contacts");
@@ -14,8 +19,8 @@ function loadContacts() {
 
   let previousInitial = "";
 
-  for (let i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
+  for (let i = 0; i < contactList.length; i++) {
+    const contact = contactList[i];
     const initial = contact.name.charAt(0).toUpperCase();
 
     if (initial !== previousInitial) {
@@ -28,7 +33,7 @@ function loadContacts() {
 }
 
 function sortContacts() {
-  contacts.sort((a, b) => {
+  contactList.sort((a, b) => {
     return a.name.localeCompare(b.name);
   });
 }
@@ -77,7 +82,6 @@ function renderContacts(contact, i) {
 }
 
 function renderFloatingContact(contact) {
-  console.log(contact);
   let { initials, name } = extractInitialsAndName(contact);
 
   document.getElementById("card-tel").innerHTML = contact.phone;
@@ -91,47 +95,45 @@ function renderFloatingContact(contact) {
 }
 
 function renderEditContact(contact) {
-  console.log("renderEditContact", contact);
   let { initials } = extractInitialsAndName(contact);
 
   document.getElementById("edit-initial").innerHTML = initials;
   document.getElementById("edit-contact-name").value = contact.name;
   document.getElementById("edit-contact-email").value = contact.email;
   document.getElementById("edit-contact-tel").value = contact.phone;
-  document.getElementById("profile-color").style.backgroundColor =
-    "#" + contact.color;
+  document.getElementById("profile-color").style.backgroundColor = "#" + contact.color;
 }
 
 function showEditContact(parameter) {
   let contactIndex = previousContactIndex;
-  let contact = contacts[contactIndex];
-  console.log("showEditContact", contact);
+  let contact = contactList[contactIndex];
   let editCard = document.getElementById("edit-card");
   if (parameter == "show") {
     editCard.classList.remove("remove-contact-container");
   } else if (parameter == "hide") {
     editCard.classList.add("remove-contact-container");
   }
-
   renderEditContact(contact);
 }
 
-function editContact() {
+async function editContact() {
   let contactIndex = previousContactIndex;
+  let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
+  let changeContact = await getContacts(realIndex);
 
-  contacts[contactIndex].name = document.getElementById("edit-contact-name").value;
-  contacts[contactIndex].email = document.getElementById("edit-contact-email").value;
-  contacts[contactIndex].phone = document.getElementById("edit-contact-tel").value;
+  changeContact.name = document.getElementById("edit-contact-name").value;
+  changeContact.email = document.getElementById("edit-contact-email").value;
+  changeContact.phone = document.getElementById("edit-contact-tel").value;
  
-  renderFloatingContact(contacts[contactIndex]);
+  await editContacts(realIndex, changeContact);
   showEditContact("hide");
   showContact(contactIndex);
-  loadContacts();
+  await loadContacts();
+  renderFloatingContact(contactList[contactIndex]);
 }
-
 //Add Contact Js
 
-function AddContact() {
+async function AddContact() {
   let name = document.getElementById("contact-name").value;
   let email = document.getElementById("contact-email").value;
   let tel = document.getElementById("contact-tel").value;
@@ -139,23 +141,19 @@ function AddContact() {
   let color = generateProfileColor();
 
   let newContact = creatContact(name, email, tel, color)
-  addContacts(newContact);
+  await addContacts(newContact);
   AddContactToContacts(newContact);
 }
 
-function AddContactToContacts(newContact) {
-
+async function AddContactToContacts(newContact) {
   document.getElementById("contact-name").value = "";
   document.getElementById("contact-email").value = "";
   document.getElementById("contact-tel").value = "";
 
+  await loadContacts();
   showAddContact();
-  loadContacts();
-
   contactCreatedMessage();
-
-  let newIndex = contacts.findIndex(contact => contact.id === newContact.id);
-
+  let newIndex = contactList.findIndex(contact => contact.id === newContact.id);
   scrollToAddedContact(newIndex);
   showContact(newIndex);
 }
@@ -225,15 +223,17 @@ function showContact(i) {
     // Aktualisiere den Index des vorherigen Kontakts
     previousContactIndex = i;
 
-    renderFloatingContact(contacts[i]);
+    renderFloatingContact(contactList[i]);
   }
 }
 
-function deleteCurrentContact() {
-  deleteContact(previousContactIndex);
+async function deleteCurrentContact() {
+  let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
+ await deleteContact(previousContactIndex, realIndex);
 }
 
-function deleteContact(i) {
+async function deleteContact(i, realIndex) {
+  previousContactIndex = null;
   let menu = document.getElementById("contact-detail-data");
   let contact = document.getElementById(`contact${i}`);
   let editCard = document.getElementById("edit-card");
@@ -243,12 +243,8 @@ function deleteContact(i) {
   menu.classList.add("remove-contact-detail");
   editCard.classList.add("remove-contact-container");
 
-  // Überprüfe, ob der gelöschte Kontakt der zuvor ausgewählte Kontakt war
-  if (previousContactIndex === i) {
-    previousContactIndex = null;
-  }
-  deleteContacts(i);
-  loadContacts();
+  await deleteContacts(realIndex);
+  await loadContacts();
 }
 
 function generateProfileColor() {
