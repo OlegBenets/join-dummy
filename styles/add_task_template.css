@@ -354,7 +354,29 @@
       display: none;
     }
 
-    .subtask-popup-cross-container {
+    .subtask-popup-img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 24px;
       height: 24px;
+      cursor: pointer;
+    }
+
+    .subtask-popup-img-container:hover {
+      border-radius: 16px;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .subtasks-popup-seperator {
+      width: 1px;
+      height: 24px;
+      background-color: var(--customized_lightgray);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .subtasks-popup-full-container {
+      display: none;
+      align-items: center;
     }

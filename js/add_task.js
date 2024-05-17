@@ -80,10 +80,10 @@ function checkInput() {
 
     if (inputField.value.trim() !== '') {
         emptyInputImg.classList.add('display-none');
-        fullInputImgs.classList.remove('display-none');
+        fullInputImgs.style.display = 'flex';
     } else {
         emptyInputImg.classList.remove('display-none');
-        fullInputImgs.classList.add('display-none');
+        fullInputImgs.style.display = 'none';
     }
 }
 
