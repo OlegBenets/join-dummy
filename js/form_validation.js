@@ -39,8 +39,6 @@ function setRedBorder(element) {
     }
 }
 
-
-
 async function passwordValidation(event) {
     event.preventDefault();
 

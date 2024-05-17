@@ -206,7 +206,7 @@ async function getTasksArray() {
 
 //Subtask handling functions
 
-function creatSubTask(subtitle, checked = "false") {
+function creatSubTask(subtitle, checked = "unchecked") {
     let subtask = {
         "subtitle": subtitle,
         "checked": checked
@@ -231,9 +231,9 @@ async function deleteSubTasks(index, subindex) {
 
 async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
-        if (subindex < tasks[index].subtask.length) {
+        if (subindex < tasks[index].subTasks.length) {
             let buffer = JSON.stringify(subtask);
-            tasks[index].subtask[subindex] = await JSON.parse(buffer);
+            tasks[index].subTasks[subindex] = await JSON.parse(buffer);
         }
     }
     await saveAllData('tasks');

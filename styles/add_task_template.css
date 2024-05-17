@@ -52,7 +52,7 @@
         display: flex;
         flex-direction: column;
         gap: 1px;
-        margin-top: 64px;
+        margin-top: 32px;
       }
 
       .task-description-span {
@@ -80,7 +80,6 @@
 
       .task-description select {
         width: 430px;
-        height: 48px;
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
@@ -103,7 +102,7 @@
       }
 
       .seperator {
-        height: 500px;
+        height: 450px;
         border: 1px solid #d1d1d1;
         margin-top: 40px;
       }
@@ -119,7 +118,7 @@
         display: flex;
         flex-direction: column;
         gap: 1px;
-        margin-top: 64px;
+        margin-top: 32px;
       }
 
       .task-deadline input::placeholder,
@@ -163,7 +162,6 @@
 
       .task-deadline select {
         width: 430px;
-        height: 48px;
         border: 1px solid #d1d1d1;
         border-radius: 10px;
         padding: 12px 16px 12px 16px;
@@ -305,7 +303,7 @@
         border: 1px solid;
         border-color: #d1d1d1;
         border-radius: 10px;
-        padding: 10px;
+        padding: 6px;
         margin-top: 10px;
         margin-bottom: 28px;
         background-color: #ffffff;
@@ -330,7 +328,7 @@
         width: 100%;
         border: none;
         outline: none;
-        padding: 8px;
+        padding: 6px;
         box-sizing: border-box;
         resize: none;
     }
@@ -348,4 +346,64 @@
       display: none;
       font-size: 14px;
       color: var(--customized_lightred);
+    }
+
+    .display-none {
+      display: none;
+    }
+
+    .subtask-popup-img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .subtask-popup-img-container:hover {
+      border-radius: 16px;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .subtasks-popup-seperator {
+      width: 1px;
+      height: 24px;
+      background-color: var(--customized_lightgray);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .subtasks-popup-full-container {
+      display: none;
+      align-items: center;
+    }
+
+    .subtask-popup-ul-container {
+      /* width: 440px; */
+      display: flex;
+      align-items: center;
+      height: 32px;
+      margin-top: 8px;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .subtask-popup-ul-container:hover {
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .subtasks-popup-ul {
+      margin-top: 8px;
+    }
+
+    .subtasks-popup-section {
+      height: 140px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .margin-bottom-0 {
+      margin-bottom: 0px !important;
     }
