@@ -219,7 +219,7 @@ function generateHTMLAssignedTo(initialsArray) {
 }
 
 function checkCheckedSubtasks(allSubtasks) {
-    let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'true');
+    let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'checked');
     let amountOfCheckedSubtasks = checkedSubtasks.length;
     return amountOfCheckedSubtasks;
 }
@@ -260,8 +260,8 @@ function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
 
 
 function calculateProgressBar(card) {
-    let progressValue = card['checkedSubtasks'];
     let allSubtasks = card['subTasks'];
+    let progressValue = checkCheckedSubtasks(allSubtasks);
 
     if (allSubtasks.length !== 0) {
         amount = allSubtasks.length;
@@ -397,7 +397,7 @@ function generateHTMLbigCard(currentCard) {
                 <p class='delete-txt'>Delete</p>
             </div>
             <div class='seperator-delete'></div>
-            <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit')" class='edit-container'>
+            <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit'); renderEditBigCardSubtasks(${currentCard['id']})" class='edit-container'>
                 <div class='edit-img'>
                     <div class='edit-icon'></div>
                 </div>
@@ -467,15 +467,24 @@ function generateHTMLEditTask(indexOfCurTask) {
                 </select>
             </div>
         </div>
-        <div class='input-subtasks-section'>
-            <p class='input-txt'>Subtasks</p>
-            <div>
-                <div class="subtask-container">
-                    <input class="subtask-input" type="text" placeholder="Add new subtask"/>
-                    <img src="/assets/img/add.svg">
-                </div>
+        <span class="task-deadline-span">Subtasks</span>
+          <div class="add-task-input-container margin-bottom-0">
+            <input class="subtask-input" type="text" placeholder="Add new subtask"
+              id="subtasks-input${indexOfCurTask}" />
+            <img id="subtasks-popup-empty-img${indexOfCurTask}" src="/assets/img/add.svg" />
+            <div id="subtasks-popup-full-img${indexOfCurTask}" class="subtasks-popup-full-container">
+              <div class="subtask-popup-img-container">
+                <img src="/assets/img/cancel.svg" alt="cross-img">
+              </div>
+              <div class="subtasks-popup-seperator"></div>
+              <div class="subtask-popup-img-container">
+                <img src="/assets/img/check-subtask.svg" alt="check-img">
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="subtasks-popup-section" id="subtasks-popup-section${indexOfCurTask}">
+            
+          </div>
     </div>
     <div class='edit-task-btn-container'>
         <button class='button_full ctask'>
@@ -487,6 +496,26 @@ function generateHTMLEditTask(indexOfCurTask) {
     `
 }
 
+function renderEditBigCardSubtasks(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
+    let subtasks = tasks[indexOfCurTask];
+    let container = document.getElementById('subtasks-popup-section'+indexOfCurTask);
+    container.innerHTML = '';
+
+    for (let i = 0; i < subtasks['subTasks'].length; i++) {
+        const subtask = subtasks['subTasks'][i];
+        
+        container.innerHTML += generateHTMLsubtasksEdit(subtask);
+    }
+}
+
+function generateHTMLsubtasksEdit(subtask) {
+    return `
+    <ul class='subtask-popup-ul-container'>
+        <li class='subtasks-popup-li'>${subtask['subtitle']}</li>
+    </ul>
+    `
+}
 
 function changeBigCardContainer(parameter) {
     if (parameter === 'edit') {
@@ -562,7 +591,6 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName, subtaskStat
     }
     
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
-    console.log(changedSubtask);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
 }
 

@@ -63,7 +63,7 @@ function getPrio(prio) {
 function addSubtaskToPopup() {
     let subtitle = document.getElementById('subtasks-input').value;
 
-    let subtask = creatSubTask(subtitle, checked = "checked");
+    let subtask = creatSubTask(subtitle, checked = "unchecked");
 
     currentSubtasks.push(subtask);
     renderSubtasksInPopup();
