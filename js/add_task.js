@@ -137,3 +137,5 @@ function handleInputContainerBlur(blurInputContainer) {
 }
 
 document.addEventListener("DOMContentLoaded", clickInputContainer);
+
+

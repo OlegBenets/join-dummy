@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
-    <script src="/js/add_task.js"></script>
-    <script src="/js/storage.js"></script>
     <link rel="stylesheet" href="../../styles/add_task_template.css" />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
@@ -23,7 +21,6 @@
 
             <div class="add-task-input-container mb" id="title-container">
               <input
-                required
                 id="input-title"
                 type="text"
                 placeholder="Enter a title"
@@ -64,7 +61,7 @@
               <p class="important">*</p>
             </div>
             <div class="add-task-input-container mb" id="date-container">
-              <input required id="input-date" class="date-input" type="date" />
+              <input id="input-date" class="date-input" type="date" />
             </div>
             <div class="error-text-container" id="date-error">
               <span class="error-text">This field is required</span>
@@ -86,7 +83,7 @@
               <p class="important">*</p>
             </div>
             <div class="add-task-input-container">
-              <select id="input-category">
+              <select required id="input-category">
                 <option value="" disabled selected hidden>
                   Select task category
                 </option>
