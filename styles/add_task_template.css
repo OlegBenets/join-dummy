@@ -348,3 +348,63 @@
       font-size: 14px;
       color: var(--customized_lightred);
     }
+
+    .display-none {
+      display: none;
+    }
+
+    .subtask-popup-img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .subtask-popup-img-container:hover {
+      border-radius: 16px;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .subtasks-popup-seperator {
+      width: 1px;
+      height: 24px;
+      background-color: var(--customized_lightgray);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .subtasks-popup-full-container {
+      display: none;
+      align-items: center;
+    }
+
+    .subtask-popup-ul-container {
+      /* width: 440px; */
+      display: flex;
+      align-items: center;
+      height: 32px;
+      margin-top: 8px;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .subtask-popup-ul-container:hover {
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .subtasks-popup-ul {
+      margin-top: 8px;
+    }
+
+    .subtasks-popup-section {
+      height: 140px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .margin-bottom-0 {
+      margin-bottom: 0px !important;
+    }
