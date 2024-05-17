@@ -355,7 +355,7 @@ function generateHTMLbigCard(currentCard) {
         <div id='category-container${currentCard['id']}' class='big-card-category-container'>
             ${generateHTMLcategory(currentCard)}
         </div>
-        <div onclick="showMovableContainer('remove', 'bigCard')" class='close-img-container'>
+        <div onclick="showMovableContainer('remove', 'bigCard'), init()" class='close-img-container'>
             <img src='/assets/img/close.svg'>
         </div>
     </div>
@@ -566,7 +566,7 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
         
         subtasksHTML += `
         <div class='big-card-one-subtask'>
-            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}', '${subtask['checked']}'), init()" ${checked}>
+            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}')" ${checked}>
             <label for="myCheckbox${i}" class="checkbox-label">
                 <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
                 <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
@@ -581,19 +581,23 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
 
 
 
-async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName, subtaskStatus) {
+async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     indexOfTask = allTasks.findIndex(task => task.id === cardId);
+    let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
     let newSubtaskStatus;
 
-    if (subtaskStatus === 'unchecked') {
+    if (SubtaskStatus === 'unchecked') {
         newSubtaskStatus = 'checked';
     }
-    else if (subtaskStatus === 'checked') {
+    else if (SubtaskStatus === 'checked') {
         newSubtaskStatus = 'unchecked';
     }
     
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
+    await getAllTasks();
+    // checkPriority(allTasks[indexOfTask]);
+    // loadCategoryColor(allTasks[indexOfTask]);
 }
 
 
