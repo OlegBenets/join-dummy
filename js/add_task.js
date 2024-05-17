@@ -46,6 +46,8 @@ function resetForm() {
     let asigntTo = document.getElementById('input-assignTo').value = '';
     let date = document.getElementById('input-date').value = '';
     let categoryTxt = document.getElementById('input-category').value = '';
+    currentSubtasks = [];
+    document.getElementById('subtasks-popup-section').innerHTML = '';
 }
 
 function getPrio(prio) {
@@ -60,18 +62,31 @@ function getPrio(prio) {
     }
 }
 
-function addSubtaskToPopup() {
-    let subtitle = document.getElementById('subtasks-input').value;
+function addSubtaskToPopup(parameter, index) {
+    let subtitle;
+    if (parameter === 'addTask') {
+        subtitle = document.getElementById('subtasks-input').value;
+    } 
+    else {
+        subtitle = document.getElementById('subtasks-input'+index).value;
+    }
 
     let subtask = creatSubTask(subtitle, checked = "unchecked");
 
     currentSubtasks.push(subtask);
-    renderSubtasksInPopup();
+    renderSubtasksInPopup(parameter, index);
 }
 
-function renderSubtasksInPopup() {
-    let container = document.getElementById('subtasks-popup-section');
-    container.innerHTML = '';
+function renderSubtasksInPopup(parameter, index) {
+    let container;
+    if (parameter === 'addTask') {
+        container = document.getElementById('subtasks-popup-section');
+        container.innerHTML = '';
+    }
+    else {
+        container = document.getElementById('subtasks-popup-section'+index);
+    }
+    
 
     for (let i = 0; i < currentSubtasks.length; i++) {
         const subtask = currentSubtasks[i];
@@ -88,14 +103,31 @@ function generateHTMLsubtasksPopup(subtask) {
     `
 }
 
-function clearSubtaskInput() {
-    document.getElementById('subtasks-input').value = '';
+function clearSubtaskInput(parameter, index) {
+    if (parameter === 'addTask') {
+        document.getElementById('subtasks-input').value = '';
+    }
+    else {
+        document.getElementById('subtasks-input'+index).value = '';
+    }
+    
+    
 }
 
-function checkInput() {
-    const inputField = document.getElementById('subtasks-input');
-    const emptyInputImg = document.getElementById('subtasks-popup-empty-img');
-    const fullInputImgs = document.getElementById('subtasks-popup-full-img');
+function checkInput(parameter, index) {
+    let inputField;
+    let emptyInputImg;
+    let fullInputImgs;
+    if (parameter === 'addTask') {
+        inputField = document.getElementById('subtasks-input');
+        emptyInputImg = document.getElementById('subtasks-popup-empty-img');
+        fullInputImgs = document.getElementById('subtasks-popup-full-img');
+    }
+    else {
+        inputField = document.getElementById('subtasks-input'+index);
+        emptyInputImg = document.getElementById('subtasks-popup-empty-img'+index);
+        fullInputImgs = document.getElementById('subtasks-popup-full-img'+index);
+    }
 
     if (inputField.value.trim() !== '') {
         emptyInputImg.classList.add('display-none');

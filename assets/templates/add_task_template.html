@@ -89,15 +89,15 @@
           </div>
           <span class="task-deadline-span">Subtasks</span>
           <div class="add-task-input-container margin-bottom-0">
-            <input oninput="checkInput()" class="subtask-input" type="text" placeholder="Add new subtask"
+            <input oninput="checkInput('addTask', '')" class="subtask-input" type="text" placeholder="Add new subtask"
               id="subtasks-input" />
             <img id="subtasks-popup-empty-img" src="/assets/img/add.svg" />
             <div id="subtasks-popup-full-img" class="subtasks-popup-full-container">
-              <div onclick="clearSubtaskInput(), checkInput()" class="subtask-popup-img-container">
+              <div onclick="clearSubtaskInput('addTask', ''), checkInput('addTask', '')" class="subtask-popup-img-container">
                 <img src="/assets/img/cancel.svg" alt="cross-img">
               </div>
               <div class="subtasks-popup-seperator"></div>
-              <div onclick="addSubtaskToPopup(), clearSubtaskInput(), checkInput()" class="subtask-popup-img-container">
+              <div onclick="addSubtaskToPopup('addTask', ''), clearSubtaskInput('addTask', ''), checkInput('addTask', '')" class="subtask-popup-img-container">
                 <img src="/assets/img/check-subtask.svg" alt="check-img">
               </div>
             </div>
@@ -107,11 +107,11 @@
           </div>
         </div>
       </div>
-      <button onclick="showMovableContainer('remove', 'addTask')" class="close-task">
+      <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="close-task">
         <img src="/assets/img/close.svg" />
       </button>
       <div class="task-buttons">
-        <button onclick="showMovableContainer('remove', 'addTask')" class="cancel-button">
+        <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="cancel-button">
           Clear
           <div class="cancel-svg-container">
             <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
