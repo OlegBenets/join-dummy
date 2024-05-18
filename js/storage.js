@@ -12,6 +12,16 @@ async function loadData(path = "") {
 
     console.log(responseAsJson);
 
+    if (path == 'tasks') {
+        responseAsJson.forEach(task => {
+            if (!task.hasOwnProperty('subTasks')) {
+                // Attribut hinzufügen, wenn es nicht vorhanden ist
+                task.subTasks = [];
+            }
+        });
+    }
+
+    console.log(responseAsJson);
     if (responseAsJson) {
         return responseAsJson;
     } else {
