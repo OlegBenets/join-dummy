@@ -15,7 +15,6 @@ function loadCards() {
     loadProgressCards();
     loadAwaitCards();
     loadDoneCards();
-    // loadCategoryColorTest();
 }
 
 function loadTodoCards() {
@@ -28,7 +27,6 @@ function loadTodoCards() {
             const card = todo[i];
             document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            // checkPriority(card);
         }
     }
     else {
@@ -47,7 +45,6 @@ function loadProgressCards() {
             const card = progress[i];
             document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            // checkPriority(card);
         }
     }
     else {
@@ -66,7 +63,6 @@ function loadAwaitCards() {
             const card = feedback[i];
             document.getElementById('await-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            // checkPriority(card);
         }
     }
     else {
@@ -85,7 +81,6 @@ function loadDoneCards() {
             const card = done[i];
             document.getElementById('done-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            // checkPriority(card);
         }
     }
     else {
@@ -174,17 +169,6 @@ function loadCategoryColorTest() {
         }
     }
 }
-
-// function loadCategoryColor(card) {
-//     let currentCategory = card['category'];
-
-//     if (currentCategory) {
-//         document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_7)';
-//     } 
-//     else {
-//         document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_10)';
-//     }
-// }
 
 
 function checkPriority(card) {
@@ -362,7 +346,7 @@ function renderBigCard(cardId) {
     } else {
         console.error("Card not found");
     }
-    // loadCategoryColor(currentCard);
+
     loadCategoryColorTest();
     checkPriority(currentCard);
 }
@@ -378,17 +362,6 @@ function generateHTMLcategory(currentCard) {
     }
 }
 
-// async function renderEditedTasks(currentCardId) {
-//     let indexOfCurTask = allTasks.findIndex(t => t.id === currentCardId);
-//     let currentCard = allTasks[indexOfCurTask];
-//     let allSubtasks = currentCard['subTasks'];
-//     let amountOfSubtasks = allSubtasks.length;
-//     let amountOfCheckedSubtasks = checkCheckedSubtasks(allSubtasks);
-//     document.getElementById('subtasks-amount'+currentCardId).innerHTML = amountOfCheckedSubtasks+'/'+amountOfSubtasks + ' Subtasks';
-//     loadCategoryColor(currentCard);
-//     checkPriority(currentCard);
-//     calculateProgressBar(currentCard);
-// }
 
 function generateHTMLbigCard(currentCard) {
     return `
@@ -592,7 +565,6 @@ function changeBigCardContainer(parameter) {
         document.getElementById('big-card-container').classList.remove('big-card-edit');
         document.getElementById('big-card-container').classList.add('big-card-container');
     }
-    
 }
 
 async function deleteTask(id) {
@@ -617,7 +589,6 @@ function generateHTMLAssignedToBigCard(initialsArray, card) {
         </div>
         `;
     }
-
     return circlesHTML;
 }
 
@@ -661,8 +632,6 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
     await getAllTasks();
     loadCards();
-    // checkPriority(allTasks[indexOfTask]);
-    // loadCategoryColor(allTasks[indexOfTask]);
 }
 
 
