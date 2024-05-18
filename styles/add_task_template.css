@@ -426,11 +426,12 @@
     .contacts-list {
      display: flex;
      flex-direction: column;
+     gap: 2px;
      background-color: #ffffff;
      width: 432px;
      max-height: 180px;
      margin-top: -12px;
-     padding-top: 10px;
+     padding-top: 12px;
      border-radius: 10px;
      overflow-y: auto;
      overflow-x: hidden;
@@ -479,6 +480,7 @@
       width: calc(100% - 32px);
       height: 56px;
       padding: 7px 16px;
+      border-radius: 6px;
     }
 
     .assigned-contact-container:hover {

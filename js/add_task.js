@@ -264,6 +264,17 @@ function contactListTemplate(initials, name, assignContacts, i) {
       </div>
       <span class="assigned-contact-name">${name}</span>
     </div>
+
+    <!-- <div class="checkbox login">
+                <input name="remember" type="checkbox" id="rememberMe">
+                <label for="rememberMe">
+
+                    <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
+                    <img class="checkOn" id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
+
+                    <div>Remember Me</div>
+                </label>
+            </div> -->
     `;
 }
 
