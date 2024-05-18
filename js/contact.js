@@ -131,6 +131,7 @@ async function editContact() {
   await loadContacts();
   renderFloatingContact(contactList[contactIndex]);
 }
+
 //Add Contact Js
 
 async function AddContact() {
