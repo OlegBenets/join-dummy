@@ -19,15 +19,12 @@
             <textarea id="input-description" placeholder="Enter a Description"></textarea>
           </div>
           <span class="task-description-span">Assigned to</span>
-          <div class="add-task-input-container">
-            <select id="input-assignTo">
-              <option value="" disabled selected hidden>
-                Select contacts to assign
-              </option>
-              <option>Marketing</option>
-              <option>Development</option>
-              <option>Design</option>
-            </select>
+          <div onclick="showContactsToAssign()" class="add-task-input-container mb">
+            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
+            <img src="/assets/img/arrow_drop_down.svg">
+          </div>
+          <div class="drop-down-contacts">
+            <div class="contacts-list" id="contacts-list"></div>
           </div>
         </div>
         <div class="alert">

@@ -307,7 +307,7 @@
         margin-top: 10px;
         margin-bottom: 28px;
         background-color: #ffffff;
-        width: 90%;
+        width: 95%;
     }
     
     .mb {
@@ -323,14 +323,24 @@
     }
     
     .add-task-input-container input,
-    .add-task-input-container textarea,
-    .add-task-input-container select {
-        width: 100%;
+    .add-task-input-container textarea {
+        width: 95%;
         border: none;
         outline: none;
         padding: 6px;
         box-sizing: border-box;
         resize: none;
+    }
+
+
+    .add-task-input-container select,
+    .add-task-input-container .date-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 6px;
+      box-sizing: border-box;
+      resize: none;
     }
     
     .error-text-container {
@@ -406,4 +416,93 @@
 
     .margin-bottom-0 {
       margin-bottom: 0px !important;
+    }
+
+    .drop-down-contacts {
+     display: flex;
+     flex-direction: column;
+    }
+
+    .contacts-list {
+     display: flex;
+     flex-direction: column;
+     background-color: #ffffff;
+     width: 432px;
+     max-height: 180px;
+     margin-top: -12px;
+     padding-top: 10px;
+     border-radius: 10px;
+     overflow-y: auto;
+     overflow-x: hidden;
+    }
+
+    .contacts-list::-webkit-scrollbar {
+      width: 10px;
+  }
+  
+  .contacts-list::-webkit-scrollbar-thumb {
+      background-color: var(--color_5);
+      border-radius: 4px;
+      height: 10px;
+  }
+
+  .contacts-list::-webkit-scrollbar-track {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contacts-list::-webkit-scrollbar-button:vertical {
+  display: block;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.contacts-list::-webkit-scrollbar-button:vertical:increment {
+  height: 12px;
+  background-color: transparent;
+  background-image: url('../assets/img/Vector\ 12.svg');
+  background-size: contain;
+}
+
+.contacts-list::-webkit-scrollbar-button:vertical:decrement {
+  height: 12px;
+  background-color: transparent;
+  background-image: url('../assets/img/Vector\ 13.svg');
+  background-size: contain;
+}
+
+    .assigned-contact-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 16px;
+      width: calc(100% - 32px);
+      height: 56px;
+      padding: 7px 16px;
+    }
+
+    .assigned-contact-container:hover {
+      cursor: pointer;
+      background-color: var(--color_11);
+    }
+
+    .assigned-contact-name {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .assigned-contact-initials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+    }
+
+    .assigned-contact-initials h4 {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 400;
     }

@@ -4,6 +4,7 @@ let currentSubtasks = [];
 
 async function initPage() {
   await initInclude();
+  await loadAllData();
   setEventlister();
 }
 
@@ -216,4 +217,47 @@ function setBorder(event) {
 function unsetBorder(event) {
   let target = event.target;
   target.parentElement.classList.remove("focused");
+}
+
+
+function searchContact() {
+  //   let search = document.getElementById('input-assignTo').value;
+  //   if (search.length >= 3) {
+  //   let filteredContact = contacts.filter(contact => contact.name.toLowerCase().includes(search));
+  //   renderContact(filteredContact);
+  //   } else if (search.length === 0) {
+  //     renderContact(contacts);
+  //   }
+  // }
+}
+
+function showContactsToAssign() {
+  let contactAssignList = document.getElementById('contacts-list');
+
+  // contactList.add.classList('.contacts-list');
+  contactAssignList.classList.toggle('contacts-list');
+  renderContactList();
+}
+
+function renderContactList() {
+  let contactList = document.getElementById('contacts-list');
+  if (contactList.classList.contains('contacts-list')) {
+    contactList.innerHTML = "";
+
+  for (let i = 0; i < contacts.length; i++) {
+    const assignContacts = contacts[i];
+    let { initials, name } = extractInitialsAndName(assignContacts);
+    contactList.innerHTML += /*html*/`
+    <div class="assigned-contact-container">
+      <div class="assigned-contact-initials" style="background-color: #${assignContacts.color};">
+        <h4>${initials}</h4>
+      </div>
+      <span class="assigned-contact-name">${name}</span>
+    </div>
+    `;
+  }
+  console.log("contact list", contacts);
+} else {
+  contactList.innerHTML = "";
+}
 }
