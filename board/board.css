@@ -478,6 +478,14 @@ h1 {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+.story-container {
+    background-color: var(--color_7);
+}
+
+.technical-container {
+    background-color: var(--color_10);
+}
+
 .big-card-title {
     margin-top: 24px;
     margin-bottom: 0;

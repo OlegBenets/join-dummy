@@ -15,7 +15,7 @@ function loadCards() {
     loadProgressCards();
     loadAwaitCards();
     loadDoneCards();
-    loadCategoryColorTest();
+    // loadCategoryColorTest();
 }
 
 function loadTodoCards() {
@@ -28,7 +28,7 @@ function loadTodoCards() {
             const card = todo[i];
             document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            checkPriority(card);
+            // checkPriority(card);
         }
     }
     else {
@@ -47,7 +47,7 @@ function loadProgressCards() {
             const card = progress[i];
             document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            checkPriority(card);
+            // checkPriority(card);
         }
     }
     else {
@@ -66,7 +66,7 @@ function loadAwaitCards() {
             const card = feedback[i];
             document.getElementById('await-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            checkPriority(card);
+            // checkPriority(card);
         }
     }
     else {
@@ -85,7 +85,7 @@ function loadDoneCards() {
             const card = done[i];
             document.getElementById('done-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
-            checkPriority(card);
+            // checkPriority(card);
         }
     }
     else {
@@ -107,22 +107,30 @@ function generateEmptyColumnHTML(column) {
     `
 }
 
-function checkCategory(category) {
-    if (category) {
-        return `<p>User Story</p>`
+function checkCategory(card) {
+    let categoryHTML = '';
+    if (card.category) {
+        categoryHTML = `
+        <div id='category-container${card['id']}' class='category-container story-container'>
+            <p>User Story</p>
+        </div>
+        `
     }
     else {
-        return `<p>Technical Task</p>`
+        categoryHTML = `
+        <div id='category-container${card['id']}' class='category-container technical-container'>
+            <p>Technical Task</p>
+        </div>
+        `
     }
+    return categoryHTML;
 }
 
 
 function generateTodoHTML(card) {
     return `
     <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
-        <div id='category-container${card['id']}' class='category-container'>
-            ${checkCategory(card['category'])}
-        </div>
+        ${checkCategory(card)}
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>
             <p class='small-card-description'>${card['description']}</p>
@@ -131,11 +139,25 @@ function generateTodoHTML(card) {
                 <div class='contacts-order'>
                     ${checkAssignedTo(card, 'small-card')}
                 </div>
-                <img id='prio${card['id']}' src=''>
+                ${setPrio(card)}
             </div>
         </div>
     </div>
     `;
+}
+
+function setPrio(card) {
+    switch (card.prio) {
+        case 'Low':
+            return `<img src='/assets/img/prio_small_cards_low.svg'>`
+            break;
+        case 'Medium':
+            return `<img src='/assets/img/prio_small_cards_medium.svg'>`
+        break;
+        case 'Urgent':
+            return `<img src='/assets/img/prio_small_cards_urgent.svg'>`
+        break;
+    }
 }
 
 function loadCategoryColorTest() {
@@ -271,9 +293,8 @@ function calculateProgressBar(card) {
     let progressValue = checkCheckedSubtasks(allSubtasks);
 
     if (allSubtasks.length !== 0) {
-        amount = allSubtasks.length;
-    
-        let maxProgressValue = amount;
+
+        let maxProgressValue = allSubtasks.length;
 
         let progress = ((progressValue / maxProgressValue) * 100) *2;
 
