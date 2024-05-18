@@ -299,6 +299,7 @@ async function moveTo(category) {
     let task = allTasks[indexOfTask];
     task.status = category;
     await editTasks(indexOfTask, task)
+    await getAllTasks();
     loadCards();
 }
 
@@ -374,7 +375,7 @@ function generateHTMLbigCard(currentCard) {
         <div id='category-container${currentCard['id']}' class='big-card-category-container'>
             ${generateHTMLcategory(currentCard)}
         </div>
-        <div onclick="showMovableContainer('remove', 'bigCard'), loadCards(), changeBigCardContainer()" class='close-img-container'>
+        <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer()" class='close-img-container'>
             <img src='/assets/img/close.svg'>
         </div>
     </div>
@@ -638,6 +639,7 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
     await getAllTasks();
+    loadCards();
     // checkPriority(allTasks[indexOfTask]);
     // loadCategoryColor(allTasks[indexOfTask]);
 }
