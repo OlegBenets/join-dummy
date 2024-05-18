@@ -180,8 +180,10 @@ function creatTask(asigntTo, category, date, description, prio, status, subTasks
 }
 
 async function addTasks(task) {
+    console.log(task);
     let buffer = JSON.stringify(task);
     tasks.push(await JSON.parse(buffer));
+    console.log(tasks[tasks.length - 1]);
     await saveAllData('tasks');
 }
 
