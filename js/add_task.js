@@ -248,17 +248,28 @@ function renderContactList() {
   for (let i = 0; i < contacts.length; i++) {
     const assignContacts = contacts[i];
     let { initials, name } = extractInitialsAndName(assignContacts);
-    contactList.innerHTML += /*html*/`
-    <div class="assigned-contact-container">
+    contactList.innerHTML += contactListTemplate(initials, name, assignContacts, i); 
+  }
+  console.log("contact list", contacts);
+} else {
+  contactList.innerHTML = "";
+}
+}
+
+function contactListTemplate(initials, name, assignContacts, i) {
+  return /*html*/`
+    <div onclick="assignContactToTask(${i})" id="assigntContact${i}" class="assigned-contact-container">
       <div class="assigned-contact-initials" style="background-color: #${assignContacts.color};">
         <h4>${initials}</h4>
       </div>
       <span class="assigned-contact-name">${name}</span>
     </div>
     `;
-  }
-  console.log("contact list", contacts);
-} else {
-  contactList.innerHTML = "";
 }
+
+function assignContactToTask(i) {
+  let assignContact = document.getElementById(`assigntContact${i}`);
+
+  assignContact.style.backgroundColor = assignContact.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
+  assignContact.style.color = assignContact.style.color === "white" ? "" : "white";
 }
