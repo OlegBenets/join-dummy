@@ -8,7 +8,15 @@ const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabas
 
 async function loadData(path = "") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
-    return responseAsJson = await response.json();
+    let responseAsJson = await response.json();
+
+    console.log(responseAsJson);
+
+    if (responseAsJson) {
+        return responseAsJson;
+    } else {
+        return array = [];
+    };
 }
 //PUT
 async function putData(path = "", data = {}) {
@@ -98,13 +106,13 @@ async function encrypt(data) {
   * @param {string} color  -
   * @returns {Object} An object representing the newly created contact.
   */
-function creatContact(name, email, phone ,color) {
+function creatContact(name, email, phone, color) {
     let contact = {
         "id": idGenerator(),
         "name": name,
         "email": email,
         "phone": phone,
-        "color":color
+        "color": color
     };
     return contact;
 }
