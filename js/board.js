@@ -646,14 +646,14 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
 
 
 async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
-    indexOfTask = allTasks.findIndex(task => task.id === cardId);
+    let indexOfTask = allTasks.findIndex(task => task.id === cardId);
     let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
-    let newSubtaskStatus;
+    let newSubtaskStatus = '';
 
     if (SubtaskStatus === 'unchecked') {
         newSubtaskStatus = 'checked';
     }
-    else if (SubtaskStatus === 'checked') {
+    else {
         newSubtaskStatus = 'unchecked';
     }
     
