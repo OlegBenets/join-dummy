@@ -1,5 +1,6 @@
 let currentPrio = "Medium";
 let currentStatus;
+let currentSubtasks = [];
 
 async function addTask() {
   let title = document.getElementById("input-title").value;
@@ -21,12 +22,11 @@ async function addTask() {
   let task = creatTask(
     [asigntTo],
     category,
-    1,
     date,
     description,
     prio,
     status,
-    ["test1", "test2"],
+    currentSubtasks,
     title
   );
   await addTasks(task);
@@ -55,6 +55,84 @@ function resetForm() {
   let asigntTo = (document.getElementById("input-assignTo").value = "");
   let date = (document.getElementById("input-date").value = "");
   let categoryTxt = (document.getElementById("input-category").value = "");
+  currentSubtasks = [];
+  document.getElementById('subtasks-popup-section').innerHTML = '';
+}
+
+function addSubtaskToPopup(parameter, index) {
+    let subtitle;
+    if (parameter === 'addTask') {
+        subtitle = document.getElementById('subtasks-input').value;
+    } 
+    else {
+        subtitle = document.getElementById('subtasks-input'+index).value;
+    }
+
+    let subtask = creatSubTask(subtitle, checked = "unchecked");
+
+    currentSubtasks.push(subtask);
+    renderSubtasksInPopup(parameter, index);
+}
+
+function renderSubtasksInPopup(parameter, index) {
+    let container;
+    if (parameter === 'addTask') {
+        container = document.getElementById('subtasks-popup-section');
+        container.innerHTML = '';
+    }
+    else {
+        container = document.getElementById('subtasks-popup-section'+index);
+    }
+
+
+    for (let i = 0; i < currentSubtasks.length; i++) {
+        const subtask = currentSubtasks[i];
+
+        container.innerHTML += generateHTMLsubtasksPopup(subtask);
+    }
+}
+
+function generateHTMLsubtasksPopup(subtask) {
+    return `
+    <ul class='subtask-popup-ul-container'>
+        <li class='subtasks-popup-li'>${subtask['subtitle']}</li>
+    </ul>
+    `
+}
+
+function clearSubtaskInput(parameter, index) {
+    if (parameter === 'addTask') {
+        document.getElementById('subtasks-input').value = '';
+    }
+    else {
+        document.getElementById('subtasks-input'+index).value = '';
+    }
+
+
+}
+
+function checkInput(parameter, index) {
+    let inputField;
+    let emptyInputImg;
+    let fullInputImgs;
+    if (parameter === 'addTask') {
+        inputField = document.getElementById('subtasks-input');
+        emptyInputImg = document.getElementById('subtasks-popup-empty-img');
+        fullInputImgs = document.getElementById('subtasks-popup-full-img');
+    }
+    else {
+        inputField = document.getElementById('subtasks-input'+index);
+        emptyInputImg = document.getElementById('subtasks-popup-empty-img'+index);
+        fullInputImgs = document.getElementById('subtasks-popup-full-img'+index);
+    }
+
+    if (inputField.value.trim() !== '') {
+        emptyInputImg.classList.add('display-none');
+        fullInputImgs.style.display = 'flex';
+    } else {
+        emptyInputImg.classList.remove('display-none');
+        fullInputImgs.style.display = 'none';
+    }
 }
 
 function getPrio(prio) {
