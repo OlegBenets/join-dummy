@@ -844,6 +844,14 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     margin-left: 30.5px;
 }
 
+.add-task-input-container select {
+    width: 430px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    padding: 12px 16px 12px 16px;
+    font-size: 20px;
+}
+
 
 /* ====== Column Scrollbar ====== */
 

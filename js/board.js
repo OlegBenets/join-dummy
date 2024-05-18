@@ -15,10 +15,10 @@ function loadCards() {
     loadProgressCards();
     loadAwaitCards();
     loadDoneCards();
+    loadCategoryColorTest();
 }
 
 function loadTodoCards() {
-
     let todo = allTasks.filter(t => t['status'] == 'todo');
 
     document.getElementById('todo-column').innerHTML = '';
@@ -29,17 +29,15 @@ function loadTodoCards() {
             document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
             checkPriority(card);
-            loadCategoryColor(card);
         }
     }
     else {
         document.getElementById('todo-column').innerHTML += generateEmptyColumnHTML('To do');
-    }
+    };
 }
 
 
 function loadProgressCards() {
-
     let progress = allTasks.filter(t => t['status'] == 'progress');
     
     document.getElementById('progress-column').innerHTML = '';
@@ -50,7 +48,6 @@ function loadProgressCards() {
             document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
             checkPriority(card);
-            loadCategoryColor(card);
         }
     }
     else {
@@ -60,7 +57,6 @@ function loadProgressCards() {
 
 
 function loadAwaitCards() {
-
     let feedback = allTasks.filter(t => t['status'] == 'await');
     
     document.getElementById('await-column').innerHTML = '';
@@ -71,7 +67,6 @@ function loadAwaitCards() {
             document.getElementById('await-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
             checkPriority(card);
-            loadCategoryColor(card);
         }
     }
     else {
@@ -81,7 +76,6 @@ function loadAwaitCards() {
 
 
 function loadDoneCards() {
-
     let done = allTasks.filter(t => t['status'] == 'done');
     
     document.getElementById('done-column').innerHTML = '';
@@ -92,7 +86,6 @@ function loadDoneCards() {
             document.getElementById('done-column').innerHTML += generateTodoHTML(card);
             calculateProgressBar(card);
             checkPriority(card);
-            loadCategoryColor(card);
         }
     }
     else {
@@ -145,17 +138,31 @@ function generateTodoHTML(card) {
     `;
 }
 
-
-function loadCategoryColor(card) {
-    let currentCategory = card['category'];
-
-    if (currentCategory) {
-        document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_7)';
-    } 
-    else {
-        document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_10)';
+function loadCategoryColorTest() {
+    console.log(allTasks);
+    for (let i = 1; i < allTasks.length; i++) {
+        const task = allTasks[i];
+        let taskId = task['id'];
+        let currentCategory = task['category'];
+        if (currentCategory) {
+            document.getElementById('category-container' + taskId).style.backgroundColor = 'var(--color_7)';
+        } 
+        else {
+            document.getElementById('category-container' + taskId).style.backgroundColor = 'var(--color_10)';
+        }
     }
 }
+
+// function loadCategoryColor(card) {
+//     let currentCategory = card['category'];
+
+//     if (currentCategory) {
+//         document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_7)';
+//     } 
+//     else {
+//         document.getElementById('category-container' + card['id']).style.backgroundColor = 'var(--color_10)';
+//     }
+// }
 
 
 function checkPriority(card) {
@@ -252,7 +259,7 @@ function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
                 <div id='progress${card['id']}' class="progress"></div>
             </div>
             <div class='progress-txt-container'>
-                <p>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
+                <p id='subtasks-amount${card['id']}'>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
             </div>
         </div> 
     `
@@ -333,7 +340,8 @@ function renderBigCard(cardId) {
     } else {
         console.error("Card not found");
     }
-    loadCategoryColor(currentCard);
+    // loadCategoryColor(currentCard);
+    loadCategoryColorTest();
     checkPriority(currentCard);
 }
 
@@ -348,6 +356,17 @@ function generateHTMLcategory(currentCard) {
     }
 }
 
+// async function renderEditedTasks(currentCardId) {
+//     let indexOfCurTask = allTasks.findIndex(t => t.id === currentCardId);
+//     let currentCard = allTasks[indexOfCurTask];
+//     let allSubtasks = currentCard['subTasks'];
+//     let amountOfSubtasks = allSubtasks.length;
+//     let amountOfCheckedSubtasks = checkCheckedSubtasks(allSubtasks);
+//     document.getElementById('subtasks-amount'+currentCardId).innerHTML = amountOfCheckedSubtasks+'/'+amountOfSubtasks + ' Subtasks';
+//     loadCategoryColor(currentCard);
+//     checkPriority(currentCard);
+//     calculateProgressBar(currentCard);
+// }
 
 function generateHTMLbigCard(currentCard) {
     return `
@@ -355,7 +374,7 @@ function generateHTMLbigCard(currentCard) {
         <div id='category-container${currentCard['id']}' class='big-card-category-container'>
             ${generateHTMLcategory(currentCard)}
         </div>
-        <div onclick="showMovableContainer('remove', 'bigCard'), init()" class='close-img-container'>
+        <div onclick="showMovableContainer('remove', 'bigCard'), loadCards(), changeBigCardContainer()" class='close-img-container'>
             <img src='/assets/img/close.svg'>
         </div>
     </div>
@@ -413,6 +432,7 @@ function showEditTask(id) {
     let container = document.getElementById('big-card-container');
 
     let indexOfCurTask = allTasks.findIndex(t => t.id === id);
+    currentPrio = allTasks[indexOfCurTask]['prio'];
 
     container.innerHTML = generateHTMLEditTask(indexOfCurTask);
 }
@@ -428,20 +448,20 @@ function generateHTMLEditTask(indexOfCurTask) {
         <div class='input-title-section'>
             <p>Title</p>
             <div class='input-title-field-section'>
-                <input type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
+                <input id='input-title${indexOfCurTask}' type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
                 
             </div>
         </div>
         <div class='input-description-section'>
             <p class='input-txt'>Description</p>
             <div>
-                <textarea class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
+                <textarea id='input-description${indexOfCurTask}' class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
             </div>
         </div>
         <div class='input-date-section'>
             <p class='input-txt'>Due Date</p>
             <div>
-                <input type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
+                <input id='input-date${indexOfCurTask}' type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
             </div>
         </div>
         <div class='input-prio-section'>
@@ -454,19 +474,17 @@ function generateHTMLEditTask(indexOfCurTask) {
                 </div>
             </div>
         </div>
-        <div class='input-assign-section'>
-            <p class='input-txt'>Assigned to</p>
-            <div>
-                <select id="input-asignTo">
-                    <option value="" disabled selected hidden>
-                    Select contacts to assign
-                    </option>
-                    <option>Marketing</option>
-                    <option>Development</option>
-                    <option>Design</option>
-                </select>
-            </div>
-        </div>
+        <span class="task-description-span">Assigned to</span>
+          <div class="add-task-input-container">
+            <select id="input-assignTo${indexOfCurTask}">
+              <option value="" disabled selected hidden>
+                Select contacts to assign
+              </option>
+              <option>Marketing</option>
+              <option>Development</option>
+              <option>Design</option>
+            </select>
+          </div>
         <span class="task-deadline-span">Subtasks</span>
           <div class="add-task-input-container margin-bottom-0">
             <input oninput="checkInput('', ${indexOfCurTask})" class="subtask-input" type="text" placeholder="Add new subtask"
@@ -486,7 +504,7 @@ function generateHTMLEditTask(indexOfCurTask) {
             
           </div>
     </div>
-    <div class='edit-task-btn-container'>
+    <div onclick='editTask(${indexOfCurTask}), changeBigCardContainer()' class='edit-task-btn-container'>
         <button class='button_full ctask'>
                 <div>
                     OK
@@ -496,7 +514,31 @@ function generateHTMLEditTask(indexOfCurTask) {
     `
 }
 
+async function editTask(indexOfCurTask) {
+    let cardId = allTasks[indexOfCurTask]['id'];
+    let title = document.getElementById("input-title"+indexOfCurTask).value;
+    let description = document.getElementById("input-description"+indexOfCurTask).value;
+    let asigntTo = document.getElementById("input-assignTo"+indexOfCurTask).value;
+    let date = document.getElementById("input-date"+indexOfCurTask).value;
+    let category = allTasks[indexOfCurTask]['category'];
+    let oldSubtasks = allTasks[indexOfCurTask]['subTasks'];
+    let status = allTasks[indexOfCurTask]['status'];
+    let prio = currentPrio;
 
+    for (let i = 0; i < oldSubtasks.length; i++) {
+        const subtask = oldSubtasks[i];
+        currentSubtasks.push(subtask);
+    }
+    
+
+    let task = creatTask([asigntTo], category, date, description, prio, status, currentSubtasks, title);
+    task['id'] = cardId;
+    await editTasks(indexOfCurTask, task);
+    await getAllTasks();
+    loadCards();
+    resetForm();
+    renderBigCard(cardId);
+}
 
 function renderEditBigCardSubtasks(cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
