@@ -2,6 +2,11 @@ let currentPrio = "Medium";
 let currentStatus;
 let currentSubtasks = [];
 
+async function initPage() {
+  await initInclude();
+  setEventlister();
+}
+
 async function addTask() {
   let title = document.getElementById("input-title").value;
   let description = document.getElementById("input-description").value;
@@ -162,36 +167,31 @@ function removeErrorBorder(elements) {
 function testTask() {
   const titleInput = document.getElementById("input-title");
   const dateInput = document.getElementById("input-date");
-  let titleError = document.getElementById("title-error");
-  let dateError = document.getElementById("date-error");
 
   let isTitleValid = titleInput.value.trim() !== "";
   let isDateValid = dateInput.value.trim() !== "";
+  checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput);
+}
 
-  // Validierung für den Titel
-  if (!isTitleValid) {
-    setErrorBorder(titleInput.parentElement);
-    titleError.querySelector(".error-text").style.display = "block";
-  } else {
-    removeErrorBorder(titleInput.parentElement);
-    titleError.querySelector(".error-text").style.display = "none";
-  }
-
-  // Validierung für das Datum
-  if (!isDateValid) {
-    setErrorBorder(dateInput.parentElement);
-    dateError.querySelector(".error-text").style.display = "block";
-  } else {
-    removeErrorBorder(dateInput.parentElement);
-    dateError.querySelector(".error-text").style.display = "none";
-  }
-
-  // Überprüfen, ob beide Felder gültig sind
-  if (isTitleValid && isDateValid) {
-    console.log("Aufgabe erfolgreich erstellt!");
-  } else {
-    console.log("Bitte füllen Sie die erforderlichen Felder aus.");
-  }
+function checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput) {
+  let titleError = document.getElementById("title-error");
+  let dateError = document.getElementById("date-error");
+    // Validierung für den Titel
+    if (!isTitleValid) {
+      setErrorBorder(titleInput.parentElement);
+      titleError.querySelector(".error-text").style.display = "block";
+    } else {
+      removeErrorBorder(titleInput.parentElement);
+      titleError.querySelector(".error-text").style.display = "none";
+    }
+    // Validierung für das Datum
+    if (!isDateValid) {
+      setErrorBorder(dateInput.parentElement);
+      dateError.querySelector(".error-text").style.display = "block";
+    } else {
+      removeErrorBorder(dateInput.parentElement);
+      dateError.querySelector(".error-text").style.display = "none";
+    }
 }
 
 function setEventlister() {
@@ -216,9 +216,4 @@ function setBorder(event) {
 function unsetBorder(event) {
   let target = event.target;
   target.parentElement.classList.remove("focused");
-}
-
-async function initPage() {
-  await initInclude();
-  setEventlister();
 }
