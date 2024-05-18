@@ -35,6 +35,7 @@ async function addTask() {
     currentSubtasks,
     title
   );
+  console.log(task);
   await addTasks(task);
   await getAllTasks();
   loadCards();
