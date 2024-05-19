@@ -1,11 +1,13 @@
 let currentPrio = "Medium";
 let currentStatus;
 let currentSubtasks = [];
+let assignedContactsList = [];
 let assignedContacts = [];
 
 async function initPage() {
   await initInclude();
   await loadAllData();
+  assignedContactsList = await getContactsArray();
   setEventlister();
 }
 
@@ -288,71 +290,98 @@ function searchContact() {
 
 function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
-
-  // contactList.add.classList('.contacts-list');
   contactAssignList.classList.toggle("contacts-list");
   renderContactList();
 }
 
 function renderContactList() {
-  let contactList = document.getElementById("contacts-list");
-  if (contactList.classList.contains("contacts-list")) {
-    contactList.innerHTML = "";
+  let contactListContainer = document.getElementById("contacts-list");
+  if (contactListContainer.classList.contains("contacts-list")) {
+    contactListContainer.innerHTML = "";
 
-    for (let i = 0; i < contacts.length; i++) {
-      const ASSIGN_CONTACT = contacts[i];
+    for (let i = 0; i < assignedContactsList.length; i++) {
+      const ASSIGN_CONTACT = assignedContactsList[i];
+      console.log(ASSIGN_CONTACT);
+      let id = ASSIGN_CONTACT.id;
+      let color = ASSIGN_CONTACT.color;
       let { initials, name } = extractInitialsAndName(ASSIGN_CONTACT);
-      contactList.innerHTML += contactListTemplate(
-        initials,
-        name,
-        ASSIGN_CONTACT,
-        i
-      );
+      contactListContainer.innerHTML += contactListTemplate(initials, name, color, i, id);
     }
-    console.log("contact list", contacts);
+    console.log("contact list", assignedContactsList);
   } else {
-    contactList.innerHTML = "";
+    contactListContainer.innerHTML = "";
   }
 }
 
-function contactListTemplate(initials, name, ASSIGN_CONTACT, i) {
-  return /*html*/ `
-    <div onclick="assignContactToTask(${i},'${name}')" id="assigntContact${i}" class="assigned-contact-container">
+function contactListTemplate(initials, name, color, i) {
+  let checked = checkMatchContact(i);
+
+  if (checked) {
+    return /*html*/ `
+    <div onclick="assignContactToTask(${i})" id="assigntContact${i}" style="background-color:var(--customized_darkblue)" class="assigned-contact-container">
     <div class="assigned-contact-child-container">
-      <div class="assigned-contact-initials" style="background-color: #${ASSIGN_CONTACT.color};">
+      <div class="assigned-contact-initials" style="background-color: #${color};">
+        <h4>${initials}</h4>
+      </div>
+      <span style="color: white;" class="assigned-contact-name">${name}</span>
+      </div>
+   <div class="checkbox login">
+        <div id="assignt-to${i}">
+            <img class="uncheck-contact" style ="display:none;" id="img_check_off${i}" src="../assets/img/checkbox_unselected.svg" alt="">
+            <img class="check-contact" style ="display:block;" id="img_check_on${i}" src="../assets/img/checked_white.svg" alt="">
+        </div> 
+    </div>
+    `;
+  } else {
+    return /*html*/ `
+    <div onclick="assignContactToTask(${i})" id="assigntContact${i}" class="assigned-contact-container">
+    <div class="assigned-contact-child-container">
+      <div class="assigned-contact-initials" style="background-color: #${color};">
         <h4>${initials}</h4>
       </div>
       <span class="assigned-contact-name">${name}</span>
       </div>
    <div class="checkbox login">
         <div id="assignt-to${i}">
-            <img class="uncheck-contact" id="img_check_off${i}" src="../assets/img/checkbox_unselected.svg" alt="">
-            <img class="check-contact" id="img_check_on${i}" src="../assets/img/checked_white.svg" alt="">
+            <img class="uncheck-contact" style ="display:block;" id="img_check_off${i}" src="../assets/img/checkbox_unselected.svg" alt="">
+            <img class="check-contact" style ="display:none;" id="img_check_on${i}" src="../assets/img/checked_white.svg" alt="">
         </div> 
     </div>
-
     `;
+  }
+
 }
 
-function assignContactToTask(i, name) {
-  let assignContact = document.getElementById(`assigntContact${i}`);
+function assignContactToTask(i) {
+  let assignContactContainer = document.getElementById(`assigntContact${i}`);
   let imgCheckOff = document.getElementById(`img_check_off${i}`);
   let imgCheckOn = document.getElementById(`img_check_on${i}`);
 
-  assignContact.style.backgroundColor = assignContact.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
-  assignContact.style.color = assignContact.style.color === "white" ? "" : "white";
+  assignContactContainer.style.backgroundColor = assignContactContainer.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
+  assignContactContainer.style.color = assignContactContainer.style.color === "white" ? "" : "white";
 
   if (imgCheckOff.style.display === "none") {
     imgCheckOff.style.display = "block";
     imgCheckOn.style.display = "none";
-    pushContactInArray(name);
+    pushContactInArray(assignedContactsList[i]);
   } else {
     imgCheckOff.style.display = "none";
     imgCheckOn.style.display = "block";
-    removeContactInArray(name);
+    removeContactInArray(assignedContactsList[i]);
   }
 
   renderSelectedContacts();
+}
+
+function checkMatchContact(index) {
+    for (let i = 0; i < assignedContacts.length; i++) {
+      const ASSIGNED_CONTACT = assignedContacts[i];
+      
+      if(ASSIGNED_CONTACT == assignedContactsList[index]) {
+        return true;
+      }
+    }
+    return false;
 }
 
 function pushContactInArray(name) {
@@ -372,11 +401,14 @@ function renderSelectedContacts() {
   let selectedContactsContainer = document.getElementById("selected-contacts");
   selectedContactsContainer.innerHTML = "";
 
-  for (let contact of assignedContacts) {
-    let { initials, color } = extractInitialsAndColor(contact);
+  for (let i = 0; i < assignedContacts.length; i++) {
+    const contact = assignedContacts[i];
+    let {initials} = extractInitialsAndName(contact);
+    let color = contact.color;
     selectedContactsContainer.innerHTML += renderInitialsIcon(initials, color);
   }
-}
+  }
+
 
 function renderInitialsIcon(initials, color) {
   return /*html*/ `

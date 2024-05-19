@@ -308,6 +308,7 @@
         margin-bottom: 28px;
         background-color: #ffffff;
         width: 95%;
+        z-index: 1;
     }
     
     .mb {
@@ -508,6 +509,7 @@
     }
 
     .contacts-list {
+      position: fixed;
      display: flex;
      flex-direction: column;
      gap: 2px;
@@ -633,3 +635,12 @@
     
     }
     
+    #selected-contacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+      gap: 4px;
+      height: 48px;
+      width: calc(420px - 16px);
+      margin-top: 4px;
+      z-index: 0;
+    }
