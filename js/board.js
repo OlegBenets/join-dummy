@@ -8,7 +8,8 @@ async function init() {
     await loadAllData();
     await getAllTasks();
     loadCards();
-    setEventlister();
+    // setEventlister();
+    initPage();
 }
 
 function loadCards() {
