@@ -301,13 +301,11 @@ function renderContactList() {
 
     for (let i = 0; i < assignedContactsList.length; i++) {
       const ASSIGN_CONTACT = assignedContactsList[i];
-      console.log(ASSIGN_CONTACT);
       let id = ASSIGN_CONTACT.id;
       let color = ASSIGN_CONTACT.color;
       let { initials, name } = extractInitialsAndName(ASSIGN_CONTACT);
       contactListContainer.innerHTML += contactListTemplate(initials, name, color, i, id);
     }
-    console.log("contact list", assignedContactsList);
   } else {
     contactListContainer.innerHTML = "";
   }
@@ -384,16 +382,12 @@ function checkMatchContact(index) {
 }
 
 function pushContactInArray(name) {
-  console.log('unchecked');
   let index = assignedContacts.findIndex(n => n == name);
   assignedContacts.splice(index, 1);
-  console.log(assignedContacts);
 }
 
 function removeContactInArray(name) {
-  console.log('Checked');
   assignedContacts.push(name);
-  console.log(assignedContacts);
 }
 
 function renderSelectedContacts() {
