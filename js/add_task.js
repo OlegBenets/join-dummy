@@ -101,10 +101,60 @@ function renderSubtasksInPopup(parameter, index) {
 
 function generateHTMLsubtasksPopup(subtask) {
     return `
-    <ul class='subtask-popup-ul-container'>
-        <li class='subtasks-popup-li'>${subtask['subtitle']}</li>
-    </ul>
+    <div class='subtask-popup-edit-container'>
+        <ul class='subtask-popup-ul-container'>
+            <li>
+                ${subtask['subtitle']}  
+            </li>
+            <div class='subtasks-edit-delete-container'>
+                <div class='subtasks-edit-container' onclick="editSubtask('${subtask['subtitle']}')">
+                    <img src='/assets/img/edit_normal.svg'>
+                </div>
+                <div class='subtasks-seperator'></div>
+                <div onclick="deleteSubtask('${subtask['subtitle']}')" class='subtasks-delete-container'>
+                    <img src='/assets/img/delete.svg'>
+                </div>
+            </div>
+        </ul>
+    </div>
     `
+}
+
+function editSubtask(subtaskTitle) {
+    // Finde den Container
+    const container = document.querySelector('.subtask-popup-edit-container');
+
+    // Generiere den HTML-Code für den Subtask
+    const subtaskHTML = generateSubtaskHTML(subtaskTitle);
+
+    // Füge den generierten HTML-Code dem Container hinzu
+    container.innerHTML = subtaskHTML;
+    
+}
+
+function generateSubtaskHTML(subtaskTitle) {
+    console.log(subtaskTitle);
+    return `
+    <div class="subtask-popup-edit-container">
+        <div class='display-flex'>
+            <input type="text" value="${subtaskTitle}" class="subtask-edit-input">
+            <div onclick="deleteSubtask('${subtaskTitle}')" class='subtasks-delete-container'>
+                <img src='/assets/img/delete.svg'>
+            </div>
+            <div class='subtasks-seperator'></div>
+            <div class="edit-image">
+                <img src="/assets/img/edit_normal.svg">
+            </div>
+        </div>
+        <div class="subtask-edit-underlineA"></div>
+    </div>`;
+}
+
+
+function deleteSubtask(subtask) {
+    let indexOfCurSubTask = currentSubtasks.findIndex(item => item === subtask);
+    currentSubtasks.splice(indexOfCurSubTask, 1);
+    renderSubtasksInPopup('addTask', '');
 }
 
 function clearSubtaskInput(parameter, index) {
@@ -114,8 +164,6 @@ function clearSubtaskInput(parameter, index) {
     else {
         document.getElementById('subtasks-input'+index).value = '';
     }
-
-
 }
 
 function checkInput(parameter, index) {

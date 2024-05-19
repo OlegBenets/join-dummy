@@ -390,13 +390,40 @@
     }
 
     .subtask-popup-ul-container {
-      /* width: 440px; */
+      width: 392px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       height: 32px;
-      margin-top: 8px;
+      margin-top: 0;
       margin-bottom: 0;
       cursor: pointer;
+      list-style-type: disc;
+
+    }
+
+    .subtask-popup-edit-container {
+      width: 432px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      height: 33px;
+      margin-top: 8px;
+    }
+
+    .subtask-popup-edit-container input {
+      border: none;
+      outline: none;
+    }
+
+    .subtask-edit-underlineA {
+      height: 1px;
+      width: 432px;
+      background-color: black;
+    }
+
+    .display-flex {
+      display: flex;
     }
 
     .subtask-popup-ul-container:hover {
@@ -417,6 +444,63 @@
     .margin-bottom-0 {
       margin-bottom: 0px !important;
     }
+
+    .subtasks-edit-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+    }
+
+    .subtasks-edit-delete-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .subtasks-subtitle {
+      flex-grow: 1;
+    }
+
+    .subtasks-seperator {
+      width: 1px;
+      height: 24px;
+      background-color: var(--customized_gray);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .subtasks-delete-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      margin-right: 16px;
+    }
+
+    .disableEditSubtask {
+      display: none !important;
+    }
+
+    .subtask-popup-ul-container .subtasks-edit-delete-container {
+      display: none;
+    }
+  
+    .subtask-popup-ul-container:hover .subtasks-edit-delete-container {
+        display: flex;
+    }
+
+    .subtask-edit-input {
+      width: 100%;
+      height: 32px;
+      padding: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+  }
+
+
 
     .drop-down-contacts {
      display: flex;

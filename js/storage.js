@@ -6,12 +6,10 @@ let activUser = "guest";
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
+
 async function loadData(path = "") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
     let responseAsJson = await response.json();
-
-    console.log(responseAsJson);
-
     if (path == 'tasks') {
         responseAsJson.forEach(task => {
             if (!task.hasOwnProperty('subTasks')) {
@@ -20,14 +18,17 @@ async function loadData(path = "") {
             }
         });
     }
+    return checkIfEmpty(responseAsJson);
+}
 
-    console.log(responseAsJson);
-    if (responseAsJson) {
-        return responseAsJson;
+function checkIfEmpty(data) {
+    if (data) {
+        return data;
     } else {
-        return array = [];
+        return data = [];
     };
 }
+
 //PUT
 async function putData(path = "", data = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
@@ -190,10 +191,8 @@ function creatTask(asigntTo, category, date, description, prio, status, subTasks
 }
 
 async function addTasks(task) {
-    console.log(task);
     let buffer = JSON.stringify(task);
     tasks.push(await JSON.parse(buffer));
-    console.log(tasks[tasks.length - 1]);
     await saveAllData('tasks');
 }
 
