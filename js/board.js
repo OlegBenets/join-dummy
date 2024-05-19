@@ -3,14 +3,15 @@ let allTasks = [];
 let filterdtasks = [];
 let loadedTasks = [];
 let currentContactColor = 'black';
+let allContactsExist = [];
 
 
 async function init() {
     await loadAllData();
     await getAllTasks();
+    await initPage();
     loadCards();
-    // setEventlister();
-    initPage();
+    
 }
 
 function loadCards() {
@@ -159,7 +160,6 @@ function setPrio(card) {
 }
 
 function loadCategoryColorTest() {
-    console.log(allTasks);
     for (let i = 1; i < allTasks.length; i++) {
         const task = allTasks[i];
         let taskId = task['id'];
@@ -190,31 +190,32 @@ function checkPriority(card) {
 }
 
 
-
 function checkAssignedTo(card, whichCard) {
     let allContacts = card['asigntTo'];
 
     if (allContacts.length !== 0) {
         let initials = [];
         let colors = [];
-        currentContactColor = assignedContactsList
+        
         for (let i = 0; i < allContacts.length; i++) {
             let words = allContacts[i].split(' ');
             let initialsForName = '';
-            let indexOf
+            let name = allContacts[i];
+            let indexOfContact = assignedContactsList.findIndex(n => n.name == name);
+            let curColor = assignedContactsList[indexOfContact]['color'];
 
             for (let j = 0; j < words.length && j < 2; j++) {
                 initialsForName += words[j].charAt(0);
             }
             initials.push(initialsForName);
-
+            colors.push(curColor);
         }
 
         if (whichCard == 'small-card') {
-            return generateHTMLAssignedTo(initials, );
+            return generateHTMLAssignedTo(initials, colors);
         }
         else if (whichCard == 'big-card') {
-            return generateHTMLAssignedToBigCard(initials, card);
+            return generateHTMLAssignedToBigCard(initials, card, colors);
         }
 
     }
@@ -223,12 +224,12 @@ function checkAssignedTo(card, whichCard) {
     }
 }
 
-function generateHTMLAssignedTo(initialsArray) {
+function generateHTMLAssignedTo(initialsArray, colors) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
         circlesHTML += `
-            <div class='circle'>
+            <div class='circle' style='background-color: #${colors[i]};'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
         `;
@@ -551,16 +552,39 @@ function renderEditBigCardSubtasks(cardId) {
     for (let i = 0; i < subtasks['subTasks'].length; i++) {
         const subtask = subtasks['subTasks'][i];
 
-        container.innerHTML += generateHTMLsubtasksEdit(subtask);
+        container.innerHTML += generateHTMLsubtasksEdit(subtask, cardId);
     }
 }
 
-function generateHTMLsubtasksEdit(subtask) {
+function generateHTMLsubtasksEdit(subtask, cardId) {
     return `
-    <ul class='subtask-popup-ul-container'>
-        <li class='subtasks-popup-li'>${subtask['subtitle']}</li>
-    </ul>
+    <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
+        <ul class='subtask-popup-ul-container'>
+            <li>
+                ${subtask["subtitle"]}  
+            </li>
+            <div class='subtasks-edit-delete-container'>
+                <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}', '${subtask["id"]}')">
+                    <img src='/assets/img/edit_normal.svg'>
+                </div>
+                <div class='subtasks-seperator'></div>
+                <div onclick="deleteEditSubtask('${subtask["id"]}', ${cardId})" class='subtasks-delete-container'>
+                    <img src='/assets/img/delete.svg'>
+                </div>
+            </div>
+        </ul>
+    </div>
     `
+}
+
+async function deleteEditSubtask(SubtaskId, cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    console.log(allTasks[indexOfCurTask]);
+    console.log(SubtaskId);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == SubtaskId);
+
+    await deleteSubTasks(indexOfCurTask, indexOfCurSubTask);
+    renderEditBigCardSubtasks(cardId);
 }
 
 function changeBigCardContainer(parameter) {
@@ -583,13 +607,13 @@ async function deleteTask(id) {
 }
 
 
-function generateHTMLAssignedToBigCard(initialsArray, card) {
+function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
         circlesHTML += `
         <div class='big-card-one-assign'>
-            <div class='circle-big-card'>
+            <div class='circle-big-card' style='background-color: #${colors[i]};'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
             <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
@@ -651,7 +675,6 @@ async function taskSearch() {
     let input = inputfield.trim().toLowerCase();
     filteredTasks = [];
     allTasks = loadedTasks;
-    console.log(loadedTasks);
 
     if (input.length >= 0) {
         checkTasks(input, filteredTasks);

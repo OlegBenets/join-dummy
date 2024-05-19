@@ -403,6 +403,10 @@
 
     }
 
+    .margin-right-0 {
+      margin-right: 0 !important;
+    }
+
     .subtask-popup-edit-container {
       width: 432px;
       display: flex;
@@ -417,10 +421,10 @@
       outline: none;
     }
 
-    .subtask-edit-underlineA {
+    .subtask-edit-underline {
       height: 1px;
       width: 432px;
-      background-color: black;
+      background-color: var(--color_8);
     }
 
     .display-flex {
@@ -452,6 +456,12 @@
       align-items: center;
       height: 24px;
       width: 24px;
+      cursor: pointer;
+      border-radius: 16px;
+    }
+
+    .subtasks-edit-container:hover {
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     .subtasks-edit-delete-container {
@@ -479,6 +489,12 @@
       height: 24px;
       width: 24px;
       margin-right: 16px;
+      cursor: pointer;
+      border-radius: 16px;
+    }
+
+    .subtasks-delete-container:hover {
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     .disableEditSubtask {

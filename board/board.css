@@ -346,11 +346,12 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.circle:not(:first-child) {
     margin-left: -8px;
 }
+
+/* .circle:not(:first-child) {
+    margin-left: -8px;
+} */
 
 .initials {
     font-size: 12px;
@@ -361,6 +362,9 @@ h1 {
 
 .contacts-order {
     display: flex;
+    width: 180px;
+    flex-wrap: wrap;
+    margin-left: 8px;
 }
 
 .contacts-prio-container {
@@ -368,7 +372,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 32px;
 }
 
 .empty-column-container {
@@ -439,6 +442,7 @@ h1 {
     padding: 48px 40px 48px 40px;
     border-radius: 30px;
     background-color: #FFFFFF;
+    max-height: calc(100vh - 200px);
 }
 
 .big-card-category-container {
@@ -567,6 +571,8 @@ h1 {
 
 .big-card-assigned-container {
     margin-top: 28px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .big-card-assigned-names {

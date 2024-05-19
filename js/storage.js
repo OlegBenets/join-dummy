@@ -245,8 +245,8 @@ async function addSubTasks(index, subtask) {
 
 async function deleteSubTasks(index, subindex) {
     if (index < tasks.length) {
-        if (subindex < tasks[index].subtask.length) {
-            tasks[index].subtask.splice(subindex, 1);
+        if (subindex < tasks[index].subTasks.length) {
+            tasks[index].subTasks.splice(subindex, 1);
         }
     }
     await saveAllData('tasks');

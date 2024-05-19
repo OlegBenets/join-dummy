@@ -86,7 +86,7 @@ function addSubtaskToPopup(parameter, index) {
   if (parameter === "addTask") {
     subtitle = document.getElementById("subtasks-input").value;
   } else {
-    subtitle = document.getElementById("subtasks-input" + index).value;
+    subtitle = document.getElementById("subtasks-input").value;
   }
 
   let subtask = creatSubTask(subtitle, (checked = "unchecked"));
@@ -101,7 +101,7 @@ function renderSubtasksInPopup(parameter, index) {
     container = document.getElementById("subtasks-popup-section");
     container.innerHTML = "";
   } else {
-    container = document.getElementById("subtasks-popup-section" + index);
+    container = document.getElementById("subtasks-popup-section");
   }
 
   for (let i = 0; i < currentSubtasks.length; i++) {
@@ -113,13 +113,13 @@ function renderSubtasksInPopup(parameter, index) {
 
 function generateHTMLsubtasksPopup(subtask) {
   return `
-    <div class='subtask-popup-edit-container'>
+    <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
         <ul class='subtask-popup-ul-container'>
             <li>
                 ${subtask["subtitle"]}  
             </li>
             <div class='subtasks-edit-delete-container'>
-                <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}')">
+                <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}', '${subtask["id"]}')">
                     <img src='/assets/img/edit_normal.svg'>
                 </div>
                 <div class='subtasks-seperator'></div>
@@ -132,33 +132,45 @@ function generateHTMLsubtasksPopup(subtask) {
     `;
 }
 
-function editSubtask(subtaskTitle) {
+function editSubtask(subtaskTitle, id) {
   // Finde den Container
-  const container = document.querySelector(".subtask-popup-edit-container");
+  const container = document.getElementById(`subtask-popup-edit-container${id}`);
 
   // Generiere den HTML-Code für den Subtask
-  const subtaskHTML = generateSubtaskHTML(subtaskTitle);
+  const subtaskHTML = generateSubtaskHTML(subtaskTitle, id);
 
   // Füge den generierten HTML-Code dem Container hinzu
   container.innerHTML = subtaskHTML;
 }
 
-function generateSubtaskHTML(subtaskTitle) {
+function generateSubtaskHTML(subtaskTitle, id) {
   console.log(subtaskTitle);
   return `
-    <div class="subtask-popup-edit-container">
+    <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
         <div class='display-flex'>
-            <input type="text" value="${subtaskTitle}" class="subtask-edit-input">
-            <div onclick="deleteSubtask('${subtaskTitle}')" class='subtasks-delete-container'>
-                <img src='/assets/img/delete.svg'>
-            </div>
-            <div class='subtasks-seperator'></div>
-            <div class="edit-image">
-                <img src="/assets/img/edit_normal.svg">
+            <input id='subtaskInput${id}' type="text" value="${subtaskTitle}" class="subtask-edit-input">
+            <div class='subtasks-edit-delete-container'>
+                <div onclick="deleteSubtask('${subtaskTitle}')" class='subtasks-delete-container margin-right-0'>
+                    <img src='/assets/img/delete.svg'>
+                </div>
+                <div class='subtasks-seperator'></div>
+                <div onclick='saveChangedSubtask(${id})' class="subtasks-edit-container">
+                    <img src="/assets/img/check-subtask.svg">
+                </div>
             </div>
         </div>
-        <div class="subtask-edit-underlineA"></div>
+        <div class="subtask-edit-underline"></div>
     </div>`;
+}
+
+function saveChangedSubtask(id) {
+    let indexOfCurSubTask = currentSubtasks.findIndex(i => i.id == id);
+    let newTitle = document.getElementById('subtaskInput'+id).value;
+
+    currentSubtasks[indexOfCurSubTask]['subtitle'] = newTitle;
+
+    renderSubtasksInPopup('addTask', '');
+
 }
 
 function deleteSubtask(subtask) {
