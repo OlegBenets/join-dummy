@@ -11,12 +11,15 @@ async function loadData(path = "") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
     let responseAsJson = await response.json();
     if (path == 'tasks') {
-        responseAsJson.forEach(task => {
-            if (!task.hasOwnProperty('subTasks')) {
-                // Attribut hinzufügen, wenn es nicht vorhanden ist
-                task.subTasks = [];
-            }
-        });
+        if (responseAsJson) {
+            responseAsJson.forEach(task => {
+                if (!task.hasOwnProperty('subTasks')) {
+                    // Attribut hinzufügen, wenn es nicht vorhanden ist
+                    task.subTasks = [];
+                }
+            });
+        }
+
     }
     return checkIfEmpty(responseAsJson);
 }
