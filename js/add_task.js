@@ -284,3 +284,39 @@ function assignContactToTask(i) {
   assignContact.style.backgroundColor = assignContact.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
   assignContact.style.color = assignContact.style.color === "white" ? "" : "white";
 }
+
+
+// .checkOff {
+//   display: block;
+//   width: 24px;
+//   height: 24px;
+// }
+
+// .checkOn {
+//   display: none;
+// }
+
+// .checkOff:hover {
+//   border-radius: 6px;
+//   background-color: var(--customized_paleblue);
+// }
+
+// .checkOn:hover {
+//   border-radius: 6px;
+//   background-color: var(--customized_paleblue);
+// }
+
+// .checkbox input {
+//   display: none;
+// }
+
+// .checkbox input:checked+label .checkOff {
+//   display: none;
+// }
+
+// .checkbox input:checked+label .checkOn {
+//   display: block;
+//   width: 24px;
+//   height: 24px;
+
+// }
