@@ -92,6 +92,7 @@ form {
     font-size: 20px;
     font-weight: 400;
     color: black;
+    background-color: white !important;
 }
 
 .input:focus {
@@ -256,7 +257,13 @@ form {
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
+    text-align: center;
     color: var(--customized_gray);
+}
+
+.legalLinks:hover{
+    color: var(--customized_lightblue);
+    font-weight: 700;
 }
 
 .signUpLink {
@@ -276,4 +283,66 @@ form {
 
 .signUpLink a {
     text-decoration: none;
+}
+
+.successBackground{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: rgba(0, 0, 0, 0.25);
+
+    transition: all 75ms ease-in-out;
+
+    opacity: 0;
+    z-index: -5;
+}
+
+.show {
+    z-index: 15;
+    opacity: 1;
+}
+
+.show div{
+    transform: translateY(0%);
+}
+
+.successBanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 16;
+    transition: all 300ms ease-in-out;
+
+    top: calc(50% - 36px);
+    left: calc(50% - 156px);
+
+
+    border-radius: 20px;
+    height: 74px;
+    width: 312px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    padding: 0px 25px 0px 25px;
+
+    color: white;
+    background-color: var(--customized_darkblue);
+    font-size: 20px;
+    font-weight: 400;
+
+    transform: translateY(750%);
+}
+
+.slide{
+    transform: translateY(0%);
+}
+
+.rotat90{
+    transform: rotate(-90deg);
 }

@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>JOIN</title>
     <link rel="shortcut icon" href="./assets/img/Capa 2.svg" type="image/x-icon">
     <link rel="stylesheet" href="./styles/style.css">
@@ -23,7 +25,7 @@
 
     <div class="signUpLink">
         Not a Join user?
-        <a href="./sign_up.html"><button class="button_full">Sign up</button></a>
+        <a href="./signup_v2.html"><button class="button_full">Sign up</button></a>
     </div>
 
     <form class="logInForm" onsubmit="passwordValidation(event)">
@@ -73,7 +75,7 @@
             <button class="button_full big" onclick="validationCheck(event)">
                 <div>Log in</div>
             </button>
-            <button class="button_hollow big">
+            <button class="button_hollow big" onclick="loginAsGuest(event)">
                 <div>Guest Log in</div>
             </button>
         </div>

@@ -228,7 +228,8 @@ async function getTasksArray() {
 function creatSubTask(subtitle, checked = "unchecked") {
     let subtask = {
         "subtitle": subtitle,
-        "checked": checked
+        "checked": checked,
+        "id": idGenerator()
     }
     return subtask;
 }
@@ -277,25 +278,27 @@ async function getSubTasks(index) {
 //Validation handling functions
 
 /**
- * Creates a validation object with username and password.
- * @param {string} user - The username for validation.
- * @param {string} password - The password for validation.
- * @returns {object} A validation object with username and password.
+ * Creates a userData object with username and password.
+ * @param {string} user - The username for userData.
+ * @param {string} password - The password for userData.
+ * @returns {object} A userData object with username and password.
  */
-function creatValidaion(user, password) {
-    let validation = {
-        "user": user,
-        "password": password
+function creatUser(user, password, email) {
+    let userData = {
+        "name": user,
+        "password": password,
+        "email": email,
+        "id": idGenerator()
     };
-    return validation;
+    return userData;
 }
 
 /**
  * this function makes a deep copy of the parameter and push it in the loginData array
- * @param {object} validation 
+ * @param {object} userData 
  */
-async function addLoginData(validation) {
-    let buffer = JSON.stringify(validation);
+async function addLoginData(userData) {
+    let buffer = JSON.stringify(userData);
     loginData.push(await JSON.parse(buffer));
     await saveAllData('loginData');
 }
@@ -312,22 +315,22 @@ async function deleteLoginData(index) {
 }
 
 /**
-  * Edits the loginData array based on the index and updated validation data. with an deep copy of the valdation
-  * @param {number} index - The index of the validation to process.
-  * @param {object} validation - The updated validation data.
+  * Edits the loginData array based on the index and updated userData data. with an deep copy of the valdation
+  * @param {number} index - The index of the userData to process.
+  * @param {object} userData - The updated userData data.
   */
-async function editLoginData(index, validation) {
+async function editLoginData(index, userData) {
     if (index < loginData.length) {
-        let buffer = JSON.stringify(validation);
+        let buffer = JSON.stringify(userData);
         loginData[index] = await JSON.parse(buffer);
     }
     await saveAllData('loginData');
 }
 
 /**
-  * Gets the validation data based on the index. with a detailed copy of the requested data entry
-  * @param {number} index - The index of the validation to retrieve.
-  * @returns {object} - The validation data.
+  * Gets the userData data based on the index. with a detailed copy of the requested data entry
+  * @param {number} index - The index of the userData to retrieve.
+  * @returns {object} - The userData data.
   */
 async function getLoginData(index) {
     if (index < loginData.length) {

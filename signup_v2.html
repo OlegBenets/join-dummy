@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="inputFrame">
-                    <input name="password" class="input" type="password" placeholder="Password"  required>
+                    <input name="password" class="input" type="password" placeholder="Password" required>
                     <div class="iconFrame">
                         <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
                             onclick="showPassword(event)">
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <div class="inputFrame">
-                        <input name="confirmPassword" class="input" type="password" placeholder="Confirm Password" 
+                        <input name="confirmPassword" class="input" type="password" placeholder="Confirm Password"
                             required>
                         <div class="iconFrame">
                             <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
@@ -87,10 +87,12 @@
         </div>
 
         <div>
-            <button class="button_full big" disabled="true" onclick="validationCheck(event)"><div>Sign up</div></button>
+            <button class="button_full big" disabled="true" onclick="validationCheck(event)">
+                <div>Sign up</div>
+            </button>
         </div>
 
-        <a href="./login.html" class="backArrow"><img src="./assets/img/arrow_blue.svg" alt=""></a>
+        <a href="./login_v2.html" class="backArrow"><img src="./assets/img/arrow_blue.svg" alt=""></a>
 
     </form>
 
@@ -98,6 +100,11 @@
         <div><a class="legalLinks" href="./Legal_Folder/privacy_policy.html" target="_blank">Privacy Policy</a>
         </div>
         <div><a class="legalLinks" href="./Legal_Folder/legal_notice.html" target="_blank">Legal notice</a></div>
+    </div>
+
+    <div class="successBackground" id="successBackground"></div>
+    <div class="successBanner" id="successBanner">
+        You Signed Up successfully
     </div>
 
 </body>
