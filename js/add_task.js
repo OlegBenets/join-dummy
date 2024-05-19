@@ -349,7 +349,6 @@ function contactListTemplate(initials, name, color, i) {
     </div>
     `;
   }
-
 }
 
 function assignContactToTask(i) {
@@ -369,8 +368,8 @@ function assignContactToTask(i) {
     imgCheckOn.style.display = "block";
     removeContactInArray(assignedContactsList[i]);
   }
-
   renderSelectedContacts();
+  renderContactList();
 }
 
 function checkMatchContact(index) {
