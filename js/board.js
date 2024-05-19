@@ -261,6 +261,7 @@ function checkSubtasks(card, whichCard) {
 function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
     return `
         <div class='progress-container'>
+            <div class='popup-progressbar'>${amountOfCheckedSubtasks} von ${amountOfSubtasks} Subtasks erledigt!</div>
             <div class="progress-bar">
                 <div id='progress${card['id']}' class="progress"></div>
             </div>

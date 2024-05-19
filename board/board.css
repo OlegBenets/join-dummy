@@ -319,6 +319,7 @@ h1 {
 }
 
 .progress-container {
+    position: relative;
     display: flex;
     align-items: center;
     width: 220px;
@@ -878,6 +879,23 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     font-size: 16px;
     font-family: inter;
     font-weight: 700;
+}
+
+.popup-progressbar {
+    position: absolute;
+    top: -30px; /* Passen Sie die Position nach Bedarf an */
+    left: 0;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    display: none;
+    z-index: 10;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.progress-container:hover .popup-progressbar {
+    display: block;
 }
 
 /* ====== Column Scrollbar ====== */
