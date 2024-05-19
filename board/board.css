@@ -60,6 +60,7 @@ h1 {
 }
 
 .input-box {
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: 280px;
@@ -860,6 +861,24 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     font-size: 20px;
 }
 
+#taskFilterInput {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.popup {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    color: var(--customized_red);
+    padding: 5px;
+    display: none;
+    z-index: 10;
+    font-size: 16px;
+    font-family: inter;
+    font-weight: 700;
+}
 
 /* ====== Column Scrollbar ====== */
 

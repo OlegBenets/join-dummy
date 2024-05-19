@@ -665,4 +665,10 @@ function checkTasks(filter, filteredTasks) {
     }
     allTasks = filteredTasks;
     loadCards();
+
+    if (allTasks.length === 0) {
+        noTasksPopup.style.display = 'block';
+    } else {
+        noTasksPopup.style.display = 'none';
+    }
 }
