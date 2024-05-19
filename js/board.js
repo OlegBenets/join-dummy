@@ -39,7 +39,7 @@ function loadTodoCards() {
 
 function loadProgressCards() {
     let progress = allTasks.filter(t => t['status'] == 'progress');
-    
+
     document.getElementById('progress-column').innerHTML = '';
 
     if (progress.length !== 0) {
@@ -57,7 +57,7 @@ function loadProgressCards() {
 
 function loadAwaitCards() {
     let feedback = allTasks.filter(t => t['status'] == 'await');
-    
+
     document.getElementById('await-column').innerHTML = '';
 
     if (feedback.length !== 0) {
@@ -75,7 +75,7 @@ function loadAwaitCards() {
 
 function loadDoneCards() {
     let done = allTasks.filter(t => t['status'] == 'done');
-    
+
     document.getElementById('done-column').innerHTML = '';
 
     if (done.length !== 0) {
@@ -150,10 +150,10 @@ function setPrio(card) {
             break;
         case 'Medium':
             return `<img src='/assets/img/prio_small_cards_medium.svg'>`
-        break;
+            break;
         case 'Urgent':
             return `<img src='/assets/img/prio_small_cards_urgent.svg'>`
-        break;
+            break;
     }
 }
 
@@ -164,10 +164,10 @@ function loadCategoryColorTest() {
         let taskId = task['id'];
         let currentCategory = task['category'];
         if (currentCategory) {
-            document.getElementById('category-container' + taskId).style.backgroundColor = 'var(--color_7)';
-        } 
+            document.getElementById(`category-container${taskId}`).style.backgroundColor = 'var(--color_7)';
+        }
         else {
-            document.getElementById('category-container' + taskId).style.backgroundColor = 'var(--color_10)';
+            document.getElementById(`category-container${taskId}`).style.backgroundColor = 'var(--color_10)';
         }
     }
 }
@@ -198,21 +198,21 @@ function checkAssignedTo(card, whichCard) {
         for (let i = 0; i < allContacts.length; i++) {
             let words = allContacts[i].split(' ');
             let initialsForName = '';
-        
+
             for (let j = 0; j < words.length && j < 2; j++) {
                 initialsForName += words[j].charAt(0);
             }
             initials.push(initialsForName);
-            
+
         }
 
         if (whichCard == 'small-card') {
             return generateHTMLAssignedTo(initials);
         }
-        else if(whichCard == 'big-card') {
+        else if (whichCard == 'big-card') {
             return generateHTMLAssignedToBigCard(initials, card);
         }
-        
+
     }
     else {
         return '';
@@ -283,11 +283,11 @@ function calculateProgressBar(card) {
 
         let maxProgressValue = allSubtasks.length;
 
-        let progress = ((progressValue / maxProgressValue) * 100) *2;
+        let progress = ((progressValue / maxProgressValue) * 100) * 2;
 
         let progressBar = document.getElementById('progress' + card['id']);
         if (progressBar) {
-        progressBar.style.width = progress + "%";
+            progressBar.style.width = progress + "%";
         }
     }
 }
@@ -514,10 +514,10 @@ function generateHTMLEditTask(indexOfCurTask) {
 
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
-    let title = document.getElementById("input-title"+indexOfCurTask).value;
-    let description = document.getElementById("input-description"+indexOfCurTask).value;
-    let asigntTo = document.getElementById("input-assignTo"+indexOfCurTask).value;
-    let date = document.getElementById("input-date"+indexOfCurTask).value;
+    let title = document.getElementById("input-title" + indexOfCurTask).value;
+    let description = document.getElementById("input-description" + indexOfCurTask).value;
+    let asigntTo = document.getElementById("input-assignTo" + indexOfCurTask).value;
+    let date = document.getElementById("input-date" + indexOfCurTask).value;
     let category = allTasks[indexOfCurTask]['category'];
     let oldSubtasks = allTasks[indexOfCurTask]['subTasks'];
     let status = allTasks[indexOfCurTask]['status'];
@@ -527,7 +527,7 @@ async function editTask(indexOfCurTask) {
         const subtask = oldSubtasks[i];
         currentSubtasks.push(subtask);
     }
-    
+
 
     let task = creatTask([asigntTo], category, date, description, prio, status, currentSubtasks, title);
     task['id'] = cardId;
@@ -541,12 +541,12 @@ async function editTask(indexOfCurTask) {
 function renderEditBigCardSubtasks(cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
     let subtasks = tasks[indexOfCurTask];
-    let container = document.getElementById('subtasks-popup-section'+indexOfCurTask);
+    let container = document.getElementById('subtasks-popup-section' + indexOfCurTask);
     container.innerHTML = '';
 
     for (let i = 0; i < subtasks['subTasks'].length; i++) {
         const subtask = subtasks['subTasks'][i];
-        
+
         container.innerHTML += generateHTMLsubtasksEdit(subtask);
     }
 }
@@ -601,7 +601,7 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
     for (let i = 0; i < amountOfSubtasks; i++) {
         const subtask = card['subTasks'][i];
         let checked = subtask['checked'];
-        
+
         subtasksHTML += `
         <div class='big-card-one-subtask'>
             <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}')" ${checked}>
@@ -613,7 +613,7 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
         </div>
     `
     }
-    
+
     return subtasksHTML;
 }
 
@@ -630,7 +630,7 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     else {
         newSubtaskStatus = 'unchecked';
     }
-    
+
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
     await getAllTasks();
