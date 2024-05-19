@@ -24,6 +24,7 @@
             <img src="/assets/img/arrow_drop_down.svg">
           </div>
           <div class="drop-down-contacts">
+            <div id="selected-contacts"></div>
             <div class="contacts-list" id="contacts-list"></div>
           </div>
         </div>
@@ -62,7 +63,7 @@
             <p class="important">*</p>
           </div>
           <div class="add-task-input-container">
-            <select id="input-category">
+            <select required id="input-category">
               <option value="" disabled selected hidden>
                 Select task category
               </option>

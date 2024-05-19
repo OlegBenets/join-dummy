@@ -558,13 +558,20 @@
 
     .assigned-contact-container {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
       gap: 16px;
       width: calc(100% - 32px);
       height: 56px;
       padding: 7px 16px;
       border-radius: 6px;
+    }
+
+    .assigned-contact-child-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 16px;
     }
 
     .assigned-contact-container:hover {
@@ -592,3 +599,37 @@
       font-size: 12px;
       font-weight: 400;
     }
+
+    .check-contact{
+      display: none;
+    }
+    
+    .uncheck-contact {
+      display: block;
+    }
+    
+    .checkOff:hover {
+      border-radius: 6px;
+      background-color: var(--customized_paleblue);
+    }
+    
+    .checkOn:hover {
+      border-radius: 6px;
+      background-color: var(--customized_paleblue);
+    }
+    
+    .checkbox input {
+      display: none;
+    }
+    
+    .checkbox input:checked+label .checkOff {
+      display: none;
+    }
+    
+    .checkbox input:checked+label .checkOn {
+      display: block;
+      width: 24px;
+      height: 24px;
+    
+    }
+    
