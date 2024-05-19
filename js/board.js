@@ -2,6 +2,7 @@ let currentDraggedItem;
 let allTasks = [];
 let filterdtasks = [];
 let loadedTasks = [];
+let currentContactColor = 'black';
 
 
 async function init() {
@@ -195,9 +196,12 @@ function checkAssignedTo(card, whichCard) {
 
     if (allContacts.length !== 0) {
         let initials = [];
+        let colors = [];
+        currentContactColor = assignedContactsList
         for (let i = 0; i < allContacts.length; i++) {
             let words = allContacts[i].split(' ');
             let initialsForName = '';
+            let indexOf
 
             for (let j = 0; j < words.length && j < 2; j++) {
                 initialsForName += words[j].charAt(0);
@@ -207,7 +211,7 @@ function checkAssignedTo(card, whichCard) {
         }
 
         if (whichCard == 'small-card') {
-            return generateHTMLAssignedTo(initials);
+            return generateHTMLAssignedTo(initials, );
         }
         else if (whichCard == 'big-card') {
             return generateHTMLAssignedToBigCard(initials, card);

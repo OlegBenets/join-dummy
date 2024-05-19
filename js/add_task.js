@@ -14,12 +14,13 @@ async function initPage() {
 async function addTask() {
   let title = document.getElementById("input-title").value;
   let description = document.getElementById("input-description").value;
-  let asigntTo = document.getElementById("input-assignTo").value;
+  let asigntTo = getAssigntContactsNames();
   let date = document.getElementById("input-date").value;
   let categoryTxt = document.getElementById("input-category").value;
   let category;
   let prio = currentPrio;
   let status = currentStatus;
+  
 
   if (categoryTxt == "User Story") {
     category = true;
@@ -29,7 +30,7 @@ async function addTask() {
 
   testTask();
   let task = creatTask(
-    [asigntTo],
+    asigntTo,
     category,
     date,
     description,
@@ -44,6 +45,17 @@ async function addTask() {
   loadCards();
   resetForm();
   showAddTaskConfirmation();
+}
+
+function getAssigntContactsNames() {
+    let assigntToNames = [];
+    for (let i = 0; i < assignedContacts.length; i++) {
+        const contact = assignedContacts[i];
+        let assigntToName = contact.name;
+        
+        assigntToNames.push(assigntToName);
+    }
+    return assigntToNames;
 }
 
 function showAddTaskConfirmation() {
