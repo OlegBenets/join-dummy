@@ -5,27 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOIN</title>
-    <link rel="shortcut icon" href="./assets/img/Capa 2.svg" type="image/x-icon">
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/login_signup.css">
-    <link rel="stylesheet" href="./styles/buttons.css">
+    <link rel="shortcut icon" href="../assets/img/Capa 2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login_signup.css">
+    <link rel="stylesheet" href="../css/buttons.css">
 
-    <script src="./js/password_shower.js"></script>
-    <script src="./js/storage.js"></script>
-    <script src="./js/form_validation.js"></script>
+    
+
+    <script src="../js/script.js"></script>
 
 </head>
 
 <body onload="startPage()">
     <div class="logo">
-        <img src="./assets/img/Capa 2.svg" alt="Join logo">
+        <img src="../assets/img/Capa 2.svg" alt="Join logo">
     </div>
 
     <form id="signUpForm" class="signUpForm" onsubmit="signUpUser(event)">
 
         <div class="haedline">
             <h1>Sign up</h1>
-            <img src="./assets/img/blue_line.svg" alt="">
+            <img src="../assets/img/blue_line.svg" alt="">
         </div>
 
         <div>
@@ -35,23 +35,23 @@
                 <div class="inputFrame">
                     <input name="name" class="input" type="text" placeholder="Name" required>
                     <div class="iconFrame">
-                        <img src="./assets/img/person (1).svg" alt="person icon">
+                        <img src="../assets/img/person (1).svg" alt="person icon">
                     </div>
                 </div>
 
                 <div class="inputFrame">
                     <input name="email" class="input" type="email" placeholder="Email" required>
                     <div class="iconFrame">
-                        <img src="./assets/img/mail.svg" alt="mail icon">
+                        <img src="../assets/img/mail.svg" alt="mail icon">
                     </div>
                 </div>
 
                 <div class="inputFrame">
                     <input name="password" class="input" type="password" placeholder="Password" required>
                     <div class="iconFrame">
-                        <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
+                        <img class="visi" src="../assets/img/visibility_off.svg" alt="visibility off icon"
                             onclick="showPassword(event)">
-                        <img class="lock" src="./assets/img/lock.svg" alt="lock icon">
+                        <img class="lock" src="../assets/img/lock.svg" alt="lock icon">
                     </div>
                 </div>
                 <div>
@@ -59,9 +59,9 @@
                         <input name="confirmPassword" class="input" type="password" placeholder="Confirm Password"
                             required>
                         <div class="iconFrame">
-                            <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
+                            <img class="visi" src="../assets/img/visibility_off.svg" alt="visibility off icon"
                                 onclick="showPassword(event)">
-                            <img class="lock" src="./assets/img/lock.svg" alt="lock icon">
+                            <img class="lock" src="../assets/img/lock.svg" alt="lock icon">
                         </div>
                     </div>
                     <div class="errorInfo">
@@ -76,8 +76,8 @@
                 <input type="checkbox" id="checkboxSignUp" onclick="enabledButton(event)">
                 <label for="checkboxSignUp" id="checkboxSignUp_label">
 
-                    <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
-                    <img class="checkOn" id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
+                    <img class="checkOff" id="img_check_off" src="../assets/img/checkbox_unselected.svg" alt="">
+                    <img class="checkOn" id="img_check_on" src="../assets/img/checkbox_selected.svg" alt="">
 
                     <div>I accept the</div>
                     <a href="#" target="_blank" rel="noopener noreferrer">Privacy policy</a>
@@ -92,7 +92,7 @@
             </button>
         </div>
 
-        <a href="./login.html" class="backArrow"><img src="./assets/img/arrow_blue.svg" alt=""></a>
+        <a href="./login.html" class="backArrow"><img src="../assets/img/arrow_blue.svg" alt=""></a>
 
     </form>
 
