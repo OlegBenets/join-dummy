@@ -559,14 +559,14 @@
     }
 
     .contacts-list {
-      position: fixed;
+    position: relative;
      display: flex;
      flex-direction: column;
      gap: 2px;
      background-color: #ffffff;
      width: 432px;
      max-height: 180px;
-     margin-top: -12px;
+     margin-top: -62px;
      padding-top: 12px;
      border-radius: 10px;
      overflow-y: auto;
@@ -586,26 +586,6 @@
   .contacts-list::-webkit-scrollbar-track {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.contacts-list::-webkit-scrollbar-button:vertical {
-  display: block;
-  background-color: transparent;
-  background-repeat: no-repeat;
-}
-
-.contacts-list::-webkit-scrollbar-button:vertical:increment {
-  height: 12px;
-  background-color: transparent;
-  background-image: url('../assets/img/Vector\ 12.svg');
-  background-size: contain;
-}
-
-.contacts-list::-webkit-scrollbar-button:vertical:decrement {
-  height: 12px;
-  background-color: transparent;
-  background-image: url('../assets/img/Vector\ 13.svg');
-  background-size: contain;
 }
 
     .assigned-contact-container {
