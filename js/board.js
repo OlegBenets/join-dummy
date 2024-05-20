@@ -11,7 +11,6 @@ async function init() {
     await getAllTasks();
     await initPage();
     loadCards();
-    
 }
 
 function loadCards() {
@@ -98,13 +97,13 @@ async function getAllTasks() {
 }
 
 
-function generateEmptyColumnHTML(column) {
-    return `
-        <div class='empty-column-container'>
-            <span>No tasks ${column}</span>
-        </div>
-    `
-}
+// function generateEmptyColumnHTML(column) {
+//     return `
+//         <div class='empty-column-container'>
+//             <span>No tasks ${column}</span>
+//         </div>
+//     `
+// }
 
 function checkCategory(card) {
     let categoryHTML = '';
@@ -126,24 +125,24 @@ function checkCategory(card) {
 }
 
 
-function generateTodoHTML(card) {
-    return `
-    <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
-        ${checkCategory(card)}
-        <div class='small-card-text-container'>
-            <p class='small-card-title'>${card['title']}</p>
-            <p class='small-card-description'>${card['description']}</p>
-            ${checkSubtasks(card, 'small-card')}
-            <div class='contacts-prio-container'>
-                <div class='contacts-order'>
-                    ${checkAssignedTo(card, 'small-card')}
-                </div>
-                ${setPrio(card)}
-            </div>
-        </div>
-    </div>
-    `;
-}
+// function generateTodoHTML(card) {
+//     return `
+//     <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
+//         ${checkCategory(card)}
+//         <div class='small-card-text-container'>
+//             <p class='small-card-title'>${card['title']}</p>
+//             <p class='small-card-description'>${card['description']}</p>
+//             ${checkSubtasks(card, 'small-card')}
+//             <div class='contacts-prio-container'>
+//                 <div class='contacts-order'>
+//                     ${checkAssignedTo(card, 'small-card')}
+//                 </div>
+//                 ${setPrio(card)}
+//             </div>
+//         </div>
+//     </div>
+//     `;
+// }
 
 function setPrio(card) {
     switch (card.prio) {
@@ -194,19 +193,19 @@ function checkAssignedTo(card, whichCard) {
     }
 }
 
-function generateHTMLAssignedTo(initialsArray, colors) {
-    let circlesHTML = '';
+// function generateHTMLAssignedTo(initialsArray, colors) {
+//     let circlesHTML = '';
 
-    for (let i = 0; i < initialsArray.length; i++) {
-        circlesHTML += `
-            <div class='circle' style='background-color: #${colors[i]};'>
-                <div class='initials'>${initialsArray[i]}</div>
-            </div>
-        `;
-    }
+//     for (let i = 0; i < initialsArray.length; i++) {
+//         circlesHTML += `
+//             <div class='circle' style='background-color: #${colors[i]};'>
+//                 <div class='initials'>${initialsArray[i]}</div>
+//             </div>
+//         `;
+//     }
 
-    return circlesHTML;
-}
+//     return circlesHTML;
+// }
 
 function checkCheckedSubtasks(allSubtasks) {
     let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'checked');
@@ -235,19 +234,19 @@ function checkSubtasks(card, whichCard) {
 }
 
 
-function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
-    return `
-        <div class='progress-container'>
-            <div class='popup-progressbar'>${amountOfCheckedSubtasks} von ${amountOfSubtasks} Subtasks erledigt!</div>
-            <div class="progress-bar">
-                <div id='progress${card['id']}' class="progress"></div>
-            </div>
-            <div class='progress-txt-container'>
-                <p id='subtasks-amount${card['id']}'>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
-            </div>
-        </div> 
-    `
-}
+// function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
+//     return `
+//         <div class='progress-container'>
+//             <div class='popup-progressbar'>${amountOfCheckedSubtasks} von ${amountOfSubtasks} Subtasks erledigt!</div>
+//             <div class="progress-bar">
+//                 <div id='progress${card['id']}' class="progress"></div>
+//             </div>
+//             <div class='progress-txt-container'>
+//                 <p id='subtasks-amount${card['id']}'>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
+//             </div>
+//         </div> 
+//     `
+// }
 
 
 function calculateProgressBar(card) {
@@ -348,62 +347,62 @@ function checkCategoryBigCard(currentCard) {
 }
 
 
-function generateHTMLbigCard(currentCard) {
-    return `
-    <div class='space-between'>
-            ${checkCategoryBigCard(currentCard)}
-        <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer()" class='close-img-container'>
-            <img src='/assets/img/close.svg'>
-        </div>
-    </div>
-    <p class='big-card-title'>${currentCard['title']}</p>
-    <p class='big-card-description'>${currentCard['description']}</p>
-    <div class='big-card-date-container'>
-        <p class='big-card-data-txt'>Due date:</p>
-        <p class='big-card-data'>${currentCard['date']}</p>
-    </div>
-    <div class='big-card-prio-container'>
-        <p class='big-card-data-txt'>Priority:</p>
-        <div class='big-card-prio'>
-            <p class='big-card-data'>${currentCard['prio']}</p>
-            ${setPrio(currentCard)}
-        </div>
-    </div>
-    <div class='big-card-assigned-container'>
-        <p class='big-card-data-txt'>Assigned To:</p>
-        <div>
-            <div class='big-card-assigned-names'>
-                ${checkAssignedTo(currentCard, 'big-card')}
-            </div>
-        </div>
-    </div>
-    <div class='big-card-subtasks-container'>
-        <p class='big-card-data-txt'>Subtasks</p>
-        <div>
-            <div class='big-card-subtasks'>
-                ${checkSubtasks(currentCard, 'big-card')}
-            </div>
-        </div>
-    </div>
-    <div class='flex-end'>
-        <div class='delete-edit-container'>
-            <div onclick='deleteTask(${currentCard['id']})' class='delete-container'>
-                <div class='delete-img'>
-                    <div class='delete-icon'></div>
-                </div>
-                <p class='delete-txt'>Delete</p>
-            </div>
-            <div class='seperator-delete'></div>
-            <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit'); renderEditBigCardSubtasks(${currentCard['id']})" class='edit-container'>
-                <div class='edit-img'>
-                    <div class='edit-icon'></div>
-                </div>
-                <p class='edit-txt'>Edit</p>
-            </div>
-        </div>
-    </div>
-    `
-}
+// function generateHTMLbigCard(currentCard) {
+//     return `
+//     <div class='space-between'>
+//             ${checkCategoryBigCard(currentCard)}
+//         <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer()" class='close-img-container'>
+//             <img src='/assets/img/close.svg'>
+//         </div>
+//     </div>
+//     <p class='big-card-title'>${currentCard['title']}</p>
+//     <p class='big-card-description'>${currentCard['description']}</p>
+//     <div class='big-card-date-container'>
+//         <p class='big-card-data-txt'>Due date:</p>
+//         <p class='big-card-data'>${currentCard['date']}</p>
+//     </div>
+//     <div class='big-card-prio-container'>
+//         <p class='big-card-data-txt'>Priority:</p>
+//         <div class='big-card-prio'>
+//             <p class='big-card-data'>${currentCard['prio']}</p>
+//             ${setPrio(currentCard)}
+//         </div>
+//     </div>
+//     <div class='big-card-assigned-container'>
+//         <p class='big-card-data-txt'>Assigned To:</p>
+//         <div>
+//             <div class='big-card-assigned-names'>
+//                 ${checkAssignedTo(currentCard, 'big-card')}
+//             </div>
+//         </div>
+//     </div>
+//     <div class='big-card-subtasks-container'>
+//         <p class='big-card-data-txt'>Subtasks</p>
+//         <div>
+//             <div class='big-card-subtasks'>
+//                 ${checkSubtasks(currentCard, 'big-card')}
+//             </div>
+//         </div>
+//     </div>
+//     <div class='flex-end'>
+//         <div class='delete-edit-container'>
+//             <div onclick='deleteTask(${currentCard['id']})' class='delete-container'>
+//                 <div class='delete-img'>
+//                     <div class='delete-icon'></div>
+//                 </div>
+//                 <p class='delete-txt'>Delete</p>
+//             </div>
+//             <div class='seperator-delete'></div>
+//             <div onclick="showEditTask(${currentCard['id']}); changeBigCardContainer('edit'); renderEditBigCardSubtasks(${currentCard['id']})" class='edit-container'>
+//                 <div class='edit-img'>
+//                     <div class='edit-icon'></div>
+//                 </div>
+//                 <p class='edit-txt'>Edit</p>
+//             </div>
+//         </div>
+//     </div>
+//     `
+// }
 
 
 function showEditTask(id) {
@@ -421,86 +420,86 @@ function showEditTask(id) {
     }
 }
 
-function generateHTMLEditTask(indexOfCurTask) {
-    return `
-    <div class='input-edit-cross'>
-        <div onclick="showMovableContainer('remove', 'bigCard'); changeBigCardContainer(); resetForm()" class='close-img-container'>
-            <img src='/assets/img/close.svg'>
-        </div>
-    </div>
-    <div class='edit-content'>
-        <div class='input-title-section'>
-            <p>Title</p>
-            <div class='input-title-field-section'>
-                <input id='input-title${indexOfCurTask}' type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
+// function generateHTMLEditTask(indexOfCurTask) {
+//     return `
+//     <div class='input-edit-cross'>
+//         <div onclick="showMovableContainer('remove', 'bigCard'); changeBigCardContainer(); resetForm()" class='close-img-container'>
+//             <img src='/assets/img/close.svg'>
+//         </div>
+//     </div>
+//     <div class='edit-content'>
+//         <div class='input-title-section'>
+//             <p>Title</p>
+//             <div class='input-title-field-section'>
+//                 <input id='input-title${indexOfCurTask}' type='text' class='input-title-field' value='${tasks[indexOfCurTask]['title']}'>
                 
-            </div>
-        </div>
-        <div class='input-description-section'>
-            <p class='input-txt'>Description</p>
-            <div>
-                <textarea id='input-description${indexOfCurTask}' class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
-            </div>
-        </div>
-        <div class='input-date-section'>
-            <p class='input-txt'>Due Date</p>
-            <div>
-                <input id='input-date${indexOfCurTask}' type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
-            </div>
-        </div>
-        <div class='input-prio-section'>
-            <p class='input-txt'>Priority</p>
-            <div>
-            <div class="prio-container">
-            <button class="button-prio" id="button-urgent" type="button" onclick="getPrio('Urgent')">
-              Urgent<img id="img-urgent" src="/assets/img/urgent.svg" />
-            </button>
-            <button class="button-prio" id="button-medium" type="button" onclick="getPrio('Medium')">
-              Medium<img id="img-medium" src="/assets/img/medium.svg" />
-            </button>
-            <button class="button-prio" id="button-low" type="button" onclick="getPrio('Low')">
-              Low<img id="img-low" src="/assets/img/low.svg" />
-            </button>
-          </div>
-            </div>
-        </div>
-        <span class="task-description-span">Assigned to</span>
-          <div onclick="showContactsToAssign()" class="add-task-input-container mb">
-            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
-            <img src="/assets/img/arrow_drop_down.svg">
-          </div>
-          <div class="drop-down-contacts">
-            <div id="selected-contacts"></div>
-            <div class="contacts-list" id="contacts-list"></div>
-          </div>
-        <span class="task-deadline-span">Subtasks</span>
-          <div class="add-task-input-container margin-bottom-0">
-            <input oninput="checkInput('', ${indexOfCurTask})" class="subtask-input" type="text" placeholder="Add new subtask"
-              id="subtasks-input${indexOfCurTask}" />
-            <img id="subtasks-popup-empty-img${indexOfCurTask}" src="/assets/img/add.svg" />
-            <div id="subtasks-popup-full-img${indexOfCurTask}" class="subtasks-popup-full-container">
-              <div onclick="clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
-                <img src="/assets/img/cancel.svg" alt="cross-img">
-              </div>
-              <div class="subtasks-popup-seperator"></div>
-              <div onclick="addSubtaskInEditor(${indexOfCurTask}), clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
-                <img src="/assets/img/check-subtask.svg" alt="check-img">
-              </div>
-            </div>
-          </div>
-          <div class="subtasks-popup-section" id="subtasks-popup-section${indexOfCurTask}">
+//             </div>
+//         </div>
+//         <div class='input-description-section'>
+//             <p class='input-txt'>Description</p>
+//             <div>
+//                 <textarea id='input-description${indexOfCurTask}' class='input-title-field edit-textarea'>${tasks[indexOfCurTask]['description']}</textarea>
+//             </div>
+//         </div>
+//         <div class='input-date-section'>
+//             <p class='input-txt'>Due Date</p>
+//             <div>
+//                 <input id='input-date${indexOfCurTask}' type='date' class='input-title-field' value='${tasks[indexOfCurTask]['date']}'>
+//             </div>
+//         </div>
+//         <div class='input-prio-section'>
+//             <p class='input-txt'>Priority</p>
+//             <div>
+//             <div class="prio-container">
+//             <button class="button-prio" id="button-urgent" type="button" onclick="getPrio('Urgent')">
+//               Urgent<img id="img-urgent" src="/assets/img/urgent.svg" />
+//             </button>
+//             <button class="button-prio" id="button-medium" type="button" onclick="getPrio('Medium')">
+//               Medium<img id="img-medium" src="/assets/img/medium.svg" />
+//             </button>
+//             <button class="button-prio" id="button-low" type="button" onclick="getPrio('Low')">
+//               Low<img id="img-low" src="/assets/img/low.svg" />
+//             </button>
+//           </div>
+//             </div>
+//         </div>
+//         <span class="task-description-span">Assigned to</span>
+//           <div onclick="showContactsToAssign()" class="add-task-input-container mb">
+//             <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
+//             <img src="/assets/img/arrow_drop_down.svg">
+//           </div>
+//           <div class="drop-down-contacts">
+//             <div id="selected-contacts"></div>
+//             <div class="contacts-list" id="contacts-list"></div>
+//           </div>
+//         <span class="task-deadline-span">Subtasks</span>
+//           <div class="add-task-input-container margin-bottom-0">
+//             <input oninput="checkInput('', ${indexOfCurTask})" class="subtask-input" type="text" placeholder="Add new subtask"
+//               id="subtasks-input${indexOfCurTask}" />
+//             <img id="subtasks-popup-empty-img${indexOfCurTask}" src="/assets/img/add.svg" />
+//             <div id="subtasks-popup-full-img${indexOfCurTask}" class="subtasks-popup-full-container">
+//               <div onclick="clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
+//                 <img src="/assets/img/cancel.svg" alt="cross-img">
+//               </div>
+//               <div class="subtasks-popup-seperator"></div>
+//               <div onclick="addSubtaskInEditor(${indexOfCurTask}), clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
+//                 <img src="/assets/img/check-subtask.svg" alt="check-img">
+//               </div>
+//             </div>
+//           </div>
+//           <div class="subtasks-popup-section" id="subtasks-popup-section${indexOfCurTask}">
             
-          </div>
-    </div>
-    <div onclick='editTask(${indexOfCurTask}), changeBigCardContainer()' class='edit-task-btn-container'>
-        <button class='button_full ctask'>
-                <div>
-                    OK
-                </div>
-        </button>
-    </div>
-    `
-}
+//           </div>
+//     </div>
+//     <div onclick='editTask(${indexOfCurTask}), changeBigCardContainer()' class='edit-task-btn-container'>
+//         <button class='button_full ctask'>
+//                 <div>
+//                     OK
+//                 </div>
+//         </button>
+//     </div>
+//     `
+// }
 
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
@@ -541,26 +540,26 @@ function renderEditBigCardSubtasks(cardId) {
     }
 }
 
-function generateHTMLsubtasksEdit(subtask, cardId) {
-    return `
-    <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
-        <ul class='subtask-popup-ul-container'>
-            <li>
-                ${subtask["subtitle"]}  
-            </li>
-            <div class='subtasks-edit-delete-container'>
-                <div class='subtasks-edit-container' onclick="editSubtaskBigCard('${subtask["subtitle"]}', '${subtask["id"]}', ${cardId})">
-                    <img src='/assets/img/edit_normal.svg'>
-                </div>
-                <div class='subtasks-seperator'></div>
-                <div onclick="deleteEditSubtask('${subtask["id"]}', ${cardId})" class='subtasks-delete-container'>
-                    <img src='/assets/img/delete.svg'>
-                </div>
-            </div>
-        </ul>
-    </div>
-    `
-}
+// function generateHTMLsubtasksEdit(subtask, cardId) {
+//     return `
+//     <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
+//         <ul class='subtask-popup-ul-container'>
+//             <li>
+//                 ${subtask["subtitle"]}  
+//             </li>
+//             <div class='subtasks-edit-delete-container'>
+//                 <div class='subtasks-edit-container' onclick="editSubtaskBigCard('${subtask["subtitle"]}', '${subtask["id"]}', ${cardId})">
+//                     <img src='/assets/img/edit_normal.svg'>
+//                 </div>
+//                 <div class='subtasks-seperator'></div>
+//                 <div onclick="deleteEditSubtask('${subtask["id"]}', ${cardId})" class='subtasks-delete-container'>
+//                     <img src='/assets/img/delete.svg'>
+//                 </div>
+//             </div>
+//         </ul>
+//     </div>
+//     `
+// }
 
 function editSubtaskBigCard(subtaskTitle, id, cardId) {
     // Finde den Container
@@ -573,25 +572,25 @@ function editSubtaskBigCard(subtaskTitle, id, cardId) {
     container.innerHTML = subtaskHTML;
 }
   
-  function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
-    console.log(subtaskTitle);
-    return `
-      <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
-          <div class='display-flex'>
-              <input id='subtaskInput${id}' type="text" value="${subtaskTitle}" class="subtask-edit-input">
-              <div class='subtasks-edit-delete-container'>
-                  <div onclick="deleteEditSubtask('${subtaskTitle}', ${cardId})" class='subtasks-delete-container margin-right-0'>
-                      <img src='/assets/img/delete.svg'>
-                  </div>
-                  <div class='subtasks-seperator'></div>
-                  <div onclick='saveChangedSubtaskInEditor(${id}, ${cardId})' class="subtasks-edit-container">
-                      <img src="/assets/img/check-subtask.svg">
-                  </div>
-              </div>
-          </div>
-          <div class="subtask-edit-underline"></div>
-      </div>`;
-  }
+//   function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
+//     console.log(subtaskTitle);
+//     return `
+//       <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
+//           <div class='display-flex'>
+//               <input id='subtaskInput${id}' type="text" value="${subtaskTitle}" class="subtask-edit-input">
+//               <div class='subtasks-edit-delete-container'>
+//                   <div onclick="deleteEditSubtask('${subtaskTitle}', ${cardId})" class='subtasks-delete-container margin-right-0'>
+//                       <img src='/assets/img/delete.svg'>
+//                   </div>
+//                   <div class='subtasks-seperator'></div>
+//                   <div onclick='saveChangedSubtaskInEditor(${id}, ${cardId})' class="subtasks-edit-container">
+//                       <img src="/assets/img/check-subtask.svg">
+//                   </div>
+//               </div>
+//           </div>
+//           <div class="subtask-edit-underline"></div>
+//       </div>`;
+//   }
 
 async function saveChangedSubtaskInEditor(id, cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
@@ -645,43 +644,43 @@ async function deleteTask(id) {
 }
 
 
-function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
-    let circlesHTML = '';
+// function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
+//     let circlesHTML = '';
 
-    for (let i = 0; i < initialsArray.length; i++) {
-        circlesHTML += `
-        <div class='big-card-one-assign'>
-            <div class='circle-big-card' style='background-color: #${colors[i]};'>
-                <div class='initials'>${initialsArray[i]}</div>
-            </div>
-            <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
-        </div>
-        `;
-    }
-    return circlesHTML;
-}
+//     for (let i = 0; i < initialsArray.length; i++) {
+//         circlesHTML += `
+//         <div class='big-card-one-assign'>
+//             <div class='circle-big-card' style='background-color: #${colors[i]};'>
+//                 <div class='initials'>${initialsArray[i]}</div>
+//             </div>
+//             <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
+//         </div>
+//         `;
+//     }
+//     return circlesHTML;
+// }
 
-function generateHTMLsubtasksBig(amountOfSubtasks, card) {
-    let subtasksHTML = '';
+// function generateHTMLsubtasksBig(amountOfSubtasks, card) {
+//     let subtasksHTML = '';
 
-    for (let i = 0; i < amountOfSubtasks; i++) {
-        const subtask = card['subTasks'][i];
-        let checked = subtask['checked'];
+//     for (let i = 0; i < amountOfSubtasks; i++) {
+//         const subtask = card['subTasks'][i];
+//         let checked = subtask['checked'];
 
-        subtasksHTML += `
-        <div class='big-card-one-subtask'>
-            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}')" ${checked}>
-            <label for="myCheckbox${i}" class="checkbox-label">
-                <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
-                <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
-            </label>
-            <div class='subtasks-txt'>${subtask['subtitle']}</div>
-        </div>
-    `
-    }
+//         subtasksHTML += `
+//         <div class='big-card-one-subtask'>
+//             <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}')" ${checked}>
+//             <label for="myCheckbox${i}" class="checkbox-label">
+//                 <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
+//                 <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
+//             </label>
+//             <div class='subtasks-txt'>${subtask['subtitle']}</div>
+//         </div>
+//     `
+//     }
 
-    return subtasksHTML;
-}
+//     return subtasksHTML;
+// }
 
 
 
