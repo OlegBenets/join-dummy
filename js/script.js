@@ -47,12 +47,17 @@ function loadScript() {
 
         case '/html/summary.html':
             head.innerHTML += `
-    
-                `;
+            <script src="/js/header.js"></script>
+            <script src="/js/navbar.js"></script>
+            <script src="../js/includeHTML.js"></script>
+            `;
             break;
         case '/html/help.html':
             head.innerHTML += `
-
+            <script src="/js/navbar.js"></script>
+            <script src="/js/header.js"></script>
+            <script src="/js/help_functions.js"></script>
+            <script src="/js/includeHTML.js"></script>
             `;
             break;
         case '/html/contacts.html':
@@ -62,12 +67,25 @@ function loadScript() {
             break;
         case '/html/add_task.html':
             head.innerHTML += `
-
+            <script src="/js/help_functions.js"></script>
+            <script src="/js/header.js"></script>
+            <script src="/js/navbar.js"></script>
+            <script src="../js/includeHTML.js"></script>
+            <script src="../js/add_task.js"></script>
+            <script src="../js/storage.js"></script>
+            <script src="../js/contact.js"></script>
             `;
             break;
         case '/html/board.html':
             head.innerHTML += `
-
+            <script src="/js/boardHTML.js"></script>
+            <script src="/js/header.js"></script>
+            <script src="/js/navbar.js"></script>
+            <script src="/js/contact.js"></script>
+            <script src="/js/add_task.js"></script>
+            <script src="/js/storage.js"></script>
+            <script src="/js/board.js"></script>
+            <script src="/js/includeHTML.js"></script>
             `;
             break;
         case '/html/index.html':
@@ -77,12 +95,18 @@ function loadScript() {
             break;
         case '/html/legal_notice.html':
             head.innerHTML += `
-
+            <script src="/js/header.js"></script>
+            <script src="/js/navbar.js"></script>
+            <script src="/js/help_functions.js"></script>
+            <script src="/js/includeHTML.js"></script>
             `;
             break;
         case '/html/privacy_policy.html':
             head.innerHTML += `
-
+            <script src="/js/header.js"></script>
+            <script src="/js/navbar.js"></script>
+            <script src="/js/help_functions.js"></script>
+            <script src="/js/includeHTML.js"></script>
             `;
             break;
 
