@@ -39,6 +39,20 @@ function generateHTMLAssignedTo(initialsArray, colors) {
     return circlesHTML;
 }
 
+function generateHTMLAssignedToEdit(initialsArray, colors) {
+    let circlesHTML = '';
+
+    for (let i = 0; i < initialsArray.length; i++) {
+        circlesHTML += `
+            <div class='circleBig' style='background-color: #${colors[i]};'>
+                <div class='initials'>${initialsArray[i]}</div>
+            </div>
+        `;
+    }
+
+    return circlesHTML;
+}
+
 function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
     return `
         <div class='progress-container'>
@@ -154,14 +168,17 @@ function generateHTMLEditTask(indexOfCurTask) {
             </div>
         </div>
         <span class="task-description-span">Assigned to</span>
-          <div onclick="showContactsToAssign()" class="add-task-input-container mb">
-            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
-            <img src="/assets/img/arrow_drop_down.svg">
-          </div>
-          <div class="drop-down-contacts">
-            <div id="selected-contacts"></div>
-            <div class="contacts-list" id="contacts-list"></div>
-          </div>
+              <div onclick="showContactsToAssign()" class="add-task-input-container mb input-field-assigntTo">
+                <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign"
+                  id="input-assignTo" autocomplete="off">
+                <img id="drop-down-arrow" src="/assets/img/arrow_drop_down.svg">
+              </div>
+              <div class="drop-down-contacts">
+                <div class='renderdContacts' id="selected-contacts">
+                 
+                </div>
+                <div class="contacts-list" id="contacts-list"></div>
+              </div>
         <span class="task-deadline-span">Subtasks</span>
           <div class="add-task-input-container margin-bottom-0">
             <input oninput="checkInput('', ${indexOfCurTask})" class="subtask-input" type="text" placeholder="Add new subtask"
