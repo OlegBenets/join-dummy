@@ -11,8 +11,8 @@ async function initPage() {
   assignedContactsList = await getContactsArray();
   filteredContactsList = assignedContactsList;
   setEventlister();
-  if(window.location.pathname.includes('add_task.html')) {
-  renderCancel();
+  if (window.location.pathname.includes("add_task.html")) {
+    renderCancel();
   }
 }
 
@@ -25,7 +25,6 @@ async function addTask() {
   let category;
   let prio = currentPrio;
   let status = currentStatus;
-  
 
   if (categoryTxt == "User Story") {
     category = true;
@@ -53,14 +52,14 @@ async function addTask() {
 }
 
 function getAssigntContactsNames() {
-    let assigntToNames = [];
-    for (let i = 0; i < assignedContacts.length; i++) {
-        const contact = assignedContacts[i];
-        let assigntToName = contact.name;
-        
-        assigntToNames.push(assigntToName);
-    }
-    return assigntToNames;
+  let assigntToNames = [];
+  for (let i = 0; i < assignedContacts.length; i++) {
+    const contact = assignedContacts[i];
+    let assigntToName = contact.name;
+
+    assigntToNames.push(assigntToName);
+  }
+  return assigntToNames;
 }
 
 function showAddTaskConfirmation() {
@@ -139,7 +138,9 @@ function generateHTMLsubtasksPopup(subtask) {
 
 function editSubtask(subtaskTitle, id) {
   // Finde den Container
-  const container = document.getElementById(`subtask-popup-edit-container${id}`);
+  const container = document.getElementById(
+    `subtask-popup-edit-container${id}`
+  );
 
   // Generiere den HTML-Code für den Subtask
   const subtaskHTML = generateSubtaskHTML(subtaskTitle, id);
@@ -169,13 +170,12 @@ function generateSubtaskHTML(subtaskTitle, id) {
 }
 
 function saveChangedSubtask(id) {
-    let indexOfCurSubTask = currentSubtasks.findIndex(i => i.id == id);
-    let newTitle = document.getElementById('subtaskInput'+id).value;
+  let indexOfCurSubTask = currentSubtasks.findIndex((i) => i.id == id);
+  let newTitle = document.getElementById("subtaskInput" + id).value;
 
-    currentSubtasks[indexOfCurSubTask]['subtitle'] = newTitle;
+  currentSubtasks[indexOfCurSubTask]["subtitle"] = newTitle;
 
-    renderSubtasksInPopup('addTask', '');
-
+  renderSubtasksInPopup("addTask", "");
 }
 
 function deleteSubtask(subtask) {
@@ -216,32 +216,32 @@ function checkInput(parameter, index) {
 }
 
 function getPrio(prio) {
-    const BUTTON_URGENT = document.getElementById('button-urgent');
-    const BUTTON_MEDIUM = document.getElementById('button-medium');
-    const BUTTON_LOW = document.getElementById('button-low');
-    const IMG_URGENT = document.getElementById('img-urgent');
-    const IMG_MEDIUM = document.getElementById('img-medium');
-    const IMG_LOW = document.getElementById('img-low');
+  const BUTTON_URGENT = document.getElementById("button-urgent");
+  const BUTTON_MEDIUM = document.getElementById("button-medium");
+  const BUTTON_LOW = document.getElementById("button-low");
+  const IMG_URGENT = document.getElementById("img-urgent");
+  const IMG_MEDIUM = document.getElementById("img-medium");
+  const IMG_LOW = document.getElementById("img-low");
 
-    BUTTON_URGENT.classList.remove('button-urgent-active');
-    BUTTON_MEDIUM.classList.remove('button-medium-active');
-    BUTTON_LOW.classList.remove('button-low-active');
-    IMG_URGENT.src = '/assets/img/urgent.svg';
-    IMG_MEDIUM.src = '/assets/img/medium.svg';
-    IMG_LOW.src = '/assets/img/low.svg';
+  BUTTON_URGENT.classList.remove("button-urgent-active");
+  BUTTON_MEDIUM.classList.remove("button-medium-active");
+  BUTTON_LOW.classList.remove("button-low-active");
+  IMG_URGENT.src = "/assets/img/urgent.svg";
+  IMG_MEDIUM.src = "/assets/img/medium.svg";
+  IMG_LOW.src = "/assets/img/low.svg";
 
   if (prio == "Low") {
     currentPrio = "Low";
-    BUTTON_LOW.classList.add('button-low-active');
-    IMG_LOW.src = '/assets/img/prio_low_white.svg';
+    BUTTON_LOW.classList.add("button-low-active");
+    IMG_LOW.src = "/assets/img/prio_low_white.svg";
   } else if (prio == "Medium") {
     currentPrio = "Medium";
-    BUTTON_MEDIUM.classList.add('button-medium-active');
-    IMG_MEDIUM.src = '/assets/img/prio_medium_white.svg';
+    BUTTON_MEDIUM.classList.add("button-medium-active");
+    IMG_MEDIUM.src = "/assets/img/prio_medium_white.svg";
   } else if (prio == "Urgent") {
     currentPrio = "Urgent";
-    BUTTON_URGENT.classList.add('button-urgent-active');
-    IMG_URGENT.src = '/assets/img/prio_urgent_white.svg';
+    BUTTON_URGENT.classList.add("button-urgent-active");
+    IMG_URGENT.src = "/assets/img/prio_urgent_white.svg";
   }
 }
 
@@ -268,12 +268,7 @@ function testTask() {
   checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput);
 }
 
-function checkInputValidation(
-  isTitleValid,
-  isDateValid,
-  titleInput,
-  dateInput
-) {
+function checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput) {
   let titleError = document.getElementById("title-error");
   let dateError = document.getElementById("date-error");
   // Validierung für den Titel
@@ -295,12 +290,8 @@ function checkInputValidation(
 }
 
 function setEventlister() {
-  let inputLeft = document
-    .getElementById("title-container")
-    .parentElement.querySelectorAll(".add-task-input-container");
-  let inputRight = document
-    .getElementById("date-container")
-    .parentElement.querySelectorAll(".add-task-input-container");
+  let inputLeft = document.getElementById("title-container").parentElement.querySelectorAll(".add-task-input-container");
+  let inputRight = document.getElementById("date-container").parentElement.querySelectorAll(".add-task-input-container");
   let inputs = [inputLeft, inputRight];
   for (let j = 0; j < inputs.length; j++) {
     const nodeList = inputs[j];
@@ -328,27 +319,29 @@ function unsetBorder(event) {
 
 function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
-  let arrow = document.getElementById('drop-down-arrow');
+  let arrow = document.getElementById("drop-down-arrow");
 
   contactAssignList.classList.toggle("contacts-list");
 
   if (contactAssignList.classList.contains("contacts-list")) {
-    arrow.src="/assets/img/arrow_drop_down (1).svg"
+    arrow.src = "/assets/img/arrow_drop_down (1).svg";
   } else {
-    arrow.src="/assets/img/arrow_drop_down.svg"
+    arrow.src = "/assets/img/arrow_drop_down.svg";
   }
   renderContactList(filteredContactsList);
 }
 
 function searchContact() {
-    let search = document.getElementById('input-assignTo').value;
-    if (search.length >= 3) {
-     filteredContactsList = assignedContactsList.filter(contact => contact.name.toLowerCase().includes(search.toLowerCase()));
+  let search = document.getElementById("input-assignTo").value;
+  if (search.length >= 3) {
+    filteredContactsList = assignedContactsList.filter((contact) =>
+      contact.name.toLowerCase().includes(search.toLowerCase())
+    );
   } else {
-     filteredContactsList = assignedContactsList;
-    }
-    renderContactList(filteredContactsList);
+    filteredContactsList = assignedContactsList;
   }
+  renderContactList(filteredContactsList);
+}
 
 function renderContactList(filteredContactsList) {
   let contactListContainer = document.getElementById("contacts-list");
@@ -427,18 +420,18 @@ function assignContactToTask(i) {
 }
 
 function checkMatchContact(index) {
-    for (let i = 0; i < assignedContacts.length; i++) {
-      const ASSIGNED_CONTACT = assignedContacts[i];
-      
-      if(ASSIGNED_CONTACT == assignedContactsList[index]) {
-        return true;
-      }
+  for (let i = 0; i < assignedContacts.length; i++) {
+    const ASSIGNED_CONTACT = assignedContacts[i];
+
+    if (ASSIGNED_CONTACT == assignedContactsList[index]) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 function removeContactInArray(name) {
-  let index = assignedContacts.findIndex(n => n == name);
+  let index = assignedContacts.findIndex((n) => n == name);
   assignedContacts.splice(index, 1);
 }
 
@@ -452,12 +445,11 @@ function renderSelectedContacts() {
 
   for (let i = 0; i < assignedContacts.length; i++) {
     const contact = assignedContacts[i];
-    let {initials} = extractInitialsAndName(contact);
+    let { initials } = extractInitialsAndName(contact);
     let color = contact.color;
     selectedContactsContainer.innerHTML += renderInitialsIcon(initials, color);
   }
-  }
-
+}
 
 function renderInitialsIcon(initials, color) {
   return /*html*/ `
@@ -468,6 +460,6 @@ function renderInitialsIcon(initials, color) {
 }
 
 function renderCancel() {
- let clear =  document.getElementById('cancel-button');
- clear.innerHTML="Clear";
+  let clear = document.getElementById("cancel-button");
+  clear.innerHTML = "Clear";
 }
