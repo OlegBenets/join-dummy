@@ -19,8 +19,6 @@
     <title>JOIN Contacts</title>
   </head>
   <body onload="initInclude(); init()">
-    <div w3-include-html="../assets/templates/header_template.html"></div>
-    <div w3-include-html="../assets/templates/navbar_template.html"></div>
     <div onclick="showAddContact()" id="contact-card" class="contact-card remove-contact-container">
       <div onclick="doNotClose(event)" w3-include-html="../contacts/add_contact.html"></div>
   </div>
@@ -51,5 +49,7 @@
         <div class="all-contacts" id="all-contacts">
       </div>
     </div>
+    <div w3-include-html="../assets/templates/header_template.html"></div>
+    <div w3-include-html="../assets/templates/navbar_template.html"></div>
   </body>
 </html>
