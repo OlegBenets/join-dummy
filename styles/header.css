@@ -53,3 +53,38 @@
     justify-content: center;
     align-items: center;
 }
+
+.profile-sidebar {
+    display: none;
+    position: relative;
+    right: -120px;
+    top: 150px;
+    background-color: var(--customized_darkblue);
+    border-radius: 20px 0 20px 20px;
+    padding: 10px;
+}
+
+.profile-sidebar a {
+    text-decoration: none;
+}
+
+.profile-sidebar-txt-container {
+    width: 118px;
+    height: 30px;
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-sidebar-txt-container:hover {
+    background-color: var(--customized_gray_blue);
+}
+
+.profile-sidebar-txt-container p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: inter;
+    color: var(--customized_beige);
+}

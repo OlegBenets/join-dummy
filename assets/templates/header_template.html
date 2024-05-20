@@ -3,7 +3,30 @@
         <p>Kanban Project Management Tool</p>
     </div>
     <div class="header-icons">
+        <div id="profileSidebar" class="profile-sidebar">
+            <a href="/help.html">
+                <div class="profile-sidebar-txt-container">
+                    <p>Help</p>
+                </div>
+            </a>
+            <a href="/Legal_Folder/legal_notice.html">
+                <div class="profile-sidebar-txt-container">
+                    <p>Legal Notice</p>
+                </div>
+            </a>
+            <a href="/Legal_Folder/privacy_policy.html">
+                <div class="profile-sidebar-txt-container">
+                    <p>Privacy Policy</p>
+                </div>
+            </a>
+            <a>
+                <div class="profile-sidebar-txt-container">
+                    <p>Log out</p>
+                </div>
+            </a>
+        </div>
         <a href="/help.html"><img class="header-help-icon" src="/assets/img/help_icon.svg" alt="help_icon"></a>
-        <img class="header-profile-icon" src="/assets/img/header_profile_icon.svg" alt="profile_icon">
+        <img onclick="showProfileSidebar()" class="header-profile-icon" src="/assets/img/header_profile_icon.svg"
+            alt="profile_icon">
     </div>
 </div>
