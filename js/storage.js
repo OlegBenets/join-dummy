@@ -6,6 +6,18 @@ let activUser = null;
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
+function saveLocal(user) {
+    localStorage.setItem('user', user);
+}
+
+function loadLocal() {
+    return localStorage.getItem('user');
+}
+
+
+
+
+
 
 async function loadData(path = "") {
     let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
