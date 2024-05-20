@@ -95,5 +95,5 @@
 }
 
 .selected-menu {
-    background-color: var(--customized_black);
+    background: var(--customized_black) !important;
 }
