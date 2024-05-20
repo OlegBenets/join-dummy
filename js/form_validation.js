@@ -169,7 +169,7 @@ function showSuccess() {
 }
 
 function switchToLogin() {
-    window.location.href = './login_v2.html'
+    window.location.href = './login.html'
 }
 
 function loginAsGuest(event) {

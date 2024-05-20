@@ -2,7 +2,7 @@ let contacts = [];
 let tasks = [];
 let loginData = [];
 
-let activUser = "guest";
+let activUser = null;
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
@@ -14,6 +14,10 @@ async function loadData(path = "") {
         if (responseAsJson) {
             responseAsJson.forEach(task => {
                 if (!task.hasOwnProperty('subTasks')) {
+                    // Attribut hinzufügen, wenn es nicht vorhanden ist
+                    task.subTasks = [];
+                }
+                if (!task.hasOwnProperty('asigntTo')) {
                     // Attribut hinzufügen, wenn es nicht vorhanden ist
                     task.subTasks = [];
                 }
