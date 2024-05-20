@@ -3,12 +3,17 @@ let currentStatus;
 let currentSubtasks = [];
 let assignedContactsList = [];
 let assignedContacts = [];
+let filteredContactsList = [];
 
 async function initPage() {
   await initInclude();
   await loadAllData();
   assignedContactsList = await getContactsArray();
+  filteredContactsList = assignedContactsList;
   setEventlister();
+  if(window.location.pathname.includes('add_task.html')) {
+  renderCancel();
+  }
 }
 
 async function addTask() {
@@ -321,30 +326,37 @@ function unsetBorder(event) {
   target.parentElement.classList.remove("focused");
 }
 
-function searchContact() {
-  //   let search = document.getElementById('input-assignTo').value;
-  //   if (search.length >= 3) {
-  //   let filteredContact = contacts.filter(contact => contact.name.toLowerCase().includes(search));
-  //   renderContact(filteredContact);
-  //   } else if (search.length === 0) {
-  //     renderContact(contacts);
-  //   }
-  // }
-}
-
 function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
+  let arrow = document.getElementById('drop-down-arrow');
+
   contactAssignList.classList.toggle("contacts-list");
-  renderContactList();
+
+  if (contactAssignList.classList.contains("contacts-list")) {
+    arrow.src="/assets/img/arrow_drop_down (1).svg"
+  } else {
+    arrow.src="/assets/img/arrow_drop_down.svg"
+  }
+  renderContactList(filteredContactsList);
 }
 
-function renderContactList() {
+function searchContact() {
+    let search = document.getElementById('input-assignTo').value;
+    if (search.length >= 3) {
+     filteredContactsList = assignedContactsList.filter(contact => contact.name.toLowerCase().includes(search.toLowerCase()));
+  } else {
+     filteredContactsList = assignedContactsList;
+    }
+    renderContactList(filteredContactsList);
+  }
+
+function renderContactList(filteredContactsList) {
   let contactListContainer = document.getElementById("contacts-list");
   if (contactListContainer.classList.contains("contacts-list")) {
     contactListContainer.innerHTML = "";
 
-    for (let i = 0; i < assignedContactsList.length; i++) {
-      const ASSIGN_CONTACT = assignedContactsList[i];
+    for (let i = 0; i < filteredContactsList.length; i++) {
+      const ASSIGN_CONTACT = filteredContactsList[i];
       let id = ASSIGN_CONTACT.id;
       let color = ASSIGN_CONTACT.color;
       let { initials, name } = extractInitialsAndName(ASSIGN_CONTACT);
@@ -404,14 +416,14 @@ function assignContactToTask(i) {
   if (imgCheckOff.style.display === "none") {
     imgCheckOff.style.display = "block";
     imgCheckOn.style.display = "none";
-    pushContactInArray(assignedContactsList[i]);
+    removeContactInArray(assignedContactsList[i]);
   } else {
     imgCheckOff.style.display = "none";
     imgCheckOn.style.display = "block";
-    removeContactInArray(assignedContactsList[i]);
+    pushContactInArray(assignedContactsList[i]);
   }
   renderSelectedContacts();
-  renderContactList();
+  renderContactList(assignedContactsList);
 }
 
 function checkMatchContact(index) {
@@ -425,12 +437,12 @@ function checkMatchContact(index) {
     return false;
 }
 
-function pushContactInArray(name) {
+function removeContactInArray(name) {
   let index = assignedContacts.findIndex(n => n == name);
   assignedContacts.splice(index, 1);
 }
 
-function removeContactInArray(name) {
+function pushContactInArray(name) {
   assignedContacts.push(name);
 }
 

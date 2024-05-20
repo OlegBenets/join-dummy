@@ -20,8 +20,8 @@
           </div>
           <span class="task-description-span">Assigned to</span>
           <div onclick="showContactsToAssign()" class="add-task-input-container mb">
-            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
-            <img src="/assets/img/arrow_drop_down.svg">
+            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo" autocomplete="off">
+            <img id="drop-down-arrow" src="/assets/img/arrow_drop_down.svg">
           </div>
           <div class="drop-down-contacts">
             <div id="selected-contacts"></div>
@@ -95,8 +95,8 @@
         <img src="/assets/img/close.svg" />
       </button>
       <div class="task-buttons">
-        <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="cancel-button" id="cancel-button">
-          Cancel
+        <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="cancel-button">
+          <span id="cancel-button">Cancel</span>
           <div class="cancel-svg-container">
             <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
               <path
