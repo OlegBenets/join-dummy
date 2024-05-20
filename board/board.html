@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/navbar.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/add_task_template.css">
+    <script src="/js/navbar.js"></script>
     <script src="/js/contact.js"></script>
     <script src="/js/add_task.js"></script>
     <script src="/js/storage.js"></script>
@@ -72,20 +73,17 @@
             <div class="section-title-container">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo')" class="todo-section-add-icon">
-                        <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>In progress</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('progress')" class="todo-section-add-icon">
-                        <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('progress'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>Await feedback</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('await')" class="todo-section-add-icon">
-                        <!-- <img src="/assets/img/addTask_board_lists_icon.svg" alt=""> -->
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('await'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container marginRight64">

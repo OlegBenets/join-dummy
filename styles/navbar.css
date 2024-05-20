@@ -93,3 +93,7 @@
 .navbar-privacy-container a {
     text-decoration: none;
 }
+
+.selected-menu {
+    background-color: var(--customized_black);
+}
