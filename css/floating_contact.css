@@ -54,10 +54,11 @@
 
 .name {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 280px;
     height: 56px;
+    white-space: wrap;
 }
 
 .name h3 {
