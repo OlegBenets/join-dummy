@@ -159,21 +159,6 @@ function setPrio(card) {
     }
 }
 
-function checkPriority(card) {
-    let currentPrio = card['prio'];
-    let prioContainer = document.getElementById('prio' + card['id']);
-
-    if (currentPrio === 'Low') {
-        prioContainer.src = '/assets/img/prio_small_cards_low.svg';
-    }
-    else if (currentPrio === 'Medium') {
-        prioContainer.src = '/assets/img/prio_small_cards_medium.svg';
-    }
-    else {
-        prioContainer.src = '/assets/img/prio_small_cards_urgent.svg';
-    }
-}
-
 
 function checkAssignedTo(card, whichCard) {
     let allContacts = card['asigntTo'];
@@ -341,7 +326,6 @@ function renderBigCard(cardId) {
     }
 
     checkCategory(currentCard);
-    checkPriority(currentCard);
 }
 
 function checkCategoryBigCard(currentCard) {
@@ -382,7 +366,7 @@ function generateHTMLbigCard(currentCard) {
         <p class='big-card-data-txt'>Priority:</p>
         <div class='big-card-prio'>
             <p class='big-card-data'>${currentCard['prio']}</p>
-            <img id='prio${currentCard['id']}' src=''>
+            ${setPrio(currentCard)}
         </div>
     </div>
     <div class='big-card-assigned-container'>
@@ -424,11 +408,17 @@ function generateHTMLbigCard(currentCard) {
 
 function showEditTask(id) {
     let container = document.getElementById('big-card-container');
-
     let indexOfCurTask = allTasks.findIndex(t => t.id === id);
     currentPrio = allTasks[indexOfCurTask]['prio'];
 
     container.innerHTML = generateHTMLEditTask(indexOfCurTask);
+    if (currentPrio == 'Low') {
+        selectDefaultPrio('button-low');
+    } else if (currentPrio == 'Medium') {
+        selectDefaultPrio('button-medium');
+    } else {
+        selectDefaultPrio('button-urgent');
+    }
 }
 
 function generateHTMLEditTask(indexOfCurTask) {
@@ -461,11 +451,17 @@ function generateHTMLEditTask(indexOfCurTask) {
         <div class='input-prio-section'>
             <p class='input-txt'>Priority</p>
             <div>
-                <div class="prio-container">
-                    <button type="button" onclick="getPrio('Urgent')">Urgent<img src="/assets/img/urgent.svg"></button>
-                    <button type="button" onclick="getPrio('Medium')">Medium<img src="/assets/img/medium.svg"></button>
-                    <button type="button" onclick="getPrio('Low')">Low<img src="/assets/img/low.svg"></button>
-                </div>
+            <div class="prio-container">
+            <button class="button-prio" id="button-urgent" type="button" onclick="getPrio('Urgent')">
+              Urgent<img id="img-urgent" src="/assets/img/urgent.svg" />
+            </button>
+            <button class="button-prio" id="button-medium" type="button" onclick="getPrio('Medium')">
+              Medium<img id="img-medium" src="/assets/img/medium.svg" />
+            </button>
+            <button class="button-prio" id="button-low" type="button" onclick="getPrio('Low')">
+              Low<img id="img-low" src="/assets/img/low.svg" />
+            </button>
+          </div>
             </div>
         </div>
         <span class="task-description-span">Assigned to</span>
@@ -743,4 +739,13 @@ function checkTasks(filter, filteredTasks) {
     } else {
         noTasksPopup.style.display = 'none';
     }
+}
+
+function simulateClickButton(buttonId) {
+    const button = document.getElementById(buttonId);
+    button.click();
+}
+
+function selectDefaultPrio(buttonId) {
+    simulateClickButton(buttonId);
 }
