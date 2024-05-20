@@ -239,7 +239,7 @@ function creatSubTask(subtitle, checked = "unchecked") {
 
 async function addSubTasks(index, subtask) {
     let buffer = JSON.stringify(subtask);
-    tasks[index].subtask.push(await JSON.parse(buffer));
+    tasks[index].subTasks.push(await JSON.parse(buffer));
     await saveAllData('tasks');
 }
 

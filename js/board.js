@@ -478,15 +478,13 @@ function generateHTMLEditTask(indexOfCurTask) {
             </div>
         </div>
         <span class="task-description-span">Assigned to</span>
-          <div class="add-task-input-container">
-            <select id="input-assignTo${indexOfCurTask}">
-              <option value="" disabled selected hidden>
-                Select contacts to assign
-              </option>
-              <option>Marketing</option>
-              <option>Development</option>
-              <option>Design</option>
-            </select>
+          <div onclick="showContactsToAssign()" class="add-task-input-container mb">
+            <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign" id="input-assignTo">
+            <img src="/assets/img/arrow_drop_down.svg">
+          </div>
+          <div class="drop-down-contacts">
+            <div id="selected-contacts"></div>
+            <div class="contacts-list" id="contacts-list"></div>
           </div>
         <span class="task-deadline-span">Subtasks</span>
           <div class="add-task-input-container margin-bottom-0">
@@ -498,7 +496,7 @@ function generateHTMLEditTask(indexOfCurTask) {
                 <img src="/assets/img/cancel.svg" alt="cross-img">
               </div>
               <div class="subtasks-popup-seperator"></div>
-              <div onclick="addSubtaskToPopup('', ${indexOfCurTask}), clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
+              <div onclick="addSubtaskInEditor(${indexOfCurTask}), clearSubtaskInput('', ${indexOfCurTask}), checkInput('', ${indexOfCurTask})" class="subtask-popup-img-container">
                 <img src="/assets/img/check-subtask.svg" alt="check-img">
               </div>
             </div>
@@ -521,7 +519,7 @@ async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
     let title = document.getElementById("input-title" + indexOfCurTask).value;
     let description = document.getElementById("input-description" + indexOfCurTask).value;
-    let asigntTo = document.getElementById("input-assignTo" + indexOfCurTask).value;
+    let asigntTo = getAssigntContactsNames();
     let date = document.getElementById("input-date" + indexOfCurTask).value;
     let category = allTasks[indexOfCurTask]['category'];
     let oldSubtasks = allTasks[indexOfCurTask]['subTasks'];
@@ -534,7 +532,7 @@ async function editTask(indexOfCurTask) {
     }
 
 
-    let task = creatTask([asigntTo], category, date, description, prio, status, currentSubtasks, title);
+    let task = creatTask(asigntTo, category, date, description, prio, status, currentSubtasks, title);
     task['id'] = cardId;
     await editTasks(indexOfCurTask, task);
     await getAllTasks();
@@ -545,7 +543,7 @@ async function editTask(indexOfCurTask) {
 
 function renderEditBigCardSubtasks(cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
-    let subtasks = tasks[indexOfCurTask];
+    let subtasks = allTasks[indexOfCurTask];
     let container = document.getElementById('subtasks-popup-section' + indexOfCurTask);
     container.innerHTML = '';
 
@@ -564,7 +562,7 @@ function generateHTMLsubtasksEdit(subtask, cardId) {
                 ${subtask["subtitle"]}  
             </li>
             <div class='subtasks-edit-delete-container'>
-                <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}', '${subtask["id"]}')">
+                <div class='subtasks-edit-container' onclick="editSubtaskBigCard('${subtask["subtitle"]}', '${subtask["id"]}', ${cardId})">
                     <img src='/assets/img/edit_normal.svg'>
                 </div>
                 <div class='subtasks-seperator'></div>
@@ -577,13 +575,66 @@ function generateHTMLsubtasksEdit(subtask, cardId) {
     `
 }
 
+function editSubtaskBigCard(subtaskTitle, id, cardId) {
+    // Finde den Container
+    const container = document.getElementById(`subtask-popup-edit-container${id}`);
+  
+    // Generiere den HTML-Code für den Subtask
+    const subtaskHTML = generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId);
+  
+    // Füge den generierten HTML-Code dem Container hinzu
+    container.innerHTML = subtaskHTML;
+}
+  
+  function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
+    console.log(subtaskTitle);
+    return `
+      <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
+          <div class='display-flex'>
+              <input id='subtaskInput${id}' type="text" value="${subtaskTitle}" class="subtask-edit-input">
+              <div class='subtasks-edit-delete-container'>
+                  <div onclick="deleteEditSubtask('${subtaskTitle}', ${cardId})" class='subtasks-delete-container margin-right-0'>
+                      <img src='/assets/img/delete.svg'>
+                  </div>
+                  <div class='subtasks-seperator'></div>
+                  <div onclick='saveChangedSubtaskInEditor(${id}, ${cardId})' class="subtasks-edit-container">
+                      <img src="/assets/img/check-subtask.svg">
+                  </div>
+              </div>
+          </div>
+          <div class="subtask-edit-underline"></div>
+      </div>`;
+  }
+
+async function saveChangedSubtaskInEditor(id, cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == id);
+    let newTitle = document.getElementById('subtaskInput'+id).value;
+
+    let subtask = creatSubTask(newTitle, checked = "unchecked");
+    await editSubTasks(indexOfCurTask, indexOfCurSubTask, subtask);
+    await getAllTasks();
+    renderEditBigCardSubtasks(cardId);
+}
+
+async function addSubtaskInEditor(indexOfCurTask) {
+    let cardId = allTasks[indexOfCurTask]['id'];
+    let subtitle = document.getElementById('subtasks-input'+indexOfCurTask).value;
+    console.log(subtitle);
+
+    let subtask = creatSubTask(subtitle, checked = "unchecked");
+
+    await addSubTasks(indexOfCurTask, subtask);
+    await getAllTasks();
+    renderEditBigCardSubtasks(cardId);
+}
+
 async function deleteEditSubtask(SubtaskId, cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    console.log(allTasks[indexOfCurTask]);
-    console.log(SubtaskId);
     let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == SubtaskId);
 
     await deleteSubTasks(indexOfCurTask, indexOfCurSubTask);
+    await getAllTasks();
     renderEditBigCardSubtasks(cardId);
 }
 
