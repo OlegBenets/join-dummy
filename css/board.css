@@ -349,6 +349,22 @@ h1 {
     margin-left: -8px;
 }
 
+.circleBig {
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    background-color: red;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: -8px; */
+}
+
+.renderdContacts {
+    height: 64px;
+}
+
 /* .circle:not(:first-child) {
     margin-left: -8px;
 } */
@@ -902,6 +918,10 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
 
 .progress-container:hover .popup-progressbar {
     display: block;
+}
+
+.input-field-assigntTo input {
+    font-size: 20px;
 }
 
 /* ====== Column Scrollbar ====== */

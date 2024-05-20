@@ -80,10 +80,15 @@ function showAddTaskConfirmation(parameter) {
 
   confirmation.style.display = "flex";
 
+
   if (parameter == 'board') {
     setTimeout(function () {
       confirmation.style.display = "none";
       showMovableContainer("remove", "addTask");
+    }, 1000);
+  } else {
+    setTimeout(function () {
+      confirmation.style.display = "none";
     }, 1000);
   }
 }

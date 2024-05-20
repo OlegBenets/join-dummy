@@ -140,7 +140,6 @@ function setPrio(card) {
 
 function checkAssignedTo(card, whichCard) {
     let allContacts = card['asigntTo'];
-
     if (allContacts.length !== 0) {
         let initials = [];
         let colors = [];
@@ -164,7 +163,8 @@ function checkAssignedTo(card, whichCard) {
         }
         else if (whichCard == 'big-card') {
             return generateHTMLAssignedToBigCard(initials, card, colors);
-        }
+        } 
+        
     }
     else {
         return '';
@@ -303,7 +303,25 @@ function showEditTask(id) {
     } else {
         selectDefaultPrio('button-urgent');
     }
+    
 }
+
+// function renderAssignToContacts(indexOfCurTask) {
+//     // let indexOfCurTask = allTasks.findIndex(t => t.id == id);
+//     console.log(allTasks);
+//     console.log(indexOfCurTask);
+//     let card = allTasks[indexOfCurTask];
+//     let contacts = card['asigntTo'];
+
+//     for (let i = 0; i < contacts.length; i++) {
+//         const contact = contacts[i];
+//         assignedContacts.push(contact);
+//     }
+//     console.log(assignedContacts);
+    
+//     return checkAssignedTo(card, 'edit-card');
+    
+// }
 
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
