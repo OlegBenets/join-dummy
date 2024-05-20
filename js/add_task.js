@@ -45,13 +45,15 @@ async function addTask(parameter) {
   );
   console.log(task);
   await addTasks(task);
-  
   resetForm();
   
   if (parameter == 'board') {
     await getAllTasks();
     loadCards();
-    showAddTaskConfirmation();
+    showAddTaskConfirmation('board');
+    
+  } else {
+    showAddTaskConfirmation('');
   }
 }
 
@@ -71,17 +73,19 @@ function getAssigntContactsNames() {
   return assigntToNames;
 }
 
-function showAddTaskConfirmation() {
+function showAddTaskConfirmation(parameter) {
   let confirmation = document.getElementById(
     "add-task-confirmation-background"
   );
 
   confirmation.style.display = "flex";
 
-  setTimeout(function () {
-    confirmation.style.display = "none";
-    showMovableContainer("remove", "addTask");
-  }, 1000);
+  if (parameter == 'board') {
+    setTimeout(function () {
+      confirmation.style.display = "none";
+      showMovableContainer("remove", "addTask");
+    }, 1000);
+  }
 }
 
 function addTaskToBoard() {

@@ -21,9 +21,17 @@
 </head>
 
 <body onload="initPage()">
+  <div id="add-task-confirmation-background" class="add-task-confirmation-background">
+    <div class="add-task-confirmation-container">
+        <p>Task added to board</p>
+        <div class="add-task-confirmation-img">
+            <img src="/assets/img/add-task-confirmation.svg" alt="add-task-confirmation-img">
+        </div>
+    </div>
+  </div>
   <div class="main-container">
     <div>
-      <div class="task-template">
+      <div class="add-Task-container">
         <form onsubmit="addTask('addTask'); return false">
           <h2 class="add-task-header">Add Task</h2>
           <div class="seperate-description-deadline">
@@ -120,9 +128,6 @@
               </div>
             </div>
           </div>
-          <button onclick="resetForm()" class="close-task">
-            <img src="/assets/img/close.svg" />
-          </button>
           <div class="task-buttons">
             <div onclick="resetForm()" class="clear-button">
               <span id="cancel-button">Clear</span>

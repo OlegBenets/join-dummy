@@ -30,3 +30,52 @@
 .clear-button:hover .cancel-svg path{
     stroke: #29abe2; 
   }
+
+.add-Task-container {     
+    width: 1116px;
+    height: 870px;
+    border-radius: 30px;
+    /* background-color: #ffffff; */
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.add-task-confirmation-background {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 11;
+}
+
+.add-task-confirmation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 326px;
+    height: 74px;
+    border-radius: 20px;
+    background-color: var(--customized_darkblue);
+}
+
+.add-task-confirmation-img {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30.5px;
+}
+
+.add-task-confirmation-container p {
+    font-family: inter;
+    font-size: 20px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-left: 30.5px;
+}
