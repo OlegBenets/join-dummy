@@ -6,16 +6,16 @@ async function lockScreen() {
 
     let one = screen.onchange;
 
-    console.log(screen.orientation.type);
-    console.log(screen);
-    console.log(screen.onchange);
+    // console.log(screen.orientation.type);
+    // console.log(screen);
+    // console.log(screen.onchange);
     // alert('screen.onchange is '+one);
     let info = window.navigator;
     let info2 = window.navigator.userAgentData.mobile;
-console.log(info);
-console.log(info2);
+// console.log(info);
+// console.log(info2);
 
-    alert('mobile is '+ info2);
+    // alert('mobile is '+ info2);
 
     // if (screen.orientation && screen.orientation.lock) {
     //     screen.orientation.lock('portrait').catch(error => { console.error("Failed to lock orientation:", error); });
@@ -43,7 +43,6 @@ function rotatbody() {
 
 async function startPage() {
     await loadAllData('loginData');
-    // console.log(loginData);
 }
 
 function enabledButton(event) {

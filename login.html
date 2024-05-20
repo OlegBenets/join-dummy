@@ -3,92 +3,90 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>JOIN</title>
     <link rel="shortcut icon" href="./assets/img/Capa 2.svg" type="image/x-icon">
-
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/login_signup.css">
     <link rel="stylesheet" href="./styles/buttons.css">
-    <script src="./js/login.js"></script>
-    <script src="./js/storage.js"></script>
-    <script src="./assets/Assistance/firebase.js"></script>
 
+    <script src="./js/password_shower.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/form_validation.js"></script>
 
 </head>
 
-<body onload="loadPage()">
-    <div class="logo" id="logo">
-        <img class="logo_image" src="./assets/img/Capa 2.svg" alt="join logo">
+<body onload="startPage()">
+    <div class="logo">
+        <img src="./assets/img/Capa 2.svg" alt="Join logo">
     </div>
-    <div id="content" class="hidden">
-        <div class="sign_up_frame">
-            Not a Join user?
-            <a href="./sign_up.html"><button class="button_full">Sign up</button></a>
+
+    <div class="signUpLink">
+        Not a Join user?
+        <a href="./signup.html"><button class="button_full">Sign up</button></a>
+    </div>
+
+    <form class="logInForm" onsubmit="passwordValidation(event)">
+
+        <div class="haedline">
+            <h1>Log in</h1>
+            <img src="./assets/img/blue_line.svg" alt="">
         </div>
 
-        <div class="login_frame">
-
-            <div class="headline">
-                <h1>Log in</h1>
-                <div class="blue_line"></div>
-            </div>
-
-            <div>
-
-                <form class="input_frame_holder" id="login_form" onsubmit="formCheck(event)">
-
-                    <div>
-                        <div class="input_frame" id="input_email_frame">
-                            <input class="input" id="input_email" placeholder="Email" type="email" name="email"
-                                required>
-                            <div class="icon_frame">
-                                <img src="./assets/img/mail.svg" alt="">
-                            </div>
-                        </div>
+        <div>
+            <div class="gap32">
+                <div class="inputFrame">
+                    <input name="email" class="input" type="email" placeholder="Email" required>
+                    <div class="iconFrame">
+                        <img src="./assets/img/mail.svg" alt="mail icon">
                     </div>
-
-                    <div>
-                        <div class="input_frame" id="input_password_frame">
-                            <input class="input" id="input_password" placeholder="Password" type="password"
-                                name="password" required>
-                            <div class="icon_frame">
-                                <img id="img_2" src="./assets/img/visibility_off.svg" alt="" onclick="showPassword()">
-                                <img id="img_3" src="./assets/img/lock.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="error_text error_text_noshow">This field is required</div>
-                    </div>
-
-                </form>
-
-                <div class="checkbox">
-                    <input type="checkbox" id="checkbox">
-                    <label for="checkbox" id="checkbox_label">
-
-                        <img id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
-                        <img id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
-
-                        <div>Remenber Me</div>
-                    </label>
                 </div>
-
+                <div>
+                    <div class="inputFrame">
+                        <input name="password" class="input" type="password" placeholder="Password"  required>
+                        <div class="iconFrame">
+                            <img class="visi" src="./assets/img/visibility_off.svg" alt="visibility off icon"
+                                onclick="showPassword(event)">
+                            <img class="lock" src="./assets/img/lock.svg" alt="lock icon">
+                        </div>
+                    </div>
+                    <div class="errorInfo">
+                        This field is required
+                    </div>
+                </div>
             </div>
 
-            <div class="button_frame">
-                <button class="button_full big" type="submit" form="login_form" onclick="validityCheck()">Log
-                    in</button>
-                <button class="button_hollow big">Guest Log in</button>
+            <div class="checkbox login">
+                <input name="remember" type="checkbox" id="rememberMe">
+                <label for="rememberMe">
+
+                    <img class="checkOff" id="img_check_off" src="./assets/img/checkbox_unselected.svg" alt="">
+                    <img class="checkOn" id="img_check_on" src="./assets/img/checkbox_selected.svg" alt="">
+
+                    <div>Remember Me</div>
+                </label>
             </div>
 
         </div>
 
-        <div class="legal_links_frame">
-            <div><a class="legal_links" href="./Legal_Folder/privacy_policy.html" target="_blank">Privacy Policy</a>
-            </div>
-            <div><a class="legal_links" href="./Legal_Folder/legal_notice.html" target="_blank">Legal notice</a></div>
+        <div class="buttonbox">
+            <button class="button_full big" onclick="validationCheck(event)">
+                <div>Log in</div>
+            </button>
+            <button class="button_hollow big" onclick="loginAsGuest(event)">
+                <div>Guest Log in</div>
+            </button>
         </div>
 
+    </form>
+
+    <div class="legalLinksBox">
+        <div><a class="legalLinks" href="./Legal_Folder/privacy_policy.html" target="_blank">Privacy Policy</a>
+        </div>
+        <div><a class="legalLinks" href="./Legal_Folder/legal_notice.html" target="_blank">Legal notice</a></div>
+    </div>
 </body>
 
 </html>
