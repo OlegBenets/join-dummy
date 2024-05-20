@@ -96,6 +96,15 @@ async function getAllTasks() {
     allTasks = loadedTasks;
 }
 
+function simulateClickButton(buttonId) {
+    const button = document.getElementById(buttonId);
+    button.click();
+}
+
+function selectDefaultPrio(buttonId) {
+    simulateClickButton(buttonId);
+}
+
 function checkCategory(card) {
     let categoryHTML = '';
     if (card.category) {
@@ -448,11 +457,3 @@ function checkTasks(filter, filteredTasks) {
     }
 }
 
-function simulateClickButton(buttonId) {
-    const button = document.getElementById(buttonId);
-    button.click();
-}
-
-function selectDefaultPrio(buttonId) {
-    simulateClickButton(buttonId);
-}

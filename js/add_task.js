@@ -11,12 +11,12 @@ async function initPage() {
   assignedContactsList = await getContactsArray();
   filteredContactsList = assignedContactsList;
   setEventlister();
-  if (window.location.pathname.includes("add_task.html")) {
-    renderCancel();
-  }
 }
 
-async function addTask() {
+async function addTask(parameter) {
+  if (parameter == 'addTask') {
+    currentStatus = 'todo';
+  }
   let title = document.getElementById("input-title").value;
   let description = document.getElementById("input-description").value;
   let asigntTo = getAssigntContactsNames();
@@ -45,10 +45,19 @@ async function addTask() {
   );
   console.log(task);
   await addTasks(task);
-  await getAllTasks();
-  loadCards();
+  
   resetForm();
-  showAddTaskConfirmation();
+  
+  if (parameter == 'board') {
+    await getAllTasks();
+    loadCards();
+    showAddTaskConfirmation();
+  }
+}
+
+function addTaskToBoard() {
+  getCurrentStatus('todo');
+  addTask('');
 }
 
 function getAssigntContactsNames() {
@@ -75,14 +84,20 @@ function showAddTaskConfirmation() {
   }, 1000);
 }
 
+function addTaskToBoard() {
+
+}
+
 function resetForm() {
   let title = (document.getElementById("input-title").value = "");
   let description = (document.getElementById("input-description").value = "");
-  let asigntTo = (document.getElementById("input-assignTo").value = "");
+  assignedContacts = [];
   let date = (document.getElementById("input-date").value = "");
   let categoryTxt = (document.getElementById("input-category").value = "");
   currentSubtasks = [];
   document.getElementById("subtasks-popup-section").innerHTML = "";
+  renderSelectedContacts();
+  selectDefaultPrio('button-medium');
 }
 
 function addSubtaskToPopup(parameter, index) {
@@ -244,6 +259,45 @@ function getPrio(prio) {
     IMG_URGENT.src = "/assets/img/prio_urgent_white.svg";
   }
 }
+
+
+// function generateClearButton() {
+//   let container = document.getElementById('add-task-btns');
+
+//   container.innerHTML = `
+//   <button onclick="resetForm()" class="cancel-button">
+//   <span id="cancel-button">Clear</span>
+//     <div class="cancel-svg-container">
+//       <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
+//         <path
+//           d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
+//           stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" strocke="" />
+//       </svg>
+//     </div>
+//   </button>
+//   <button onclick="testTask()" class="create-button">
+//     Create Task<img src="/assets/img/check.svg" />
+//   </button>`;
+// }
+
+// function generateCancelButton() {
+//   let container = document.getElementById('add-task-btns');
+
+//   container.innerHTML = `
+//   <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="cancel-button">
+//   <span id="cancel-button">Cancel</span>
+//     <div class="cancel-svg-container">
+//       <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
+//         <path
+//           d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
+//           stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" strocke="" />
+//       </svg>
+//     </div>
+//   </button>
+//   <button onclick="testTask()" class="create-button">
+//     Create Task<img src="/assets/img/check.svg" />
+//   </button>`;
+// }
 
 function setFocusedBorder(element) {
   element.classList.add("focused");
@@ -459,7 +513,7 @@ function renderInitialsIcon(initials, color) {
   `;
 }
 
-function renderCancel() {
-  let clear = document.getElementById("cancel-button");
-  clear.innerHTML = "Clear";
-}
+// function renderCancel() {
+//   let clear = document.getElementById("cancel-button");
+//   clear.innerHTML = "Clear";
+// }
