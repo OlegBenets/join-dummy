@@ -19,7 +19,7 @@ async function loadData(path = "") {
                 }
                 if (!task.hasOwnProperty('asigntTo')) {
                     // Attribut hinzufügen, wenn es nicht vorhanden ist
-                    task.subTasks = [];
+                    task.asigntTo = [];
                 }
             });
         }
