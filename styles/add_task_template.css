@@ -141,7 +141,26 @@
         margin-bottom: 24px;
       }
 
-      .prio-container button {
+      /* .prio-container button {
+        font-size: 20px;
+        font-weight: 400;
+        width: 136px;
+        height: 56px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        padding: 16px 10px 16px 10px;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      } */
+
+      /* .prio-container button:hover {
+        cursor: pointer;
+        box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+      } */
+
+      .button-prio {
         font-size: 20px;
         font-weight: 400;
         width: 136px;
@@ -155,9 +174,27 @@
         justify-content: space-evenly;
       }
 
-      .prio-container button:hover {
+      .button-prio:hover {
         cursor: pointer;
         box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .button-urgent-active {
+        background-color: var(--customized_light_red);
+        color: #ffffff;
+        font-weight: 700;
+      }
+
+      .button-medium-active {
+        background-color: var(--customized_orange);
+        color: #ffffff;
+        font-weight: 700;
+      }
+
+      .button-low-active {
+        background-color: var(--customized_green);
+        color: #ffffff;
+        font-weight: 700;
       }
 
       .task-deadline select {
@@ -516,6 +553,7 @@
       box-sizing: border-box;
       font-size: 16px;
   }
+
 
 
 

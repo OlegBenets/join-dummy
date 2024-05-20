@@ -211,12 +211,32 @@ function checkInput(parameter, index) {
 }
 
 function getPrio(prio) {
+    const BUTTON_URGENT = document.getElementById('button-urgent');
+    const BUTTON_MEDIUM = document.getElementById('button-medium');
+    const BUTTON_LOW = document.getElementById('button-low');
+    const IMG_URGENT = document.getElementById('img-urgent');
+    const IMG_MEDIUM = document.getElementById('img-medium');
+    const IMG_LOW = document.getElementById('img-low');
+
+    BUTTON_URGENT.classList.remove('button-urgent-active');
+    BUTTON_MEDIUM.classList.remove('button-medium-active');
+    BUTTON_LOW.classList.remove('button-low-active');
+    IMG_URGENT.src = '/assets/img/urgent.svg';
+    IMG_MEDIUM.src = '/assets/img/medium.svg';
+    IMG_LOW.src = '/assets/img/low.svg';
+
   if (prio == "Low") {
     currentPrio = "Low";
+    BUTTON_LOW.classList.add('button-low-active');
+    IMG_LOW.src = '/assets/img/prio_low_white.svg';
   } else if (prio == "Medium") {
     currentPrio = "Medium";
+    BUTTON_MEDIUM.classList.add('button-medium-active');
+    IMG_MEDIUM.src = '/assets/img/prio_medium_white.svg';
   } else if (prio == "Urgent") {
     currentPrio = "Urgent";
+    BUTTON_URGENT.classList.add('button-urgent-active');
+    IMG_URGENT.src = '/assets/img/prio_urgent_white.svg';
   }
 }
 
