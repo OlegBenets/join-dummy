@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../assets/img/Capa 2.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/navbar.css" />
-    <link rel="stylesheet" href="../styles/contacts.css" />
-    <link rel="stylesheet" href="../styles/add_contact.css" />
-    <link rel="stylesheet" href="../styles/floating_contact.css">
-    <script src="/js/header.js"></script>
-    <script src="/js/navbar.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/contacts.css" />
+    <link rel="stylesheet" href="../css/add_contact.css" />
+    <link rel="stylesheet" href="../css/floating_contact.css">
+    <script src="../js/header.js"></script>
+    <script src="../js/navbar.js"></script>
     <script src="../js/includeHTML.js"></script>
     <script src="../js/contact.js"></script>
     <script src="../js/add_contact.js"></script>
@@ -20,13 +20,13 @@
   </head>
   <body onload="initInclude(); init()">
     <div onclick="showAddContact()" id="contact-card" class="contact-card remove-contact-container">
-      <div onclick="doNotClose(event)" w3-include-html="../contacts/add_contact.html"></div>
+      <div onclick="doNotClose(event)" w3-include-html="../assets/templates/add_contact.html"></div>
   </div>
   <div onclick="showEditContact('hide')" id="edit-card" class="contact-card remove-contact-container">
-    <div onclick="doNotClose(event)" w3-include-html="../contacts/edit_contact.html"></div>
+    <div onclick="doNotClose(event)" w3-include-html="../assets/templates/edit_contact.html"></div>
 </div>
   <div id="contact-detail-data" class="contact-detail-data remove-contact-detail">
-    <div w3-include-html="../contacts/floating_contact.html"></div>
+    <div w3-include-html="../assets/templates/floating_contact.html"></div>
 </div>
 
    <div id="created-contact" class="created-contact remove-contact-message">
