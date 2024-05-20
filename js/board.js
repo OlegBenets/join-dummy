@@ -159,21 +159,6 @@ function setPrio(card) {
     }
 }
 
-function loadCategoryColorTest() {
-    for (let i = 1; i < allTasks.length; i++) {
-        const task = allTasks[i];
-        let taskId = task['id'];
-        let currentCategory = task['category'];
-        if (currentCategory) {
-            document.getElementById(`category-container${taskId}`).style.backgroundColor = 'var(--color_7)';
-        }
-        else {
-            document.getElementById(`category-container${taskId}`).style.backgroundColor = 'var(--color_10)';
-        }
-    }
-}
-
-
 function checkPriority(card) {
     let currentPrio = card['prio'];
     let prioContainer = document.getElementById('prio' + card['id']);
@@ -355,28 +340,34 @@ function renderBigCard(cardId) {
         console.error("Card not found");
     }
 
-    loadCategoryColorTest();
+    checkCategory(currentCard);
     checkPriority(currentCard);
 }
 
-function generateHTMLcategory(currentCard) {
-    let category = currentCard['category'];
-
-    if (category) {
-        return `<p>User Story</p>`
+function checkCategoryBigCard(currentCard) {
+    let categoryHTML = '';
+    if (currentCard.category) {
+        categoryHTML = `
+        <div id='category-container${currentCard['id']}' class='big-card-category-container story-container'>
+            <p>User Story</p>
+        </div>
+        `
     }
     else {
-        return `<p>Technical Task</p>`
+        categoryHTML = `
+        <div id='category-container${currentCard['id']}' class='big-card-category-container technical-container'>
+            <p>Technical Task</p>
+        </div>
+        `
     }
+    return categoryHTML;
 }
 
 
 function generateHTMLbigCard(currentCard) {
     return `
     <div class='space-between'>
-        <div id='category-container${currentCard['id']}' class='big-card-category-container'>
-            ${generateHTMLcategory(currentCard)}
-        </div>
+            ${checkCategoryBigCard(currentCard)}
         <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer()" class='close-img-container'>
             <img src='/assets/img/close.svg'>
         </div>
