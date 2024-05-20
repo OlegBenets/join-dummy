@@ -171,6 +171,7 @@ body {
     gap: 5px;
     width: 200px;
     height: 48px;
+    overflow-wrap: break-word;
 }
 
 .contact-data h4 {
