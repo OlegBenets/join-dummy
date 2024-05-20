@@ -4,9 +4,9 @@ function showPassword(event) {
 
     if (input.type == 'password') {
         input.type = 'text'
-        icon.src = './assets/img/visibility.svg';
+        icon.src = '../assets/img/visibility.svg';
     } else {
         input.type = 'password'
-        icon.src = './assets/img/visibility_off.svg';
+        icon.src = '../assets/img/visibility_off.svg';
     }
 }

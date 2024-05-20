@@ -175,12 +175,12 @@ function switchToLogin() {
 function loginAsGuest(event) {
     event.preventDefault();
     activUser = 'guest';
-    window.location.href = './summary/summary.html';
+    window.location.href = '../html/summary.html';
 }
 
 function loginAsUser(id) {
     if (id) {
         activUser = id;
-        window.location.href = './summary/summary.html';
+        window.location.href = '../html/summary.html';
     }
 }
