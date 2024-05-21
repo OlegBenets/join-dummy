@@ -7,13 +7,13 @@
 }
 
 
-
 body {
     margin: 0;
     width: 100vw;
     height: 100vh;
     background-color: var(--customized_white);
 }
+
 
 .content {
     position: absolute;
@@ -22,16 +22,19 @@ body {
     transition: all var(--time) ease-in-out;
 }
 
+
 .content img {
     width: var(--logo_width);
     height: var(--logo_width);
     transition: all var(--time) ease-in-out;
 }
 
+
 .shrink_n_slide {
     top: 80px;
     left: 77px;
 }
+
 
 .shrink_n_slide img {
     width: var(--logo_width_small);
