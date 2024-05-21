@@ -14,9 +14,9 @@ function loadAmountsInSummary() {
     let doneAmountContainer = document.getElementById('done-amount').innerHTML = getAmountOfDone();
     let prioAmountContainer = document.getElementById('prio-amount').innerHTML;
     let deadlineContainer = document.getElementById('deadline').innerHTML = getEarliestDate();
-    let allTasksInBoardContainer = document.getElementById('amount-tasks-in-board').innerHTML;
-    let progressAmountContainer = document.getElementById('amount-tasks-progress').innerHTML;
-    let feedbackAmountContainer = document.getElementById('amount-tasks-feedback').innerHTML;
+    let allTasksInBoardContainer = document.getElementById('amount-tasks-in-board').innerHTML = getAmountOfAllTasks();
+    let progressAmountContainer = document.getElementById('amount-tasks-progress').innerHTML = getProgressTasks();
+    let feedbackAmountContainer = document.getElementById('amount-tasks-feedback').innerHTML = getFeedbackTasks();
 }
 
 function getAmountOfTodos() {
@@ -53,13 +53,38 @@ function getEarliestDate() {
     // Das nächste zukünftige Datum finden
     for (let date of dateArray) {
       if (new Date(date) > currentDate) {
-        return date;
+        return formatDate(date);
       }
     }
   
     // Falls kein zukünftiges Datum gefunden wird
     return null;
-  }
+}
+
+function formatDate(dateStr) {
+    // Date-Objekt aus dem Datum-String erstellen
+    let date = new Date(dateStr);
+  
+    // Optionen für die toLocaleDateString Methode
+    let options = { year: 'numeric', month: 'long', day: 'numeric' };
+  
+    // Datum in das gewünschte Format umwandeln
+    return date.toLocaleDateString('en-US', options);
+}
+
+function getAmountOfAllTasks() {
+    return allTasks.length;
+}
+
+function getProgressTasks() {
+    let progress = allTasks.filter(t => t['status'] == 'progress');
+    return progress.length;
+}
+
+function getFeedbackTasks() {
+    let feedback = allTasks.filter(t => t['status'] == 'await');
+    return feedback.length;
+}
 
 function setDayTime() {
     let greetingElement = document.getElementById('greeting-user');
