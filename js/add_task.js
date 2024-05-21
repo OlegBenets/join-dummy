@@ -522,7 +522,4 @@ function renderInitialsIcon(initials, color) {
   `;
 }
 
-// function renderCancel() {
-//   let clear = document.getElementById("cancel-button");
-//   clear.innerHTML = "Clear";
-// }
+

@@ -7,9 +7,10 @@ let allContactsExist = [];
 
 
 async function init() {
+    await initPage();
     await loadAllData();
     await getAllTasks();
-    await initPage();
+    
     loadCards();
 }
 
@@ -499,3 +500,4 @@ function createShortDescription(cardId) {
         return shortTxt + '...';
     }
 }
+
