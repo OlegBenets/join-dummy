@@ -367,6 +367,7 @@
         padding: 6px;
         box-sizing: border-box;
         resize: none;
+        font-family: inter;
     }
 
 
@@ -674,3 +675,17 @@
       margin-top: 4px;
       z-index: 0;
     }
+
+    .subtasks-popup-section::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+  .subtasks-popup-section::-webkit-scrollbar-track {
+      background: var(--color_2);
+      border-radius: 12px;
+  }
+  
+  .subtasks-popup-section::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+  }
