@@ -114,7 +114,8 @@ function logedUserData() {
     let user = loginData.find(user => user.id === loggedInUserId);
 
     if (user) {
-        greetingUserElement.textContent = user.name;
+        let { name } = extractInitialsAndName(user);
+        greetingUserElement.textContent = name;
     } else {
         greetingUserElement.textContent = "Guest";
     }
