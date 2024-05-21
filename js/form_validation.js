@@ -1,8 +1,8 @@
 // lockScreen()
-window.addEventListener('orientationchange',rotatbody)
+window.addEventListener('orientationchange', rotatbody)
 async function lockScreen() {
     // await screen.orientation.lock('portrait');
-    
+
 
     let one = screen.onchange;
 
@@ -12,8 +12,8 @@ async function lockScreen() {
     // alert('screen.onchange is '+one);
     let info = window.navigator;
     let info2 = window.navigator.userAgentData.mobile;
-// console.log(info);
-// console.log(info2);
+    // console.log(info);
+    // console.log(info2);
 
     // alert('mobile is '+ info2);
 
@@ -28,10 +28,10 @@ function rotatbody() {
     if (window.navigator.userAgentData.mobile) {
         if (screen.orientation.type.includes('portrait')) {
             document.querySelector('body').classList.remove('rotat90');
-        }else{
+        } else {
             document.querySelector('body').classList.add('rotat90');
         }
-        
+
     }
 }
 
@@ -48,33 +48,50 @@ async function startPage() {
 function enabledButton(event) {
 
     let element = event.target;
-    let button = element.closest('form').querySelector('button');
+    let button = element.closest('form').querySelectorAll('button');
 
-    if (element.checked) {
-        button.removeAttribute('disabled');
-    } else {
-        button.setAttribute('disabled', 'true');
+    activatButton(button, element.checked);
+}
+
+function activatButton(buttons, status) {
+    for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        if (status) {
+            button.removeAttribute('disabled');
+            // console.log('activ');
+        } else {
+            button.setAttribute('disabled', 'true');
+            // console.log('inactiv');
+        }
     }
 }
 
 function validationCheck(event) {
+    let button = event.target.closest('form').querySelectorAll('button');
     let input = event.target.closest('form').querySelectorAll('input:not([type="checkbox"])');
-    validityCheck(input);
+    activatButton(button, false);
+    let check = validityCheck(input);
+    activatButton(button, !check);
+    event.target.closest('form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 }
 
 function validityCheck(elements) {
+    let allCheck = true;
     for (let i = 0; i < elements.length; i++) {
         let element = elements[i];
-        setRedBorder(element);
+        allCheck = allCheck & setRedBorder(element);
     }
+    return allCheck;
 }
 
 function setRedBorder(element) {
-    if (element.checkValidity()) {
-        element.parentElement.classList.remove('errorBorder')
+    let check = element.checkValidity();
+    if (check) {
+        element.parentElement.classList.remove('errorBorder');
     } else {
-        element.parentElement.classList.add('errorBorder')
+        element.parentElement.classList.add('errorBorder');
     }
+    return check;
 }
 
 
@@ -82,12 +99,23 @@ async function passwordValidation(event) {
     event.preventDefault();
 
     let form = event.target;
-    let userdata = await encryptIput(form);
+    let userData = await encryptIput(form);
 
-    console.log(userdata);
-    let user = await lookAtLoginData(userdata, form);
-    console.log(user);
+    // console.log(userData);
+    let user = await lookAtLoginData(userData, form);
+    let rememberMe = form.querySelector('input[type="checkbox"]');
+    ermenmberMe(user, rememberMe.checked);
+    // console.log();
     loginAsUser(user);
+}
+
+
+function ermenmberMe(id, checked) {
+    if (id && checked) {
+        saveLocal('saveuser', id);
+    } else {
+        deleteLocal('saveuser');
+    }
 }
 
 async function encryptIput(form) {
@@ -102,12 +130,12 @@ async function encryptIput(form) {
     return logindata;
 }
 
-async function lookAtLoginData(userdata, form) {
+async function lookAtLoginData(userData, form) {
     let logindata = await getLoginDataArray();
     for (let i = 0; i < logindata.length; i++) {
         let validation = logindata[i];
-        let compare_name = (validation.email == userdata.email) ? true : false;
-        let compare_pw = (validation.password == userdata.password) ? true : false;
+        let compare_name = (validation.email == userData.email) ? true : false;
+        let compare_pw = (validation.password == userData.password) ? true : false;
 
         if (compare_name) {
             if (compare_pw) {
@@ -117,8 +145,8 @@ async function lookAtLoginData(userdata, form) {
                 let info = form.elements['password'].parentElement.parentElement.querySelector('.errorInfo');
                 info.classList.add('errorVisibility');
                 info.innerHTML = 'Wrong password Ups! Try again.';
-                console.log(form.elements['password'].parentElement);
-                console.log(form.elements['password'].parentElement.parentElement.querySelector('.errorInfo'));
+                // console.log(form.elements['password'].parentElement);
+                // console.log(form.elements['password'].parentElement.parentElement.querySelector('.errorInfo'));
             }
         }
     }
@@ -127,14 +155,15 @@ async function lookAtLoginData(userdata, form) {
 
 async function signUpUser(event) {
     event.preventDefault();
-
     let form = event.target;
-    if (confirmPassword(form)) {
+    let button = event.target.closest('form').querySelectorAll('button')
+    let check = confirmPassword(form);
+
+    if (check) {
         await saveUserData(form);
         showSuccess();
     }
-
-
+    activatButton(button, !check);
 }
 
 function confirmPassword(form) {
@@ -150,7 +179,6 @@ function confirmPassword(form) {
         errorinfo.classList.add('errorVisibility');
         return false
     }
-
 }
 
 async function saveUserData(form) {
@@ -158,8 +186,11 @@ async function saveUserData(form) {
     let email = form.elements['email'].value;
     let password = await encrypt(form.elements['password'].value);
 
-    let userdata = creatUser(name, password, email);
-    await addLoginData(userdata);
+    let userData = creatUser(name, password, email);
+    await addLoginData(userData);
+
+    let contactData = creatContact(name, email, 'no Number', 'C3FF2B');
+    await addContacts(contactData);
 }
 
 function showSuccess() {
@@ -169,18 +200,18 @@ function showSuccess() {
 }
 
 function switchToLogin() {
-    window.location.href = './login.html'
+    window.location.href = '../login.html';
 }
 
 function loginAsGuest(event) {
     event.preventDefault();
-    activUser = 'guest';
+    saveLocal('activUser', 'guest');
     window.location.href = '../html/summary.html';
 }
 
 function loginAsUser(id) {
     if (id) {
-        activUser = id;
+        saveLocal('activUser', id);
         window.location.href = '../html/summary.html';
     }
 }

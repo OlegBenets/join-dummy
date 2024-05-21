@@ -6,14 +6,23 @@ let activUser = null;
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
-function saveLocal(user) {
-    localStorage.setItem('user', user);
+function saveLocal(key, value) {
+    localStorage.setItem(key, value);
 }
 
-function loadLocal() {
-    return localStorage.getItem('user');
+function loadLocal(key) {
+    return localStorage.getItem(key);
 }
 
+function deleteLocal(key) {
+    localStorage.removeItem(key);
+}
+
+function userLogout() {
+    deleteLocal('activUser');
+    deleteLocal('saveuser');
+    window.location.href = '../login.html';
+}
 
 
 

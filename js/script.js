@@ -2,13 +2,21 @@ window.onload = init();
 
 
 function init() {
-    // loadScript();
+    savedLogin();
+    loginCheck();
+}
+
+function savedLogin() {
+    if (window.location.pathname.includes("login.html")) {
+        let savedUser = loadLocal('saveuser');
+        saveLocal('activUser', savedUser);
+    }
 }
 
 function loginCheck() {
     let onLogin = window.location.pathname.includes("login.html");
     let onSignup = window.location.pathname.includes("signup.html");
-    let userIs = loadLocal();
+    let userIs = loadLocal('activUser');
 
     console.log(onLogin);
     console.log(onSignup);
@@ -16,7 +24,7 @@ function loginCheck() {
 
 
     if (!onLogin && !onSignup) {
-        if (!activUser) {
+        if (!userIs) {
             window.location.href = '../login.html'
         }
     }
@@ -37,7 +45,7 @@ function loadScript() {
             `;
             break;
 
-        case '/html/signup.html'
+        case '/html/signup.html':
             head.innerHTML += `
             <script src="../js/storage.js"></script>
             <script src="../js/password_shower.js"></script>
