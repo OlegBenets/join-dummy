@@ -10,7 +10,6 @@ async function init() {
     await initPage();
     await loadAllData();
     await getAllTasks();
-    
     loadCards();
 }
 
@@ -92,20 +91,6 @@ function loadDoneCards() {
     }
 }
 
-async function getAllTasks() {
-    loadedTasks = await getTasksArray();
-    allTasks = loadedTasks;
-}
-
-function simulateClickButton(buttonId) {
-    const button = document.getElementById(buttonId);
-    button.click();
-}
-
-function selectDefaultPrio(buttonId) {
-    simulateClickButton(buttonId);
-}
-
 function checkCategory(card) {
     let categoryHTML = '';
     if (card.category) {
@@ -165,7 +150,6 @@ function checkAssignedTo(card, whichCard) {
         else if (whichCard == 'big-card') {
             return generateHTMLAssignedToBigCard(initials, card, colors);
         } 
-        
     }
     else {
         return '';
@@ -198,23 +182,6 @@ function checkSubtasks(card, whichCard) {
     }
 }
 
-function calculateProgressBar(card) {
-    let allSubtasks = card['subTasks'];
-    let progressValue = checkCheckedSubtasks(allSubtasks);
-
-    if (allSubtasks.length !== 0) {
-
-        let maxProgressValue = allSubtasks.length;
-
-        let progress = ((progressValue / maxProgressValue) * 100) * 2;
-
-        let progressBar = document.getElementById('progress' + card['id']);
-        if (progressBar) {
-            progressBar.style.width = progress + "%";
-        }
-    }
-}
-
 function startDragging(id) {
     currentDraggedItem = id;
 }
@@ -238,25 +205,6 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area');
-}
-
-function showMovableContainer(parameter, container) {
-    if (parameter == 'show' && container == 'addTask') {
-        document.getElementById('add-task-container').classList.add('show-moveable');
-        document.getElementById('add-task-container').classList.remove('remove-moveable');
-    }
-    else if (parameter == 'remove' && container == 'addTask') {
-        document.getElementById('add-task-container').classList.add('remove-moveable');
-        document.getElementById('add-task-container').classList.remove('show-moveable');
-    }
-    else if (parameter == 'show' && container == 'bigCard') {
-        document.getElementById('big-card-background').classList.add('show-moveable');
-        document.getElementById('big-card-background').classList.remove('remove-moveable');
-    }
-    else if (parameter == 'remove' && container == 'bigCard') {
-        document.getElementById('big-card-background').classList.remove('show-moveable');
-        document.getElementById('big-card-background').classList.add('remove-moveable');
-    }
 }
 
 function renderBigCard(cardId) {
@@ -324,10 +272,6 @@ function getAssigntContactsFromTask(cardId) {
     }
 }
 
-function resetAssignTo() {
-    assignedContacts = [];
-}
-
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
     let title = document.getElementById("input-title" + indexOfCurTask).value;
@@ -367,13 +311,9 @@ function renderEditBigCardSubtasks(cardId) {
 }
 
 function editSubtaskBigCard(subtaskTitle, id, cardId) {
-    // Finde den Container
     const container = document.getElementById(`subtask-popup-edit-container${id}`);
-  
-    // Generiere den HTML-Code für den Subtask
     const subtaskHTML = generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId);
-  
-    // Füge den generierten HTML-Code dem Container hinzu
+
     container.innerHTML = subtaskHTML;
 }
 
@@ -444,10 +384,6 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     loadCards();
 }
 
-function getCurrentStatus(state) {
-    currentStatus = state;
-}
-
 async function taskSearch() {
     let inputfield = document.getElementById('search-input').value;
     let input = inputfield.trim().toLowerCase();
@@ -481,23 +417,3 @@ function checkTasks(filter, filteredTasks) {
         noTasksPopup.style.display = 'none';
     }
 }
-
-function createShortDescription(cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let description = allTasks[indexOfCurTask]['description'];
-    let maxLength = 50;
-
-    if (description.length <= maxLength) {
-        return description + '...';
-    } else {
-        let shortTxt = description.substr(0, maxLength);
-        let lastSpaceIndex = shortTxt.lastIndexOf(' ');
-
-        if (lastSpaceIndex > 0) {
-            shortTxt = shortTxt.substr(0, lastSpaceIndex);
-        }
-
-        return shortTxt + '...';
-    }
-}
-
