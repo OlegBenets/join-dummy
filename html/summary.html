@@ -8,13 +8,11 @@
     <link rel="stylesheet" href="/css/header.css"/>
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/summary.css">
+    <script src="../js/storage.js"></script>
+    <script src="../js/script.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/navbar.js"></script>
     <script src="/js/includeHTML.js"></script>
-    <!-- <script src="../js/script.js"></script> -->
-
-<!-- <script src="../js/storage.js"></script>
-<script src="../script.js"></script> -->
 
     <title>JOIN Summary</title>
   </head>
@@ -36,7 +34,7 @@
             </svg>
            </div>
            <div class="todo-amount">
-              <h4>1</h4>
+              <h4 id="todo-amount">1</h4>
               <span>To-do</span>
            </div>
          </div>
@@ -47,7 +45,7 @@
                 </svg>                    
             </div>
             <div class="done-amount">
-              <h4>1</h4>
+              <h4 id="done-amount">1</h4>
               <span>Done</span>
             </div>
          </div>
@@ -61,27 +59,27 @@
                 </svg>
             </div>
             <div class="task-prio-amount">
-                <h4>1</h4>
+                <h4 id="prio-amount">1</h4>
                 <p>Urgent</p>
             </div>
          </div>
          <div class="prio-date-border"></div>
          <div class="task-date">
-            <b>October 16, 2022</b>
+            <b id="deadline">October 16, 2022</b>
             <p>Upcoming Deadline</p>
          </div>
         </div>
        <div class="overwiev-tasks">
         <div class="amount-tasks">
-            <h4>5</h4>
+            <h4 id="amount-tasks-in-board">5</h4>
             <span>Tasks in Board</span>
         </div>
         <div class="tasks-progress">
-            <h4>2</h4>
+            <h4 id="amount-tasks-progress">2</h4>
             <span>Tasks in Progress</span>
         </div>
         <div class="tasks-feedback">
-            <h4>2</h4>
+            <h4 id="amount-tasks-feedback">2</h4>
             <span>Awaiting Feedback</span>
         </div>
        </div>

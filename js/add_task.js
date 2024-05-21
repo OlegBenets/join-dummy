@@ -6,8 +6,8 @@ let assignedContacts = [];
 let filteredContactsList = [];
 
 async function initPage() {
-  await initInclude();
   await loadAllData();
+  await initInclude();
   assignedContactsList = await getContactsArray();
   filteredContactsList = assignedContactsList;
   setEventlister();
@@ -139,27 +139,6 @@ function renderSubtasksInPopup(parameter, index) {
   }
 }
 
-function generateHTMLsubtasksPopup(subtask) {
-  return `
-    <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
-        <ul class='subtask-popup-ul-container'>
-            <li>
-                ${subtask["subtitle"]}  
-            </li>
-            <div class='subtasks-edit-delete-container'>
-                <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}', '${subtask["id"]}')">
-                    <img src='/assets/img/edit_normal.svg'>
-                </div>
-                <div class='subtasks-seperator'></div>
-                <div onclick="deleteSubtask('${subtask["subtitle"]}')" class='subtasks-delete-container'>
-                    <img src='/assets/img/delete.svg'>
-                </div>
-            </div>
-        </ul>
-    </div>
-    `;
-}
-
 function editSubtask(subtaskTitle, id) {
   // Finde den Container
   const container = document.getElementById(
@@ -171,26 +150,6 @@ function editSubtask(subtaskTitle, id) {
 
   // Füge den generierten HTML-Code dem Container hinzu
   container.innerHTML = subtaskHTML;
-}
-
-function generateSubtaskHTML(subtaskTitle, id) {
-  console.log(subtaskTitle);
-  return `
-    <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
-        <div class='display-flex'>
-            <input id='subtaskInput${id}' type="text" value="${subtaskTitle}" class="subtask-edit-input">
-            <div class='subtasks-edit-delete-container'>
-                <div onclick="deleteSubtask('${subtaskTitle}')" class='subtasks-delete-container margin-right-0'>
-                    <img src='/assets/img/delete.svg'>
-                </div>
-                <div class='subtasks-seperator'></div>
-                <div onclick='saveChangedSubtask(${id})' class="subtasks-edit-container">
-                    <img src="/assets/img/check-subtask.svg">
-                </div>
-            </div>
-        </div>
-        <div class="subtask-edit-underline"></div>
-    </div>`;
 }
 
 function saveChangedSubtask(id) {
@@ -269,45 +228,6 @@ function getPrio(prio) {
   }
 }
 
-
-// function generateClearButton() {
-//   let container = document.getElementById('add-task-btns');
-
-//   container.innerHTML = `
-//   <button onclick="resetForm()" class="cancel-button">
-//   <span id="cancel-button">Clear</span>
-//     <div class="cancel-svg-container">
-//       <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
-//         <path
-//           d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
-//           stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" strocke="" />
-//       </svg>
-//     </div>
-//   </button>
-//   <button onclick="testTask()" class="create-button">
-//     Create Task<img src="/assets/img/check.svg" />
-//   </button>`;
-// }
-
-// function generateCancelButton() {
-//   let container = document.getElementById('add-task-btns');
-
-//   container.innerHTML = `
-//   <button onclick="showMovableContainer('remove', 'addTask'), resetForm()" class="cancel-button">
-//   <span id="cancel-button">Cancel</span>
-//     <div class="cancel-svg-container">
-//       <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg" class="cancel-svg">
-//         <path
-//           d="M6.24953 7.00008L11.4925 12.2431M1.00653 12.2431L6.24953 7.00008L1.00653 12.2431ZM11.4925 1.75708L6.24853 7.00008L11.4925 1.75708ZM6.24853 7.00008L1.00653 1.75708L6.24853 7.00008Z"
-//           stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" strocke="" />
-//       </svg>
-//     </div>
-//   </button>
-//   <button onclick="testTask()" class="create-button">
-//     Create Task<img src="/assets/img/check.svg" />
-//   </button>`;
-// }
-
 function setFocusedBorder(element) {
   element.classList.add("focused");
 }
@@ -319,8 +239,6 @@ function setErrorBorder(elements) {
 function removeErrorBorder(elements) {
   elements.classList.remove("error");
 }
-
-//Set focused or error border for inputs
 
 function testTask() {
   const titleInput = document.getElementById("input-title");
@@ -334,7 +252,7 @@ function testTask() {
 function checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput) {
   let titleError = document.getElementById("title-error");
   let dateError = document.getElementById("date-error");
-  // Validierung für den Titel
+
   if (!isTitleValid) {
     setErrorBorder(titleInput.parentElement);
     titleError.querySelector(".error-text").style.display = "block";
@@ -342,7 +260,7 @@ function checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput) 
     removeErrorBorder(titleInput.parentElement);
     titleError.querySelector(".error-text").style.display = "none";
   }
-  // Validierung für das Datum
+
   if (!isDateValid) {
     setErrorBorder(dateInput.parentElement);
     dateError.querySelector(".error-text").style.display = "block";
@@ -423,44 +341,6 @@ function renderContactList(filteredContactsList) {
   }
 }
 
-function contactListTemplate(initials, name, color, i) {
-  let checked = checkMatchContact(i);
-
-  if (checked) {
-    return /*html*/ `
-    <div onclick="assignContactToTask(${i})" id="assigntContact${i}" style="background-color:var(--customized_darkblue)" class="assigned-contact-container">
-    <div class="assigned-contact-child-container">
-      <div class="assigned-contact-initials" style="background-color: #${color};">
-        <h4>${initials}</h4>
-      </div>
-      <span style="color: white;" class="assigned-contact-name">${name}</span>
-      </div>
-   <div class="checkbox login">
-        <div id="assignt-to${i}">
-            <img class="uncheck-contact" style ="display:none;" id="img_check_off${i}" src="../assets/img/checkbox_unselected.svg" alt="">
-            <img class="check-contact" style ="display:block;" id="img_check_on${i}" src="../assets/img/checked_white.svg" alt="">
-        </div> 
-    </div>
-    `;
-  } else {
-    return /*html*/ `
-    <div onclick="assignContactToTask(${i})" id="assigntContact${i}" class="assigned-contact-container">
-    <div class="assigned-contact-child-container">
-      <div class="assigned-contact-initials" style="background-color: #${color};">
-        <h4>${initials}</h4>
-      </div>
-      <span class="assigned-contact-name">${name}</span>
-      </div>
-   <div class="checkbox login">
-        <div id="assignt-to${i}">
-            <img class="uncheck-contact" style ="display:block;" id="img_check_off${i}" src="../assets/img/checkbox_unselected.svg" alt="">
-            <img class="check-contact" style ="display:none;" id="img_check_on${i}" src="../assets/img/checked_white.svg" alt="">
-        </div> 
-    </div>
-    `;
-  }
-}
-
 function assignContactToTask(i) {
   let assignContactContainer = document.getElementById(`assigntContact${i}`);
   let imgCheckOff = document.getElementById(`img_check_off${i}`);
@@ -514,12 +394,6 @@ function renderSelectedContacts() {
   }
 }
 
-function renderInitialsIcon(initials, color) {
-  return /*html*/ `
-    <div class="assigned-contact-initials" style="background-color: #${color};">
-      <h4>${initials}</h4>
-    </div>
-  `;
-}
+
 
 

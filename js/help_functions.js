@@ -68,4 +68,68 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
     // Beobachtung des gesamten Dokumenten-Knotens starten
     observer.observe(document.body, config);
-  });
+});
+
+function createShortDescription(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let description = allTasks[indexOfCurTask]['description'];
+    let maxLength = 50;
+
+    if (description.length <= maxLength) {
+        return description + '...';
+    } else {
+        let shortTxt = description.substr(0, maxLength);
+        let lastSpaceIndex = shortTxt.lastIndexOf(' ');
+
+        if (lastSpaceIndex > 0) {
+            shortTxt = shortTxt.substr(0, lastSpaceIndex);
+        }
+
+        return shortTxt + '...';
+    }
+}
+
+async function getAllTasks() {
+    loadedTasks = await getTasksArray();
+    allTasks = loadedTasks;
+}
+
+function showMovableContainer(parameter, container) {
+    if (parameter == 'show' && container == 'addTask') {
+        document.getElementById('add-task-container').classList.add('show-moveable');
+        document.getElementById('add-task-container').classList.remove('remove-moveable');
+    }
+    else if (parameter == 'remove' && container == 'addTask') {
+        document.getElementById('add-task-container').classList.add('remove-moveable');
+        document.getElementById('add-task-container').classList.remove('show-moveable');
+    }
+    else if (parameter == 'show' && container == 'bigCard') {
+        document.getElementById('big-card-background').classList.add('show-moveable');
+        document.getElementById('big-card-background').classList.remove('remove-moveable');
+    }
+    else if (parameter == 'remove' && container == 'bigCard') {
+        document.getElementById('big-card-background').classList.remove('show-moveable');
+        document.getElementById('big-card-background').classList.add('remove-moveable');
+    }
+}
+
+function resetAssignTo() {
+    assignedContacts = [];
+}
+
+function calculateProgressBar(card) {
+    let allSubtasks = card['subTasks'];
+    let progressValue = checkCheckedSubtasks(allSubtasks);
+
+    if (allSubtasks.length !== 0) {
+
+        let maxProgressValue = allSubtasks.length;
+
+        let progress = ((progressValue / maxProgressValue) * 100) * 2;
+
+        let progressBar = document.getElementById('progress' + card['id']);
+        if (progressBar) {
+            progressBar.style.width = progress + "%";
+        }
+    }
+}
