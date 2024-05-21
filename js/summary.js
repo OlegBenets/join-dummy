@@ -5,6 +5,7 @@ async function initSummary() {
     await loadAllData();
     await getAllTasks();
     loadAmountsInSummary();
+    setDayTime();
 }
 
 function loadAmountsInSummary() {
@@ -60,4 +61,20 @@ function getEarliestDate() {
     return null;
   }
 
+function setDayTime() {
+    let greeting = document.getElementById('greeting-user');
+    greeting.textContent = greeting;
+    let currentDate = new Date();
+    let hours = currentDate.getHours();
+  
+    if (hours >= 5 && hours < 12) {
+      greeting = "Godd morning";
+    } else if (hours >= 12 && hours < 18) {
+      greeting = "Good afternoon";
+    } else if (hours >= 18 && hours < 22) {
+      greeting = "Good evening";
+    } else {
+      greeting = "Good night";
+    }
+  }
 
