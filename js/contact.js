@@ -222,6 +222,7 @@ function showContact(i) {
 async function deleteCurrentContact() {
   let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
  await deleteContact(previousContactIndex, realIndex);
+ deleteContactsFromTasks();
 }
 
 async function deleteContact(i, realIndex) {
