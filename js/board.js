@@ -269,6 +269,7 @@ function renderBigCard(cardId) {
         console.error("Card not found");
     }
     checkCategory(currentCard);
+    getAssigntContactsFromTask(cardId);
 }
 
 function checkCategoryBigCard(currentCard) {
@@ -303,7 +304,27 @@ function showEditTask(id) {
     } else {
         selectDefaultPrio('button-urgent');
     }
-    
+    renderSelectedContacts();
+    showContactsToAssign();
+}
+
+function getAssigntContactsFromTask(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let card = allTasks[indexOfCurTask];
+    let contacts = card['asigntTo'];
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i];
+        
+        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
+        let contact = assignedContactsList[indexOfContact];
+
+        assignedContacts.push(contact);
+    }
+}
+
+function resetAssignTo() {
+    assignedContacts = [];
 }
 
 // function renderAssignToContacts(indexOfCurTask) {

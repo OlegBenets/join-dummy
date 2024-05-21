@@ -924,6 +924,10 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     font-size: 20px;
 }
 
+.margin-bottom-16 {
+    margin-bottom: 16px;
+}
+
 /* ====== Column Scrollbar ====== */
 
 .todo-column::-webkit-scrollbar {

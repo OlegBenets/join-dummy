@@ -71,7 +71,7 @@ function generateHTMLbigCard(currentCard) {
     return `
     <div class='space-between'>
             ${checkCategoryBigCard(currentCard)}
-        <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer()" class='close-img-container'>
+        <div onclick="showMovableContainer('remove', 'bigCard'), changeBigCardContainer(), resetAssignTo()" class='close-img-container'>
             <img src='/assets/img/close.svg'>
         </div>
     </div>
@@ -106,7 +106,7 @@ function generateHTMLbigCard(currentCard) {
     </div>
     <div class='flex-end'>
         <div class='delete-edit-container'>
-            <div onclick='deleteTask(${currentCard['id']})' class='delete-container'>
+            <div onclick='deleteTask(${currentCard['id']}), resetAssignTo()' class='delete-container'>
                 <div class='delete-img'>
                     <div class='delete-icon'></div>
                 </div>
@@ -173,7 +173,7 @@ function generateHTMLEditTask(indexOfCurTask) {
                   id="input-assignTo" autocomplete="off">
                 <img id="drop-down-arrow" src="/assets/img/arrow_drop_down.svg">
               </div>
-              <div class="drop-down-contacts">
+              <div class="drop-down-contacts margin-bottom-16">
                 <div class='renderdContacts' id="selected-contacts">
                  
                 </div>
