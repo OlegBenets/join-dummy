@@ -226,17 +226,23 @@ async function deleteCurrentContact() {
  console.log(contactListUnsorted);
   
   console.log(contactName);
- deleteContactsFromTasks(realIndex, contactName);
+ deleteContactsFromTasks(contactName);
 }
 
 async function deleteContactsFromTasks(contactName) {
-  console.log(allTasks);
-  allTasks.forEach(task => {
+  await getAllTasks();
+  let newTasksIds = [];
+  let updatedTasks = allTasks.map(task => {
       if (task.asigntTo.includes(contactName)) {
+        let taskId = task.id;
+        newTasksIds.push(taskId);
           task.asigntTo = task.asigntTo.filter(name => name !== contactName);
           console.log(`Kontakt gelöscht: ${contactName} (Task ID: ${task.id})`);
       }
+      return task;
   });
+  console.log(newTasksIds);
+  allTasks = updatedTasks;
 }
 
 async function deleteContact(i, realIndex) {

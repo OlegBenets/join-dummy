@@ -1,3 +1,5 @@
+let allTasks = [];
+
 function goBack() {
     history.back();
 }
