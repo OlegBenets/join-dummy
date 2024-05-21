@@ -21,7 +21,7 @@ function deleteLocal(key) {
 function userLogout() {
     deleteLocal('activUser');
     deleteLocal('saveuser');
-    window.location.href = '../login.html';
+    window.location.href = '../html/login.html';
 }
 
 

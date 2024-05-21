@@ -25,7 +25,7 @@ function loginCheck() {
 
     if (!onLogin && !onSignup) {
         if (!userIs) {
-            window.location.href = '../login.html'
+            window.location.href = '../html/login.html'
         }
     }
 }
