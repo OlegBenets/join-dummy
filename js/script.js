@@ -14,18 +14,26 @@ function savedLogin() {
 }
 
 function loginCheck() {
-    let onLogin = window.location.pathname.includes("login.html");
-    let onSignup = window.location.pathname.includes("signup.html");
+    let onLoginPage = window.location.pathname.includes("login.html");
+    let onSignupPage = window.location.pathname.includes("signup.html");
     let userIs = loadLocal('activUser');
 
-    console.log(onLogin);
-    console.log(onSignup);
-    console.log(userIs);
-
-
-    if (!onLogin && !onSignup) {
+    if (!onLoginPage && !onSignupPage) {
         if (!userIs) {
-            window.location.href = '../login.html'
+            window.location.href = '../html/login.html'
         }
     }
 }
+
+// window.addEventListener('orientationchange', rotatbody);
+
+function rotatbody() {
+    if (window.navigator.userAgentData.mobile) {
+        if (screen.orientation.type.includes('portrait')) {
+            document.querySelector('body').classList.remove('rotat90');
+        } else {
+            document.querySelector('body').classList.add('rotat90');
+        }
+    }
+}
+
