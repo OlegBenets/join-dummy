@@ -12,20 +12,28 @@ function savedLogin() {
         let savedUser = loadLocal('saveuser');
         if (!savedUser) {
             saveLocal('activUser', false);
-        }else{
-           saveLocal('activUser', savedUser); 
+        } else {
+            saveLocal('activUser', savedUser);
         }
-        
+        stillLogedIn()
     }
 }
 
+function stillLogedIn() {
+    let user = loadLocal('activUser');
+    if (user != 'false') {
+        window.location.href = '../html/summary.html';
+    }
+
+
+}
 
 function loginCheck() {
     let onLoginPage = window.location.pathname.includes("login.html");
     let onSignupPage = window.location.pathname.includes("signup.html");
     let userIs = loadLocal('activUser');
     if (!onLoginPage && !onSignupPage) {
-        if (userIs == 'false'|| !userIs) {
+        if (userIs == 'false' || !userIs) {
             window.location.href = '../html/login.html'
         }
     }
