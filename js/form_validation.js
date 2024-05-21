@@ -1,5 +1,6 @@
 async function startPage() {
     await loadAllData('loginData');
+    await loadAllData('contacts');
 }
 
 function enabledButton(event) {
@@ -136,7 +137,7 @@ async function saveUserData(form) {
     let name = form.elements['name'].value;
     let email = form.elements['email'].value;
     let password = await encrypt(form.elements['password'].value);
-
+    
     let userData = creatUser(name, password, email);
     await addLoginData(userData);
 

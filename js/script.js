@@ -6,15 +6,6 @@ function init() {
     loginCheck();
 }
 
-function tester(input) {
-    if (input) {
-        console.log(input + " is true");
-    }
-    if (!input) {
-        console.log(input + " is false");
-    }
-
-}
 
 function savedLogin() {
     if (window.location.pathname.includes("login.html")) {
@@ -27,6 +18,7 @@ function savedLogin() {
         
     }
 }
+
 
 function loginCheck() {
     let onLoginPage = window.location.pathname.includes("login.html");
