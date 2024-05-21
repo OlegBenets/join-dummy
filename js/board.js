@@ -481,8 +481,10 @@ async function taskSearch() {
 function checkTasks(filter, filteredTasks) {
     for (let i = 0; i < allTasks.length; i++) {
         const curTask = allTasks[i];
+        const title = curTask['title'].toLowerCase();
+        const description = curTask['description'].toLowerCase();
 
-        if (curTask['title'].includes(filter) || curTask['description'].includes(filter)) {
+        if (title.includes(filter) || description.includes(filter)) {
             filteredTasks.push(curTask)
         }
     }
