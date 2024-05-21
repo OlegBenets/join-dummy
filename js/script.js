@@ -6,10 +6,25 @@ function init() {
     loginCheck();
 }
 
+function tester(input) {
+    if (input) {
+        console.log(input + " is true");
+    }
+    if (!input) {
+        console.log(input + " is false");
+    }
+
+}
+
 function savedLogin() {
     if (window.location.pathname.includes("login.html")) {
         let savedUser = loadLocal('saveuser');
-        saveLocal('activUser', savedUser);
+        if (!savedUser) {
+            saveLocal('activUser', false);
+        }else{
+           saveLocal('activUser', savedUser); 
+        }
+        
     }
 }
 
@@ -17,9 +32,8 @@ function loginCheck() {
     let onLoginPage = window.location.pathname.includes("login.html");
     let onSignupPage = window.location.pathname.includes("signup.html");
     let userIs = loadLocal('activUser');
-
     if (!onLoginPage && !onSignupPage) {
-        if (!userIs) {
+        if (userIs == 'false'|| !userIs) {
             window.location.href = '../html/login.html'
         }
     }

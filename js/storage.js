@@ -4,6 +4,12 @@ let loginData = [];
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
+
+/**
+ * 
+ * @param {string} key 
+ * @param {string / number} value 
+ */
 function saveLocal(key, value) {
     localStorage.setItem(key, value);
 }
@@ -375,7 +381,7 @@ async function editLoginData(index, userData) {
 }
 
 /**
-  * Gets the userData data based on the index. with a detailed copy of the requested data entry
+  * Gets the userData based on the index. with a detailed copy of the requested data entry
   * @param {number} index - The index of the userData to retrieve.
   * @returns {object} - The userData data.
   */
@@ -386,7 +392,10 @@ async function getLoginData(index) {
     }
 }
 
-
+/**
+ * 
+ * @returns {array} - the list of all userData objects.
+ */
 async function getLoginDataArray() {
     let buffer = JSON.stringify(loginData);
     return await JSON.parse(buffer);
