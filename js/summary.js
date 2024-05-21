@@ -108,7 +108,7 @@ function setDayTime() {
 }
 
 function logedUserData() {
-    let greetingUserElement = document.getElementById('Max Müller');
+    let greetingUserElement = document.getElementById('loged-user');
     let loggedInUserId = logedUser.id;
 
     let user = loginData.find(user => user.id === loggedInUserId);
