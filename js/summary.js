@@ -1,11 +1,15 @@
 let dateArray = [];
+let logedUser = [];
 
 async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
+    logedUser = await getLoginDataArray();
     loadAmountsInSummary();
     setDayTime();
+    logedUserData();
+console.log(logedUser);
 }
 
 function loadAmountsInSummary() {
@@ -104,3 +108,15 @@ function setDayTime() {
     greetingElement.textContent = greeting;
 }
 
+function logedUserData() {
+    let greetingUserElement = document.getElementById('Max Müller');
+    let loggedInUserId = logedUser.id;
+
+    let user = loginData.find(user => user.id === loggedInUserId);
+
+    if (user) {
+        greetingUserElement.textContent = user.name;
+    } else {
+        greetingUserElement.textContent = "Guest";
+    }
+}
