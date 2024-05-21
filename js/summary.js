@@ -9,7 +9,6 @@ async function initSummary() {
 }
 
 function loadAmountsInSummary() {
-    console.log(allTasks);
     let todoAmountContainer = document.getElementById('todo-amount').innerHTML = getAmountOfTodos();
     let doneAmountContainer = document.getElementById('done-amount').innerHTML = getAmountOfDone();
     let prioAmountContainer = document.getElementById('prio-amount').innerHTML;

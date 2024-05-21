@@ -43,7 +43,6 @@ async function addTask(parameter) {
     currentSubtasks,
     title
   );
-  console.log(task);
   await addTasks(task);
   resetForm();
   

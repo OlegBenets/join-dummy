@@ -20,7 +20,6 @@ function generateHTMLsubtasksPopup(subtask) {
   }
 
   function generateSubtaskHTML(subtaskTitle, id) {
-    console.log(subtaskTitle);
     return `
       <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
           <div class='display-flex'>
