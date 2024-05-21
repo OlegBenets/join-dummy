@@ -6,4 +6,6 @@ function documents() {
     let allTasksInBoard = document.getElementById('amount-tasks-in-board').innerHTML;
     let progressAmount = document.getElementById('amount-tasks-progress').innerHTML;
     let feedbackAmount = document.getElementById('amount-tasks-feedback').innerHTML;
+    let greeting = document.getElementById('greeting-user').innerHTML;
+    let logedUser = document.getElementById('loged-user').innerHTML;
 }
