@@ -1,15 +1,16 @@
 let dateArray = [];
 let logedUser = [];
+let logedUserDataArray = [];
 
 async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
-    logedUser = await getLoginDataArray();
+    logedUserDataArray = await getLoginDataArray();
+    logedUser = loadLocal('activUser');
     loadAmountsInSummary();
     setDayTime();
     logedUserData();
-console.log(logedUser);
 }
 
 function loadAmountsInSummary() {
@@ -109,11 +110,10 @@ function setDayTime() {
 
 function logedUserData() {
     let greetingUserElement = document.getElementById('loged-user');
-    let loggedInUserId = logedUser.id;
+    let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
+    let user = logedUserDataArray[userIndex];
 
-    let user = loginData.find(user => user.id === loggedInUserId);
-
-    if (user) {
+    if (userIndex >= 0) {
         let { name } = extractInitialsAndName(user);
         greetingUserElement.textContent = name;
     } else {
