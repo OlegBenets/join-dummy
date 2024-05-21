@@ -1,5 +1,4 @@
 let currentDraggedItem;
-let allTasks = [];
 let filterdtasks = [];
 let loadedTasks = [];
 let currentContactColor = 'black';
