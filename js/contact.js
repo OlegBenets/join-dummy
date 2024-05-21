@@ -124,7 +124,7 @@ async function editContact() {
   changeContact.name = document.getElementById("edit-contact-name").value;
   changeContact.email = document.getElementById("edit-contact-email").value;
   changeContact.phone = document.getElementById("edit-contact-tel").value;
- 
+
   await editContacts(realIndex, changeContact);
   showEditContact("hide");
   showContact(contactIndex);

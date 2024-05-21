@@ -39,11 +39,9 @@ async function loadData(path = "") {
         if (responseAsJson) {
             responseAsJson.forEach(task => {
                 if (!task.hasOwnProperty('subTasks')) {
-                    // Attribut hinzufügen, wenn es nicht vorhanden ist
                     task.subTasks = [];
                 }
                 if (!task.hasOwnProperty('asigntTo')) {
-                    // Attribut hinzufügen, wenn es nicht vorhanden ist
                     task.asigntTo = [];
                 }
             });
