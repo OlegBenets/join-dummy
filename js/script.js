@@ -37,7 +37,7 @@ function loadScript() {
             `;
             break;
 
-        case '/html/signup.html'
+        case '/html/signup.html':
             head.innerHTML += `
             <script src="../js/storage.js"></script>
             <script src="../js/password_shower.js"></script>
