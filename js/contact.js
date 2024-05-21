@@ -132,8 +132,6 @@ async function editContact() {
   renderFloatingContact(contactList[contactIndex]);
 }
 
-//Add Contact Js
-
 async function AddContact() {
   let name = document.getElementById("contact-name").value;
   let email = document.getElementById("contact-email").value;
@@ -175,8 +173,6 @@ function scrollToAddedContact(newIndex) {
   newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-// Add Contact Js
-
 function showAddContact(parameter) {
   let contactCard = document.getElementById("contact-card");
   if (parameter == "show") {
@@ -203,11 +199,8 @@ function showContact(i) {
     contact.style.color = contact.style.color === "white" ? "" : "white";
     menu.classList.toggle("remove-contact-detail");
   } else {
-    // Setze die Hintergrundfarbe und Textfarbe des aktuellen Kontakts
     contact.style.backgroundColor = "var(--customized_darkblue)";
     contact.style.color = "white";
-
-    // Setze die Hintergrundfarbe und Textfarbe des vorherigen Kontakts zurück
     if (previousContactIndex !== null) {
       let previousContact = document.getElementById(
         `contact${previousContactIndex}`
@@ -217,8 +210,6 @@ function showContact(i) {
         previousContact.style.color = "";
       }
     }
-
-    // Zeige das Kontakt-Detail-Menü an
     menu.classList.remove("remove-contact-detail");
 
     // Aktualisiere den Index des vorherigen Kontakts
