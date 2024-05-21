@@ -327,23 +327,6 @@ function resetAssignTo() {
     assignedContacts = [];
 }
 
-// function renderAssignToContacts(indexOfCurTask) {
-//     // let indexOfCurTask = allTasks.findIndex(t => t.id == id);
-//     console.log(allTasks);
-//     console.log(indexOfCurTask);
-//     let card = allTasks[indexOfCurTask];
-//     let contacts = card['asigntTo'];
-
-//     for (let i = 0; i < contacts.length; i++) {
-//         const contact = contacts[i];
-//         assignedContacts.push(contact);
-//     }
-//     console.log(assignedContacts);
-    
-//     return checkAssignedTo(card, 'edit-card');
-    
-// }
-
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
     let title = document.getElementById("input-title" + indexOfCurTask).value;
@@ -498,3 +481,21 @@ function checkTasks(filter, filteredTasks) {
     }
 }
 
+function createShortDescription(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let description = allTasks[indexOfCurTask]['description'];
+    let maxLength = 50;
+
+    if (description.length <= maxLength) {
+        return description + '...';
+    } else {
+        let shortTxt = description.substr(0, maxLength);
+        let lastSpaceIndex = shortTxt.lastIndexOf(' ');
+
+        if (lastSpaceIndex > 0) {
+            shortTxt = shortTxt.substr(0, lastSpaceIndex);
+        }
+
+        return shortTxt + '...';
+    }
+}

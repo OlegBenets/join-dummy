@@ -12,7 +12,7 @@ function generateTodoHTML(card) {
         ${checkCategory(card)}
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>
-            <p class='small-card-description'>${card['description']}</p>
+            <p class='small-card-description'>${createShortDescription(card['id'])}</p>
             ${checkSubtasks(card, 'small-card')}
             <div class='contacts-prio-container'>
                 <div class='contacts-order'>

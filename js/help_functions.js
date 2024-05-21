@@ -19,3 +19,4 @@ async function getAllTasks() {
 function getCurrentStatus(state) {
     currentStatus = state;
 }
+
