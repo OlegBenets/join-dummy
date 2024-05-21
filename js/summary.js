@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let dateArray = [];
 
 async function initSummary() {
@@ -7,7 +6,6 @@ async function initSummary() {
     await getAllTasks();
     loadAmountsInSummary();
 }
-
 
 function loadAmountsInSummary() {
     console.log(allTasks);
@@ -62,16 +60,4 @@ function getEarliestDate() {
     return null;
   }
 
-=======
-function documents() {
-    let todoAmount = document.getElementById('todo-amount').innerHTML;
-    let doneAmount = document.getElementById('done-amount').innerHTML;
-    let prioAmount = document.getElementById('prio-amount').innerHTML;
-    let deadline = document.getElementById('deadline').innerHTML;
-    let allTasksInBoard = document.getElementById('amount-tasks-in-board').innerHTML;
-    let progressAmount = document.getElementById('amount-tasks-progress').innerHTML;
-    let feedbackAmount = document.getElementById('amount-tasks-feedback').innerHTML;
-    let greeting = document.getElementById('greeting-user').innerHTML;
-    let logedUser = document.getElementById('loged-user').innerHTML;
-}
->>>>>>> e4af47716de87e4976734b8653c2997d0624d4df
+
