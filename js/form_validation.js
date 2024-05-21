@@ -151,7 +151,7 @@ function showSuccess() {
 }
 
 function switchToLogin() {
-    window.location.href = '../login.html';
+    window.location.href = '../html/login.html';
 }
 
 function loginAsGuest(event) {
