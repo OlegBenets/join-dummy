@@ -124,7 +124,7 @@ async function editContact() {
   changeContact.name = document.getElementById("edit-contact-name").value;
   changeContact.email = document.getElementById("edit-contact-email").value;
   changeContact.phone = document.getElementById("edit-contact-tel").value;
- 
+
   await editContacts(realIndex, changeContact);
   showEditContact("hide");
   showContact(contactIndex);
@@ -223,11 +223,8 @@ async function deleteCurrentContact() {
   let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
  await deleteContact(previousContactIndex, realIndex);
   let contactName = contactListUnsorted[realIndex].name;
- deleteContactsFromTasks(realIndex, contactName);
-}
-
-function deleteContactsFromTasks(i, contactName) {
-  console.log(`kontakt gelöscht: ${contactName}(id: ${i})`)
+  console.log(contactName);
+ deleteContactsFromTasks(contactName);
 }
 
 async function deleteContact(i, realIndex) {
