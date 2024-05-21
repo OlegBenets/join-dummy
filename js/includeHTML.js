@@ -1,5 +1,6 @@
 async function initInclude() {
     await includeHTML();
+    selectMenu();
 }
 
 async function includeHTML() {
