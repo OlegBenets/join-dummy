@@ -48,6 +48,11 @@
     cursor: pointer;
 }
 
+.header-profile-icon:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 64px;
+}
+
 .header-icons a {
     display: flex;
     justify-content: center;
