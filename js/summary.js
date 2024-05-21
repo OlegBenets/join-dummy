@@ -62,10 +62,10 @@ function getEarliestDate() {
   }
 
 function setDayTime() {
-    let greeting = document.getElementById('greeting-user');
-    greeting.textContent = greeting;
+    let greetingElement = document.getElementById('greeting-user');
     let currentDate = new Date();
     let hours = currentDate.getHours();
+    let greeting;
   
     if (hours >= 5 && hours < 12) {
       greeting = "Godd morning";
@@ -76,5 +76,6 @@ function setDayTime() {
     } else {
       greeting = "Good night";
     }
-  }
+    greetingElement.textContent = greeting;
+}
 
