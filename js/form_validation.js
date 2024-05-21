@@ -1,29 +1,3 @@
-window.addEventListener('orientationchange', rotatbody)
-
-async function lockScreen() {
-
-    let one = screen.onchange;
-
-    let info = window.navigator;
-    let info2 = window.navigator.userAgentData.mobile;
-}
-
-function rotatbody() {
-    if (window.navigator.userAgentData.mobile) {
-        if (screen.orientation.type.includes('portrait')) {
-            document.querySelector('body').classList.remove('rotat90');
-        } else {
-            document.querySelector('body').classList.add('rotat90');
-        }
-    }
-}
-
-
-
-
-
-
-
 async function startPage() {
     await loadAllData('loginData');
 }
