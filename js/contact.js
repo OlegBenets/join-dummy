@@ -231,18 +231,34 @@ async function deleteCurrentContact() {
 
 async function deleteContactsFromTasks(contactName) {
   await getAllTasks();
-  let newTasksIds = [];
-  let updatedTasks = allTasks.map(task => {
-      if (task.asigntTo.includes(contactName)) {
-        let taskId = task.id;
-        newTasksIds.push(taskId);
-          task.asigntTo = task.asigntTo.filter(name => name !== contactName);
-          console.log(`Kontakt gelöscht: ${contactName} (Task ID: ${task.id})`);
+  let updatedTasks = sortMatchingNames(contactName);
+  
+  for (let i = 0; i < updatedTasks.length; i++) {
+    const newTask = updatedTasks[i];
+
+    let indexOfCurTask = allTasks.findIndex(t => t.id == newTask.id);
+    console.log(indexOfCurTask);
+
+    let newUpdatedTask = creatTask(newTask['asigntTo'], newTask['category'], newTask['date'], newTask['description'], newTask['prio'], newTask['status'], newTask['subTasks'], newTask['title']);
+    console.log(newUpdatedTask);
+    await editTasks(indexOfCurTask, newUpdatedTask);
+  }
+  
+}
+
+function sortMatchingNames(contactName) {
+  let filtered = [];
+  for (let i = 0; i < allTasks.length; i++) {
+    const task = allTasks[i];
+    for (let j = 0; j < task.asigntTo.length; j++) {
+      const element = task.asigntTo[j];
+      if (element == contactName) {
+        allTasks[i].asigntTo.splice(j, 1);
+        filtered.push(allTasks[i]);
       }
-      return task;
-  });
-  console.log(newTasksIds);
-  allTasks = updatedTasks;
+    }
+  }
+  return filtered;
 }
 
 async function deleteContact(i, realIndex) {

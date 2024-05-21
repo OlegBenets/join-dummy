@@ -13,7 +13,7 @@ function selectMenu() {
 
     if (PATH.includes("summary.html")) {
         SUMMARY_MENU.classList.add('selected-menu');
-    } else if (PATH.includes("add_task.html")) {
+    } else if (PATH.includes("addTask.html")) {
         ADDTASK_MENU.classList.add('selected-menu');
         selectDefaultPrio('button-medium');
     } else if (PATH.includes("board.html")) {

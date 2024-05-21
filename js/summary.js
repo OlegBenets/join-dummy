@@ -11,6 +11,7 @@ async function initSummary() {
     loadAmountsInSummary();
     setDayTime();
     logedUserData();
+    getProfileInitials();
 }
 
 function loadAmountsInSummary() {
@@ -118,5 +119,20 @@ function logedUserData() {
         greetingUserElement.textContent = name;
     } else {
         greetingUserElement.textContent = "Guest";
+    }
+}
+
+function getProfileInitials() {
+    let container = document.getElementById('profile-initials');
+    let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
+    let user = logedUserDataArray[userIndex];
+
+    if (userIndex >= 0) {
+        let { name } = extractInitialsAndName(user);
+        let words = name.split(" ");
+        let initials = words.map(word => word[0]).join("");
+        container.innerHTML = initials;
+    } else {
+        container.innerHTML = 'G';
     }
 }

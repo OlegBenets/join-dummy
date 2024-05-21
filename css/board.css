@@ -458,7 +458,7 @@ h1 {
     padding: 48px 40px 48px 40px;
     border-radius: 30px;
     background-color: #FFFFFF;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 130px);
 }
 
 .big-card-category-container {
@@ -997,6 +997,20 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
 }
 
 .subtasks-popup-section::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.big-card-assigned-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.big-card-assigned-container::-webkit-scrollbar-track {
+    background: var(--color_2);
+    border-radius: 12px;
+}
+
+.big-card-assigned-container::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 12px;
 }

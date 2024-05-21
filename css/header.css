@@ -48,7 +48,7 @@
     cursor: pointer;
 }
 
-.header-profile-icon:hover {
+.profile-initials:hover {
     background-color: rgba(0,0,0,0.1);
     border-radius: 64px;
 }
@@ -61,9 +61,8 @@
 
 .profile-sidebar {
     display: none;
-    position: relative;
-    right: -120px;
-    top: 150px;
+    position: absolute;
+    top: 96px;
     background-color: var(--customized_darkblue);
     border-radius: 20px 0 20px 20px;
     padding: 10px;
@@ -92,4 +91,25 @@
     font-weight: 400;
     font-family: inter;
     color: var(--customized_beige);
+}
+
+.profile-initials {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: -56px;
+    top: 0;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: inter;
+    color: var(--customized_lightblue);
+    cursor: pointer;
+    z-index: 20;
+}
+
+.display-none {
+    display: none;
 }

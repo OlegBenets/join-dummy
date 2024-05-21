@@ -2,7 +2,7 @@
     <div class="header-txt-container">
         <p>Kanban Project Management Tool</p>
     </div>
-    <div class="header-icons">
+    <div id="header-icons" class="header-icons">
         <div id="profileSidebar" class="profile-sidebar">
             <a href="/html/help.html">
                 <div class="profile-sidebar-txt-container">
@@ -26,7 +26,8 @@
             </a>
         </div>
         <a href="/html/help.html"><img class="header-help-icon" src="/assets/img/help_icon.svg" alt="help_icon"></a>
-        <img onclick="showProfileSidebar()" class="header-profile-icon" src="/assets/img/header_profile_icon.svg"
+        <img class="header-profile-icon" src="/assets/img/header_profile_icon.svg"
             alt="profile_icon">
+        <div onclick="showProfileSidebar()" id="profile-initials" class="profile-initials">G</div>
     </div>
 </div>
