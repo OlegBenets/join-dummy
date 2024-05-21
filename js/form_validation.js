@@ -1,27 +1,11 @@
-// lockScreen()
 window.addEventListener('orientationchange', rotatbody)
-async function lockScreen() {
-    // await screen.orientation.lock('portrait');
 
+async function lockScreen() {
 
     let one = screen.onchange;
 
-    // console.log(screen.orientation.type);
-    // console.log(screen);
-    // console.log(screen.onchange);
-    // alert('screen.onchange is '+one);
     let info = window.navigator;
     let info2 = window.navigator.userAgentData.mobile;
-    // console.log(info);
-    // console.log(info2);
-
-    // alert('mobile is '+ info2);
-
-    // if (screen.orientation && screen.orientation.lock) {
-    //     screen.orientation.lock('portrait').catch(error => { console.error("Failed to lock orientation:", error); });
-    // } else {
-    //     console.warn("Screen orientation lock is not supported on this device.");
-    // }
 }
 
 function rotatbody() {
@@ -31,7 +15,6 @@ function rotatbody() {
         } else {
             document.querySelector('body').classList.add('rotat90');
         }
-
     }
 }
 
@@ -58,10 +41,8 @@ function activatButton(buttons, status) {
         const button = buttons[i];
         if (status) {
             button.removeAttribute('disabled');
-            // console.log('activ');
         } else {
             button.setAttribute('disabled', 'true');
-            // console.log('inactiv');
         }
     }
 }
@@ -100,12 +81,10 @@ async function passwordValidation(event) {
 
     let form = event.target;
     let userData = await encryptIput(form);
-
-    // console.log(userData);
     let user = await lookAtLoginData(userData, form);
     let rememberMe = form.querySelector('input[type="checkbox"]');
+
     ermenmberMe(user, rememberMe.checked);
-    // console.log();
     loginAsUser(user);
 }
 
@@ -145,8 +124,6 @@ async function lookAtLoginData(userData, form) {
                 let info = form.elements['password'].parentElement.parentElement.querySelector('.errorInfo');
                 info.classList.add('errorVisibility');
                 info.innerHTML = 'Wrong password Ups! Try again.';
-                // console.log(form.elements['password'].parentElement);
-                // console.log(form.elements['password'].parentElement.parentElement.querySelector('.errorInfo'));
             }
         }
     }

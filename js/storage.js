@@ -2,30 +2,28 @@ let contacts = [];
 let tasks = [];
 let loginData = [];
 
-let activUser = null;
-
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
 
 function saveLocal(key, value) {
     localStorage.setItem(key, value);
 }
 
+
 function loadLocal(key) {
     return localStorage.getItem(key);
 }
 
+
 function deleteLocal(key) {
     localStorage.removeItem(key);
 }
+
 
 function userLogout() {
     deleteLocal('activUser');
     deleteLocal('saveuser');
     window.location.href = '../html/login.html';
 }
-
-
-
 
 
 async function loadData(path = "") {
@@ -48,6 +46,7 @@ async function loadData(path = "") {
     }
     return checkIfEmpty(responseAsJson);
 }
+
 
 function checkIfEmpty(data) {
     if (data) {
@@ -120,11 +119,13 @@ async function saveAllData(target = "all") {
     }
 }
 
+
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
     return id;
 }
+
 
 async function encrypt(data) {
     const encoder = new TextEncoder();
@@ -156,11 +157,13 @@ function creatContact(name, email, phone, color) {
     return contact;
 }
 
+
 async function addContacts(contact) {
     let buffer = JSON.stringify(contact);
     contacts.push(await JSON.parse(buffer));
     await saveAllData('contacts');
 }
+
 
 async function deleteContacts(index) {
     if (index < contacts.length) {
@@ -168,6 +171,7 @@ async function deleteContacts(index) {
     }
     await saveAllData('contacts');
 }
+
 
 async function editContacts(index, contact) {
     if (index < contacts.length) {
@@ -177,6 +181,7 @@ async function editContacts(index, contact) {
     await saveAllData('contacts');
 }
 
+
 async function getContacts(index) {
     if (index < contacts.length) {
         let buffer = JSON.stringify(contacts[index]);
@@ -184,10 +189,12 @@ async function getContacts(index) {
     }
 }
 
+
 async function getContactsArray() {
     let buffer = JSON.stringify(contacts);
     return await JSON.parse(buffer);
 }
+
 
 //Task handling functions
 
@@ -218,11 +225,13 @@ function creatTask(asigntTo, category, date, description, prio, status, subTasks
     return task;
 }
 
+
 async function addTasks(task) {
     let buffer = JSON.stringify(task);
     tasks.push(await JSON.parse(buffer));
     await saveAllData('tasks');
 }
+
 
 async function deleteTasks(index) {
     if (index < tasks.length) {
@@ -230,6 +239,7 @@ async function deleteTasks(index) {
     }
     await saveAllData('tasks');
 }
+
 
 async function editTasks(index, task) {
     if (index < tasks.length) {
@@ -239,6 +249,7 @@ async function editTasks(index, task) {
     await saveAllData('tasks');
 }
 
+
 async function getTasks(index) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(tasks[index]);
@@ -246,10 +257,12 @@ async function getTasks(index) {
     }
 }
 
+
 async function getTasksArray() {
     let buffer = JSON.stringify(tasks);
     return await JSON.parse(buffer);
 }
+
 
 //Subtask handling functions
 
@@ -262,11 +275,13 @@ function creatSubTask(subtitle, checked = "unchecked") {
     return subtask;
 }
 
+
 async function addSubTasks(index, subtask) {
     let buffer = JSON.stringify(subtask);
     tasks[index].subTasks.push(await JSON.parse(buffer));
     await saveAllData('tasks');
 }
+
 
 async function deleteSubTasks(index, subindex) {
     if (index < tasks.length) {
@@ -276,6 +291,7 @@ async function deleteSubTasks(index, subindex) {
     }
     await saveAllData('tasks');
 }
+
 
 async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
@@ -287,6 +303,7 @@ async function editSubTasks(index, subindex, subtask) {
     await saveAllData('tasks');
 }
 
+
 async function getSubTasks(index, subindex) {
     if (index < tasks.length) {
         if (subindex < tasks[index].subtask.length) {
@@ -296,12 +313,14 @@ async function getSubTasks(index, subindex) {
     }
 }
 
+
 async function getSubTasks(index) {
     if (index < tasks.length) {
         let buffer = JSON.stringify(tasks[index].subtask);
         return await JSON.parse(buffer);
     }
 }
+
 
 //Validation handling functions
 
@@ -366,6 +385,7 @@ async function getLoginData(index) {
         return await JSON.parse(buffer);
     }
 }
+
 
 async function getLoginDataArray() {
     let buffer = JSON.stringify(loginData);
