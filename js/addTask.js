@@ -230,77 +230,9 @@ function getPrio(prio) {
   }
 }
 
-function setFocusedBorder(element) {
-  element.classList.add("focused");
-}
+//CONTACTS LIST
 
-function setErrorBorder(elements) {
-  elements.classList.add("error");
-}
-
-function removeErrorBorder(elements) {
-  elements.classList.remove("error");
-}
-
-function testTask() {
-  const titleInput = document.getElementById("input-title");
-  const dateInput = document.getElementById("input-date");
-
-  let isTitleValid = titleInput.value.trim() !== "";
-  let isDateValid = dateInput.value.trim() !== "";
-  checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput);
-}
-
-function checkInputValidation(isTitleValid, isDateValid, titleInput, dateInput) {
-  let titleError = document.getElementById("title-error");
-  let dateError = document.getElementById("date-error");
-
-  if (!isTitleValid) {
-    setErrorBorder(titleInput.parentElement);
-    titleError.querySelector(".error-text").style.display = "block";
-  } else {
-    removeErrorBorder(titleInput.parentElement);
-    titleError.querySelector(".error-text").style.display = "none";
-  }
-
-  if (!isDateValid) {
-    setErrorBorder(dateInput.parentElement);
-    dateError.querySelector(".error-text").style.display = "block";
-  } else {
-    removeErrorBorder(dateInput.parentElement);
-    dateError.querySelector(".error-text").style.display = "none";
-  }
-}
-
-function setEventlister() {
-  let inputLeft = document.getElementById("title-container").parentElement.querySelectorAll(".add-task-input-container");
-  let inputRight = document.getElementById("date-container").parentElement.querySelectorAll(".add-task-input-container");
-  let inputs = [inputLeft, inputRight];
-  for (let j = 0; j < inputs.length; j++) {
-    const nodeList = inputs[j];
-    for (let i = 0; i < nodeList.length; i++) {
-      const element = nodeList[i].children[0];
-      element.addEventListener("focus", (event) => {
-        setBorder(event);
-      });
-      element.addEventListener("blur", (event) => {
-        unsetBorder(event);
-      });
-    }
-  }
-}
-
-function setBorder(event) {
-  let target = event.target;
-  target.parentElement.classList.add("focused");
-}
-
-function unsetBorder(event) {
-  let target = event.target;
-  target.parentElement.classList.remove("focused");
-}
-
-function showContactsToAssign() {
+function showContactsToAssign(event) {
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
 
