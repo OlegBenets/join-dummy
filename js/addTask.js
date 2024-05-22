@@ -53,6 +53,9 @@ async function addTask(parameter) {
     
   } else {
     showAddTaskConfirmation('');
+    setTimeout(function() {
+      window.location.href = '/html/board.html';
+  }, 1000);
   }
 }
 

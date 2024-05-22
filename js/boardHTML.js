@@ -173,7 +173,7 @@ function generateHTMLEditTask(indexOfCurTask) {
                   id="input-assignTo" autocomplete="off">
                 <img id="drop-down-arrow" src="/assets/img/arrow_drop_down.svg">
               </div>
-              <div class="drop-down-contacts margin-bottom-16">
+              <div class="drop-down-contacts margin-bottom-64">
                 <div class='renderdContacts' id="selected-contacts">
                  
                 </div>

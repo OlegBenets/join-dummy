@@ -17,7 +17,7 @@ async function initSummary() {
 function loadAmountsInSummary() {
     let todoAmountContainer = document.getElementById('todo-amount').innerHTML = getAmountOfTodos();
     let doneAmountContainer = document.getElementById('done-amount').innerHTML = getAmountOfDone();
-    let prioAmountContainer = document.getElementById('prio-amount').innerHTML;
+    let prioAmountContainer = document.getElementById('prio-amount').innerHTML = getUrgentDates();
     let deadlineContainer = document.getElementById('deadline').innerHTML = getEarliestDate();
     let allTasksInBoardContainer = document.getElementById('amount-tasks-in-board').innerHTML = getAmountOfAllTasks();
     let progressAmountContainer = document.getElementById('amount-tasks-progress').innerHTML = getProgressTasks();
@@ -44,7 +44,8 @@ function getUrgentDates() {
         let urgentDate = urgent['date'];
         dateArray.push(urgentDate);
     }
-    
+
+    return allUrgent.length;
 }
 
 function getEarliestDate() {
