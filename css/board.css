@@ -928,6 +928,10 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
     margin-bottom: 16px;
 }
 
+.z-index-100 {
+    z-index: 100;
+}
+
 /* ====== Column Scrollbar ====== */
 
 .column-container::-webkit-scrollbar {
