@@ -232,7 +232,7 @@ function getPrio(prio) {
 
 //CONTACTS LIST
 
-function showContactsToAssign(event) {
+function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
 
