@@ -16,13 +16,22 @@
             <input id="contact-name" required type="text" minlength="3" maxlength="18" placeholder="Name" />
             <img src="../assets/img/person (1).svg" />
           </div>
+          <div class="error-text-container" id="name-error">
+            <span class="error-text">Please enter a name</span>
+          </div>
           <div class="input-container">
             <input id="contact-email" required type="email" minlength="5" maxlength="25" placeholder="Email" />
             <img src="../assets/img/mail.svg" />
           </div>
+          <div class="error-text-container" id="email-error">
+            <span class="error-text">Please enter a email</span>
+          </div>
           <div class="input-container">
-            <input id="contact-tel" required class="number" type="number" minlength="3" maxlength="12" placeholder="Phone" />
+            <input id="contact-tel" required class="number" type="text" pattern="\d{3,12}" placeholder="Phone" />
             <img src="../assets/img/call.svg" />
+          </div>
+          <div class="error-text-container" id="tel-error">
+            <span class="error-text">Please enter a phone number</span>
           </div>
         </div>
         <div class="button-container">
@@ -33,7 +42,7 @@
                 </svg>            
               </div>
           </button>
-            <button class="create-button">Create contact<img src="/assets/img/check.svg"></button>
+            <button onclick="testAddContactsInput()" class="create-button">Create contact<img src="/assets/img/check.svg"></button>
           </div>
       </form>
       <button onclick="showAddContact()" class="close-contact"><img src="/assets/img/close.svg"></button>

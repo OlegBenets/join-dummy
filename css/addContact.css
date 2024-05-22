@@ -95,7 +95,6 @@ body {
     left: 742px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
     width: 422px;
     height: 215px;
 }
@@ -231,4 +230,26 @@ body {
   .close-contact:hover {
     cursor: pointer;
     background-color: rgb(231, 231, 231);
+  }
+
+  .error-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%;
+    height: 20px;
+  }
+
+  .error-text {
+    display: none;
+    font-size: 14px;
+    color: var(--customized_lightred);
+  }
+
+  .error {
+    border-color: var(--customized_red);
+}
+  
+  .display-none {
+    display: none;
   }
