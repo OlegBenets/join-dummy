@@ -190,7 +190,6 @@ function showContact(i) {
   let menu = document.getElementById("contact-detail-data");
   let contact = document.getElementById(`contact${i}`);
 
-  // Wenn auf denselben Kontakt geklickt wird
   if (previousContactIndex === i) {
     contact.style.backgroundColor =
       contact.style.backgroundColor === "var(--customized_darkblue)"
@@ -212,7 +211,6 @@ function showContact(i) {
     }
     menu.classList.remove("remove-contact-detail");
 
-    // Aktualisiere den Index des vorherigen Kontakts
     previousContactIndex = i;
 
     renderFloatingContact(contactList[i]);
