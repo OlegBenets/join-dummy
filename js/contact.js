@@ -221,9 +221,6 @@ async function deleteCurrentContact() {
   let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
   let contactName = contactListUnsorted[realIndex].name;
  await deleteContact(previousContactIndex, realIndex);
- console.log(contactListUnsorted);
-  
-  console.log(contactName);
  deleteContactsFromTasks(contactName);
 }
 
@@ -241,7 +238,6 @@ async function deleteContactsFromTasks(contactName) {
     console.log(newUpdatedTask);
     await editTasks(indexOfCurTask, newUpdatedTask);
   }
-  
 }
 
 function sortMatchingNames(contactName) {
