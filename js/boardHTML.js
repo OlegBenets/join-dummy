@@ -1,12 +1,10 @@
-function generateEmptyColumnHTML(column) {
-    return `
-        <div class='empty-column-container'>
-            <span>No tasks ${column}</span>
-        </div>
-    `
-}
-
-function generateTodoHTML(card) {
+/**
+ * this function generates the HTML for the small Tasks
+ * 
+ * @param {object} card This is the task object which includes all relevant informations for one task
+ * @returns HTML for small Tasks
+ */
+function generateTaskHTML(card) {
     return `
     <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
         ${checkCategory(card)}
@@ -25,6 +23,52 @@ function generateTodoHTML(card) {
     `;
 }
 
+/**
+ * this function generates HTML for the empty column message
+ * 
+ * @param {string} column this contains the name of the respective column as a string
+ * @returns HTML message for empty columns
+ */
+function generateEmptyColumnHTML(column) {
+    return `
+        <div class='empty-column-container'>
+            <span>No tasks ${column}</span>
+        </div>
+    `
+}
+
+/**
+ * This function check the category of a task and generates the respective HTML. True is User Story, False is Technical Task
+ * 
+ * @param {object} card This is the task object which includes all relevant informations for one task
+ * @returns HTML for category section
+ */
+function checkCategory(card) {
+    let categoryHTML = '';
+    if (card.category) {
+        categoryHTML = `
+        <div id='category-container${card['id']}' class='category-container story-container'>
+            <p>User Story</p>
+        </div>
+        `
+    }
+    else {
+        categoryHTML = `
+        <div id='category-container${card['id']}' class='category-container technical-container'>
+            <p>Technical Task</p>
+        </div>
+        `
+    }
+    return categoryHTML;
+}
+
+/**
+ * This function generates the icon with initials HTML for small task view
+ * 
+ * @param {Array} initialsArray This contains the initials from the contacts who is assigned to the task
+ * @param {Array} colors This contains the color which is assigned to the contact
+ * @returns HTML of icon with initials
+ */
 function generateHTMLAssignedTo(initialsArray, colors) {
     let circlesHTML = '';
 
@@ -39,34 +83,56 @@ function generateHTMLAssignedTo(initialsArray, colors) {
     return circlesHTML;
 }
 
-function generateHTMLAssignedToEdit(initialsArray, colors) {
+/**
+ * This function generates the icon with initials and full name HTML for big task view
+ * 
+ * @param {Array} initialsArray This contains the initials from the contacts who is assigned to the task
+ * @param {object} card This is the task object which includes all relevant informations for one task
+ * @param {Array} colors This contains the color which is assigned to the contact
+ * @returns HTML of icon with initials and full name
+ */
+function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
         circlesHTML += `
-            <div class='circleBig' style='background-color: #${colors[i]};'>
+        <div class='big-card-one-assign'>
+            <div class='circle-big-card' style='background-color: #${colors[i]};'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
+            <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
+        </div>
         `;
     }
-
     return circlesHTML;
 }
 
-function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
-    return `
-        <div class='progress-container'>
-            <div class='popup-progressbar'>${amountOfCheckedSubtasks} von ${amountOfSubtasks} Subtasks erledigt!</div>
-            <div class="progress-bar">
-                <div id='progress${card['id']}' class="progress"></div>
-            </div>
-            <div class='progress-txt-container'>
-                <p id='subtasks-amount${card['id']}'>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
-            </div>
-        </div> 
-    `
+/**
+ * This function get the prio of the respective task and returns the priority section HTML for small task view
+ * 
+ * @param {object} card This is the task object which includes all relevant informations for one task
+ * @returns HTML of priority section
+ */
+function setPrio(card) {
+    switch (card.prio) {
+        case 'Low':
+            return `<img src='/assets/img/prio_small_cards_low.svg'>`
+            break;
+        case 'Medium':
+            return `<img src='/assets/img/prio_small_cards_medium.svg'>`
+            break;
+        case 'Urgent':
+            return `<img src='/assets/img/prio_small_cards_urgent.svg'>`
+            break;
+    }
 }
 
+/**
+ * This function generates the HTML of the big task view
+ * 
+ * @param {object} currentCard This is the task object which includes all relevant informations for one task
+ * @returns HTML of big task view
+ */
 function generateHTMLbigCard(currentCard) {
     return `
     <div class='space-between'>
@@ -124,6 +190,12 @@ function generateHTMLbigCard(currentCard) {
     `
 }
 
+/**
+ * This function generates the HTML of the task editor
+ * 
+ * @param {number} indexOfCurTask This contains the index of the respective task
+ * @returns HTML of task editor
+ */
 function generateHTMLEditTask(indexOfCurTask) {
     return `
     <div class='input-edit-cross'>
@@ -208,6 +280,36 @@ function generateHTMLEditTask(indexOfCurTask) {
     `
 }
 
+function generateHTMLAssignedToEdit(initialsArray, colors) {
+    let circlesHTML = '';
+
+    for (let i = 0; i < initialsArray.length; i++) {
+        circlesHTML += `
+            <div class='circleBig' style='background-color: #${colors[i]};'>
+                <div class='initials'>${initialsArray[i]}</div>
+            </div>
+        `;
+    }
+
+    return circlesHTML;
+}
+
+function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
+    return `
+        <div class='progress-container'>
+            <div class='popup-progressbar'>${amountOfCheckedSubtasks} von ${amountOfSubtasks} Subtasks erledigt!</div>
+            <div class="progress-bar">
+                <div id='progress${card['id']}' class="progress"></div>
+            </div>
+            <div class='progress-txt-container'>
+                <p id='subtasks-amount${card['id']}'>${amountOfCheckedSubtasks}/${amountOfSubtasks} Subtasks</p>
+            </div>
+        </div> 
+    `
+}
+
+
+
 function generateHTMLsubtasksEdit(subtask, cardId) {
     return `
     <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
@@ -229,8 +331,15 @@ function generateHTMLsubtasksEdit(subtask, cardId) {
     `
 }
 
+/**
+ * This function is used to generate HTML for editing subtask
+ * 
+ * @param {*} subtaskTitle this contains the subtask title
+ * @param {*} id This contains an id to set unique div ids
+ * @param {*} cardId This contains the unique id of the task
+ * @returns HTML for editing subtasks
+ */
 function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
-    console.log(subtaskTitle);
     return `
       <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
           <div class='display-flex'>
@@ -249,21 +358,7 @@ function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
       </div>`;
 }
 
-function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
-    let circlesHTML = '';
 
-    for (let i = 0; i < initialsArray.length; i++) {
-        circlesHTML += `
-        <div class='big-card-one-assign'>
-            <div class='circle-big-card' style='background-color: #${colors[i]};'>
-                <div class='initials'>${initialsArray[i]}</div>
-            </div>
-            <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
-        </div>
-        `;
-    }
-    return circlesHTML;
-}
 
 function generateHTMLsubtasksBig(amountOfSubtasks, card) {
     let subtasksHTML = '';

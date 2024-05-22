@@ -1,5 +1,13 @@
 let allTasks = [];
 
+/**
+ * This function is used to load all Tasks from backend
+ */
+async function getAllTasks() {
+  loadedTasks = await getTasksArray();
+  allTasks = loadedTasks;
+}
+
 function goBack() {
     history.back();
 }
@@ -13,10 +21,7 @@ function selectDefaultPrio(buttonId) {
     simulateClickButton(buttonId);
 }
 
-async function getAllTasks() {
-    loadedTasks = await getTasksArray();
-    allTasks = loadedTasks;
-}
+
 
 function getCurrentStatus(state) {
     currentStatus = state;
@@ -72,24 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     observer.observe(document.body, config);
 });
 
-function createShortDescription(cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let description = allTasks[indexOfCurTask]['description'];
-    let maxLength = 50;
 
-    if (description.length <= maxLength) {
-        return description + '...';
-    } else {
-        let shortTxt = description.substr(0, maxLength);
-        let lastSpaceIndex = shortTxt.lastIndexOf(' ');
-
-        if (lastSpaceIndex > 0) {
-            shortTxt = shortTxt.substr(0, lastSpaceIndex);
-        }
-
-        return shortTxt + '...';
-    }
-}
 
 async function getAllTasks() {
     loadedTasks = await getTasksArray();
@@ -119,19 +107,4 @@ function resetAssignTo() {
     assignedContacts = [];
 }
 
-function calculateProgressBar(card) {
-    let allSubtasks = card['subTasks'];
-    let progressValue = checkCheckedSubtasks(allSubtasks);
 
-    if (allSubtasks.length !== 0) {
-
-        let maxProgressValue = allSubtasks.length;
-
-        let progress = ((progressValue / maxProgressValue) * 100) * 2;
-
-        let progressBar = document.getElementById('progress' + card['id']);
-        if (progressBar) {
-            progressBar.style.width = progress + "%";
-        }
-    }
-}

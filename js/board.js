@@ -4,7 +4,9 @@ let loadedTasks = [];
 let currentContactColor = 'black';
 let allContactsExist = [];
 
-
+/**
+ * This function initialise all relevant data
+ */
 async function init() {
     await initPage();
     await loadAllData();
@@ -12,6 +14,9 @@ async function init() {
     loadCards();
 }
 
+/**
+ * This function starts the loading functions to render all Tasks to the Kanban Board
+ */
 function loadCards() {
     loadTodoCards();
     loadProgressCards();
@@ -19,6 +24,9 @@ function loadCards() {
     loadDoneCards();
 }
 
+/**
+ * This function filters all tasks with status todo and render it in the todo-column
+ */
 function loadTodoCards() {
     let todo = allTasks.filter(t => t['status'] == 'todo');
 
@@ -27,7 +35,7 @@ function loadTodoCards() {
     if (todo.length !== 0) {
         for (let i = 0; i < todo.length; i++) {
             const card = todo[i];
-            document.getElementById('todo-column').innerHTML += generateTodoHTML(card);
+            document.getElementById('todo-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
     }
@@ -36,7 +44,9 @@ function loadTodoCards() {
     };
 }
 
-
+/**
+ * This function filters all tasks with status progress and render it in the progress-column
+ */
 function loadProgressCards() {
     let progress = allTasks.filter(t => t['status'] == 'progress');
 
@@ -45,7 +55,7 @@ function loadProgressCards() {
     if (progress.length !== 0) {
         for (let i = 0; i < progress.length; i++) {
             const card = progress[i];
-            document.getElementById('progress-column').innerHTML += generateTodoHTML(card);
+            document.getElementById('progress-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
     }
@@ -54,7 +64,9 @@ function loadProgressCards() {
     }
 }
 
-
+/**
+ * This function filters all tasks with status await and render it in the await-column
+ */
 function loadAwaitCards() {
     let feedback = allTasks.filter(t => t['status'] == 'await');
 
@@ -63,7 +75,7 @@ function loadAwaitCards() {
     if (feedback.length !== 0) {
         for (let i = 0; i < feedback.length; i++) {
             const card = feedback[i];
-            document.getElementById('await-column').innerHTML += generateTodoHTML(card);
+            document.getElementById('await-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
     }
@@ -72,7 +84,9 @@ function loadAwaitCards() {
     }
 }
 
-
+/**
+ * This function filters all tasks with status done and render it in the done-column
+ */
 function loadDoneCards() {
     let done = allTasks.filter(t => t['status'] == 'done');
 
@@ -81,7 +95,7 @@ function loadDoneCards() {
     if (done.length !== 0) {
         for (let i = 0; i < done.length; i++) {
             const card = done[i];
-            document.getElementById('done-column').innerHTML += generateTodoHTML(card);
+            document.getElementById('done-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
     }
@@ -90,122 +104,11 @@ function loadDoneCards() {
     }
 }
 
-function checkCategory(card) {
-    let categoryHTML = '';
-    if (card.category) {
-        categoryHTML = `
-        <div id='category-container${card['id']}' class='category-container story-container'>
-            <p>User Story</p>
-        </div>
-        `
-    }
-    else {
-        categoryHTML = `
-        <div id='category-container${card['id']}' class='category-container technical-container'>
-            <p>Technical Task</p>
-        </div>
-        `
-    }
-    return categoryHTML;
-}
-
-function setPrio(card) {
-    switch (card.prio) {
-        case 'Low':
-            return `<img src='/assets/img/prio_small_cards_low.svg'>`
-            break;
-        case 'Medium':
-            return `<img src='/assets/img/prio_small_cards_medium.svg'>`
-            break;
-        case 'Urgent':
-            return `<img src='/assets/img/prio_small_cards_urgent.svg'>`
-            break;
-    }
-}
-
-function checkAssignedTo(card, whichCard) {
-    let allContacts = card['asigntTo'];
-    if (allContacts.length !== 0) {
-        let initials = [];
-        let colors = [];
-        
-        for (let i = 0; i < allContacts.length; i++) {
-            let words = allContacts[i].split(' ');
-            let initialsForName = '';
-            let name = allContacts[i];
-            let indexOfContact = assignedContactsList.findIndex(n => n.name == name);
-            let curColor = assignedContactsList[indexOfContact]['color'];
-
-            for (let j = 0; j < words.length && j < 2; j++) {
-                initialsForName += words[j].charAt(0);
-            }
-            initials.push(initialsForName);
-            colors.push(curColor);
-        }
-
-        if (whichCard == 'small-card') {
-            return generateHTMLAssignedTo(initials, colors);
-        }
-        else if (whichCard == 'big-card') {
-            return generateHTMLAssignedToBigCard(initials, card, colors);
-        } 
-    }
-    else {
-        return '';
-    }
-}
-
-function checkCheckedSubtasks(allSubtasks) {
-    let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'checked');
-    let amountOfCheckedSubtasks = checkedSubtasks.length;
-    return amountOfCheckedSubtasks;
-}
-
-function checkSubtasks(card, whichCard) {
-    let allSubtasks = card['subTasks'];
-    let amountOfCheckedSubtasks = checkCheckedSubtasks(allSubtasks);
-    let amountOfSubtasks = 0;
-
-    if (allSubtasks.length !== 0) {
-        amountOfSubtasks = allSubtasks.length;
-
-        if (whichCard == 'small-card') {
-            return generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks);
-        }
-        else if (whichCard == 'big-card') {
-            return generateHTMLsubtasksBig(amountOfSubtasks, card);
-        }
-    }
-    else {
-        return '';
-    }
-}
-
-function startDragging(id) {
-    currentDraggedItem = id;
-}
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-async function moveTo(category) {
-    indexOfTask = allTasks.findIndex(task => task.id === currentDraggedItem);
-    let task = allTasks[indexOfTask];
-    task.status = category;
-    await editTasks(indexOfTask, task)
-    await getAllTasks();
-    loadCards();
-}
-
-function highlight(id) {
-    document.getElementById(id).classList.add('drag-area');
-}
-
-function removeHighlight(id) {
-    document.getElementById(id).classList.remove('drag-area');
-}
-
+/**
+ * This function find the respective task using the task id and renders the big task view
+ * 
+ * @param {number} cardId This contains the unique id of the task
+ */
 function renderBigCard(cardId) {
     let container = document.getElementById('big-card-container');
     let currentCard = allTasks.find(todo => todo.id === cardId);
@@ -220,57 +123,11 @@ function renderBigCard(cardId) {
     getAssigntContactsFromTask(cardId);
 }
 
-function checkCategoryBigCard(currentCard) {
-    let categoryHTML = '';
-    if (currentCard.category) {
-        categoryHTML = `
-        <div id='category-container${currentCard['id']}' class='big-card-category-container story-container'>
-            <p>User Story</p>
-        </div>
-        `
-    }
-    else {
-        categoryHTML = `
-        <div id='category-container${currentCard['id']}' class='big-card-category-container technical-container'>
-            <p>Technical Task</p>
-        </div>
-        `
-    }
-    return categoryHTML;
-}
-
-function showEditTask(id) {
-    let container = document.getElementById('big-card-container');
-    let indexOfCurTask = allTasks.findIndex(t => t.id === id);
-    currentPrio = allTasks[indexOfCurTask]['prio'];
-
-    container.innerHTML = generateHTMLEditTask(indexOfCurTask);
-    if (currentPrio == 'Low') {
-        selectDefaultPrio('button-low');
-    } else if (currentPrio == 'Medium') {
-        selectDefaultPrio('button-medium');
-    } else {
-        selectDefaultPrio('button-urgent');
-    }
-    renderSelectedContacts();
-    showContactsToAssign();
-}
-
-function getAssigntContactsFromTask(cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let card = allTasks[indexOfCurTask];
-    let contacts = card['asigntTo'];
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i];
-        
-        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
-        let contact = assignedContactsList[indexOfContact];
-
-        assignedContacts.push(contact);
-    }
-}
-
+/**
+ * This function is used to edit a task and render the new edit task in the big task view
+ * 
+ * @param {number} indexOfCurTask This contains the index of the respective task
+ */
 async function editTask(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
     let title = document.getElementById("input-title" + indexOfCurTask).value;
@@ -296,93 +153,31 @@ async function editTask(indexOfCurTask) {
     renderBigCard(cardId);
 }
 
-function renderEditBigCardSubtasks(cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
-    let subtasks = allTasks[indexOfCurTask];
-    let container = document.getElementById('subtasks-popup-section' + indexOfCurTask);
-    container.innerHTML = '';
+/**
+ * This function is used to show the edit task editor
+ * 
+ * @param {number} id This contains the unique id of the task
+ */
+function showEditTask(id) {
+    let container = document.getElementById('big-card-container');
+    let indexOfCurTask = allTasks.findIndex(t => t.id === id);
+    currentPrio = allTasks[indexOfCurTask]['prio'];
 
-    for (let i = 0; i < subtasks['subTasks'].length; i++) {
-        const subtask = subtasks['subTasks'][i];
-
-        container.innerHTML += generateHTMLsubtasksEdit(subtask, cardId);
+    container.innerHTML = generateHTMLEditTask(indexOfCurTask);
+    if (currentPrio == 'Low') {
+        selectDefaultPrio('button-low');
+    } else if (currentPrio == 'Medium') {
+        selectDefaultPrio('button-medium');
+    } else {
+        selectDefaultPrio('button-urgent');
     }
+    renderSelectedContacts();
+    showContactsToAssign();
 }
 
-function editSubtaskBigCard(subtaskTitle, id, cardId) {
-    const container = document.getElementById(`subtask-popup-edit-container${id}`);
-    const subtaskHTML = generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId);
-
-    container.innerHTML = subtaskHTML;
-}
-
-async function saveChangedSubtaskInEditor(id, cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == id);
-    let newTitle = document.getElementById('subtaskInput'+id).value;
-    let subtask = creatSubTask(newTitle, checked = "unchecked");
-
-    await editSubTasks(indexOfCurTask, indexOfCurSubTask, subtask);
-    await getAllTasks();
-    renderEditBigCardSubtasks(cardId);
-}
-
-async function addSubtaskInEditor(indexOfCurTask) {
-    let cardId = allTasks[indexOfCurTask]['id'];
-    let subtitle = document.getElementById('subtasks-input'+indexOfCurTask).value;
-    let subtask = creatSubTask(subtitle, checked = "unchecked");
-
-    await addSubTasks(indexOfCurTask, subtask);
-    await getAllTasks();
-    renderEditBigCardSubtasks(cardId);
-}
-
-async function deleteEditSubtask(SubtaskId, cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == SubtaskId);
-
-    await deleteSubTasks(indexOfCurTask, indexOfCurSubTask);
-    await getAllTasks();
-    renderEditBigCardSubtasks(cardId);
-}
-
-function changeBigCardContainer(parameter) {
-    if (parameter === 'edit') {
-        document.getElementById('big-card-container').classList.add('big-card-edit');
-        document.getElementById('big-card-container').classList.remove('big-card-container');
-    }
-    else {
-        document.getElementById('big-card-container').classList.remove('big-card-edit');
-        document.getElementById('big-card-container').classList.add('big-card-container');
-    }
-}
-
-async function deleteTask(id) {
-    let indexOfTask = allTasks.findIndex(t => t.id === id);
-    await deleteTasks(indexOfTask);
-    allTasks = await getTasksArray();
-    loadCards();
-    showMovableContainer('remove', 'bigCard');
-}
-
-async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
-    let indexOfTask = allTasks.findIndex(task => task.id === cardId);
-    let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
-    let newSubtaskStatus = '';
-
-    if (SubtaskStatus === 'unchecked') {
-        newSubtaskStatus = 'checked';
-    }
-    else {
-        newSubtaskStatus = 'unchecked';
-    }
-
-    let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
-    await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
-    await getAllTasks();
-    loadCards();
-}
-
+/**
+ * This function is used to get the input field value and start the filtering function
+ */
 async function taskSearch() {
     let inputfield = document.getElementById('search-input').value;
     let input = inputfield.trim().toLowerCase();
@@ -397,6 +192,12 @@ async function taskSearch() {
     }
 }
 
+/**
+ * This function is used to filter all tasks on the basis of the input field value
+ * 
+ * @param {string} filter This contains the input field value
+ * @param {Array} filteredTasks This contains all filtered tasks
+ */
 function checkTasks(filter, filteredTasks) {
     for (let i = 0; i < allTasks.length; i++) {
         const curTask = allTasks[i];
@@ -415,4 +216,173 @@ function checkTasks(filter, filteredTasks) {
     } else {
         noTasksPopup.style.display = 'none';
     }
+}
+
+/**
+ * This function is used to get the id of the dragging task
+ * 
+ * @param {number} id This contains the unique id of the task
+ */
+function startDragging(id) {
+    currentDraggedItem = id;
+}
+
+/**
+ * This function is used to allow to drop a task in the respective column
+ * 
+ * @param {object} ev contains an event object
+ */
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+/**
+ * This function is used to move a task to another column
+ * 
+ * @param {string} category contains the name of the column where the task was drop
+ */
+async function moveTo(category) {
+    indexOfTask = allTasks.findIndex(task => task.id === currentDraggedItem);
+    let task = allTasks[indexOfTask];
+    task.status = category;
+    await editTasks(indexOfTask, task)
+    await getAllTasks();
+    loadCards();
+}
+
+/**
+ * This function is used to delete a task from the board
+ * 
+ * @param {number} id This contains the unique id of the task
+ */
+async function deleteTask(id) {
+    let indexOfTask = allTasks.findIndex(t => t.id === id);
+    await deleteTasks(indexOfTask);
+    allTasks = await getTasksArray();
+    loadCards();
+    showMovableContainer('remove', 'bigCard');
+}
+
+/**
+ * This function is used to get all contacts that are assigned to a task
+ * 
+ * @param {number} cardId This contains the unique id of the task
+ */
+function getAssigntContactsFromTask(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let card = allTasks[indexOfCurTask];
+    let contacts = card['asigntTo'];
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i];
+        
+        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
+        let contact = assignedContactsList[indexOfContact];
+
+        assignedContacts.push(contact);
+    }
+}
+
+/**
+ * This function is used to render all subtasks that the task contains in the task editor view
+ * 
+ * @param {number} cardId This contains the unique id of the task
+ */
+function renderEditBigCardSubtasks(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id === cardId);
+    let subtasks = allTasks[indexOfCurTask];
+    let container = document.getElementById('subtasks-popup-section' + indexOfCurTask);
+    container.innerHTML = '';
+
+    for (let i = 0; i < subtasks['subTasks'].length; i++) {
+        const subtask = subtasks['subTasks'][i];
+
+        container.innerHTML += generateHTMLsubtasksEdit(subtask, cardId);
+    }
+}
+
+/**
+ * This function is used to render an input field to edit a single subtask
+ * 
+ * @param {string} subtaskTitle this contains the subtask title
+ * @param {number} id This contains an id to set unique div ids
+ * @param {number} cardId This contains the unique id of the task
+ */
+function editSubtaskBigCard(subtaskTitle, id, cardId) {
+    const container = document.getElementById(`subtask-popup-edit-container${id}`);
+    const subtaskHTML = generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId);
+
+    container.innerHTML = subtaskHTML;
+}
+
+/**
+ * This function is used to save the changes that are made by editing a subtask
+ * 
+ * @param {number} id This contains an id to set unique div ids
+ * @param {number} cardId This contains the unique id of the task
+ */
+async function saveChangedSubtaskInEditor(id, cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == id);
+    let newTitle = document.getElementById('subtaskInput'+id).value;
+    let subtask = creatSubTask(newTitle, checked = "unchecked");
+
+    await editSubTasks(indexOfCurTask, indexOfCurSubTask, subtask);
+    await getAllTasks();
+    renderEditBigCardSubtasks(cardId);
+}
+
+/**
+ * This function is used to add subtasks in the task editor view
+ * 
+ * @param {number} indexOfCurTask This contains the index of the respective task
+ */
+async function addSubtaskInEditor(indexOfCurTask) {
+    let cardId = allTasks[indexOfCurTask]['id'];
+    let subtitle = document.getElementById('subtasks-input'+indexOfCurTask).value;
+    let subtask = creatSubTask(subtitle, checked = "unchecked");
+
+    await addSubTasks(indexOfCurTask, subtask);
+    await getAllTasks();
+    renderEditBigCardSubtasks(cardId);
+}
+
+/**
+ * This function is used to delete subtasks in the task editor view
+ * 
+ * @param {*} SubtaskId This contains the unique id of the subtask
+ * @param {*} cardId This contains the unique id of the task
+ */
+async function deleteEditSubtask(SubtaskId, cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == SubtaskId);
+
+    await deleteSubTasks(indexOfCurTask, indexOfCurSubTask);
+    await getAllTasks();
+    renderEditBigCardSubtasks(cardId);
+}
+
+/**
+ * This function is used to save all subtasks that are checked
+ * 
+ * @param {*} cardId This contains the unique id of the task
+ * @param {*} subtaskIndex This contains the index of the respective subtask
+ * @param {*} subtaskName This contains the subtask name
+ */
+async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
+    let indexOfTask = allTasks.findIndex(task => task.id === cardId);
+    let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
+    let newSubtaskStatus = '';
+
+    if (SubtaskStatus === 'unchecked') {
+        newSubtaskStatus = 'checked';
+    }
+    else {
+        newSubtaskStatus = 'unchecked';
+    }
+
+    let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
+    await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
+    await getAllTasks();
+    loadCards();
 }
