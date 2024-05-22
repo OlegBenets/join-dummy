@@ -280,20 +280,14 @@ function generateHTMLEditTask(indexOfCurTask) {
     `
 }
 
-function generateHTMLAssignedToEdit(initialsArray, colors) {
-    let circlesHTML = '';
-
-    for (let i = 0; i < initialsArray.length; i++) {
-        circlesHTML += `
-            <div class='circleBig' style='background-color: #${colors[i]};'>
-                <div class='initials'>${initialsArray[i]}</div>
-            </div>
-        `;
-    }
-
-    return circlesHTML;
-}
-
+/**
+ * This function generates HTML for the subtasks section in the small task view
+ * 
+ * @param {number} amountOfSubtasks This contains the amount of all subtasks that a task contains
+ * @param {object} card This is the task object which includes all relevant informations for one task
+ * @param {number} amountOfCheckedSubtasks This contains the amount of all checked subtasks in a task
+ * @returns HTML for subtask section
+ */
 function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
     return `
         <div class='progress-container'>
@@ -309,7 +303,13 @@ function generateHTMLsubtasks(amountOfSubtasks, card, amountOfCheckedSubtasks) {
 }
 
 
-
+/**
+ * This function generates HTML for the subtasks section in the task editor view
+ * 
+ * @param {*} subtask This is the subtask object which includes all relevant informations for one subtask 
+ * @param {*} cardId This contains the unique id of the task
+ * @returns HTML for subtasks section
+ */
 function generateHTMLsubtasksEdit(subtask, cardId) {
     return `
     <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
@@ -359,7 +359,13 @@ function generateSubtaskEditBigCardHTML(subtaskTitle, id, cardId) {
 }
 
 
-
+/**
+ * This function generates HTML for subtasks section in big task view
+ * 
+ * @param {*} amountOfSubtasks This contains the amount of all subtasks that a task contains
+ * @param {*} card This is the task object which includes all relevant informations for one task
+ * @returns HTML for subtasks section
+ */
 function generateHTMLsubtasksBig(amountOfSubtasks, card) {
     let subtasksHTML = '';
 
@@ -378,6 +384,5 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
         </div>
     `
     }
-
     return subtasksHTML;
 }
