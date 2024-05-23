@@ -33,14 +33,7 @@ function testTask() {
   let isTitleValid = titleInput.value.trim() !== "";
   let isDateValid = dateInput.value.trim() !== "";
   let isCategoryValid = categoryInput.value.trim() !== "";
-  checkInputValidation(
-    isTitleValid,
-    isDateValid,
-    isCategoryValid,
-    titleInput,
-    dateInput,
-    categoryInput
-  );
+  checkInputValidation(isTitleValid, isDateValid, isCategoryValid, titleInput, dateInput, categoryInput);
 }
 
 /**
@@ -52,14 +45,7 @@ function testTask() {
  * @param {HTMLElement} dateInput - The date input HTML element.
  * @param {HTMLElement} categoryInput - The category input HTML element.
  */
-function checkInputValidation(
-  isTitleValid,
-  isDateValid,
-  isCategoryValid,
-  titleInput,
-  dateInput,
-  categoryInput
-) {
+function checkInputValidation(isTitleValid, isDateValid, isCategoryValid, titleInput, dateInput, categoryInput) {
   validateInput(isTitleValid, titleInput, "title-error");
   validateInput(isDateValid, dateInput, "date-error");
   validateInput(isCategoryValid, categoryInput, "category-error");
@@ -88,12 +74,8 @@ function validateInput(isValid, inputElement, errorElementId) {
  * Sets event listeners on input fields to add or remove a focused class on focus and blur events.
  */
 function setEventlister() {
-  let inputLeft = document
-    .getElementById("title-container")
-    .parentElement.querySelectorAll(".add-task-input-container");
-  let inputRight = document
-    .getElementById("date-container")
-    .parentElement.querySelectorAll(".add-task-input-container");
+  let inputLeft = document.getElementById("title-container").parentElement.querySelectorAll(".add-task-input-container");
+  let inputRight = document.getElementById("date-container").parentElement.querySelectorAll(".add-task-input-container");
   let inputs = [inputLeft, inputRight];
   for (let j = 0; j < inputs.length; j++) {
     const nodeList = inputs[j];

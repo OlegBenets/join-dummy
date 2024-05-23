@@ -76,11 +76,7 @@ function validateTextLenght(value, minlength, maxlength) {
  */
 function validateNumberLength(value, minlength, maxlength) {
   let numValue = value.trim();
-  return (
-    numValue.length >= minlength &&
-    numValue.length <= maxlength &&
-    /^\d{3,12}$/.test(numValue)
-  );
+  return (numValue.length >= minlength && numValue.length <= maxlength && /^\d{3,12}$/.test(numValue));
 }
 
 /**
