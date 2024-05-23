@@ -33,6 +33,7 @@ function testAddContactsInput() {
     emailInput,
     telInput
   );
+  document.getElementById("add-contact-button").disabled = true;
 }
 
 /**

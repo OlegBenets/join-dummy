@@ -63,7 +63,7 @@
           <span class="task-deadline-span">Category</span>
           <p class="important">*</p>
         </div>
-        <div class="add-task-input-container">
+        <div class="add-task-input-container mb">
           <select required id="input-category">
             <option value="" disabled selected hidden>
               Select task category
@@ -71,6 +71,9 @@
             <option>User Story</option>
             <option>Technical Task</option>
           </select>
+        </div>
+        <div class="error-text-container" id="category-error">
+          <span class="error-text">This field is required</span>
         </div>
         <span class="task-deadline-span">Subtasks</span>
         <div class="add-task-input-container margin-bottom-0">
