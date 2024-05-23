@@ -47,4 +47,24 @@
         width: 24px;
         height: 24px;
     }
+
+    .summary_icon_mobile {
+        width: 22px;
+        height: 22px;
+    }
+
+    .addTask_icon_mobile {
+        width: 24px;
+        height: 24px;
+    }
+
+    .board_icon_mobile {
+        width: 20.31px;
+        height: 24px;
+    }
+
+    .contacts_icon_mobile {
+        width: 21.6px;
+        height: 24px;
+    }
 }
