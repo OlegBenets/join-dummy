@@ -393,3 +393,11 @@ h1 {
     font-family: inter;
     color: var(--color_4);
 }
+
+.board-addTask-button-mobile {
+    display: none;
+}
+
+.show-in-mobile {
+    display: none;
+}

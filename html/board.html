@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/addTaskTemplate.css">
     <link rel="stylesheet" href="/css/navbarMobile.css">
     <link rel="stylesheet" href="/css/headerMobile.css">
+    <link rel="stylesheet" href="/css/boardMobile.css">
     <script src="/js/includeHTML.js"></script>
     <script src="/js/helpFunctions.js"></script>
     <script src="/js/helpFunctionsBoard.js"></script>
@@ -60,6 +61,9 @@
             <div class="board-header">
                 <div class="title">
                     <h1>Board</h1>
+                    <div class="board-addTask-button-mobile">
+
+                    </div>
                 </div>
                 <div class="board-header-right">
                     
@@ -75,14 +79,14 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" id="add-task-btn" class="button_full atask">
+                    <button onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" id="add-task-btn" class="button_full atask disable-mobile">
                         <div>
                             Add Task
                         </div>
                     </button>
                 </div>
             </div>
-            <div class="section-title-container">
+            <div class="section-title-container disable-mobile">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
                     <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
@@ -104,9 +108,19 @@
             </div>
         </div>
         <div class="column-container">
+            <div class="todo-title-container show-in-mobile">
+                <p>To do</p>
+                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                </div>
+            </div>
             <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')"
                 ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
 
+            </div>
+            <div class="todo-title-container show-in-mobile">
+                <p>In progress</p>
+                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                </div>
             </div>
             <div id="progress-column" class="progress-column"
                 ondrop="moveTo('progress'); removeHighlight('progress-column')"
@@ -114,9 +128,19 @@
                 ondragover="allowDrop(event); highlight('progress-column')">
 
             </div>
+            <div class="todo-title-container show-in-mobile">
+                <p>Await feedback</p>
+                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                </div>
+            </div>
             <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')"
                 ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
 
+            </div>
+            <div class="todo-title-container show-in-mobile">
+                <p>Done</p>
+                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                </div>
             </div>
             <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
                 ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
