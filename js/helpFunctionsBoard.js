@@ -23,6 +23,7 @@ function createShortDescription(cardId) {
     }
 }
 
+
 /**
  * This function check the subtasks of a task and generate the HTML for small task or big task view
  * 
@@ -49,6 +50,7 @@ function checkSubtasks(card, whichCard) {
         return '';
     }
 }
+
 
 /**
  * This function checks the contacts who assigned to the task and generates the assign to section HTML for 
@@ -90,6 +92,7 @@ function checkAssignedTo(card, whichCard) {
     }
 }
 
+
 /**
  * This function calculates the progress of the progress bar in small task view
  * 
@@ -111,6 +114,7 @@ function calculateProgressBar(card) {
         }
     }
 }
+
 
 /**
  * This function check the category of a task and generates the respective HTML of big task view. 
@@ -138,6 +142,7 @@ function checkCategoryBigCard(currentCard) {
     return categoryHTML;
 }
 
+
 /**
  * This function is used to toggle between big task view and big task editor
  * 
@@ -154,6 +159,7 @@ function changeBigCardContainer(parameter) {
     }
 }
 
+
 /**
  * This function is used to highlight the drag area on the board
  * 
@@ -163,6 +169,7 @@ function highlight(id) {
     document.getElementById(id).classList.add('drag-area');
 }
 
+
 /**
  * This function is used to remove the highlight of the drag area on the board
  * 
@@ -171,6 +178,7 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area');
 }
+
 
 /**
  * This function is used to get the amount of all checked subtasks of a task
@@ -182,4 +190,25 @@ function checkCheckedSubtasks(allSubtasks) {
     let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'checked');
     let amountOfCheckedSubtasks = checkedSubtasks.length;
     return amountOfCheckedSubtasks;
+}
+
+
+/**
+ * This function is used to get all contacts that are assigned to a task
+ * 
+ * @param {number} cardId This contains the unique id of the task
+ */
+function getAssigntContactsFromTask(cardId) {
+    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
+    let card = allTasks[indexOfCurTask];
+    let contacts = card['asigntTo'];
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i];
+        
+        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
+        let contact = assignedContactsList[indexOfContact];
+
+        assignedContacts.push(contact);
+    }
 }

@@ -23,6 +23,7 @@ function generateTaskHTML(card) {
     `;
 }
 
+
 /**
  * this function generates HTML for the empty column message
  * 
@@ -36,6 +37,7 @@ function generateEmptyColumnHTML(column) {
         </div>
     `
 }
+
 
 /**
  * This function check the category of a task and generates the respective HTML. True is User Story, False is Technical Task
@@ -62,6 +64,7 @@ function checkCategory(card) {
     return categoryHTML;
 }
 
+
 /**
  * This function generates the icon with initials HTML for small task view
  * 
@@ -82,6 +85,7 @@ function generateHTMLAssignedTo(initialsArray, colors) {
 
     return circlesHTML;
 }
+
 
 /**
  * This function generates the icon with initials and full name HTML for big task view
@@ -107,6 +111,7 @@ function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
     return circlesHTML;
 }
 
+
 /**
  * This function get the prio of the respective task and returns the priority section HTML for small task view
  * 
@@ -126,6 +131,7 @@ function setPrio(card) {
             break;
     }
 }
+
 
 /**
  * This function generates the HTML of the big task view
@@ -189,6 +195,7 @@ function generateHTMLbigCard(currentCard) {
     </div>
     `
 }
+
 
 /**
  * This function generates the HTML of the task editor
@@ -280,6 +287,7 @@ function generateHTMLEditTask(indexOfCurTask) {
     `
 }
 
+
 /**
  * This function generates HTML for the subtasks section in the small task view
  * 
@@ -330,6 +338,7 @@ function generateHTMLsubtasksEdit(subtask, cardId) {
     </div>
     `
 }
+
 
 /**
  * This function is used to generate HTML for editing subtask

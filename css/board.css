@@ -934,16 +934,16 @@ input[type="checkbox"]:checked + .checkbox-label .unchecked {
 
 /* ====== Column Scrollbar ====== */
 
-.column-container::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
 }
 
-.column-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: var(--color_2);
     border-radius: 12px;
 }
 
-.column-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 12px;
 }

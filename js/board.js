@@ -4,6 +4,7 @@ let loadedTasks = [];
 let currentContactColor = 'black';
 let allContactsExist = [];
 
+
 /**
  * This function initialise all relevant data
  */
@@ -14,6 +15,7 @@ async function init() {
     loadCards();
 }
 
+
 /**
  * This function starts the loading functions to render all Tasks to the Kanban Board
  */
@@ -23,6 +25,7 @@ function loadCards() {
     loadAwaitCards();
     loadDoneCards();
 }
+
 
 /**
  * This function filters all tasks with status todo and render it in the todo-column
@@ -44,6 +47,7 @@ function loadTodoCards() {
     };
 }
 
+
 /**
  * This function filters all tasks with status progress and render it in the progress-column
  */
@@ -63,6 +67,7 @@ function loadProgressCards() {
         document.getElementById('progress-column').innerHTML += generateEmptyColumnHTML('in progress');
     }
 }
+
 
 /**
  * This function filters all tasks with status await and render it in the await-column
@@ -84,6 +89,7 @@ function loadAwaitCards() {
     }
 }
 
+
 /**
  * This function filters all tasks with status done and render it in the done-column
  */
@@ -104,6 +110,7 @@ function loadDoneCards() {
     }
 }
 
+
 /**
  * This function find the respective task using the task id and renders the big task view
  * 
@@ -122,6 +129,7 @@ function renderBigCard(cardId) {
     checkCategory(currentCard);
     getAssigntContactsFromTask(cardId);
 }
+
 
 /**
  * This function is used to edit a task and render the new edit task in the big task view
@@ -153,6 +161,7 @@ async function editTask(indexOfCurTask) {
     renderBigCard(cardId);
 }
 
+
 /**
  * This function is used to show the edit task editor
  * 
@@ -175,6 +184,7 @@ function showEditTask(id) {
     showContactsToAssign();
 }
 
+
 /**
  * This function is used to get the input field value and start the filtering function
  */
@@ -191,6 +201,7 @@ async function taskSearch() {
         loadCards();
     }
 }
+
 
 /**
  * This function is used to filter all tasks on the basis of the input field value
@@ -218,6 +229,7 @@ function checkTasks(filter, filteredTasks) {
     }
 }
 
+
 /**
  * This function is used to get the id of the dragging task
  * 
@@ -227,6 +239,7 @@ function startDragging(id) {
     currentDraggedItem = id;
 }
 
+
 /**
  * This function is used to allow to drop a task in the respective column
  * 
@@ -235,6 +248,7 @@ function startDragging(id) {
 function allowDrop(ev) {
     ev.preventDefault();
 }
+
 
 /**
  * This function is used to move a task to another column
@@ -250,6 +264,7 @@ async function moveTo(category) {
     loadCards();
 }
 
+
 /**
  * This function is used to delete a task from the board
  * 
@@ -263,25 +278,6 @@ async function deleteTask(id) {
     showMovableContainer('remove', 'bigCard');
 }
 
-/**
- * This function is used to get all contacts that are assigned to a task
- * 
- * @param {number} cardId This contains the unique id of the task
- */
-function getAssigntContactsFromTask(cardId) {
-    let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let card = allTasks[indexOfCurTask];
-    let contacts = card['asigntTo'];
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i];
-        
-        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
-        let contact = assignedContactsList[indexOfContact];
-
-        assignedContacts.push(contact);
-    }
-}
 
 /**
  * This function is used to render all subtasks that the task contains in the task editor view
@@ -301,6 +297,7 @@ function renderEditBigCardSubtasks(cardId) {
     }
 }
 
+
 /**
  * This function is used to render an input field to edit a single subtask
  * 
@@ -314,6 +311,7 @@ function editSubtaskBigCard(subtaskTitle, id, cardId) {
 
     container.innerHTML = subtaskHTML;
 }
+
 
 /**
  * This function is used to save the changes that are made by editing a subtask
@@ -332,6 +330,7 @@ async function saveChangedSubtaskInEditor(id, cardId) {
     renderEditBigCardSubtasks(cardId);
 }
 
+
 /**
  * This function is used to add subtasks in the task editor view
  * 
@@ -347,6 +346,7 @@ async function addSubtaskInEditor(indexOfCurTask) {
     renderEditBigCardSubtasks(cardId);
 }
 
+
 /**
  * This function is used to delete subtasks in the task editor view
  * 
@@ -361,6 +361,7 @@ async function deleteEditSubtask(SubtaskId, cardId) {
     await getAllTasks();
     renderEditBigCardSubtasks(cardId);
 }
+
 
 /**
  * This function is used to save all subtasks that are checked
