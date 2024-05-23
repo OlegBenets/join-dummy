@@ -14,8 +14,8 @@ async function initPage() {
 }
 
 async function addTask(parameter) {
-  if (parameter == 'addTask') {
-    currentStatus = 'todo';
+  if (parameter == "addTask") {
+    currentStatus = "todo";
   }
   let title = document.getElementById("input-title").value;
   let description = document.getElementById("input-description").value;
@@ -33,35 +33,25 @@ async function addTask(parameter) {
   }
 
   testTask();
-  let task = creatTask(
-    asigntTo,
-    category,
-    date,
-    description,
-    prio,
-    status,
-    currentSubtasks,
-    title
-  );
+  let task = creatTask(asigntTo, category, date, description, prio, status, currentSubtasks, title);
   await addTasks(task);
   resetForm();
-  
-  if (parameter == 'board') {
+
+  if (parameter == "board") {
     await getAllTasks();
     loadCards();
-    showAddTaskConfirmation('board');
-    
+    showAddTaskConfirmation("board");
   } else {
-    showAddTaskConfirmation('');
-    setTimeout(function() {
-      window.location.href = '/html/board.html';
-  }, 1000);
+    showAddTaskConfirmation("");
+    setTimeout(function () {
+      window.location.href = "/html/board.html";
+    }, 1000);
   }
 }
 
 function addTaskToBoard() {
-  getCurrentStatus('todo');
-  addTask('');
+  getCurrentStatus("todo");
+  addTask("");
 }
 
 function getAssigntContactsNames() {
@@ -82,8 +72,7 @@ function showAddTaskConfirmation(parameter) {
 
   confirmation.style.display = "flex";
 
-
-  if (parameter == 'board') {
+  if (parameter == "board") {
     setTimeout(function () {
       confirmation.style.display = "none";
       showMovableContainer("remove", "addTask");
@@ -95,9 +84,7 @@ function showAddTaskConfirmation(parameter) {
   }
 }
 
-function addTaskToBoard() {
-
-}
+function addTaskToBoard() {}
 
 function resetForm() {
   let title = (document.getElementById("input-title").value = "");
@@ -108,7 +95,7 @@ function resetForm() {
   currentSubtasks = [];
   document.getElementById("subtasks-popup-section").innerHTML = "";
   renderSelectedContacts();
-  selectDefaultPrio('button-medium');
+  selectDefaultPrio("button-medium");
 }
 
 function addSubtaskToPopup(parameter, index) {
@@ -120,7 +107,6 @@ function addSubtaskToPopup(parameter, index) {
   }
 
   let subtask = creatSubTask(subtitle, (checked = "unchecked"));
-
   currentSubtasks.push(subtask);
   renderSubtasksInPopup(parameter, index);
 }
@@ -142,15 +128,8 @@ function renderSubtasksInPopup(parameter, index) {
 }
 
 function editSubtask(subtaskTitle, id) {
-  // Finde den Container
-  const container = document.getElementById(
-    `subtask-popup-edit-container${id}`
-  );
-
-  // Generiere den HTML-Code für den Subtask
+  const container = document.getElementById(`subtask-popup-edit-container${id}`);
   const subtaskHTML = generateSubtaskHTML(subtaskTitle, id);
-
-  // Füge den generierten HTML-Code dem Container hinzu
   container.innerHTML = subtaskHTML;
 }
 
@@ -159,7 +138,6 @@ function saveChangedSubtask(id) {
   let newTitle = document.getElementById("subtaskInput" + id).value;
 
   currentSubtasks[indexOfCurSubTask]["subtitle"] = newTitle;
-
   renderSubtasksInPopup("addTask", "");
 }
 
@@ -230,8 +208,6 @@ function getPrio(prio) {
   }
 }
 
-//CONTACTS LIST
-
 function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
@@ -268,7 +244,7 @@ function renderContactList(filteredContactsList) {
       let id = ASSIGN_CONTACT.id;
       let color = ASSIGN_CONTACT.color;
       let { initials, name } = extractInitialsAndName(ASSIGN_CONTACT);
-      contactListContainer.innerHTML += contactListTemplate(initials, name, color, i, id);
+      contactListContainer.innerHTML += contactListTemplate( initials, name, color, i, id);
     }
   } else {
     contactListContainer.innerHTML = "";
@@ -327,7 +303,3 @@ function renderSelectedContacts() {
     selectedContactsContainer.innerHTML += renderInitialsIcon(initials, color);
   }
 }
-
-
-
-
