@@ -4,12 +4,12 @@
  * @returns {string} The HTML string for the initial.
  */
 function renderInitial(initial) {
-    return /*html*/ `
+  return /*html*/ `
   <div class="sort-contacts"><h4>${initial}</h4></div>
   <div class="border-container">
   <div class="border-grey"></div>
   </div>`;
-  }
+}
 
 /**
  * Renders the contact details.
@@ -18,10 +18,10 @@ function renderInitial(initial) {
  * @returns {string} The HTML string for the contact.
  */
 function renderContacts(contact, i) {
-    let { initials, name } = extractInitialsAndName(contact);
-  
-    let randomColor = contact.color;
-    return /*html*/ `
+  let { initials, name } = extractInitialsAndName(contact);
+
+  let randomColor = contact.color;
+  return /*html*/ `
           <div onclick="showContact(${i})" class="contact" id="contact${i}">
               <div class="image-container" style="background-color: #${randomColor};">
                   <span>${initials}</span> 
@@ -32,4 +32,4 @@ function renderContacts(contact, i) {
               </div>
           </div>
   `;
-  }
+}

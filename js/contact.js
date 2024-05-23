@@ -97,7 +97,8 @@ function renderEditContact(contact) {
   document.getElementById("edit-contact-name").value = contact.name;
   document.getElementById("edit-contact-email").value = contact.email;
   document.getElementById("edit-contact-tel").value = contact.phone;
-  document.getElementById("profile-color").style.backgroundColor = "#" + contact.color;
+  document.getElementById("profile-color").style.backgroundColor =
+    "#" + contact.color;
 }
 
 /**
@@ -121,7 +122,9 @@ function showEditContact(parameter) {
  */
 async function editContact() {
   let contactIndex = previousContactIndex;
-  let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
+  let realIndex = contactListUnsorted.findIndex(
+    (contact) => contact.id === contactList[previousContactIndex].id
+  );
   let changeContact = await getContacts(realIndex);
 
   changeContact.name = document.getElementById("edit-contact-name").value;
@@ -145,7 +148,7 @@ async function AddContact() {
 
   let color = generateProfileColor();
 
-  let newContact = creatContact(name, email, tel, color)
+  let newContact = creatContact(name, email, tel, color);
   await addContacts(newContact);
   AddContactToContacts(newContact);
 }
@@ -162,7 +165,9 @@ async function AddContactToContacts(newContact) {
   await loadContacts();
   showAddContact();
   contactCreatedMessage();
-  let newIndex = contactList.findIndex(contact => contact.id === newContact.id);
+  let newIndex = contactList.findIndex(
+    (contact) => contact.id === newContact.id
+  );
   scrollToAddedContact(newIndex);
   showContact(newIndex);
 }
@@ -251,10 +256,12 @@ function showContact(i) {
  * Deletes the currently selected contact.
  */
 async function deleteCurrentContact() {
-  let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
+  let realIndex = contactListUnsorted.findIndex(
+    (contact) => contact.id === contactList[previousContactIndex].id
+  );
   let contactName = contactListUnsorted[realIndex].name;
- await deleteContact(previousContactIndex, realIndex);
- deleteContactsFromTasks(contactName);
+  await deleteContact(previousContactIndex, realIndex);
+  deleteContactsFromTasks(contactName);
 }
 
 /**
@@ -264,14 +271,23 @@ async function deleteCurrentContact() {
 async function deleteContactsFromTasks(contactName) {
   await getAllTasks();
   let updatedTasks = sortMatchingNames(contactName);
-  
+
   for (let i = 0; i < updatedTasks.length; i++) {
     const newTask = updatedTasks[i];
 
-    let indexOfCurTask = allTasks.findIndex(t => t.id == newTask.id);
+    let indexOfCurTask = allTasks.findIndex((t) => t.id == newTask.id);
     console.log(indexOfCurTask);
 
-    let newUpdatedTask = creatTask(newTask['asigntTo'], newTask['category'], newTask['date'], newTask['description'], newTask['prio'], newTask['status'], newTask['subTasks'], newTask['title']);
+    let newUpdatedTask = creatTask(
+      newTask["asigntTo"],
+      newTask["category"],
+      newTask["date"],
+      newTask["description"],
+      newTask["prio"],
+      newTask["status"],
+      newTask["subTasks"],
+      newTask["title"]
+    );
     console.log(newUpdatedTask);
     await editTasks(indexOfCurTask, newUpdatedTask);
   }
