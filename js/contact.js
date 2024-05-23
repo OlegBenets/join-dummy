@@ -3,12 +3,18 @@ let realPreviousContactIndex = "";
 let contactList = [];
 let contactListUnsorted = [];
 
+/**
+ * Initializes the application by loading all data and contacts.
+ */
 async function init() {
   await loadAllData();
   contactList = await getContactsArray();
   loadContacts();
 }
 
+/**
+ * Loads and displays contacts.
+ */
 async function loadContacts() {
   contactList = await getContactsArray();
   contactListUnsorted = await getContactsArray();
@@ -32,20 +38,20 @@ async function loadContacts() {
   }
 }
 
+/**
+ * Sorts the contacts alphabetically by name.
+ */
 function sortContacts() {
   contactList.sort((a, b) => {
     return a.name.localeCompare(b.name);
   });
 }
 
-function renderInitial(initial) {
-  return /*html*/ `
-<div class="sort-contacts"><h4>${initial}</h4></div>
-<div class="border-container">
-<div class="border-grey"></div>
-</div>`;
-}
-
+/**
+ * Extracts the initials and formatted name from a contact.
+ * @param {Object} contact - The contact object.
+ * @returns {Object} An object containing the initials and formatted name.
+ */
 function extractInitialsAndName(contact) {
   let names = contact.name.split(" ");
   let initials = "";
@@ -60,27 +66,13 @@ function extractInitialsAndName(contact) {
     initials = contact.name.charAt(0).toUpperCase();
     name = contact.name.charAt(0).toUpperCase() + contact.name.slice(1);
   }
-
   return { initials, name };
 }
 
-function renderContacts(contact, i) {
-  let { initials, name } = extractInitialsAndName(contact);
-
-  let randomColor = contact.color;
-  return /*html*/ `
-        <div onclick="showContact(${i})" class="contact" id="contact${i}">
-            <div class="image-container" style="background-color: #${randomColor};">
-                <span>${initials}</span> 
-            </div>
-            <div class="contact-data">
-                <h4>${name}</h4>
-                <a href="#">${contact.email}</a>
-            </div>
-        </div>
-`;
-}
-
+/**
+ * Renders the floating contact details.
+ * @param {Object} contact - The contact object.
+ */
 function renderFloatingContact(contact) {
   let { initials, name } = extractInitialsAndName(contact);
 
@@ -94,6 +86,10 @@ function renderFloatingContact(contact) {
   renderEditContact(contact);
 }
 
+/**
+ * Renders the contact details in the edit form.
+ * @param {Object} contact - The contact object.
+ */
 function renderEditContact(contact) {
   let { initials } = extractInitialsAndName(contact);
 
@@ -104,6 +100,10 @@ function renderEditContact(contact) {
   document.getElementById("profile-color").style.backgroundColor = "#" + contact.color;
 }
 
+/**
+ * Shows or hides the edit contact form.
+ * @param {string} parameter - 'show' to display the form, 'hide' to hide it.
+ */
 function showEditContact(parameter) {
   let contactIndex = previousContactIndex;
   let contact = contactList[contactIndex];
@@ -116,6 +116,9 @@ function showEditContact(parameter) {
   renderEditContact(contact);
 }
 
+/**
+ * Edits the contact details.
+ */
 async function editContact() {
   let contactIndex = previousContactIndex;
   let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
@@ -132,6 +135,9 @@ async function editContact() {
   renderFloatingContact(contactList[contactIndex]);
 }
 
+/**
+ * Adds a new contact.
+ */
 async function AddContact() {
   let name = document.getElementById("contact-name").value;
   let email = document.getElementById("contact-email").value;
@@ -144,6 +150,10 @@ async function AddContact() {
   AddContactToContacts(newContact);
 }
 
+/**
+ * Adds the new contact to the contact list and displays it.
+ * @param {Object} newContact - The new contact object.
+ */
 async function AddContactToContacts(newContact) {
   document.getElementById("contact-name").value = "";
   document.getElementById("contact-email").value = "";
@@ -157,22 +167,36 @@ async function AddContactToContacts(newContact) {
   showContact(newIndex);
 }
 
+/**
+ * Displays a message indicating that the contact was created.
+ */
 function contactCreatedMessage() {
   let createdContact = document.getElementById("created-contact");
   createdContact.classList.remove("remove-contact-message");
   setTimeout(contactCreatedHideMessage, 2000);
 }
 
+/**
+ * Hides the contact created message.
+ */
 function contactCreatedHideMessage() {
   let createdContact = document.getElementById("created-contact");
   createdContact.classList.add("remove-contact-message");
 }
 
+/**
+ * Scrolls to the newly added contact in the contact list.
+ * @param {number} newIndex - The index of the new contact.
+ */
 function scrollToAddedContact(newIndex) {
   let newContactElement = document.getElementById(`contact${newIndex}`);
   newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+/**
+ * Shows or hides the add contact form.
+ * @param {string} parameter - 'show' to display the form, 'hide' to hide it.
+ */
 function showAddContact(parameter) {
   let contactCard = document.getElementById("contact-card");
   if (parameter == "show") {
@@ -182,10 +206,18 @@ function showAddContact(parameter) {
   }
 }
 
+/**
+ * Prevents the event from propagating.
+ * @param {Event} event - The event object.
+ */
 function doNotClose(event) {
   event.stopPropagation();
 }
 
+/**
+ * Displays the contact details.
+ * @param {number} i - The index of the contact to show.
+ */
 function showContact(i) {
   let menu = document.getElementById("contact-detail-data");
   let contact = document.getElementById(`contact${i}`);
@@ -210,13 +242,14 @@ function showContact(i) {
       }
     }
     menu.classList.remove("remove-contact-detail");
-
     previousContactIndex = i;
-
     renderFloatingContact(contactList[i]);
   }
 }
 
+/**
+ * Deletes the currently selected contact.
+ */
 async function deleteCurrentContact() {
   let realIndex = contactListUnsorted.findIndex(contact => contact.id === contactList[previousContactIndex].id);
   let contactName = contactListUnsorted[realIndex].name;
@@ -224,6 +257,10 @@ async function deleteCurrentContact() {
  deleteContactsFromTasks(contactName);
 }
 
+/**
+ * Removes the contact from tasks and updates the tasks.
+ * @param {string} contactName - The name of the contact to remove.
+ */
 async function deleteContactsFromTasks(contactName) {
   await getAllTasks();
   let updatedTasks = sortMatchingNames(contactName);
@@ -240,6 +277,11 @@ async function deleteContactsFromTasks(contactName) {
   }
 }
 
+/**
+ * Filters tasks that match the contact name and removes the contact from the task assignments.
+ * @param {string} contactName - The name of the contact to remove.
+ * @returns {Array} The updated tasks.
+ */
 function sortMatchingNames(contactName) {
   let filtered = [];
   for (let i = 0; i < allTasks.length; i++) {
@@ -255,6 +297,11 @@ function sortMatchingNames(contactName) {
   return filtered;
 }
 
+/**
+ * Deletes the contact from the list and updates the UI.
+ * @param {number} i - The index of the contact in the sorted list.
+ * @param {number} realIndex - The index of the contact in the unsorted list.
+ */
 async function deleteContact(i, realIndex) {
   previousContactIndex = null;
   let menu = document.getElementById("contact-detail-data");
@@ -270,6 +317,10 @@ async function deleteContact(i, realIndex) {
   await loadContacts();
 }
 
+/**
+ * Generates a random profile color.
+ * @returns {string} The hex color code.
+ */
 function generateProfileColor() {
   let color = [
     "ff7a00",
