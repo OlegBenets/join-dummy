@@ -1,12 +1,13 @@
 @media (max-width: 1023px) {
     .board-header {
         flex-direction: column;
-        align-items: normal;
+        margin-bottom: 0;
     }
 
     .main-container {
         margin-left: 0;
         margin-top: 80px;
+        margin-bottom: 95px;
         width: 100%;
     }
 
@@ -15,53 +16,92 @@
         height: 40px;
         width: 40px;
         background-color: var(--customized_darkblue);
-        margin-right: 32px;
+        margin-right: 16px;
     }
 
     .title {
         display: flex;
-        width: 100%;
+        width: 98%;
         justify-content: space-between;
         margin-left: 16px;
         align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .title h1 {
+        font-size: 47px;
     }
 
     .board-header-right {
-        justify-content: start;
-        width: 100%;
+        justify-content: center;
         margin-left: 16px;
+        margin-right: 16px;
+        align-items: center;
     }
 
     .board-header-container {
         width: 100%;
         position: relative;
+        height: auto;
+        margin-top: 48px;
+        margin-bottom: 0;
     }
 
     .todo-column {
         flex-direction: row;
         margin-left: 16px;
+        overflow-x: auto;
+        align-items: normal;
+        min-height: 86px;
+        border-radius: 8px;
     }
 
     .progress-column {
         flex-direction: row;
         margin-left: 16px;
+        overflow-x: auto;
+        align-items: normal;
+        min-height: 86px;
+        border-radius: 8px;
     }
 
     .await-column {
         flex-direction: row;
         margin-left: 16px;
+        overflow-x: auto;
+        align-items: normal;
+        min-height: 86px;
+        border-radius: 8px;
     }
 
     .done-column {
         flex-direction: row;
         margin-left: 16px;
+        overflow-x: auto;
+        align-items: normal;
+        min-height: 86px;
+        border-radius: 8px;
+    }
+
+    .todo-column::-webkit-scrollbar {
+        display: none;
+    }
+
+    .progress-column::-webkit-scrollbar {
+        display: none;
+    }
+
+    .await-column::-webkit-scrollbar {
+        display: none;
+    }
+
+    .done-column::-webkit-scrollbar {
+        display: none;
     }
 
     .column-container {
         flex-direction: column;
         margin-top: 0;
-        overflow-x: auto;
-        overflow-y: auto;
     }
 
     .disable-mobile {
@@ -82,6 +122,8 @@
         font-weight: 700;
         font-size: 27px;
         color: var(--customized_darkblue);
+        margin-top: 24px;
+        margin-bottom: 0;
     }
 
     .todo-section-add-icon {
@@ -93,5 +135,23 @@
 
     .todo-section-add-icon:hover {
         background-image: url(/assets/img/mobile/board_column_addtask_button.svg);
+    }
+
+    .small-card-container {
+        margin-bottom: 8px;
+        margin-right: 32px;
+    }
+
+    
+
+    .input-container {
+        margin-right: 16px;
+        margin-left: 16px;
+        width: 100%;
+    }
+
+    .input-box {
+        width: 100%;
+        padding-right: 16px;
     }
 }

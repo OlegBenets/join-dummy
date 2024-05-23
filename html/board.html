@@ -20,6 +20,7 @@
     <script src="/js/helpFunctions.js"></script>
     <script src="/js/helpFunctionsBoard.js"></script>
     <script src="/js/helpFunctionsAddTask.js"></script>
+    <script src="/js/addTaskAssignContact.js"></script>
     <script src="/js/boardHTML.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/navbar.js"></script>
@@ -110,7 +111,7 @@
         <div class="column-container">
             <div class="todo-title-container show-in-mobile">
                 <p>To do</p>
-                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
                 </div>
             </div>
             <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')"
@@ -119,7 +120,7 @@
             </div>
             <div class="todo-title-container show-in-mobile">
                 <p>In progress</p>
-                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
                 </div>
             </div>
             <div id="progress-column" class="progress-column"
@@ -130,7 +131,7 @@
             </div>
             <div class="todo-title-container show-in-mobile">
                 <p>Await feedback</p>
-                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
                 </div>
             </div>
             <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')"
@@ -139,7 +140,7 @@
             </div>
             <div class="todo-title-container show-in-mobile">
                 <p>Done</p>
-                <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
                 </div>
             </div>
             <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
