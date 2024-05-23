@@ -5,6 +5,10 @@ let assignedContactsList = [];
 let assignedContacts = [];
 let filteredContactsList = [];
 
+/**
+ * Initializes the page by loading all data and setting event listeners.
+ * @returns {Promise<void>}
+ */
 async function initPage() {
   await loadAllData();
   await initInclude();
@@ -13,6 +17,11 @@ async function initPage() {
   setEventlister();
 }
 
+/**
+ * Adds a task with the provided details.
+ * @param {string} parameter - The parameter indicating the type of task to add.
+ * @returns {Promise<void>}
+ */
 async function addTask(parameter) {
   if (parameter == "addTask") {
     currentStatus = "todo";
@@ -49,11 +58,18 @@ async function addTask(parameter) {
   }
 }
 
+/**
+ * Adds a task to the board.
+ */
 function addTaskToBoard() {
   getCurrentStatus("todo");
   addTask("");
 }
 
+/**
+ * Retrieves the names of assigned contacts.
+ * @returns {Array<string>} An array of assigned contact names.
+ */
 function getAssigntContactsNames() {
   let assigntToNames = [];
   for (let i = 0; i < assignedContacts.length; i++) {
@@ -65,6 +81,10 @@ function getAssigntContactsNames() {
   return assigntToNames;
 }
 
+/**
+ * Displays the task confirmation message.
+ * @param {string} parameter - The parameter indicating the context of the task addition.
+ */
 function showAddTaskConfirmation(parameter) {
   let confirmation = document.getElementById(
     "add-task-confirmation-background"
@@ -84,8 +104,9 @@ function showAddTaskConfirmation(parameter) {
   }
 }
 
-function addTaskToBoard() {}
-
+/**
+ * Resets the form fields after submitting the task.
+ */
 function resetForm() {
   let title = (document.getElementById("input-title").value = "");
   let description = (document.getElementById("input-description").value = "");
@@ -98,6 +119,11 @@ function resetForm() {
   selectDefaultPrio("button-medium");
 }
 
+/**
+ * Adds a subtask to the task popup.
+ * @param {string} parameter - The parameter indicating the type of task.
+ * @param {number} index - The index of the task.
+ */
 function addSubtaskToPopup(parameter, index) {
   let subtitle;
   if (parameter === "addTask") {
@@ -111,6 +137,11 @@ function addSubtaskToPopup(parameter, index) {
   renderSubtasksInPopup(parameter, index);
 }
 
+/**
+ * Renders the subtasks in the task popup.
+ * @param {string} parameter - The parameter indicating the type of task.
+ * @param {number} index - The index of the task.
+ */
 function renderSubtasksInPopup(parameter, index) {
   let container;
   if (parameter === "addTask") {
@@ -127,12 +158,21 @@ function renderSubtasksInPopup(parameter, index) {
   }
 }
 
+/**
+ * Edits a subtask.
+ * @param {string} subtaskTitle - The title of the subtask.
+ * @param {number} id - The ID of the subtask.
+ */
 function editSubtask(subtaskTitle, id) {
   const container = document.getElementById(`subtask-popup-edit-container${id}`);
   const subtaskHTML = generateSubtaskHTML(subtaskTitle, id);
   container.innerHTML = subtaskHTML;
 }
 
+/**
+ * Saves the changes made to a subtask.
+ * @param {number} id - The ID of the subtask.
+ */
 function saveChangedSubtask(id) {
   let indexOfCurSubTask = currentSubtasks.findIndex((i) => i.id == id);
   let newTitle = document.getElementById("subtaskInput" + id).value;
@@ -141,12 +181,21 @@ function saveChangedSubtask(id) {
   renderSubtasksInPopup("addTask", "");
 }
 
+/**
+ * Deletes a subtask.
+ * @param {object} subtask - The subtask to be deleted.
+ */
 function deleteSubtask(subtask) {
   let indexOfCurSubTask = currentSubtasks.findIndex((item) => item === subtask);
   currentSubtasks.splice(indexOfCurSubTask, 1);
   renderSubtasksInPopup("addTask", "");
 }
 
+/**
+ * Clears the subtask input field.
+ * @param {string} parameter - The parameter indicating the type of task.
+ * @param {number} index - The index of the task.
+ */
 function clearSubtaskInput(parameter, index) {
   if (parameter === "addTask") {
     document.getElementById("subtasks-input").value = "";
@@ -155,6 +204,11 @@ function clearSubtaskInput(parameter, index) {
   }
 }
 
+/**
+ * Checks if the subtask input field is empty.
+ * @param {string} parameter - The parameter indicating the type of task.
+ * @param {number} index - The index of the task.
+ */
 function checkInput(parameter, index) {
   let inputField;
   let emptyInputImg;
@@ -178,6 +232,10 @@ function checkInput(parameter, index) {
   }
 }
 
+/**
+ * Sets the priority of the task.
+ * @param {string} prio - The priority of the task.
+ */
 function getPrio(prio) {
   const BUTTON_URGENT = document.getElementById("button-urgent");
   const BUTTON_MEDIUM = document.getElementById("button-medium");
@@ -208,6 +266,9 @@ function getPrio(prio) {
   }
 }
 
+/**
+ * Toggles the visibility of the contacts list.
+ */
 function showContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
@@ -222,6 +283,9 @@ function showContactsToAssign() {
   renderContactList(filteredContactsList);
 }
 
+/**
+ * Searches contacts based on the input value.
+ */
 function searchContact() {
   let search = document.getElementById("input-assignTo").value;
   if (search.length >= 3) {
@@ -234,6 +298,10 @@ function searchContact() {
   renderContactList(filteredContactsList);
 }
 
+/**
+ * Renders the list of contacts based on the filter.
+ * @param {Array<object>} filteredContactsList - The filtered list of contacts.
+ */
 function renderContactList(filteredContactsList) {
   let contactListContainer = document.getElementById("contacts-list");
   if (contactListContainer.classList.contains("contacts-list")) {
@@ -251,55 +319,3 @@ function renderContactList(filteredContactsList) {
   }
 }
 
-function assignContactToTask(i) {
-  let assignContactContainer = document.getElementById(`assigntContact${i}`);
-  let imgCheckOff = document.getElementById(`img_check_off${i}`);
-  let imgCheckOn = document.getElementById(`img_check_on${i}`);
-
-  assignContactContainer.style.backgroundColor = assignContactContainer.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
-  assignContactContainer.style.color = assignContactContainer.style.color === "white" ? "" : "white";
-
-  if (imgCheckOff.style.display === "none") {
-    imgCheckOff.style.display = "block";
-    imgCheckOn.style.display = "none";
-    removeContactInArray(assignedContactsList[i]);
-  } else {
-    imgCheckOff.style.display = "none";
-    imgCheckOn.style.display = "block";
-    pushContactInArray(assignedContactsList[i]);
-  }
-  renderSelectedContacts();
-  renderContactList(assignedContactsList);
-}
-
-function checkMatchContact(index) {
-  for (let i = 0; i < assignedContacts.length; i++) {
-    const ASSIGNED_CONTACT = assignedContacts[i];
-
-    if (ASSIGNED_CONTACT == assignedContactsList[index]) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function removeContactInArray(name) {
-  let index = assignedContacts.findIndex((n) => n == name);
-  assignedContacts.splice(index, 1);
-}
-
-function pushContactInArray(name) {
-  assignedContacts.push(name);
-}
-
-function renderSelectedContacts() {
-  let selectedContactsContainer = document.getElementById("selected-contacts");
-  selectedContactsContainer.innerHTML = "";
-
-  for (let i = 0; i < assignedContacts.length; i++) {
-    const contact = assignedContacts[i];
-    let { initials } = extractInitialsAndName(contact);
-    let color = contact.color;
-    selectedContactsContainer.innerHTML += renderInitialsIcon(initials, color);
-  }
-}
