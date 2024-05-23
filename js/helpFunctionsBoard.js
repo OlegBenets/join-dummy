@@ -212,3 +212,60 @@ function getAssigntContactsFromTask(cardId) {
         assignedContacts.push(contact);
     }
 }
+
+
+function changeButtonColor() {
+    document.getElementById('board-addTask-button-mobile').style.backgroundImage = 'url("/assets/img/mobile/board_addtask_button_blue.svg")';
+    simulateClickButton('add-task-btn-navbar');
+}
+
+
+
+
+let touchTimeout;
+let initialTouchX, initialTouchY;
+
+
+function startTouch(event, id) {
+    event.preventDefault();
+    currentDraggedItem = id;
+    const touch = event.touches[0];
+    initialTouchX = touch.clientX;
+    initialTouchY = touch.clientY;
+
+    touchTimeout = setTimeout(() => {
+        const taskElement = document.getElementById(`task-${id}`);
+        taskElement.style.position = 'absolute';
+        taskElement.style.left = `${touch.clientX}px`;
+        taskElement.style.top = `${touch.clientY}px`;
+        taskElement.classList.add('dragging');
+    }, 500); // 500ms langes Drücken zum Starten des Dragging
+}
+
+function touchMove(event) {
+    event.preventDefault();
+    if (!currentDraggedItem) return;
+    const touch = event.touches[0];
+    const taskElement = document.getElementById(`task-${currentDraggedItem}`);
+    taskElement.style.left = `${touch.clientX}px`;
+    taskElement.style.top = `${touch.clientY}px`;
+}
+
+function endTouch(event) {
+    event.preventDefault();
+    clearTimeout(touchTimeout);
+    const taskElement = document.getElementById(`task-${currentDraggedItem}`);
+    taskElement.classList.remove('dragging');
+    taskElement.style.position = '';
+    taskElement.style.left = '';
+    taskElement.style.top = '';
+
+    const touch = event.changedTouches[0];
+    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (dropTarget && dropTarget.classList.contains('todo-column')) {
+        moveTo(dropTarget.id.replace('-column', ''));
+    }
+
+    currentDraggedItem = null;
+}

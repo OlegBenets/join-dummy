@@ -6,7 +6,11 @@
  */
 function generateTaskHTML(card) {
     return `
-    <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' ondragstart='startDragging(${card['id']})' class='small-card-container'>
+    <div onclick="showMovableContainer('show', 'bigCard'); renderBigCard(${card['id']});" draggable='true' 
+    ondragstart='startDragging(${card['id']})' class='small-card-container'
+    ontouchstart="startTouch(event, ${card['id']})" 
+    ontouchmove="touchMove(event)"
+    ontouchend="endTouch(event)">
         ${checkCategory(card)}
         <div class='small-card-text-container'>
             <p class='small-card-title'>${card['title']}</p>

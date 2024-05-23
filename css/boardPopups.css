@@ -157,3 +157,7 @@
 .remove-moveable {
     transform: translateX(100vw);
 }
+
+.dragging {
+    
+}

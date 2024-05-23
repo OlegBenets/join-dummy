@@ -15,8 +15,9 @@
         display: flex;
         height: 40px;
         width: 40px;
-        background-color: var(--customized_darkblue);
         margin-right: 16px;
+        background-image: url(/assets/img/mobile/board_addtask_button.svg);
+        cursor: pointer;
     }
 
     .title {
@@ -114,6 +115,7 @@
 
     .todo-title-container {
         margin-left: 16px;
+        margin-top: 24px;
         width: auto;
     }
 
@@ -122,7 +124,7 @@
         font-weight: 700;
         font-size: 27px;
         color: var(--customized_darkblue);
-        margin-top: 24px;
+        margin-top: 0;
         margin-bottom: 0;
     }
 
@@ -142,8 +144,6 @@
         margin-right: 32px;
     }
 
-    
-
     .input-container {
         margin-right: 16px;
         margin-left: 16px;
@@ -153,5 +153,13 @@
     .input-box {
         width: 100%;
         padding-right: 16px;
+    }
+
+    .input-box input {
+        width: 100%;
+    }
+
+    .popup {
+        top: 38px;
     }
 }

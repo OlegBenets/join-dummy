@@ -62,9 +62,7 @@
             <div class="board-header">
                 <div class="title">
                     <h1>Board</h1>
-                    <div class="board-addTask-button-mobile">
-
-                    </div>
+                    <div onclick="changeButtonColor()" id="board-addTask-button-mobile" class="board-addTask-button-mobile"></div>
                 </div>
                 <div class="board-header-right">
                     
@@ -140,8 +138,6 @@
             </div>
             <div class="todo-title-container show-in-mobile">
                 <p>Done</p>
-                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
-                </div>
             </div>
             <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
                 ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
