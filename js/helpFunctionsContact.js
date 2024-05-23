@@ -17,6 +17,17 @@ function setErrorBorder(elements) {
     checkInputValidation(isNameValid, isEmailValid, isTelValid, nameInput, emailInput, telInput);
   }
 
+  function testEditContactsInput() {
+    const nameInput = document.getElementById("edit-contact-name");
+    const emailInput = document.getElementById("edit-contact-email");
+    const telInput = document.getElementById("edit-contact-tel");
+  
+    let isNameValid = validateTextLenght(nameInput.value, 3, 18);
+    let isEmailValid =validateTextLenght(emailInput.value, 5, 25);
+    let isTelValid = validateNumberLength(telInput.value, 3, 12);
+    checkInputValidation(isNameValid, isEmailValid, isTelValid, nameInput, emailInput, telInput);
+  }
+
   function validateTextLenght(value, minlength, maxlength) {
     return value.trim().length >= minlength && value.trim().length <= maxlength;
   }
@@ -30,6 +41,9 @@ function setErrorBorder(elements) {
   validateInput(isNameValid, nameInput, "name-error");
   validateInput(isEmailValid, emailInput, "email-error");
   validateInput(isTelValid, telInput, "tel-error");
+  validateInput(isNameValid, nameInput, "edit-name-error");
+  validateInput(isEmailValid, emailInput, "edit-email-error");
+  validateInput(isTelValid, telInput, "edit-tel-error");
   }
   
   function validateInput(isValid, inputElement, errorElementId) {
