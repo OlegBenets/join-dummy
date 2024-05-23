@@ -1,8 +1,61 @@
 /**
- * Assigns a contact to the task.
- * @param {number} i - The index of the contact.
+ * Toggles the visibility of the contacts list.
  */
-function assignContactToTask(i) {
+function showContactsToAssign() {
+    let contactAssignList = document.getElementById("contacts-list");
+    let arrow = document.getElementById("drop-down-arrow");
+  
+    contactAssignList.classList.toggle("contacts-list");
+  
+    if (contactAssignList.classList.contains("contacts-list")) {
+      arrow.src = "/assets/img/arrow_drop_down (1).svg";
+    } else {
+      arrow.src = "/assets/img/arrow_drop_down.svg";
+    }
+    renderContactList(filteredContactsList);
+  }
+  
+  /**
+   * Searches contacts based on the input value.
+   */
+  function searchContact() {
+    let search = document.getElementById("input-assignTo").value;
+    if (search.length >= 3) {
+      filteredContactsList = assignedContactsList.filter((contact) =>
+        contact.name.toLowerCase().includes(search.toLowerCase())
+      );
+    } else {
+      filteredContactsList = assignedContactsList;
+    }
+    renderContactList(filteredContactsList);
+  }
+  
+  /**
+   * Renders the list of contacts based on the filter.
+   * @param {Array<object>} filteredContactsList - The filtered list of contacts.
+   */
+  function renderContactList(filteredContactsList) {
+    let contactListContainer = document.getElementById("contacts-list");
+    if (contactListContainer.classList.contains("contacts-list")) {
+      contactListContainer.innerHTML = "";
+  
+      for (let i = 0; i < filteredContactsList.length; i++) {
+        const ASSIGN_CONTACT = filteredContactsList[i];
+        let id = ASSIGN_CONTACT.id;
+        let color = ASSIGN_CONTACT.color;
+        let { initials, name } = extractInitialsAndName(ASSIGN_CONTACT);
+        contactListContainer.innerHTML += contactListTemplate( initials, name, color, i, id);
+      }
+    } else {
+      contactListContainer.innerHTML = "";
+    }
+  }
+  
+  /**
+   * Assigns a contact to the task.
+   * @param {number} i - The index of the contact.
+   */
+  function assignContactToTask(i) {
     let assignContactContainer = document.getElementById(`assigntContact${i}`);
     let imgCheckOff = document.getElementById(`img_check_off${i}`);
     let imgCheckOn = document.getElementById(`img_check_on${i}`);
@@ -71,4 +124,5 @@ function assignContactToTask(i) {
       selectedContactsContainer.innerHTML += renderInitialsIcon(initials, color);
     }
   }
+  
   
