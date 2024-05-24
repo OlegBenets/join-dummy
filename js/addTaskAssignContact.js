@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
  * Sets up the event listeners for the document and the contacts list.
  */
 function setupEventListeners() {
+  if (window.location.pathname.includes("addTask.html")) {
   document.addEventListener("click", handleDocumentClick);
-  document.getElementById("contacts-list").addEventListener("click", handleContactsListClick);
+  document.getElementById("contacts-list").addEventListener("click", assignContactToTask);
+  }
 }
 
 /**
@@ -21,15 +23,6 @@ function handleDocumentClick(event) {
   if (!taskContainer.contains(event.target)) {
     hideContactsToAssign();
   }
-}
-
-/**
- * Handles clicking on the contacts list to prevent the click from being propagated.
- *
- * @param {Event} event - The event object that triggers clicking on the contacts list.
- */
-function handleContactsListClick(event) {
-  event.stopPropagation();
 }
 
 /**
@@ -120,7 +113,8 @@ function renderContactList(filteredContactsList) {
  * Assigns a contact to the task.
  * @param {number} i - The index of the contact.
  */
-function assignContactToTask(i) {
+function assignContactToTask(i, event) {
+  event.stopPropagation();
   let assignContactContainer = document.getElementById(`assigntContact${i}`);
   let imgCheckOff = document.getElementById(`img_check_off${i}`);
   let imgCheckOn = document.getElementById(`img_check_on${i}`);
