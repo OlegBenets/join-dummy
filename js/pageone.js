@@ -7,8 +7,8 @@
  */
 function startPage() {
 
-    setTimeout(slideLogo, 200);
-    setTimeout(switchToLogin, 1000);
+    setTimeout(slideLogo, 700);
+    setTimeout(switchToLogin, 1500);
 }
 
 

@@ -34,29 +34,44 @@
         <div>
 
             <div class="gap24">
-
-                <div class="inputFrame">
-                    <input name="name" class="input" type="text" placeholder="Name" required>
-                    <div class="iconFrame">
-                        <img src="../assets/img/person (1).svg" alt="person icon">
+                <div>
+                    <div class="inputFrame">
+                        <input name="name" class="input" type="text" placeholder="Name" required>
+                        <div class="iconFrame">
+                            <img src="../assets/img/person (1).svg" alt="person icon">
+                        </div>
+                    </div>
+                    <div class="errorInfo">
+                        This field is required
                     </div>
                 </div>
 
-                <div class="inputFrame">
-                    <input name="email" class="input" type="email" placeholder="Email" required>
-                    <div class="iconFrame">
-                        <img src="../assets/img/mail.svg" alt="mail icon">
+                <div>
+                    <div class="inputFrame">
+                        <input name="email" class="input" type="email" placeholder="Email" required>
+                        <div class="iconFrame">
+                            <img src="../assets/img/mail.svg" alt="mail icon">
+                        </div>
+                    </div>
+                    <div class="errorInfo">
+                        This field is required
                     </div>
                 </div>
 
-                <div class="inputFrame">
-                    <input name="password" class="input" type="password" placeholder="Password" required>
-                    <div class="iconFrame">
-                        <img class="visi" src="../assets/img/visibility_off.svg" alt="visibility off icon"
-                            onclick="showPassword(event)">
-                        <img class="lock" src="../assets/img/lock.svg" alt="lock icon">
+                <div>
+                    <div class="inputFrame">
+                        <input name="password" class="input" type="password" placeholder="Password" required>
+                        <div class="iconFrame">
+                            <img class="visi" src="../assets/img/visibility_off.svg" alt="visibility off icon"
+                                onclick="showPassword(event)">
+                            <img class="lock" src="../assets/img/lock.svg" alt="lock icon">
+                        </div>
+                    </div>
+                    <div class="errorInfo">
+                        This field is required
                     </div>
                 </div>
+
                 <div>
                     <div class="inputFrame">
                         <input name="confirmPassword" class="input" type="password" placeholder="Confirm Password"
@@ -90,7 +105,7 @@
         </div>
 
         <div>
-            <button class="button_full big" disabled="true" onclick="validationCheck(event)">
+            <button class="button_full big" disabled="true" onclick="startFormValidation(event)">
                 <div>Sign up</div>
             </button>
         </div>

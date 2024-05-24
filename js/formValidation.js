@@ -1,3 +1,5 @@
+let formActiv = false;
+
 /**
  * Initiates the start page sequence by loading necessary data.
  * 
@@ -10,6 +12,17 @@
 async function startPage() {
     await loadAllData('loginData');
     await loadAllData('contacts');
+}
+
+
+
+function startFormValidation(event) {
+    if (formActiv) {
+        event.preventDefault();
+    } else {
+        formActiv = true;
+        validationCheck(event);
+    }
 }
 
 
@@ -64,10 +77,10 @@ function activatButton(buttons, status) {
 function validationCheck(event) {
     let button = event.target.closest('form').querySelectorAll('button');
     let input = event.target.closest('form').querySelectorAll('input:not([type="checkbox"])');
-    activatButton(button, false);
     let check = validityCheck(input);
-    activatButton(button, !check);
-    event.target.closest('form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    if (!check) {
+        formActiv = false;
+    }
 }
 
 
@@ -85,32 +98,77 @@ function validityCheck(elements) {
     let allCheck = true;
     for (let i = 0; i < elements.length; i++) {
         let element = elements[i];
-        allCheck = allCheck & setRedBorder(element);
+        allCheck = allCheck & checkErrorHighlight(element);
     }
     return allCheck;
 }
 
 
-/**
- * Applies or removes a red border to an element's parent based on its validity.
- *
- * This function checks the validity of a given input element. If the element is valid,
- * it removes the 'errorBorder' class from the element's parent. If the element is invalid,
- * it adds the 'errorBorder' class to the element's parent. The function returns a boolean
- * indicating the validity of the element.
- *
- * @param {HTMLElement} element - The input element to be checked for validity.
- * @returns {boolean} - Returns true if the input element is valid, false otherwise.
- */
-function setRedBorder(element) {
-    let check = element.checkValidity();
-    if (check) {
-        element.parentElement.classList.remove('errorBorder');
+
+function checkErrorHighlight(element) {
+    let type = detctErrorType(element);
+    let errorMsg = selectErrorMsg(type);
+    setErrorHighlight(element, errorMsg);
+    if (type == 'none') {
+        return true;
     } else {
-        element.parentElement.classList.add('errorBorder');
+        return false;
     }
-    return check;
+
 }
+
+
+
+function detctErrorType(element) {
+    let empty = element.value.trim() === '';
+    let valid = element.checkValidity();
+    let type = element.type;
+
+    if (empty) {
+        return 'empty';
+    } else if (!valid) {
+        return type;
+    } else {
+        return 'none'
+    }
+}
+
+
+
+
+function selectErrorMsg(errorType) {
+    switch (errorType) {
+        case 'empty':
+            return 'This field is required';
+        case 'email':
+            return 'You must enter a valid Emailadress';
+        case 'password':
+            return 'Wrong password Ups! Try again.';
+        case 'none':
+            return 'noError';
+        case 'match':
+            return 'Ups! your password don`t match';
+        case 'user':
+            return 'User don`t exist'
+    }
+}
+
+
+
+function setErrorHighlight(element, errorMsg) {
+    let borderDiv = element.parentElement;
+    let textDiv = element.parentElement.parentElement.querySelector('.errorInfo');
+
+    if (errorMsg != 'noError') {
+        borderDiv.classList.add('errorBorder');
+        textDiv.classList.add('errorVisibility');
+        textDiv.innerHTML = errorMsg;
+    } else {
+        borderDiv.classList.remove('errorBorder');
+        textDiv.classList.remove('errorVisibility');
+    }
+}
+
 
 
 /**
@@ -126,12 +184,10 @@ function setRedBorder(element) {
  */
 async function passwordValidation(event) {
     event.preventDefault();
-
     let form = event.target;
     let userData = await encryptIput(form);
     let user = await lookAtLoginData(userData, form);
     let rememberMe = form.querySelector('input[type="checkbox"]');
-
     ermenmberMe(user, rememberMe.checked);
     loginAsUser(user);
 }
@@ -163,14 +219,16 @@ function ermenmberMe(id, checked) {
  * @returns {Promise<Object>} - A promise that resolves to an object containing the encrypted user data.
  */
 async function encryptIput(form) {
-    let user = form.elements['email'].value;
+    let user = form.elements['email'];
+    let passwordElement = form.elements['password'];
     let password = await encrypt(form.elements['password'].value);
 
     let logindata = {
-        "email": user,
+        "userElement": user,
+        "email": user.value,
+        "passwordElement": passwordElement,
         "password": password
     }
-
     return logindata;
 }
 
@@ -190,19 +248,27 @@ async function lookAtLoginData(userData, form) {
         let compare_pw = (validation.password == userData.password) ? true : false;
 
         if (compare_name) {
+            setErrorHighlight(userData.userElement, selectErrorMsg('none'));
             if (compare_pw) {
                 return validation.id;
             } else {
-                form.elements['password'].parentElement.classList.add('errorBorder');
-                let info = form.elements['password'].parentElement.parentElement.querySelector('.errorInfo');
-                info.classList.add('errorVisibility');
-                info.innerHTML = 'Wrong password Ups! Try again.';
+                setErrorHighlight(userData.passwordElement, selectErrorMsg('password'));
             }
+            return false
+        } else {
+            setErrorHighlight(userData.userElement, selectErrorMsg('user'));
         }
     }
     return false
 }
 
+
+/**
+ * Handles the user sign-up process.
+ *
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>} - A promise that resolves when the sign-up process is complete.
+ */
 async function signUpUser(event) {
     event.preventDefault();
     let form = event.target;
@@ -210,32 +276,49 @@ async function signUpUser(event) {
     let check = confirmPassword(form);
 
     if (check) {
+        console.log('alles richtig');
         await saveUserData(form);
         showSuccess();
+    } else {
+        formActiv = false;
     }
-    activatButton(button, !check);
 }
 
+
+/**
+ * Validates that the password and confirm password fields match.
+ *
+ * @param {HTMLFormElement} form - The form containing the password fields.
+ * @returns {boolean} - Returns true if the passwords match, otherwise false.
+ */
 function confirmPassword(form) {
     let password_1st = form.elements['password'];
     let password_2nd = form.elements['confirmPassword'];
-    let errorinfo = password_2nd.parentElement.parentElement.querySelector('.errorInfo');
 
     if (password_1st.value == password_2nd.value) {
-        errorinfo.parentElement.classList.remove('errorVisibility');
+        let errorMsg = selectErrorMsg('none');
+        setErrorHighlight(password_2nd, errorMsg);
         return true;
     } else {
-        password_2nd.parentElement.classList.add('errorBorder');
-        errorinfo.classList.add('errorVisibility');
+        let errorMsg = selectErrorMsg('match');
+        setErrorHighlight(password_2nd, errorMsg);
         return false
     }
 }
 
+
+/**
+ * Saves the user data by encrypting the password, creating user and contact objects,
+ * and then adding them to the login and contacts data stores.
+ *
+ * @param {HTMLFormElement} form - The form containing the user input fields.
+ * @returns {Promise<void>} - A promise that resolves when the user data has been saved.
+ */
 async function saveUserData(form) {
     let name = form.elements['name'].value;
     let email = form.elements['email'].value;
     let password = await encrypt(form.elements['password'].value);
-    
+
     let userData = creatUser(name, password, email);
     await addLoginData(userData);
 
@@ -243,22 +326,43 @@ async function saveUserData(form) {
     await addContacts(contactData);
 }
 
+
+/**
+ * Displays a success message by showing a background and sliding in a banner.
+ * After a delay, it redirects the user to the login page.
+ */
 function showSuccess() {
-    let background = document.getElementById('successBackground').classList.add('show');
-    let banner = document.getElementById('successBanner').classList.add('slide');
+    document.getElementById('successBackground').classList.add('show');
+    document.getElementById('successBanner').classList.add('slide');
     setTimeout(switchToLogin, 1500);
 }
 
+
+/**
+ * Redirects the user to the login page.
+ */
 function switchToLogin() {
     window.location.href = '../html/login.html';
 }
 
+
+/**
+ * Logs in as a guest user.
+ * 
+ * @param {Event} event - The event object representing the form submission.
+ */
 function loginAsGuest(event) {
     event.preventDefault();
     saveLocal('activUser', 'guest');
     window.location.href = '../html/summary.html';
 }
 
+
+/**
+ * Logs in a user by their ID.
+ * 
+ * @param {number|string} id - The ID of the user to log in.
+ */
 function loginAsUser(id) {
     if (id) {
         saveLocal('activUser', id);
