@@ -15,13 +15,13 @@ async function initSummary() {
 }
 
 function loadAmountsInSummary() {
-    let todoAmountContainer = document.getElementById('todo-amount').innerHTML = getAmountOfTodos();
-    let doneAmountContainer = document.getElementById('done-amount').innerHTML = getAmountOfDone();
-    let prioAmountContainer = document.getElementById('prio-amount').innerHTML = getUrgentDates();
-    let deadlineContainer = document.getElementById('deadline').innerHTML = getEarliestDate();
-    let allTasksInBoardContainer = document.getElementById('amount-tasks-in-board').innerHTML = getAmountOfAllTasks();
-    let progressAmountContainer = document.getElementById('amount-tasks-progress').innerHTML = getProgressTasks();
-    let feedbackAmountContainer = document.getElementById('amount-tasks-feedback').innerHTML = getFeedbackTasks();
+    document.getElementById('todo-amount').innerHTML = getAmountOfTodos();
+    document.getElementById('done-amount').innerHTML = getAmountOfDone();
+    document.getElementById('prio-amount').innerHTML = getUrgentDates();
+    document.getElementById('deadline').innerHTML = getEarliestDate();
+    document.getElementById('amount-tasks-in-board').innerHTML = getAmountOfAllTasks();
+    document.getElementById('amount-tasks-progress').innerHTML = getProgressTasks();
+    document.getElementById('amount-tasks-feedback').innerHTML = getFeedbackTasks();
 }
 
 function getAmountOfTodos() {
@@ -50,20 +50,26 @@ function getUrgentDates() {
 
 function getEarliestDate() {
     getUrgentDates();
+
     // Aktuelles Datum
     let currentDate = new Date();
-  
+
     // Array sortieren
     dateArray.sort((a, b) => new Date(a) - new Date(b));
-  
+
     // Das nächste zukünftige Datum finden
     for (let date of dateArray) {
-      if (new Date(date) > currentDate) {
-        return formatDate(date);
-      }
+        if (new Date(date) > currentDate) {
+            return formatDate(date);
+        }
     }
-  
-    // Falls kein zukünftiges Datum gefunden wird
+
+    // Falls kein zukünftiges Datum gefunden wird, das früheste Datum zurückgeben
+    if (dateArray.length > 0) {
+        return formatDate(dateArray[0]);
+    }
+
+    // Falls kein Datum im Array vorhanden ist
     return null;
 }
 
