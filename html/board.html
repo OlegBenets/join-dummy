@@ -119,8 +119,7 @@
                 <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon"></div>
             </div>
             <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')"
-                ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')"
-                ontouchmove="handleTouchMove(event, 'todo-column');" ontouchend="handleTouchEnd(event, 'todo-column');">
+                ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
             </div>
 
             <!-- In Progress Column -->
@@ -131,9 +130,7 @@
             <div id="progress-column" class="progress-column"
                 ondrop="moveTo('progress'); removeHighlight('progress-column')"
                 ondragleave="removeHighlight('progress-column')"
-                ondragover="allowDrop(event); highlight('progress-column')"
-                ontouchmove="handleTouchMove(event, 'progress-column');"
-                ontouchend="handleTouchEnd(event, 'progress-column');">
+                ondragover="allowDrop(event); highlight('progress-column')">
             </div>
 
             <!-- Await Feedback Column -->
@@ -142,9 +139,7 @@
                 <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon"></div>
             </div>
             <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')"
-                ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')"
-                ontouchmove="handleTouchMove(event, 'await-column');"
-                ontouchend="handleTouchEnd(event, 'await-column');">
+                ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
             </div>
 
             <!-- Done Column -->
@@ -152,8 +147,7 @@
                 <p>Done</p>
             </div>
             <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
-                ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')"
-                ontouchmove="handleTouchMove(event, 'done-column');" ontouchend="handleTouchEnd(event, 'done-column');">
+                ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
             </div>
         </div>
 

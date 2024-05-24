@@ -1,3 +1,11 @@
+let currentTouchedItem = null;
+let touchStartX = 0;
+let touchStartY = 0;
+let touchOffsetX = 0;
+let touchOffsetY = 0;
+let touchTimer = null;
+let isTouchMoving = false;
+
 /**
  * This function creates the preview of the small tasks descriptions
  * 
@@ -214,33 +222,130 @@ function getAssigntContactsFromTask(cardId) {
 }
 
 
+/**
+ * This function is used to change the color of the add task button in the mobile view
+ */
 function changeButtonColor() {
     document.getElementById('board-addTask-button-mobile').style.backgroundImage = 'url("/assets/img/mobile/board_addtask_button_blue.svg")';
     simulateClickButton('add-task-btn-navbar');
 }
 
 
-// Function to handle touch move event
-function handleTouchMove(ev, columnId) {
+/**
+ * This function is used to start dragging a task via mouse
+ * 
+ * @param {number} id This contains the unique id of the task
+ * @param {object} event The drag event object
+ */
+function startDragging(id, event) {
+    currentDraggedItem = id;
+    const draggedElement = document.getElementById(id);
+    if (draggedElement) {
+        draggedElement.classList.add('dragging');
+    }
+}
+
+
+/**
+ * This function is used to start touching a task via touch
+ * 
+ * @param {number} id This contains the unique id of the task
+ * @param {object} event The touch event object
+ */
+function startTouching(id, event) {
+    touchTimer = setTimeout(() => {
+        isTouchMoving = true;
+        currentTouchedItem = id;
+        const draggedElement = document.getElementById(id);
+        if (draggedElement) {
+            draggedElement.classList.add('dragging');
+        }
+        const touch = event.touches[0];
+        const rect = draggedElement.getBoundingClientRect();
+        touchOffsetX = rect.right - 100;
+        touchOffsetY = rect.bottom - touch.clientY;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, 500);
+}
+
+
+/**
+ * This function is used to handle the touch move event to drag the task element.
+ * 
+ * @param {TouchEvent} ev The touch event object.
+ */
+function touchMove(ev) {
+    if (!isTouchMoving) return;
+
     ev.preventDefault();
     const touch = ev.touches[0];
+    const draggedElement = document.getElementById(currentTouchedItem);
+    if (draggedElement) {
+        draggedElement.style.position = 'absolute';
+        draggedElement.style.left = `${touch.clientX -   touchOffsetX}px`;
+        draggedElement.style.top = `${touch.clientY -   touchOffsetY + window.scrollY}px`;
+    }
+
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (element && element.id === columnId) {
-        highlight(columnId);
+    if (element) {
+    }
+    if (element && element.classList.contains('todo-column')) {
+        highlight('todo-column');
+    } else if (element && element.classList.contains('progress-column')) {
+        highlight('progress-column');
+    } else if (element && element.classList.contains('await-column')) {
+        highlight('await-column');
+    } else if (element && element.classList.contains('done-column')) {
+        highlight('done-column');
+    } else {
+        removeHighlight('todo-column');
+        removeHighlight('progress-column');
+        removeHighlight('await-column');
+        removeHighlight('done-column');
     }
 }
 
-// Function to handle touch end event
-function handleTouchEnd(ev, columnId) {
-    const element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
-    if (element && element.id === columnId) {
-        moveTo(columnId.split('-')[0]); // Extract column name from ID
-    }
-    removeHighlight(columnId);
-}
 
-// Function to start touch dragging
-function startTouchDragging(event, id) {
-    event.preventDefault();
-    startDragging(id);
+/**
+ * This function is used to handle the touch end event to finalize the task movement.
+ * 
+ * @param {TouchEvent} ev The touch event object.
+ */
+async function touchEnd(ev) {
+    if (!isTouchMoving) {
+        clearTimeout(touchTimer);
+        return;
+    }
+
+    const touch = ev.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (element && element.classList.contains('todo-column')) {
+        await moveTo('todo');
+    } else if (element && element.classList.contains('progress-column')) {
+        await moveTo('progress');
+    } else if (element && element.classList.contains('await-column')) {
+        await moveTo('await');
+    } else if (element && element.classList.contains('done-column')) {
+        await moveTo('done');
+    }
+
+    const draggedElement = document.getElementById(currentTouchedItem);
+    if (draggedElement) {
+        draggedElement.classList.remove('dragging');
+        draggedElement.style.transform = 'none';
+        draggedElement.style.position = 'static';
+    }
+
+    currentTouchedItem = null;
+    currentDraggedItem = null;
+    touchStartX = 0;
+    touchStartY = 0;
+    touchOffsetX = 0;
+    touchOffsetY = 0;
+    isTouchMoving = false;
+    removeHighlight('todo-column');
+    removeHighlight('progress-column');
+    removeHighlight('await-column');
+    removeHighlight('done-column');
 }

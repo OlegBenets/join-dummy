@@ -1,0 +1,129 @@
+@media (max-width: 1023px) {
+    .main-container {
+        margin-left: 0;
+        margin-top: 80px;
+        margin-bottom: 95px;
+        width: 100%;
+    }
+
+    body {
+        width: 100%;
+    }
+
+    .border {
+        display: none;
+    }
+
+    .headline-container {
+        position: static;
+        flex-direction: column;
+        align-items: normal;
+        justify-content: center;
+        margin-top: 80px;
+        margin-left: 16px;
+        width: auto;
+        height: auto;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 47px;
+    }
+
+    h3 {
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-size: 20px;
+    }
+
+    .border-mobile {
+        display: flex;
+        width: 90px;
+        height: 3px;
+        border-radius: 1px;
+        background-color: var(--customized_lightblue);
+        margin-top: 16px;
+    }
+
+    .overwiev {
+        left: 0;
+        position: static;
+        width: 100%;
+    }
+
+    .todo, .done {
+        width: 148px;
+        height: 34px;
+        margin-left: 16px;
+    }
+
+    .todo-icon-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tasks-todo-done {
+        width: 100%;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        height: auto;
+    }
+
+    .greeting-container {
+        display: none;
+    }
+
+    .prio-date {
+        position: static;
+        width: calc(100% - 128px);
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 30px;
+        height: calc(110px - 56px);
+    }
+
+    .overwiev-tasks {
+        position: static;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .amount-tasks, .tasks-progress, .tasks-feedback {
+        position: static;
+        height: calc(116px - 50px);
+        width: 116px;
+        justify-content: center;
+    }
+
+    .done {
+        margin-right: 16px;
+    }
+
+    .amount-tasks {
+        margin-left: 16px;
+    }
+
+    .tasks-feedback {
+        margin-right: 16px;
+    }
+
+    h4 {
+        font-size: 47px !important;
+    }
+
+    .overwiev span {
+        font-size: 14px;
+    }
+
+    .icon-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .prio-icon {
+        width: 22.8px;
+        height: 16.7px;
+    }
+}

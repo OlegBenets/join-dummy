@@ -251,17 +251,31 @@ function allowDrop(ev) {
 
 
 /**
- * This function is used to move a task to another column
+ * This function is used to move the task to the specified category column.
  * 
- * @param {string} category contains the name of the column where the task was drop
+ * @param {string} category The name of the category column.
  */
 async function moveTo(category) {
-    indexOfTask = allTasks.findIndex(task => task.id === currentDraggedItem);
+    const taskId = currentDraggedItem !== null ? currentDraggedItem : currentTouchedItem;
+    if (taskId === null) {
+        console.error('No task is being moved');
+        return;
+    }
+
+    const indexOfTask = allTasks.findIndex(task => task.id === taskId);
+    if (indexOfTask === -1) {
+        console.error(`Task with id ${taskId} not found`);
+        return;
+    }
+
     let task = allTasks[indexOfTask];
     task.status = category;
-    await editTasks(indexOfTask, task)
+    await editTasks(indexOfTask, task);
     await getAllTasks();
     loadCards();
+
+    currentDraggedItem = null;
+    currentTouchedItem = null;
 }
 
 

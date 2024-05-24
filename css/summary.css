@@ -329,3 +329,7 @@ h3 {
     font-weight: 700;
     color: #29abe2;
 }
+
+.border-mobile {
+    display: none;
+}
