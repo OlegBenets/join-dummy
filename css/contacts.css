@@ -50,7 +50,7 @@ body {
 
 
 .contacts-container::-webkit-scrollbar {
-    width: 14px;
+    width: 8px;
 }
 
 .contacts-container::-webkit-scrollbar-thumb {
