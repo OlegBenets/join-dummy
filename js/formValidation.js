@@ -15,7 +15,15 @@ async function startPage() {
 }
 
 
-
+/**
+ * Initiates form validation on form submission.
+ *
+ * This function prevents the form submission if validation is already active.
+ * If not, it sets the validation active flag to true and proceeds to validate the form.
+ *
+ * @function startFormValidation
+ * @param {Event} event - The event object associated with the form submission.
+ */
 function startFormValidation(event) {
     if (formActiv) {
         event.preventDefault();
@@ -104,7 +112,17 @@ function validityCheck(elements) {
 }
 
 
-
+/**
+ * Checks and highlights errors for a given form element.
+ *
+ * This function detects the type of error for the form element, selects the appropriate
+ * error message, and sets the error highlight. It returns a boolean indicating whether
+ * the element has no errors.
+ *
+ * @function checkErrorHighlight
+ * @param {HTMLInputElement} element - The form element to check and highlight errors for.
+ * @returns {boolean} - Returns true if there are no errors ('none'), false otherwise.
+ */
 function checkErrorHighlight(element) {
     let type = detctErrorType(element);
     let errorMsg = selectErrorMsg(type);
@@ -114,11 +132,20 @@ function checkErrorHighlight(element) {
     } else {
         return false;
     }
-
 }
 
 
-
+/**
+ * Detects the type of error for a given form element.
+ *
+ * This function checks if the form element's value is empty, if it is valid
+ * according to the browser's built-in validation, and returns a corresponding
+ * error type string.
+ *
+ * @function detctErrorType
+ * @param {HTMLInputElement} element - The form element to check for errors.
+ * @returns {string} - The type of error detected ('empty', the element's type, or 'none').
+ */
 function detctErrorType(element) {
     let empty = element.value.trim() === '';
     let valid = element.checkValidity();
@@ -134,8 +161,15 @@ function detctErrorType(element) {
 }
 
 
-
-
+/**
+ * Selects an error message based on the provided error type.
+ *
+ * This function returns an appropriate error message string based on the given error type.
+ *
+ * @function selectErrorMsg
+ * @param {string} errorType - The type of error to get the message for.
+ * @returns {string} - The corresponding error message string.
+ */
 function selectErrorMsg(errorType) {
     switch (errorType) {
         case 'empty':
@@ -154,7 +188,16 @@ function selectErrorMsg(errorType) {
 }
 
 
-
+/**
+ * Sets or removes error highlights and messages on input elements.
+ *
+ * This function adds or removes the 'errorBorder' class to the parent element of the input field
+ * and displays or hides an error message based on the provided error message.
+ *
+ * @function setErrorHighlight
+ * @param {HTMLElement} element - The input element that requires error highlighting.
+ * @param {string} errorMsg - The error message to display. If 'noError', error highlights are removed.
+ */
 function setErrorHighlight(element, errorMsg) {
     let borderDiv = element.parentElement;
     let textDiv = element.parentElement.parentElement.querySelector('.errorInfo');
@@ -168,7 +211,6 @@ function setErrorHighlight(element, errorMsg) {
         textDiv.classList.remove('errorVisibility');
     }
 }
-
 
 
 /**
@@ -186,7 +228,8 @@ async function passwordValidation(event) {
     event.preventDefault();
     let form = event.target;
     let userData = await encryptIput(form);
-    let user = await lookAtLoginData(userData, form);
+    let user = await validateLogin(userData);
+    formActiv = user ? true : false;
     let rememberMe = form.querySelector('input[type="checkbox"]');
     ermenmberMe(user, rememberMe.checked);
     loginAsUser(user);
@@ -234,32 +277,33 @@ async function encryptIput(form) {
 
 
 /**
- * Looks up the user login data from the stored array.
+ * Validates user login by checking email and password against stored login data.
  *
- * @param {Object} userData - The user data object containing email and password.
- * @param {HTMLFormElement} form - The login form element.
+ * This function retrieves login data, finds a user by email, and checks if the provided password matches
+ * the stored password. It sets error highlights for email and password fields based on validation results.
+ *
+ * @async
+ * @function validateLogin
+ * @param {Object} userData - The user data object containing email and password information.
+ * @param {HTMLInputElement} userData.userElement - The input element for the user's email.
+ * @param {string} userData.email - The email address provided by the user.
+ * @param {HTMLInputElement} userData.passwordElement - The input element for the user's password.
+ * @param {string} userData.password - The password provided by the user.
  * @returns {Promise<number|boolean>} - A promise that resolves to the user ID if login is successful, otherwise false.
  */
-async function lookAtLoginData(userData, form) {
+async function validateLogin(userData) {
     let logindata = await getLoginDataArray();
-    for (let i = 0; i < logindata.length; i++) {
-        let validation = logindata[i];
-        let compare_name = (validation.email == userData.email) ? true : false;
-        let compare_pw = (validation.password == userData.password) ? true : false;
-
-        if (compare_name) {
-            setErrorHighlight(userData.userElement, selectErrorMsg('none'));
-            if (compare_pw) {
-                return validation.id;
-            } else {
-                setErrorHighlight(userData.passwordElement, selectErrorMsg('password'));
-            }
-            return false
-        } else {
-            setErrorHighlight(userData.userElement, selectErrorMsg('user'));
-        }
+    let userIndex = logindata.findIndex(function (login) { return login.email === userData.email });
+    let userFound = userIndex != -1;
+    let passwordMatch = false;
+    setErrorHighlight(userData.userElement, selectErrorMsg(userFound ? 'none' : 'user'));
+    if (userFound) {
+        passwordMatch = logindata[userIndex].password == userData.password;
+        setErrorHighlight(userData.passwordElement, selectErrorMsg(passwordMatch ? 'none' : 'password'));
     }
-    return false
+    let result = userFound && passwordMatch ? logindata[userIndex].id : false;
+    console.log(result);
+    return result;
 }
 
 
@@ -272,9 +316,7 @@ async function lookAtLoginData(userData, form) {
 async function signUpUser(event) {
     event.preventDefault();
     let form = event.target;
-    let button = event.target.closest('form').querySelectorAll('button')
     let check = confirmPassword(form);
-
     if (check) {
         console.log('alles richtig');
         await saveUserData(form);
@@ -292,16 +334,13 @@ async function signUpUser(event) {
  * @returns {boolean} - Returns true if the passwords match, otherwise false.
  */
 function confirmPassword(form) {
-    let password_1st = form.elements['password'];
-    let password_2nd = form.elements['confirmPassword'];
-
-    if (password_1st.value == password_2nd.value) {
-        let errorMsg = selectErrorMsg('none');
-        setErrorHighlight(password_2nd, errorMsg);
+    let firstPassword = form.elements['password'];
+    let secondPassword = form.elements['confirmPassword'];
+    if (firstPassword.value == secondPassword.value) {
+        setErrorHighlight(secondPassword, selectErrorMsg('none'));
         return true;
     } else {
-        let errorMsg = selectErrorMsg('match');
-        setErrorHighlight(password_2nd, errorMsg);
+        setErrorHighlight(secondPassword, selectErrorMsg('match'));
         return false
     }
 }
