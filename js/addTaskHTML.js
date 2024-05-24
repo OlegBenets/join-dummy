@@ -43,7 +43,7 @@ function generateHTMLsubtasksPopup(subtask) {
   
     if (checked) {
       return /*html*/ `
-      <div onclick="assignContactToTask(${i})" id="assigntContact${i}" style="background-color:var(--customized_darkblue)" class="assigned-contact-container">
+      <div onclick="assignContactToTask(${i}); event.stopPropagation();" id="assigntContact${i}" style="background-color:var(--customized_darkblue)" class="assigned-contact-container">
       <div class="assigned-contact-child-container">
         <div class="assigned-contact-initials" style="background-color: #${color};">
           <h4>${initials}</h4>
@@ -59,7 +59,7 @@ function generateHTMLsubtasksPopup(subtask) {
       `;
     } else {
       return /*html*/ `
-      <div onclick="assignContactToTask(${i})" id="assigntContact${i}" class="assigned-contact-container">
+      <div onclick="assignContactToTask(${i}); event.stopPropagation();" id="assigntContact${i}" class="assigned-contact-container">
       <div class="assigned-contact-child-container">
         <div class="assigned-contact-initials" style="background-color: #${color};">
           <h4>${initials}</h4>
