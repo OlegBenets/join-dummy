@@ -43,10 +43,8 @@ function startFormValidation(event) {
  * @param {Event} event - The event object from the checkbox click.
  */
 function enabledButton(event) {
-
     let element = event.target;
     let button = element.closest('form').querySelectorAll('button');
-
     activatButton(button, element.checked);
 }
 
@@ -83,7 +81,6 @@ function activatButton(buttons, status) {
  * @param {Event} event - The event object associated with the triggering event.
  */
 function validationCheck(event) {
-    let button = event.target.closest('form').querySelectorAll('button');
     let input = event.target.closest('form').querySelectorAll('input:not([type="checkbox"])');
     let check = validityCheck(input);
     if (!check) {
@@ -150,7 +147,6 @@ function detctErrorType(element) {
     let empty = element.value.trim() === '';
     let valid = element.checkValidity();
     let type = element.type;
-
     if (empty) {
         return 'empty';
     } else if (!valid) {
@@ -201,7 +197,6 @@ function selectErrorMsg(errorType) {
 function setErrorHighlight(element, errorMsg) {
     let borderDiv = element.parentElement;
     let textDiv = element.parentElement.parentElement.querySelector('.errorInfo');
-
     if (errorMsg != 'noError') {
         borderDiv.classList.add('errorBorder');
         textDiv.classList.add('errorVisibility');
@@ -265,7 +260,6 @@ async function encryptIput(form) {
     let user = form.elements['email'];
     let passwordElement = form.elements['password'];
     let password = await encrypt(form.elements['password'].value);
-
     let logindata = {
         "userElement": user,
         "email": user.value,
@@ -357,10 +351,8 @@ async function saveUserData(form) {
     let name = form.elements['name'].value;
     let email = form.elements['email'].value;
     let password = await encrypt(form.elements['password'].value);
-
     let userData = creatUser(name, password, email);
     await addLoginData(userData);
-
     let contactData = creatContact(name, email, 'no Number', 'C3FF2B');
     await addContacts(contactData);
 }
