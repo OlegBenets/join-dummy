@@ -142,6 +142,9 @@ async function editContact() {
  * Adds a new contact.
  */
 async function AddContact() {
+  let button =   document.getElementById("add-contact-button");
+  button.disabled = true;
+
   let name = document.getElementById("contact-name").value;
   let email = document.getElementById("contact-email").value;
   let tel = document.getElementById("contact-tel").value;
@@ -151,6 +154,8 @@ async function AddContact() {
   let newContact = creatContact(name, email, tel, color);
   await addContacts(newContact);
   AddContactToContacts(newContact);
+
+  button.disabled = false;
 }
 
 /**
