@@ -30,7 +30,7 @@
     <script src="/js/script.js"></script>
     <script src="/js/addTaskHTML.js"></script>
     <script src="/js/board.js"></script>
-    
+
     <title>JOIN Board</title>
 </head>
 
@@ -62,10 +62,11 @@
             <div class="board-header">
                 <div class="title">
                     <h1>Board</h1>
-                    <div onclick="changeButtonColor()" id="board-addTask-button-mobile" class="board-addTask-button-mobile"></div>
+                    <div onclick="changeButtonColor()" id="board-addTask-button-mobile"
+                        class="board-addTask-button-mobile"></div>
                 </div>
                 <div class="board-header-right">
-                    
+
                     <div class="input-container">
                         <div class="input-box">
                             <div id="noTasksPopup" class="popup">Keine Tasks gefunden!</div>
@@ -78,7 +79,9 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" id="add-task-btn" class="button_full atask disable-mobile">
+                    <button
+                        onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')"
+                        id="add-task-btn" class="button_full atask disable-mobile">
                         <div>
                             Add Task
                         </div>
@@ -88,17 +91,20 @@
             <div class="section-title-container disable-mobile">
                 <div class="todo-title-container marginLeft64">
                     <p>To do</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('todo'), selectDefaultPrio('button-medium')"
+                        class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>In progress</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('progress'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('progress'), selectDefaultPrio('button-medium')"
+                        class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container">
                     <p>Await feedback</p>
-                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('await'), selectDefaultPrio('button-medium')" class="todo-section-add-icon">
+                    <div onclick="showMovableContainer('show', 'addTask'), getCurrentStatus('await'), selectDefaultPrio('button-medium')"
+                        class="todo-section-add-icon">
                     </div>
                 </div>
                 <div class="todo-title-container marginRight64">
@@ -107,43 +113,51 @@
             </div>
         </div>
         <div class="column-container">
+            <!-- ToDo Column -->
             <div class="todo-title-container show-in-mobile">
                 <p>To do</p>
-                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
-                </div>
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon"></div>
             </div>
             <div id="todo-column" class="todo-column" ondrop="moveTo('todo'); removeHighlight('todo-column')"
-                ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')">
-
+                ondragleave="removeHighlight('todo-column')" ondragover="allowDrop(event); highlight('todo-column')"
+                ontouchmove="handleTouchMove(event, 'todo-column');" ontouchend="handleTouchEnd(event, 'todo-column');">
             </div>
+
+            <!-- In Progress Column -->
             <div class="todo-title-container show-in-mobile">
                 <p>In progress</p>
-                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
-                </div>
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon"></div>
             </div>
             <div id="progress-column" class="progress-column"
                 ondrop="moveTo('progress'); removeHighlight('progress-column')"
                 ondragleave="removeHighlight('progress-column')"
-                ondragover="allowDrop(event); highlight('progress-column')">
-
+                ondragover="allowDrop(event); highlight('progress-column')"
+                ontouchmove="handleTouchMove(event, 'progress-column');"
+                ontouchend="handleTouchEnd(event, 'progress-column');">
             </div>
+
+            <!-- Await Feedback Column -->
             <div class="todo-title-container show-in-mobile">
                 <p>Await feedback</p>
-                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon">
-                </div>
+                <div onclick="simulateClickButton('add-task-btn-navbar')" class="todo-section-add-icon"></div>
             </div>
             <div id="await-column" class="await-column" ondrop="moveTo('await'); removeHighlight('await-column')"
-                ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')">
-
+                ondragleave="removeHighlight('await-column')" ondragover="allowDrop(event); highlight('await-column')"
+                ontouchmove="handleTouchMove(event, 'await-column');"
+                ontouchend="handleTouchEnd(event, 'await-column');">
             </div>
+
+            <!-- Done Column -->
             <div class="todo-title-container show-in-mobile">
                 <p>Done</p>
             </div>
             <div id="done-column" class="done-column" ondrop="moveTo('done'); removeHighlight('done-column')"
-                ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')">
-
+                ondragleave="removeHighlight('done-column')" ondragover="allowDrop(event); highlight('done-column')"
+                ontouchmove="handleTouchMove(event, 'done-column');" ontouchend="handleTouchEnd(event, 'done-column');">
             </div>
         </div>
+
+
     </div>
 </body>
 

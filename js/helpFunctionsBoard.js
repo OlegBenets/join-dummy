@@ -220,52 +220,27 @@ function changeButtonColor() {
 }
 
 
-
-
-let touchTimeout;
-let initialTouchX, initialTouchY;
-
-
-function startTouch(event, id) {
-    event.preventDefault();
-    currentDraggedItem = id;
-    const touch = event.touches[0];
-    initialTouchX = touch.clientX;
-    initialTouchY = touch.clientY;
-
-    touchTimeout = setTimeout(() => {
-        const taskElement = document.getElementById(`task-${id}`);
-        taskElement.style.position = 'absolute';
-        taskElement.style.left = `${touch.clientX}px`;
-        taskElement.style.top = `${touch.clientY}px`;
-        taskElement.classList.add('dragging');
-    }, 500); // 500ms langes Drücken zum Starten des Dragging
-}
-
-function touchMove(event) {
-    event.preventDefault();
-    if (!currentDraggedItem) return;
-    const touch = event.touches[0];
-    const taskElement = document.getElementById(`task-${currentDraggedItem}`);
-    taskElement.style.left = `${touch.clientX}px`;
-    taskElement.style.top = `${touch.clientY}px`;
-}
-
-function endTouch(event) {
-    event.preventDefault();
-    clearTimeout(touchTimeout);
-    const taskElement = document.getElementById(`task-${currentDraggedItem}`);
-    taskElement.classList.remove('dragging');
-    taskElement.style.position = '';
-    taskElement.style.left = '';
-    taskElement.style.top = '';
-
-    const touch = event.changedTouches[0];
-    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-
-    if (dropTarget && dropTarget.classList.contains('todo-column')) {
-        moveTo(dropTarget.id.replace('-column', ''));
+// Function to handle touch move event
+function handleTouchMove(ev, columnId) {
+    ev.preventDefault();
+    const touch = ev.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (element && element.id === columnId) {
+        highlight(columnId);
     }
+}
 
-    currentDraggedItem = null;
+// Function to handle touch end event
+function handleTouchEnd(ev, columnId) {
+    const element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
+    if (element && element.id === columnId) {
+        moveTo(columnId.split('-')[0]); // Extract column name from ID
+    }
+    removeHighlight(columnId);
+}
+
+// Function to start touch dragging
+function startTouchDragging(event, id) {
+    event.preventDefault();
+    startDragging(id);
 }
