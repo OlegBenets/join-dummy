@@ -15,6 +15,7 @@ async function initPage() {
   assignedContactsList = await getContactsArray();
   filteredContactsList = assignedContactsList;
   setEventlister();
+  setupEventListeners();
 }
 
 /**

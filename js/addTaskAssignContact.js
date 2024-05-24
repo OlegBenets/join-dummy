@@ -1,13 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-  setupEventListeners();
-});
-
 /**
  * Sets up the event listeners for the document and the contacts list.
  */
 function setupEventListeners() {
+  if (window.location.pathname.includes("addTask.html")) {
   document.addEventListener("click", handleDocumentClick);
   document.getElementById("contacts-list").addEventListener("click", assignContactToTask);
+  }
 }
 
 /**
