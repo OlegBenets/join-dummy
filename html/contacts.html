@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/contacts.css" />
     <link rel="stylesheet" href="../css/addContact.css" />
+    <link rel="stylesheet" href="../css/addContactsMobile.css">
+    <link rel="stylesheet" href="../css/editContactMobile.css">
     <link rel="stylesheet" href="../css/floatingContact.css">
+    <link rel="stylesheet" href="../css/floatingContactMobile.css">
     <link rel="stylesheet" href="../css/navbarMobile.css">
     <link rel="stylesheet" href="../css/headerMobile.css">
     <link rel="stylesheet" href="../css/contactsMobile.css">
@@ -32,9 +35,6 @@
   <div onclick="showEditContact('hide')" id="edit-card" class="contact-card remove-contact-container">
     <div onclick="doNotClose(event)" w3-include-html="../assets/templates/edit_contact.html"></div>
 </div>
-  <div id="contact-detail-data" class="contact-detail-data remove-contact-detail">
-    <div w3-include-html="../assets/templates/floating_contact.html"></div>
-</div>
 
    <div id="created-contact" class="created-contact remove-contact-message">
     <span>Contact successfully created</span>
@@ -46,6 +46,9 @@
             <div class="title-border"></div>
             <span>Better with a team</span>
         </div>
+        <div id="contact-detail-data" class="contact-detail-data remove-contact-detail">
+          <div w3-include-html="../assets/templates/floating_contact.html"></div>
+      </div>
       <div class="contacts-container">
         <div class="add-contact-container">
           <button onclick="showAddContact('show')" class="add-new-contact">

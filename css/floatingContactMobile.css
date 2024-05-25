@@ -1,0 +1,25 @@
+@media (max-width: 1023px) { 
+.contact-detail-data {
+    top: 306px;
+    left: 20px;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    background-color: var(--customized_white);
+    overflow-y: auto;
+}
+
+.floating-contact-title {
+    top: 206px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 569px;
+    height: 73px;
+}
+
+.hidden {
+    display: block;
+}
+}
