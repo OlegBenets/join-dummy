@@ -69,7 +69,8 @@ form {
 .gap24 {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    /* gap: 24px; */
+    gap: 12px;
 }
 
 .inputFrame {
@@ -269,7 +270,7 @@ form {
     color: var(--customized_gray);
 }
 
-.legalLinks:hover{
+.legalLinks:hover {
     color: var(--customized_lightblue);
     font-weight: 700;
 }
@@ -293,7 +294,7 @@ form {
     text-decoration: none;
 }
 
-.successBackground{
+.successBackground {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -317,7 +318,7 @@ form {
     opacity: 1;
 }
 
-.show div{
+.show div {
     transform: translateY(0%);
 }
 
@@ -347,10 +348,19 @@ form {
     transform: translateY(750%);
 }
 
-.slide{
+.slide {
     transform: translateY(0%);
 }
 
-.rotat90{
+.rotat90 {
     transform: rotate(-90deg);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: var(--customized_gray);
+}
+
+button:disabled:hover {
+    background-color: var(--customized_gray);
 }

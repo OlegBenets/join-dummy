@@ -365,15 +365,7 @@ async function saveUserData(form) {
 function showSuccess() {
     document.getElementById('successBackground').classList.add('show');
     document.getElementById('successBanner').classList.add('slide');
-    setTimeout(switchToLogin, 1500);
-}
-
-
-/**
- * Redirects the user to the login page.
- */
-function switchToLogin() {
-    window.location.href = '../html/login.html';
+    setTimeout(function () { window.location.href = '../html/login.html'; }, 1500);
 }
 
 
