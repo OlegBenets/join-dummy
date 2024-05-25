@@ -1,3 +1,164 @@
+@media (max-width: 1400px) {
+    @media (min-width: 1024px) {
+        .main-container {
+            width: 86%;
+            margin-left: 200px;
+        }
+
+        .board-header-container {
+            width: 86%;
+        }
+
+        .small-card-container {
+            width: 84%;
+        }
+
+        .todo-title-container {
+            margin-right: 42px;
+        }
+
+        .section-title-container {
+            justify-content: start;
+        }
+
+        .empty-column-container {
+            width: 100%;
+        }
+
+        .progress-container {
+            width: 100%;
+        }
+
+        .column-container {
+            justify-content: start;
+        }
+
+        .todo-column {
+            width: 20%;
+            flex: none;
+            margin-right: 42px;
+            margin-left: 64px;
+        }
+
+        .progress-column {
+            width: 20%;
+            flex: none;
+            margin-right: 42px;
+        }
+
+        .await-column {
+            width: 20%;
+            flex: none;
+            margin-right: 30px;
+        }
+
+        .done-column {
+            width: 20%;
+            flex: none;
+            margin-right: 42px;
+        }
+
+        .contacts-order {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 1230px) {
+    @media (min-width: 1024px) {
+        .todo-column {
+            width: 190px;
+            flex: none;
+            margin-right: 32px;
+            margin-left: 32px;
+        }
+
+        .progress-column {
+            width: 190px;
+            flex: none;
+            margin-right: 34px;
+        }
+
+        .await-column {
+            width: 190px;
+            flex: none;
+            margin-right: 30px;
+        }
+
+        .done-column {
+            width: 190px;
+            flex: none;
+            margin-right: 42px;
+        }
+
+        .todo-title-container {
+            margin-left: 32px;
+            margin-right: 0;
+            width: 190px;
+        }
+
+        .title {
+            margin-left: 32px;
+        }
+
+        .empty-column-container span {
+            font-size: 14px;
+        }
+
+        .task-template {
+            width: 1000px;
+        }
+
+        .task-buttons {
+            left: 630.25px;
+        }
+
+        .close-task {
+            left: 930px;
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    @media (min-width: 1024px) {
+        .todo-column {
+            width: 170px;
+            flex: none;
+            margin-right: 32px;
+            margin-left: 32px;
+        }
+
+        .progress-column {
+            width: 170px;
+            flex: none;
+            margin-right: 34px;
+        }
+
+        .await-column {
+            width: 170px;
+            flex: none;
+            margin-right: 30px;
+        }
+
+        .done-column {
+            width: 170px;
+            flex: none;
+            margin-right: 42px;
+        }
+
+        .todo-title-container {
+            margin-left: 32px;
+            margin-right: 0;
+            width: 170px;
+        }
+
+        .category-container p {
+            font-size: 15px;
+        }
+
+    }
+}
+
 @media (max-width: 1023px) {
     .board-header {
         flex-direction: column;
@@ -22,7 +183,7 @@
 
     .title {
         display: flex;
-        width: 98%;
+        width: 95%;
         justify-content: space-between;
         margin-left: 16px;
         align-items: center;
@@ -161,5 +322,150 @@
 
     .popup {
         top: 38px;
+    }
+
+    .big-card-container {
+        width: 320px;
+        padding: 32px 24px 32px 24px;
+    }
+
+    .big-card-edit {
+        width: 320px;
+        padding: 32px 24px 32px 24px;
+    }
+
+    .input-title-field {
+        width: 260px;
+        font-size: 16px;
+    }
+
+    .add-task-input-container {
+        width: 290px;
+    }
+
+    .assigned-contact-container {
+        width: 272px;
+    }
+
+    .subtask-popup-ul-container {
+        width: 264px;
+    }
+
+    .button-prio {
+        width: 95px;
+        font-size: 14px;
+        padding: 7px 4px 7px 4px;
+    }
+
+    .button-prio img {
+        width: 19px;
+    }
+
+    .subtask-popup-ul-container .subtasks-edit-delete-container {
+        display: flex;
+    }
+
+    .subtask-edit-input {
+        width: 236px;
+    }
+
+    .subtask-popup-edit-container {
+        width: 264px;
+    }
+
+    .subtasks-popup-section {
+        width: 304px;
+    }
+
+    .edit-content::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .big-card-title {
+        font-size: 36px;
+    }
+
+    .big-card-description {
+        font-size: 16px;
+    }
+
+    .big-card-data-txt {
+        font-size: 16px;
+    }
+
+    .big-card-data {
+        font-size: 16px;
+    }
+
+    .assigned-to-txt {
+        font-size: 16px;
+    }
+
+    .input-title-section p {
+        font-size: 16px;
+    }
+
+    .input-txt {
+        font-size: 16px;
+    }
+
+    .task-description-span {
+        font-size: 16px;
+    }
+
+    .task-deadline-span {
+        font-size: 16px;
+    }
+
+    .input-field-assigntTo input {
+        font-size: 16px;
+    }
+
+    .subtask-input {
+        font-size: 16px;
+    }
+
+    .assigned-contact-name {
+        font-size: 16px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+
+}
+
+@media (max-width: 430px) {
+    .big-card-container {
+        width: 280px;
+    }
+
+    .big-card-edit {
+        width: 260px;
+    }
+
+    .input-title-field {
+        width: 215px;
+    }
+
+    .add-task-input-container {
+        width: 245px;
+    }
+
+    .assigned-contact-container {
+        width: 227px;
+    }
+
+    .subtask-popup-ul-container {
+        width: 219px;
+    }
+
+    .subtasks-edit-delete-container img {
+        width: 14px;
+    }
+
+    .subtasks-seperator {
+        margin-left: 1px;
+        margin-right: 1px;
     }
 }

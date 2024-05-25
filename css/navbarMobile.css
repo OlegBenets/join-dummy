@@ -1,3 +1,11 @@
+@media (max-width: 1400px) {
+    @media (min-width: 1024px) {
+        .navbar-container {
+            width: 200px;
+        }
+    }
+}
+
 @media (max-width: 1023px) {
     .logo_container {
         display: none;

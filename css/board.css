@@ -10,6 +10,7 @@
 body {
     margin: 0;
     background-color: var(--color_2);
+    overflow-x: hidden;
 }
 
 h1 {
