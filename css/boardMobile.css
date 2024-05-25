@@ -26,7 +26,14 @@
         }
 
         .progress-container {
-            width: 100%;
+            flex-direction: column;
+            height: auto;
+            align-items: start;
+        }
+
+        .progress-container p {
+            margin-left: -10px;
+            margin-top: 2px;
         }
 
         .column-container {
@@ -60,6 +67,10 @@
 
         .contacts-order {
             width: 100%;
+        }
+
+        .menubar-img-container {
+            margin-left: 44px;
         }
     }
 }
