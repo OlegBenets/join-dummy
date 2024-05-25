@@ -167,6 +167,10 @@
             font-size: 15px;
         }
 
+        .section-title-container p {
+            font-size: 18px;
+        }
+
     }
 }
 
