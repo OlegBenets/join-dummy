@@ -86,7 +86,7 @@
 
     .button-container {
         position: absolute;
-        top: 650px;
+        top: 90%;
         left: 100px;
         display: flex;
         justify-content: space-evenly;
@@ -109,7 +109,7 @@
     .create-contact-container {
         flex-direction: column;
         width: 90vw;
-        height: 75vh;
+        height: 70vh;
 
     }
 
@@ -152,7 +152,7 @@
 
     .button-container {
         position: absolute;
-        top: 410px;
+        top: 510px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -167,5 +167,17 @@
         position: absolute;
         top: 15px;
         left: 90%;
+    }
+
+    .create-contact-title h3 {
+        font-size: 40px;
+    }
+
+    .create-contact-title span {
+        font-size: 18px;
+    }
+
+    .contact-img h3 {
+        font-size: 40px;
     }
 }
