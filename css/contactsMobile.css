@@ -1,12 +1,18 @@
 @media (max-width: 1023px) {
-  .main-container {
+body {
+    position: fixed;
+    overflow: hidden;
+}
+    .main-container {
     margin-left: 0;
     margin-top: 82px;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
   }
 
   .contacts-container {
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     align-items: center;
 }
 
@@ -15,12 +21,12 @@
 }
 
 .sort-contacts {
-    width: calc(100% - 70px);
+    width: calc(100% - 72px);
+    padding: 10px 36px;
 }
 
 .all-contacts {
-    position: relative;
-    width: 90%;
+    width: calc(100% - 48px);
     padding: 24px 24px 150px 24px;
     left: 0;
 }
@@ -35,13 +41,14 @@
 
 .contact {
     width: calc(100% - 48px);
-    gap: 30px;
+    padding: 10px 24px;
+    gap: 20px;
 }
 
 .add-contact-container {
     position: fixed;
-    top: 758px;
-    left: 85%;
+    bottom: 100px;
+    right: 30px;
     width: calc(56px - 12px);
     height: 56px;
 }
@@ -65,10 +72,6 @@
 
 
 @media (max-width: 400px) { 
-    .add-contact-container {
-        left: 80%;
-    }
-
     .contact-data {
         width: 150px;
     }

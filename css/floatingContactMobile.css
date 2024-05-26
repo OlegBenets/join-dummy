@@ -1,25 +1,109 @@
-@media (max-width: 1023px) { 
-.contact-detail-data {
-    top: 306px;
-    left: 20px;
-    height: 100%;
-    width: 100%;
+@media (max-width: 1023px) {
+  .floating-contact-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    gap: 12px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    padding: 10px;
+  }
+
+  .contact-detail-data {
+    top: 80px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
     z-index: 5;
     background-color: var(--customized_white);
     overflow-y: auto;
-}
+  }
 
-.floating-contact-title {
+  .floating-contact-title {
     top: 206px;
     left: 0px;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 569px;
+    flex-direction: column;
+    width: 50vw;
     height: 73px;
+  }
+
+  .floating-contact-title h3 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
 }
 
-.hidden {
-    display: block;
+.floating-contact-title span {
+    font-size: 20px;
+    font-weight: 400;
 }
+
+.name h3 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.contact-name {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 320px;
+    height: 80px;
+    margin-top: 20px;
+}
+
+.edit-delet-contact {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    width: 60%;
+    height: 80px;
+}
+
+.edit-delete-buttons {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--customized_darkblue);
+    background-image: url(../assets/img/mobile/more_vert.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.edit-delete-buttons:hover {
+    cursor: pointer;
+}
+
+.edit-delete-buttons button {
+    display: none;
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.name {
+    width: 226px;
+    height: 56px;
+    white-space: wrap;
+}
+
+.leave-detail-contact {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+  }
 }

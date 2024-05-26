@@ -357,3 +357,11 @@ function generateProfileColor() {
   let randomColor = color[Math.floor(Math.random() * color.length)];
   return randomColor;
 }
+
+/**
+ * Removes the floating contact details.
+ */
+function removeDetailContact() {
+  let menu = document.getElementById("contact-detail-data");
+  menu.classList.add("remove-contact-detail");
+}

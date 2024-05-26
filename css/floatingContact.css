@@ -161,3 +161,7 @@
   .hidden {
     display: none;
   }
+
+  .leave-detail-contact {
+    display: none;
+  }
