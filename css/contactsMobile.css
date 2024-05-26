@@ -51,6 +51,7 @@ body {
     right: 30px;
     width: calc(56px - 12px);
     height: 56px;
+    background: none;
 }
 
 .add-new-contact {
