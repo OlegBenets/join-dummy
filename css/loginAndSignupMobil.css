@@ -136,6 +136,11 @@
         flex-direction: column;
         gap: 21px;
     }
+
+    .backArrow {
+        left: 10%;
+     
+    }
 }
 
 @media (max-width:1055px) {

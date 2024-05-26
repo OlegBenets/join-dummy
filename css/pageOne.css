@@ -27,6 +27,9 @@ body {
     width: var(--logo_width);
     height: var(--logo_width);
     transition: all var(--time) ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 
@@ -39,4 +42,53 @@ body {
 .shrink_n_slide img {
     width: var(--logo_width_small);
     height: var(--logo_height_small);
+}
+
+.logoDark{
+    opacity: 0;
+}
+
+.logoLight{
+    opacity: 1;
+}
+
+@media (max-width:1055px){
+
+    :root{
+        --logo_width: 100px;
+        --logo_height: 122px;
+        --logo_width_small: 64px;
+        --logo_height_small: 78px;
+    }
+
+    body{
+        background-color: var(--customized_darkblue);
+        transition: all var(--time) ease-in-out;
+    }
+
+    .background{
+        background-color: var(--customized_white);
+    }
+
+    .shrink_n_slide {        
+        top: 37px;
+        left: 38px;
+    }
+
+    .logoDark{
+        opacity: 1;
+    }
+    
+    .logoLight{
+        opacity: 0;
+    }
+
+
+    .show{
+        opacity: 0;
+    }
+
+    .hide{
+        opacity: 1;
+    }
 }
