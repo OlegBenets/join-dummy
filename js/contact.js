@@ -139,11 +139,13 @@ async function editContact() {
   changeContact.email = document.getElementById("edit-contact-email").value;
   changeContact.phone = document.getElementById("edit-contact-tel").value;
 
+  let contact = `contact${contactIndex}`;
   await editContacts(realIndex, changeContact);
   showEditContact("hide");
   showContact(contactIndex);
   await loadContacts();
   renderFloatingContact(contactList[contactIndex]);
+  simulateClickButton(contact);
 }
 
 
