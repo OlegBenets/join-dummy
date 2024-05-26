@@ -1,3 +1,36 @@
+@media (max-width: 1402px) {
+  .contact-detail-data {
+    top: 256px;
+    left: 603px;
+}
+
+.name h3 {
+  font-size: 36px;
+}
+
+.contact-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.contact-icon h3 {
+  font-size: 40px;
+}
+
+.contact-name {
+  gap: 34px;
+}
+
+.floating-contact-container {
+  gap: 6px;
+}
+
+.edit-delet-contact {
+  gap: 20px;
+  width: 310px;
+}
+}
+
 @media (max-width: 1023px) {
   .floating-contact-container {
     display: flex;
@@ -26,9 +59,14 @@
     left: 0px;
     display: flex;
     flex-direction: column;
-    width: 70vw;
+    width: 60vw;
     height: 73px;
   }
+
+  .title-border {
+    width: 30vw;
+    height: 59px;
+}
 
   .floating-contact-title h3 {
     margin: 0;
@@ -60,7 +98,7 @@
     justify-content: center;
     gap: 24px;
     width: 60%;
-    height: 80px;
+    height: auto;
   }
 
   .edit-delete-menu {
@@ -152,8 +190,8 @@
 
 @media (max-width: 400px) {
   .name {
-    width: 226px;
-    height: 56px;
+    width: 190px;
+    height: auto;
     white-space: wrap;
 }
 }
