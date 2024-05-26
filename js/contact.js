@@ -3,6 +3,7 @@ let realPreviousContactIndex = "";
 let contactList = [];
 let contactListUnsorted = [];
 
+
 /**
  * Initializes the application by loading all data and contacts.
  */
@@ -11,6 +12,7 @@ async function init() {
   contactList = await getContactsArray();
   loadContacts();
 }
+
 
 /**
  * Loads and displays contacts.
@@ -38,6 +40,7 @@ async function loadContacts() {
   }
 }
 
+
 /**
  * Sorts the contacts alphabetically by name.
  */
@@ -46,6 +49,7 @@ function sortContacts() {
     return a.name.localeCompare(b.name);
   });
 }
+
 
 /**
  * Extracts the initials and formatted name from a contact.
@@ -69,6 +73,7 @@ function extractInitialsAndName(contact) {
   return { initials, name };
 }
 
+
 /**
  * Renders the floating contact details.
  * @param {Object} contact - The contact object.
@@ -86,6 +91,7 @@ function renderFloatingContact(contact) {
   renderEditContact(contact);
 }
 
+
 /**
  * Renders the contact details in the edit form.
  * @param {Object} contact - The contact object.
@@ -100,6 +106,7 @@ function renderEditContact(contact) {
   document.getElementById("profile-color").style.backgroundColor =
     "#" + contact.color;
 }
+
 
 /**
  * Shows or hides the edit contact form.
@@ -116,6 +123,7 @@ function showEditContact(parameter) {
   }
   renderEditContact(contact);
 }
+
 
 /**
  * Edits the contact details.
@@ -138,6 +146,7 @@ async function editContact() {
   renderFloatingContact(contactList[contactIndex]);
 }
 
+
 /**
  * Adds a new contact.
  */
@@ -158,6 +167,7 @@ async function AddContact() {
   button.disabled = false;
 }
 
+
 /**
  * Adds the new contact to the contact list and displays it.
  * @param {Object} newContact - The new contact object.
@@ -177,6 +187,7 @@ async function AddContactToContacts(newContact) {
   showContact(newIndex);
 }
 
+
 /**
  * Displays a message indicating that the contact was created.
  */
@@ -186,6 +197,7 @@ function contactCreatedMessage() {
   setTimeout(contactCreatedHideMessage, 2000);
 }
 
+
 /**
  * Hides the contact created message.
  */
@@ -193,6 +205,7 @@ function contactCreatedHideMessage() {
   let createdContact = document.getElementById("created-contact");
   createdContact.classList.add("remove-contact-message");
 }
+
 
 /**
  * Scrolls to the newly added contact in the contact list.
@@ -202,6 +215,7 @@ function scrollToAddedContact(newIndex) {
   let newContactElement = document.getElementById(`contact${newIndex}`);
   newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
 }
+
 
 /**
  * Shows or hides the add contact form.
@@ -216,6 +230,7 @@ function showAddContact(parameter) {
   }
 }
 
+
 /**
  * Prevents the event from propagating.
  * @param {Event} event - The event object.
@@ -223,6 +238,7 @@ function showAddContact(parameter) {
 function doNotClose(event) {
   event.stopPropagation();
 }
+
 
 /**
  * Displays the contact details.
@@ -257,6 +273,7 @@ function showContact(i) {
   }
 }
 
+
 /**
  * Deletes the currently selected contact.
  */
@@ -268,6 +285,7 @@ async function deleteCurrentContact() {
   await deleteContact(previousContactIndex, realIndex);
   deleteContactsFromTasks(contactName);
 }
+
 
 /**
  * Removes the contact from tasks and updates the tasks.
@@ -298,6 +316,7 @@ async function deleteContactsFromTasks(contactName) {
   }
 }
 
+
 /**
  * Filters tasks that match the contact name and removes the contact from the task assignments.
  * @param {string} contactName - The name of the contact to remove.
@@ -317,6 +336,7 @@ function sortMatchingNames(contactName) {
   }
   return filtered;
 }
+
 
 /**
  * Deletes the contact from the list and updates the UI.
@@ -338,6 +358,7 @@ async function deleteContact(i, realIndex) {
   await loadContacts();
 }
 
+
 /**
  * Generates a random profile color.
  * @returns {string} The hex color code.
@@ -358,6 +379,7 @@ function generateProfileColor() {
   return randomColor;
 }
 
+
 /**
  * Removes the floating contact details.
  */
@@ -365,3 +387,22 @@ function removeDetailContact() {
   let menu = document.getElementById("contact-detail-data");
   menu.classList.add("remove-contact-detail");
 }
+
+
+/**
+ * Opens the menu for editing and deleting contacts.
+ * Adds an event listener to hide the menu when clicked outside of the menu.
+ */
+function showEditAndDeleteContact() {
+  let menu = document.getElementById("edit-delete-buttons");
+  menu.classList.add('remove-edit-delete-buttons');
+
+  document.addEventListener('click', function(event) {
+    let button = document.querySelector('.edit-delete-menu');
+    
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove('remove-edit-delete-buttons');
+    }
+  });
+}
+

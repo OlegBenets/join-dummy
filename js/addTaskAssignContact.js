@@ -8,6 +8,7 @@ function setupEventListeners() {
   }
 }
 
+
 /**
  * Handles clicking on the document to hide the contacts list
  * if the click occurs outside of the contacts list.
@@ -20,6 +21,7 @@ function handleDocumentClick(event) {
     hideContactsToAssign();
   }
 }
+
 
 /**
  * Toggles the visibility of the contacts list.
@@ -34,6 +36,7 @@ function toggleContactsToAssign(event) {
     hideContactsToAssign();
   }
 }
+
 
 /**
  * Shows the contacts list.
@@ -50,6 +53,7 @@ function showContactsToAssign(event) {
   renderContactList(filteredContactsList);
 }
 
+
 /**
  * Hides the contacts list.
  *
@@ -62,6 +66,7 @@ function hideContactsToAssign(event) {
   contactAssignList.classList.add("hidden");
   arrow.src = "/assets/img/arrow_drop_down.svg";
 }
+
 
 /**
  * Searches contacts based on the input value.
@@ -77,6 +82,7 @@ function searchContact() {
   }
   renderContactList(filteredContactsList);
 }
+
 
 /**
  * Renders the list of contacts based on the filter.
@@ -104,6 +110,7 @@ function renderContactList(filteredContactsList) {
     contactListContainer.innerHTML = "";
   }
 }
+
 
 /**
  * Assigns a contact to the task.
@@ -136,6 +143,7 @@ function assignContactToTask(i, event) {
   renderContactList(assignedContactsList);
 }
 
+
 /**
  * Checks if a contact is already assigned to the task.
  * @param {number} index - The index of the contact.
@@ -152,6 +160,7 @@ function checkMatchContact(index) {
   return false;
 }
 
+
 /**
  * Removes a contact from the assigned contacts array.
  * @param {string} name - The name of the contact to remove.
@@ -161,6 +170,7 @@ function removeContactInArray(name) {
   assignedContacts.splice(index, 1);
 }
 
+
 /**
  * Adds a contact to the assigned contacts array.
  * @param {string} name - The name of the contact to add.
@@ -169,6 +179,7 @@ function removeContactInArray(name) {
 function pushContactInArray(name) {
   assignedContacts.push(name);
 }
+
 
 /**
  * Renders the selected contacts.

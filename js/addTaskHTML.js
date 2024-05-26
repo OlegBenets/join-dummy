@@ -19,6 +19,7 @@ function generateHTMLsubtasksPopup(subtask) {
       `;
   }
 
+  
   function generateSubtaskHTML(subtaskTitle, id) {
     return `
       <div class="subtask-popup-edit-container" id="subtask-popup-edit-container${id}">
@@ -37,6 +38,7 @@ function generateHTMLsubtasksPopup(subtask) {
           <div class="subtask-edit-underline"></div>
       </div>`;
   }
+
 
   function contactListTemplate(initials, name, color, i) {
     let checked = checkMatchContact(i);
@@ -75,6 +77,7 @@ function generateHTMLsubtasksPopup(subtask) {
       `;
     }
   }
+
 
   function renderInitialsIcon(initials, color) {
     return /*html*/ `

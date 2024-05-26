@@ -5,6 +5,7 @@ let assignedContactsList = [];
 let assignedContacts = [];
 let filteredContactsList = [];
 
+
 /**
  * Initializes the page by loading all data and setting event listeners.
  * @returns {Promise<void>}
@@ -17,6 +18,7 @@ async function initPage() {
   setEventlister();
   setupEventListeners();
 }
+
 
 /**
  * Adds a task with the provided details.
@@ -59,6 +61,7 @@ async function addTask(parameter) {
   }
 }
 
+
 /**
  * Adds a task to the board.
  */
@@ -66,6 +69,7 @@ function addTaskToBoard() {
   getCurrentStatus("todo");
   addTask("");
 }
+
 
 /**
  * Retrieves the names of assigned contacts.
@@ -81,6 +85,7 @@ function getAssigntContactsNames() {
   }
   return assigntToNames;
 }
+
 
 /**
  * Displays the task confirmation message.
@@ -105,6 +110,7 @@ function showAddTaskConfirmation(parameter) {
   }
 }
 
+
 /**
  * Resets the form fields after submitting the task.
  */
@@ -119,6 +125,7 @@ function resetForm() {
   renderSelectedContacts();
   selectDefaultPrio("button-medium");
 }
+
 
 /**
  * Adds a subtask to the task popup.
@@ -137,6 +144,7 @@ function addSubtaskToPopup(parameter, index) {
   currentSubtasks.push(subtask);
   renderSubtasksInPopup(parameter, index);
 }
+
 
 /**
  * Renders the subtasks in the task popup.
@@ -159,6 +167,7 @@ function renderSubtasksInPopup(parameter, index) {
   }
 }
 
+
 /**
  * Edits a subtask.
  * @param {string} subtaskTitle - The title of the subtask.
@@ -169,6 +178,7 @@ function editSubtask(subtaskTitle, id) {
   const subtaskHTML = generateSubtaskHTML(subtaskTitle, id);
   container.innerHTML = subtaskHTML;
 }
+
 
 /**
  * Saves the changes made to a subtask.
@@ -182,6 +192,7 @@ function saveChangedSubtask(id) {
   renderSubtasksInPopup("addTask", "");
 }
 
+
 /**
  * Deletes a subtask.
  * @param {object} subtask - The subtask to be deleted.
@@ -191,6 +202,7 @@ function deleteSubtask(subtask) {
   currentSubtasks.splice(indexOfCurSubTask, 1);
   renderSubtasksInPopup("addTask", "");
 }
+
 
 /**
  * Clears the subtask input field.
@@ -204,6 +216,7 @@ function clearSubtaskInput(parameter, index) {
     document.getElementById("subtasks-input" + index).value = "";
   }
 }
+
 
 /**
  * Checks if the subtask input field is empty.
@@ -232,6 +245,7 @@ function checkInput(parameter, index) {
     fullInputImgs.style.display = "none";
   }
 }
+
 
 /**
  * Sets the priority of the task.

@@ -34,69 +34,100 @@
     margin: 0;
     font-size: 40px;
     font-weight: 700;
-}
+  }
 
-.floating-contact-title span {
+  .floating-contact-title span {
     font-size: 20px;
     font-weight: 400;
-}
+  }
 
-.name h3 {
+  .name h3 {
     font-size: 36px;
     font-weight: 700;
-}
+  }
 
-.contact-name {
+  .contact-name {
     display: flex;
     align-items: center;
     gap: 20px;
     width: 320px;
     height: 80px;
     margin-top: 20px;
-}
+  }
 
-.edit-delet-contact {
+  .edit-delet-contact {
     display: flex;
     justify-content: center;
     gap: 24px;
     width: 60%;
     height: 80px;
-}
+  }
 
-.edit-delete-buttons {
+  .edit-delete-menu {
     position: fixed;
     bottom: 100px;
     right: 30px;
+    display: flex;
     justify-content: center;
     width: 56px;
     height: 56px;
+    border: none;
     border-radius: 50%;
     background-color: var(--customized_darkblue);
     background-image: url(../assets/img/mobile/more_vert.svg);
     background-repeat: no-repeat;
     background-position: center;
-}
+  }
 
-.edit-delete-buttons:hover {
+  .edit-delete-menu:hover {
+    background-color: rgb(41, 171, 226);
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+  }
+
+  .edit-delete-buttons {
+    position: absolute;
+    bottom: 170px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 116px;
+    height: 100px;
+    border-radius: 20px 20px 0 20px;
+    background-color: white;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+    transition: 100ms;
+    transform: translateX(100vw);
+  }
+
+  .remove-edit-delete-buttons {
+    transform: translateX(0);
 }
 
-.edit-delete-buttons button {
-    display: none;
-}
+  .edit-delete-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: calc(96px - 16px);
+    height: calc(40px - 16px);
+    gap: 8px;
+    padding: 8px;
+  }
 
-.contact-icon {
+  .contact-icon {
     width: 80px;
     height: 80px;
-}
+  }
 
-.name {
+  .name {
     width: 226px;
     height: 56px;
     white-space: wrap;
-}
+  }
 
-.leave-detail-contact {
+  .leave-detail-contact {
     position: absolute;
     top: 20px;
     right: 15px;
@@ -106,4 +137,15 @@
     border: none;
     background: none;
   }
+
+  .leave-detail-contact:hover {
+    cursor: pointer;
+  }
+
+  .contact-icon h3 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 500;
+    color: #ffffff;
+}
 }
