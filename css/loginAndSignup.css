@@ -62,14 +62,12 @@ form {
 .gap32 {
     display: flex;
     flex-direction: column;
-    /* gap: 32px; */
     gap: 17px;
 }
 
 .gap24 {
     display: flex;
     flex-direction: column;
-    /* gap: 24px; */
     gap: 12px;
 }
 
@@ -225,7 +223,6 @@ form {
     display: block;
     width: 24px;
     height: 24px;
-
 }
 
 .buttonbox {
@@ -352,9 +349,7 @@ form {
     transform: translateY(0%);
 }
 
-.rotat90 {
-    transform: rotate(-90deg);
-}
+
 
 button:disabled {
     cursor: not-allowed;

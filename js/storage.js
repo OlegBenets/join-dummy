@@ -7,46 +7,86 @@ const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabas
 
 window.addEventListener('beforeunload', function () { saveLastPath() });
 
+
+/**
+ * Saves the current page path (excluding the "/html/" prefix and ".html" suffix) to the session storage.
+ * The path is saved with the key 'page'.
+ */
 function saveLastPath() {
     let path = window.location.pathname;
     let page = path.replace(/^\/html\/|\.html$/g, "");
     saveSession('page', page);
 }
 
+
+/**
+ * Saves a key-value pair to the session storage.
+ *
+ * @param {string} key - The key under which the value is stored.
+ * @param {string} value - The value to be stored.
+ */
 function saveSession(key, value) {
     sessionStorage.setItem(key, value);
 }
 
+
+/**
+ * Loads a value from the session storage based on the given key.
+ *
+ * @param {string} key - The key of the value to be retrieved.
+ * @returns {string|null} The value associated with the key, or null if the key does not exist.
+ */
 function loadSession(key) {
     return sessionStorage.getItem(key);
 }
 
+
+/**
+ * Deletes a key-value pair from the session storage based on the given key.
+ *
+ * @param {string} key - The key of the value to be deleted.
+ */
 function deleteSession(key) {
     sessionStorage.removeItem(key);
 }
 
 
-
 /**
- * 
- * @param {string} key 
- * @param {string / number} value 
+ * Saves a key-value pair to the local storage.
+ *
+ * @param {string} key - The key under which the value is stored.
+ * @param {string} value - The value to be stored.
  */
 function saveLocal(key, value) {
     localStorage.setItem(key, value);
 }
 
 
+/**
+ * Loads a value from the local storage based on the given key.
+ *
+ * @param {string} key - The key of the value to be retrieved.
+ * @returns {string|null} The value associated with the key, or null if the key does not exist.
+ */
 function loadLocal(key) {
     return localStorage.getItem(key);
 }
 
 
+/**
+ * Deletes a key-value pair from the local storage based on the given key.
+ *
+ * @param {string} key - The key of the value to be deleted.
+ */
 function deleteLocal(key) {
     localStorage.removeItem(key);
 }
 
 
+/**
+ * Logs out the current user by deleting relevant data from local storage 
+ * and redirecting to the login page.
+ */
 function userLogout() {
     deleteLocal('activUser');
     deleteLocal('saveuser');
@@ -54,26 +94,34 @@ function userLogout() {
 }
 
 
+/**
+ * Loads data from the server based on the specified path.
+ * 
+ * @param {string} [path=""] - The path from which to load the data. Defaults to an empty string.
+ * @returns {Promise<Array|Object|null>} A promise that resolves to the loaded data as an array or object,
+ *                                          or null if no data is available.
+ */
 async function loadData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json"); // fetch default wert ist GET
+    let response = await fetch(BASE_URL + path + ".json");
     let responseAsJson = await response.json();
-    if (path == 'tasks') {
-        if (responseAsJson) {
+    if (path === 'tasks' && responseAsJson) {
             responseAsJson.forEach(task => {
-                if (!task.hasOwnProperty('subTasks')) {
-                    task.subTasks = [];
-                }
-                if (!task.hasOwnProperty('asigntTo')) {
-                    task.asigntTo = [];
-                }
+                task.subTasks = task.subTasks || [];
+                task.asigntTo = task.asigntTo || [];
             });
-        }
-
     }
     return checkIfEmpty(responseAsJson);
 }
 
 
+/**
+ * Checks if the provided data is empty (null, undefined, or empty).
+ * If the data is empty, returns an empty array.
+ * Otherwise, returns the data itself.
+ *
+ * @param {*} data - The data to check.
+ * @returns {*} The original data if it's not empty; an empty array otherwise.
+ */
 function checkIfEmpty(data) {
     if (data) {
         return data;
@@ -82,7 +130,14 @@ function checkIfEmpty(data) {
     };
 }
 
-//PUT
+
+/**
+ * Sends data to the server using the HTTP PUT method.
+ * 
+ * @param {string} [path=""] - The path to which the data will be sent.
+ * @param {Object} [data={}] - The data to be sent to the server.
+ * @returns {Promise<Object>} A promise that resolves to the response from the server.
+ */
 async function putData(path = "", data = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
@@ -94,8 +149,12 @@ async function putData(path = "", data = {}) {
     return responseAsJson = response.json();
 }
 
+
 /**
- * load all data from the server and saves in the specific variable
+ * Loads data from the server for specified targets and updates corresponding variables.
+ *
+ * @param {string} [target="all"] - The target data to load ("all", "contacts", "tasks", "loginData").
+ * @returns {Promise<void>} A promise that resolves once the data is loaded and variables are updated.
  */
 async function loadAllData(target = "all") {
     switch (target) {
@@ -104,24 +163,24 @@ async function loadAllData(target = "all") {
             tasks = await loadData("tasks");
             loginData = await loadData("loginData");
             break;
-
         case "contacts":
             contacts = await loadData("contacts");
             break;
-
         case "tasks":
             tasks = await loadData("tasks");
             break;
-
         case "loginData":
             loginData = await loadData("loginData");
             break;
     }
-
 }
 
+
 /**
- * sends all data to the server
+ * Saves data to the server for specified targets.
+ *
+ * @param {string} [target="all"] - The target data to save ("all", "contacts", "tasks", "loginData").
+ * @returns {Promise<void>} A promise that resolves once the data is saved.
  */
 async function saveAllData(target = "all") {
     switch (target) {
@@ -130,15 +189,12 @@ async function saveAllData(target = "all") {
             await putData("tasks", tasks);
             await putData("loginData", loginData);
             break;
-
         case "contacts":
             await putData("contacts", contacts);
             break;
-
         case "tasks":
             await putData("tasks", tasks);
             break;
-
         case "loginData":
             await putData("loginData", loginData);
             break;
@@ -146,6 +202,11 @@ async function saveAllData(target = "all") {
 }
 
 
+/**
+ * Generates a unique identifier based on the current timestamp.
+ *
+ * @returns {number} A unique identifier as the number of milliseconds elapsed since January 1, 1970.
+ */
 function idGenerator() {
     let date = new Date;
     let id = date.getTime();
@@ -153,6 +214,12 @@ function idGenerator() {
 }
 
 
+/**
+ * Encrypts the given data using the SHA-256 hashing algorithm.
+ *
+ * @param {string} data - The data to be encrypted.
+ * @returns {Promise<string>} A promise that resolves to the encrypted data as a hexadecimal string.
+ */
 async function encrypt(data) {
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(data);
@@ -160,263 +227,4 @@ async function encrypt(data) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashedData = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
     return hashedData;
-}
-
-//Contact handling functions
-
-/**
-  * Creates a new contact.
-  * @param {string} name - The name of the contact.
-  * @param {string} email - The contact's email address.
-  * @param {number} phone - The contact's phone number.
-  * @param {string} color  -
-  * @returns {Object} An object representing the newly created contact.
-  */
-function creatContact(name, email, phone, color) {
-    let contact = {
-        "id": idGenerator(),
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "color": color
-    };
-    return contact;
-}
-
-
-async function addContacts(contact) {
-    let buffer = JSON.stringify(contact);
-    contacts.push(await JSON.parse(buffer));
-    await saveAllData('contacts');
-}
-
-
-async function deleteContacts(index) {
-    if (index < contacts.length) {
-        contacts.splice(index, 1);
-    }
-    await saveAllData('contacts');
-}
-
-
-async function editContacts(index, contact) {
-    if (index < contacts.length) {
-        let buffer = JSON.stringify(contact);
-        contacts[index] = await JSON.parse(buffer);
-    }
-    await saveAllData('contacts');
-}
-
-
-async function getContacts(index) {
-    if (index < contacts.length) {
-        let buffer = JSON.stringify(contacts[index]);
-        return await JSON.parse(buffer);
-    }
-}
-
-
-async function getContactsArray() {
-    let buffer = JSON.stringify(contacts);
-    return await JSON.parse(buffer);
-}
-
-
-//Task handling functions
-
-/**
- * Creates a new task
- * @param {Array} asigntTo  - the list of asignt users
- * @param {boolean} category  - the flag that indicates whether it is a technical task or a user story
- * @param {number} date - the due date of the task
- * @param {string} description - the text that describe the task
- * @param {number} prio - the priority the task have (high medium low)
- * @param {number} status - the status of the task
- * @param {Array} subTasks - the list of subtask of the task
- * @param {string} title - the title of the task
- * @returns {object} An object representing the newly created task.
- */
-function creatTask(asigntTo, category, date, description, prio, status, subTasks, title) {
-    let task = {
-        "asigntTo": asigntTo,
-        "category": category,
-        "date": date,
-        "description": description,
-        "id": idGenerator(),
-        "prio": prio,
-        "status": status,
-        "subTasks": subTasks,
-        "title": title
-    };
-    return task;
-}
-
-
-async function addTasks(task) {
-    let buffer = JSON.stringify(task);
-    tasks.push(await JSON.parse(buffer));
-    await saveAllData('tasks');
-}
-
-
-async function deleteTasks(index) {
-    if (index < tasks.length) {
-        tasks.splice(index, 1);
-    }
-    await saveAllData('tasks');
-}
-
-
-async function editTasks(index, task) {
-    if (index < tasks.length) {
-        let buffer = JSON.stringify(task);
-        tasks[index] = await JSON.parse(buffer);
-    }
-    await saveAllData('tasks');
-}
-
-
-async function getTasks(index) {
-    if (index < tasks.length) {
-        let buffer = JSON.stringify(tasks[index]);
-        return await JSON.parse(buffer);
-    }
-}
-
-
-async function getTasksArray() {
-    let buffer = JSON.stringify(tasks);
-    return await JSON.parse(buffer);
-}
-
-
-//Subtask handling functions
-
-function creatSubTask(subtitle, checked = "unchecked") {
-    let subtask = {
-        "subtitle": subtitle,
-        "checked": checked,
-        "id": idGenerator()
-    }
-    return subtask;
-}
-
-
-async function addSubTasks(index, subtask) {
-    let buffer = JSON.stringify(subtask);
-    tasks[index].subTasks.push(await JSON.parse(buffer));
-    await saveAllData('tasks');
-}
-
-
-async function deleteSubTasks(index, subindex) {
-    if (index < tasks.length) {
-        if (subindex < tasks[index].subTasks.length) {
-            tasks[index].subTasks.splice(subindex, 1);
-        }
-    }
-    await saveAllData('tasks');
-}
-
-
-async function editSubTasks(index, subindex, subtask) {
-    if (index < tasks.length) {
-        if (subindex < tasks[index].subTasks.length) {
-            let buffer = JSON.stringify(subtask);
-            tasks[index].subTasks[subindex] = await JSON.parse(buffer);
-        }
-    }
-    await saveAllData('tasks');
-}
-
-
-async function getSubTasks(index, subindex) {
-    if (index < tasks.length) {
-        if (subindex < tasks[index].subtask.length) {
-            let buffer = JSON.stringify(tasks[index].subtask[subindex]);
-            return await JSON.parse(buffer);
-        }
-    }
-}
-
-
-async function getSubTasks(index) {
-    if (index < tasks.length) {
-        let buffer = JSON.stringify(tasks[index].subtask);
-        return await JSON.parse(buffer);
-    }
-}
-
-
-//Validation handling functions
-
-/**
- * Creates a userData object with username and password.
- * @param {string} user - The username for userData.
- * @param {string} password - The password for userData.
- * @returns {object} A userData object with username and password.
- */
-function creatUser(user, password, email) {
-    let userData = {
-        "name": user,
-        "password": password,
-        "email": email,
-        "id": idGenerator()
-    };
-    return userData;
-}
-
-/**
- * this function makes a deep copy of the parameter and push it in the loginData array
- * @param {object} userData 
- */
-async function addLoginData(userData) {
-    let buffer = JSON.stringify(userData);
-    loginData.push(await JSON.parse(buffer));
-    await saveAllData('loginData');
-}
-
-/**
- * this function deletes an entry of the loginData array on the index position if the index is smaller than that array length
- * @param {number} index - the index number of the entry in the array that will be deleted
- */
-async function deleteLoginData(index) {
-    if (index < loginData.length) {
-        loginData.splice(index, 1);
-    }
-    await saveAllData('loginData');
-}
-
-/**
-  * Edits the loginData array based on the index and updated userData data. with an deep copy of the valdation
-  * @param {number} index - The index of the userData to process.
-  * @param {object} userData - The updated userData data.
-  */
-async function editLoginData(index, userData) {
-    if (index < loginData.length) {
-        let buffer = JSON.stringify(userData);
-        loginData[index] = await JSON.parse(buffer);
-    }
-    await saveAllData('loginData');
-}
-
-/**
-  * Gets the userData based on the index. with a detailed copy of the requested data entry
-  * @param {number} index - The index of the userData to retrieve.
-  * @returns {object} - The userData data.
-  */
-async function getLoginData(index) {
-    if (index < loginData.length) {
-        let buffer = JSON.stringify(loginData[index]);
-        return await JSON.parse(buffer);
-    }
-}
-
-/**
- * 
- * @returns {array} - the list of all userData objects.
- */
-async function getLoginDataArray() {
-    let buffer = JSON.stringify(loginData);
-    return await JSON.parse(buffer);
 }

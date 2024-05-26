@@ -48,6 +48,7 @@
     --customized_gray_blue: #2A3D59;
 }
 
+
 @font-face {
     font-family: 'inter';
     src: url('../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf');
@@ -61,4 +62,9 @@
     margin-top: 96px;
     width: 1208px;
     height: 100%;
+}
+
+
+.rotat90 {
+    transform: rotate(-90deg);
 }

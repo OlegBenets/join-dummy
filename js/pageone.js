@@ -2,8 +2,8 @@
  * Initiates the start page sequence.
  * 
  * This function triggers two actions with delays:
- * 1. After 200 milliseconds, the `slideLogo` function is called to animate the logo.
- * 2. After 1000 milliseconds, the `switchToLogin` function is called to redirect the user to the login page.
+ * 1. After 700 milliseconds, the `slideLogo` function is called to animate the logo.
+ * 2. After 1500 milliseconds, the `switchToLogin` function is called to redirect the user to the login page.
  */
 function startPage() {
 
