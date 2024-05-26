@@ -5,6 +5,9 @@ let touchOffsetX = 0;
 let touchOffsetY = 0;
 let touchTimer = null;
 let isTouchMoving = false;
+let everyContactList = [];
+let contactsNames = [];
+let allContacts = [];
 
 /**
  * This function creates the preview of the small tasks descriptions
@@ -69,7 +72,9 @@ function checkSubtasks(card, whichCard) {
  * @returns HTML of assign to section
  */
 function checkAssignedTo(card, whichCard) {
-    let allContacts = card['asigntTo'];
+    let allContactsId = card['asigntTo'];
+    getContactsNames(allContactsId);
+    allContacts = contactsNames;
     if (allContacts.length !== 0) {
         let initials = [];
         let colors = [];
@@ -86,8 +91,8 @@ function checkAssignedTo(card, whichCard) {
             }
             initials.push(initialsForName);
             colors.push(curColor);
+            
         }
-
         if (whichCard == 'small-card') {
             return generateHTMLAssignedTo(initials, colors);
         }
@@ -98,6 +103,20 @@ function checkAssignedTo(card, whichCard) {
     else {
         return '';
     }
+}
+
+async function getContactsNames(allContactsId) {
+    contactsNames = [];
+    for (let i = 0; i < allContactsId.length; i++) {
+        const contactId = allContactsId[i];
+        let contactIndex = everyContactList.findIndex(c => c.id == contactId);
+        let contactName = everyContactList[contactIndex]['name'];
+        contactsNames.push(contactName);
+    }
+}
+
+async function loadAllContacts() {
+    everyContactList = await getContactsArray();
 }
 
 

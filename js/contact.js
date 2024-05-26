@@ -283,9 +283,9 @@ async function deleteCurrentContact() {
   let realIndex = contactListUnsorted.findIndex(
     (contact) => contact.id === contactList[previousContactIndex].id
   );
-  let contactName = contactListUnsorted[realIndex].name;
+  let contactNameId = contactListUnsorted[realIndex].id;
   await deleteContact(previousContactIndex, realIndex);
-  deleteContactsFromTasks(contactName);
+  deleteContactsFromTasks(contactNameId);
 }
 
 
@@ -293,13 +293,11 @@ async function deleteCurrentContact() {
  * Removes the contact from tasks and updates the tasks.
  * @param {string} contactName - The name of the contact to remove.
  */
-async function deleteContactsFromTasks(contactName) {
+async function deleteContactsFromTasks(contactNameId) {
   await getAllTasks();
-  let updatedTasks = sortMatchingNames(contactName);
-
+  let updatedTasks = sortMatchingNames(contactNameId);
   for (let i = 0; i < updatedTasks.length; i++) {
     const newTask = updatedTasks[i];
-
     let indexOfCurTask = allTasks.findIndex((t) => t.id == newTask.id);
     console.log(indexOfCurTask);
 
@@ -324,13 +322,13 @@ async function deleteContactsFromTasks(contactName) {
  * @param {string} contactName - The name of the contact to remove.
  * @returns {Array} The updated tasks.
  */
-function sortMatchingNames(contactName) {
+function sortMatchingNames(contactNameId) {
   let filtered = [];
   for (let i = 0; i < allTasks.length; i++) {
     const task = allTasks[i];
     for (let j = 0; j < task.asigntTo.length; j++) {
       const element = task.asigntTo[j];
-      if (element == contactName) {
+      if (element == contactNameId) {
         allTasks[i].asigntTo.splice(j, 1);
         filtered.push(allTasks[i]);
       }

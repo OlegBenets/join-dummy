@@ -187,7 +187,6 @@ function pushContactInArray(name) {
 function renderSelectedContacts() {
   let selectedContactsContainer = document.getElementById("selected-contacts");
   selectedContactsContainer.innerHTML = "";
-
   for (let i = 0; i < assignedContacts.length; i++) {
     const contact = assignedContacts[i];
     let { initials } = extractInitialsAndName(contact);

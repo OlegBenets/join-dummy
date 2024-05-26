@@ -79,7 +79,7 @@ function getAssigntContactsNames() {
   let assigntToNames = [];
   for (let i = 0; i < assignedContacts.length; i++) {
     const contact = assignedContacts[i];
-    let assigntToName = contact.name;
+    let assigntToName = contact.id;
 
     assigntToNames.push(assigntToName);
   }

@@ -12,6 +12,7 @@ async function init() {
     await initPage();
     await loadAllData();
     await getAllTasks();
+    await loadAllContacts();
     loadCards();
 }
 

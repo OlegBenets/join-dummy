@@ -103,12 +103,14 @@ function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
+        let contactIndex = everyContactList.findIndex(c => c.id == card['asigntTo'][i]);
+        let contactName = everyContactList[contactIndex]['name'];
         circlesHTML += `
         <div class='big-card-one-assign'>
             <div class='circle-big-card' style='background-color: #${colors[i]};'>
                 <div class='initials'>${initialsArray[i]}</div>
             </div>
-            <div class='assigned-to-txt'>${card['asigntTo'][i]}</div>
+            <div class='assigned-to-txt'>${contactName}</div>
         </div>
         `;
     }
@@ -251,7 +253,7 @@ function generateHTMLEditTask(indexOfCurTask) {
             </div>
         </div>
         <span class="task-description-span">Assigned to</span>
-              <div onclick="showContactsToAssign()" class="add-task-input-container mb input-field-assigntTo">
+              <div onclick="toggleContactsToAssign(event)" class="add-task-input-container mb input-field-assigntTo">
                 <input onkeydown="searchContact()" placeholder="Select contacts to assign" class="contacts-assign"
                   id="input-assignTo" autocomplete="off">
                 <img id="drop-down-arrow" src="/assets/img/arrow_drop_down.svg">

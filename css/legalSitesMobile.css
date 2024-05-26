@@ -1,3 +1,12 @@
+@media (max-width: 1400px) {
+    @media (min-width: 1024px) {
+        .main-container {
+            width: 86%;
+            margin-left: 200px;
+        }
+    }
+}
+
 @media (max-width: 1023px) {
     .main-container {
         margin-left: 0;
