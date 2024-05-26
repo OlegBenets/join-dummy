@@ -296,7 +296,6 @@ async function validateLogin(userData) {
         setErrorHighlight(userData.passwordElement, selectErrorMsg(passwordMatch ? 'none' : 'password'));
     }
     let result = userFound && passwordMatch ? logindata[userIndex].id : false;
-    console.log(result);
     return result;
 }
 

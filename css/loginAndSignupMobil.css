@@ -24,19 +24,10 @@
     }
 
     .logInForm {
-        width: 396px;
+        width: 92.5vw;
+        max-width: 396px;
         padding: 32px 16px 32px 16px;
         box-sizing: border-box;
-    }
-
-    .logo {
-        top: 37px;
-        left: 38px;
-    }
-
-    .logo img {
-        width: 64px;
-        height: 78px;
     }
 
     .signUpLink {
@@ -117,7 +108,10 @@
 
 
     .signUpForm {
-        padding: 48px 115px 48px 115px;
+        width: 92.5vw;
+        max-width: 396px;
+        padding: 32px 16px 32px 16px;
+        box-sizing: border-box;
     }
 
 
@@ -146,6 +140,7 @@
         font-weight: 400;
         color: black;
         background-color: white !important;
+        width: 180px;
     }
 
     .input:-webkit-autofill {
@@ -288,8 +283,8 @@
 
     .backArrow {
         position: absolute;
-        top: 64px;
-        left: 48px;
+        top: 40px;
+        left: 10%;
         width: 32px;
         height: 32px;
         display: flex;
@@ -392,4 +387,16 @@
         background-color: var(--customized_gray);
     }
 
+}
+
+@media (max-width:1055px) {
+    .logo {
+        top: 37px;
+        left: 38px;
+    }
+
+    .logo img {
+        width: 64px;
+        height: 78px;
+    }
 }

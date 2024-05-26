@@ -1,8 +1,30 @@
 let contacts = [];
 let tasks = [];
 let loginData = [];
+let lastPage = loadSession('page');
 
 const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
+
+window.addEventListener('beforeunload', function () { saveLastPath() });
+
+function saveLastPath() {
+    let path = window.location.pathname;
+    let page = path.replace(/^\/html\/|\.html$/g, "");
+    saveSession('page', page);
+}
+
+function saveSession(key, value) {
+    sessionStorage.setItem(key, value);
+}
+
+function loadSession(key) {
+    return sessionStorage.getItem(key);
+}
+
+function deleteSession(key) {
+    sessionStorage.removeItem(key);
+}
+
 
 
 /**
