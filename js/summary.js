@@ -3,6 +3,7 @@ let logedUser = [];
 let logedUserDataArray = [];
 
 async function initSummary() {
+    greetingMobile();
     await initInclude();
     await loadAllData();
     await getAllTasks();
@@ -12,6 +13,7 @@ async function initSummary() {
     setDayTime();
     logedUserData();
     getProfileInitials();
+
 }
 
 function loadAmountsInSummary() {
@@ -50,37 +52,25 @@ function getUrgentDates() {
 
 function getEarliestDate() {
     getUrgentDates();
-
-    // Aktuelles Datum
     let currentDate = new Date();
-
-    // Array sortieren
     dateArray.sort((a, b) => new Date(a) - new Date(b));
-
-    // Das nächste zukünftige Datum finden
     for (let date of dateArray) {
         if (new Date(date) > currentDate) {
             return formatDate(date);
         }
     }
 
-    // Falls kein zukünftiges Datum gefunden wird, das früheste Datum zurückgeben
     if (dateArray.length > 0) {
         return formatDate(dateArray[0]);
     }
 
-    // Falls kein Datum im Array vorhanden ist
     return null;
 }
 
 function formatDate(dateStr) {
-    // Date-Objekt aus dem Datum-String erstellen
     let date = new Date(dateStr);
-  
-    // Optionen für die toLocaleDateString Methode
     let options = { year: 'numeric', month: 'long', day: 'numeric' };
   
-    // Datum in das gewünschte Format umwandeln
     return date.toLocaleDateString('en-US', options);
 }
 
@@ -143,3 +133,38 @@ function getProfileInitials() {
         container.innerHTML = 'G';
     }
 }
+
+
+function greetingMobile() {
+    let previousPage = getFromSessionStorage('page');
+    let container = document.getElementById('greeting-container');
+    
+    if (previousPage === 'login' && window.innerWidth < 1024) {
+        if (container) {
+            // Show the container
+            container.classList.add('show');
+            container.style.display = 'flex';
+
+            // Keep it visible for 2 seconds, then start fading out
+            setTimeout(() => {
+                container.style.opacity = '0';
+                
+                // After the opacity transition, set display to none
+                setTimeout(() => {
+                    container.style.display = 'none';
+                    container.classList.remove('show');
+                }, 2000); // Match this timeout with the CSS transition duration
+            }, 2000);
+        }
+    }
+}
+
+// Retrieve a variable from the session storage
+function getFromSessionStorage(key) {
+    let value = sessionStorage.getItem(key);
+    return value ? value : null;
+}
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     greetingMobile();
+// });

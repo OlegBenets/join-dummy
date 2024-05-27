@@ -175,10 +175,6 @@
         margin-top: 16px;
     }
 
-    .greeting-container {
-        display: none;
-    }
-
     .overwiev {
         left: 0;
         position: static;
@@ -219,9 +215,24 @@
         width: calc(300px - 38px);
     }
 
-    /* .todo-amount, .done-amount {
-        gap: 0;
-    } */
+    .greeting-container {
+        display: none;
+        opacity: 0;
+        transition: opacity 2s; /* Transition for opacity */
+    }
+    
+    .greeting-container.show {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        background-color: white;
+        left: 0;
+        top: 0;
+        opacity: 1; /* Fully visible */
+    }
     
 }
 
@@ -317,5 +328,13 @@
 
     .amount-tasks, .tasks-progress, .tasks-feedback {
         width: 86px;
+    }
+
+    .greeting-container h3 {
+        font-size: 32px;
+    }
+
+    .greeting-container h4 {
+        font-size: 24px !important;
     }
 }
