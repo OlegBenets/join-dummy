@@ -301,7 +301,6 @@ async function deleteContactsFromTasks(contactNameId) {
   for (let i = 0; i < updatedTasks.length; i++) {
     const newTask = updatedTasks[i];
     let indexOfCurTask = allTasks.findIndex((t) => t.id == newTask.id);
-    console.log(indexOfCurTask);
 
     let newUpdatedTask = creatTask(
       newTask["asigntTo"],
@@ -313,7 +312,6 @@ async function deleteContactsFromTasks(contactNameId) {
       newTask["subTasks"],
       newTask["title"]
     );
-    console.log(newUpdatedTask);
     await editTasks(indexOfCurTask, newUpdatedTask);
   }
 }
