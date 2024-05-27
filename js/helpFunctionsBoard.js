@@ -105,6 +105,12 @@ function checkAssignedTo(card, whichCard) {
     }
 }
 
+
+/**
+ * This function is used to get all names of the assigned contacts from their ids
+ * 
+ * @param {Array} allContactsId This contains the unique ids of the assigned contacts
+ */
 async function getContactsNames(allContactsId) {
     contactsNames = [];
     for (let i = 0; i < allContactsId.length; i++) {
@@ -115,6 +121,10 @@ async function getContactsNames(allContactsId) {
     }
 }
 
+
+/**
+ * This function is used to load all Contacts that exists
+ */
 async function loadAllContacts() {
     everyContactList = await getContactsArray();
 }
@@ -228,15 +238,15 @@ function checkCheckedSubtasks(allSubtasks) {
 function getAssigntContactsFromTask(cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
     let card = allTasks[indexOfCurTask];
-    let contacts = card['asigntTo'];
+    let contactsIds = card['asigntTo'];
 
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i];
+    for (let i = 0; i < contactsIds.length; i++) {
+        const contactId = contactsIds[i];
         
-        let indexOfContact = assignedContactsList.findIndex(c => c.name == contactName);
-        let contact = assignedContactsList[indexOfContact];
+        let indexOfContact = assignedContactsList.findIndex(c => c.id == contactId);
+        let contactName = assignedContactsList[indexOfContact];
 
-        assignedContacts.push(contact);
+        assignedContacts.push(contactName);
     }
 }
 
