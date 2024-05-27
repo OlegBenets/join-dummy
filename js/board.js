@@ -183,6 +183,7 @@ function showEditTask(id) {
     }
     renderSelectedContacts();
     showContactsToAssign(event);
+    simulateClickButton('input-assignTo');
 }
 
 
