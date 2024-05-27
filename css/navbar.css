@@ -46,7 +46,6 @@
 .menubar li {
     height: 46px;
     width: 100%;
-    /* background: #2A3647; */
     margin-bottom: 15px;
     list-style: none;
     display: flex;
