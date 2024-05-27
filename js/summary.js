@@ -2,6 +2,10 @@ let dateArray = [];
 let logedUser = [];
 let logedUserDataArray = [];
 
+
+/**
+ * This function is used to initializes the summary by loading data and setting up the user interface.
+ */
 async function initSummary() {
     greetingMobile();
     await initInclude();
@@ -13,9 +17,12 @@ async function initSummary() {
     setDayTime();
     logedUserData();
     getProfileInitials();
-
 }
 
+
+/**
+ * This function is used to load the amounts of different task categories into the summary.
+ */
 function loadAmountsInSummary() {
     document.getElementById('todo-amount').innerHTML = getAmountOfTodos();
     document.getElementById('done-amount').innerHTML = getAmountOfDone();
@@ -26,16 +33,34 @@ function loadAmountsInSummary() {
     document.getElementById('amount-tasks-feedback').innerHTML = getFeedbackTasks();
 }
 
+
+/**
+ * This function is used to get the number of tasks with status 'todo'.
+ * 
+ * @returns {number} The number of 'todo' tasks.
+ */
 function getAmountOfTodos() {
     let todo = allTasks.filter(t => t['status'] == 'todo');
     return todo.length;
 }
 
+
+/**
+ * This function is used to get the number of tasks with status 'done'.
+ * 
+ * @returns {number} The number of 'done' tasks.
+ */
 function getAmountOfDone() {
     let done = allTasks.filter(t => t['status'] == 'done');
     return done.length;
 }
 
+
+/**
+ * This function is used to get the number of tasks with priority 'Urgent' and stores their dates.
+ * 
+ * @returns {number} The number of urgent tasks.
+ */
 function getUrgentDates() {
     let allUrgent = allTasks.filter(t => t['prio'] == 'Urgent');
     dateArray = [];
@@ -50,6 +75,12 @@ function getUrgentDates() {
     return allUrgent.length;
 }
 
+
+/**
+ * This function is used to get the earliest date from the list of urgent task dates.
+ * 
+ * @returns {string|null} The earliest date formatted, or null if no dates are available.
+ */
 function getEarliestDate() {
     getUrgentDates();
     let currentDate = new Date();
@@ -67,6 +98,13 @@ function getEarliestDate() {
     return null;
 }
 
+
+/**
+ * This function is used to format a date string into a more readable format.
+ * 
+ * @param {string} dateStr - The date string to format.
+ * @returns {string} The formatted date string.
+ */
 function formatDate(dateStr) {
     let date = new Date(dateStr);
     let options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -74,20 +112,42 @@ function formatDate(dateStr) {
     return date.toLocaleDateString('en-US', options);
 }
 
+
+/**
+ * This function is used to get the total number of tasks.
+ * 
+ * @returns {number} The total number of tasks.
+ */
 function getAmountOfAllTasks() {
     return allTasks.length;
 }
 
+
+/**
+ * This function is used to get the number of tasks with status 'progress'.
+ * 
+ * @returns {number} The number of 'progress' tasks.
+ */
 function getProgressTasks() {
     let progress = allTasks.filter(t => t['status'] == 'progress');
     return progress.length;
 }
 
+
+/**
+ * This function is used to get the number of tasks with status 'await'.
+ * 
+ * @returns {number} The number of 'await' tasks.
+ */
 function getFeedbackTasks() {
     let feedback = allTasks.filter(t => t['status'] == 'await');
     return feedback.length;
 }
 
+
+/**
+ * This function is used to set the greeting message based on the current time of day.
+ */
 function setDayTime() {
     let greetingElement = document.getElementById('greeting-user');
     let currentDate = new Date();
@@ -106,6 +166,10 @@ function setDayTime() {
     greetingElement.textContent = greeting;
 }
 
+
+/**
+ * This function is used to load the logged user data and sets the greeting message with the user's name.
+ */
 function logedUserData() {
     let greetingUserElement = document.getElementById('loged-user');
     let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
@@ -119,6 +183,10 @@ function logedUserData() {
     }
 }
 
+
+/**
+ * This function is used to set the profile initials of the logged user.
+ */
 function getProfileInitials() {
     let container = document.getElementById('profile-initials');
     let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
@@ -135,36 +203,37 @@ function getProfileInitials() {
 }
 
 
+/**
+ * This function is used to display a greeting message for mobile users if the previous page was 'login'.
+ */
 function greetingMobile() {
     let previousPage = getFromSessionStorage('page');
     let container = document.getElementById('greeting-container');
     
     if (previousPage === 'login' && window.innerWidth < 1024) {
         if (container) {
-            // Show the container
             container.classList.add('show');
             container.style.display = 'flex';
 
-            // Keep it visible for 2 seconds, then start fading out
             setTimeout(() => {
                 container.style.opacity = '0';
-                
-                // After the opacity transition, set display to none
                 setTimeout(() => {
                     container.style.display = 'none';
                     container.classList.remove('show');
-                }, 2000); // Match this timeout with the CSS transition duration
+                }, 2000);
             }, 2000);
         }
     }
 }
 
-// Retrieve a variable from the session storage
+
+/**
+ * This function is used to retrieve a value from the session storage.
+ * 
+ * @param {string} key - The key of the value to retrieve.
+ * @returns {any} The retrieved value.
+ */
 function getFromSessionStorage(key) {
     let value = sessionStorage.getItem(key);
     return value ? value : null;
 }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     greetingMobile();
-// });
