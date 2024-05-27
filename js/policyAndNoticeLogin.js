@@ -1,3 +1,6 @@
+    /**
+     * This function is used to add event listeners and modifies the DOM based on the current page.
+     */
 document.addEventListener('DOMContentLoaded', (event) => {
     // Funktion zum Hinzufügen der Event Listener
     function addEventListeners() {
@@ -17,26 +20,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
           }
     }
   
-    // Mutation Observer einrichten
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          // Überprüfen, ob das gewünschte Element hinzugefügt wurde
           if (document.getElementById('menubar')) {
             addEventListeners();
-            // Observer stoppen, nachdem die Event Listener hinzugefügt wurden
             observer.disconnect();
           }
         }
       });
     });
   
-    // Observer Konfiguration
     const config = {
       childList: true, 
       subtree: true
     };
   
-    // Beobachtung des gesamten Dokumenten-Knotens starten
     observer.observe(document.body, config);
 });

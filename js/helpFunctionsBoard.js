@@ -9,6 +9,7 @@ let everyContactList = [];
 let contactsNames = [];
 let allContacts = [];
 
+
 /**
  * This function creates the preview of the small tasks descriptions
  * 

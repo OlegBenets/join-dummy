@@ -1,3 +1,6 @@
+/**
+ * This function is used to update the navigation menu to highlight the selected menu item based on the current page.
+ */
 function selectMenu() {
     const SUMMARY_MENU = document.getElementById('summary-menu');
     const ADDTASK_MENU = document.getElementById('addTask-menu');
