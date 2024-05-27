@@ -1,3 +1,9 @@
+@media (max-width:1700px) {
+    .contact-card {
+        left: 100px;
+    }
+}
+
 @media (max-width: 1402px) {
     .main-container {
         margin-left: 200px;
@@ -69,6 +75,10 @@ body {
     width: 100vw;
     height: 100vh;
   }
+
+  .contact-card {
+    left: 0;
+}
 
   .contacts-container {
     width: 100vw;

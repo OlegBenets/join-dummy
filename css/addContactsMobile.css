@@ -1,3 +1,40 @@
+@media (max-width: 1700px) { 
+    .create-contact-container {
+        width: 812px;
+        height: 592px;}
+}
+
+.navbar-title {
+    align-items: flex-start;
+    width: calc(367px - 48px);
+    height: calc(592px - 132px);
+    padding: 66px 24px;
+}
+
+.logo {
+    top: 54px;
+}
+
+.create-contact-title {
+    margin-top: 100px;
+}
+
+.contact-img {
+    top: 54px;
+    left: 525px;
+}
+
+.create-contact-data {
+    top: 237px;
+    left: 378px;
+}
+
+.button-container {
+    top: 500px;
+    left: 410px;
+    justify-content: center;
+}
+
 @media (max-width: 1023px) { 
 
     .contact-card {

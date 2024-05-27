@@ -120,6 +120,7 @@ function showEditContact(parameter) {
     editCard.classList.remove("remove-contact-container");
   } else if (parameter == "hide") {
     editCard.classList.add("remove-contact-container");
+    clearErrors();
   }
   renderEditContact(contact);
 }
@@ -229,6 +230,7 @@ function showAddContact(parameter) {
     contactCard.classList.remove("remove-contact-container");
   } else {
     contactCard.classList.add("remove-contact-container");
+    clearErrors();
   }
 }
 

@@ -122,3 +122,24 @@ function validateInput(isValid, inputElement, errorElementId) {
     errorText.style.display = "none";
   }
 }
+
+
+/**
+ * Clears all error borders and error messages from the contact card form fields.
+ */
+function clearErrors() {
+ let inputs = document.querySelectorAll("#contact-card input, #edit-card input");
+ inputs.forEach(input => {
+  removeErrorBorder(input.parentElement);
+
+  let baseId = input.id.replace("contact-", "").replace("edit-contact-", "edit");
+  let errorContainerId = baseId + "-error";
+  let errorElement = document.getElementById(errorContainerId);
+  if (errorElement) {
+    let errorText = errorElement.querySelector(".error-text");
+    if (errorText) {
+      errorText.style.display = "none";
+    }
+  }
+});
+}
