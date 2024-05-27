@@ -2,7 +2,6 @@
     .create-contact-container {
         width: 812px;
         height: 592px;}
-}
 
 .navbar-title {
     align-items: flex-start;
@@ -34,6 +33,11 @@
     justify-content: center;
 }
 
+.close-contact {
+    top: 15px;
+    left: 94%;
+}
+}
 @media (max-width: 1023px) { 
 
     .contact-card {
@@ -74,6 +78,7 @@
         gap: 16px;
         width: 282px;
         height: 104px;
+        margin-top: 0;
     }
 
     .close-contact {

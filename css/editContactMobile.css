@@ -152,7 +152,7 @@
 
     .button-container {
         position: absolute;
-        top: 510px;
+        top: 85%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
