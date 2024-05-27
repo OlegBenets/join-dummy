@@ -33,17 +33,14 @@ function loadCards() {
  */
 function loadTodoCards() {
     let todo = allTasks.filter(t => t['status'] == 'todo');
-
     document.getElementById('todo-column').innerHTML = '';
-
     if (todo.length !== 0) {
         for (let i = 0; i < todo.length; i++) {
             const card = todo[i];
             document.getElementById('todo-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
-    }
-    else {
+    } else {
         document.getElementById('todo-column').innerHTML += generateEmptyColumnHTML('To do');
     };
 }
@@ -54,17 +51,14 @@ function loadTodoCards() {
  */
 function loadProgressCards() {
     let progress = allTasks.filter(t => t['status'] == 'progress');
-
     document.getElementById('progress-column').innerHTML = '';
-
     if (progress.length !== 0) {
         for (let i = 0; i < progress.length; i++) {
             const card = progress[i];
             document.getElementById('progress-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
-    }
-    else {
+    } else {
         document.getElementById('progress-column').innerHTML += generateEmptyColumnHTML('in progress');
     }
 }
@@ -75,17 +69,14 @@ function loadProgressCards() {
  */
 function loadAwaitCards() {
     let feedback = allTasks.filter(t => t['status'] == 'await');
-
     document.getElementById('await-column').innerHTML = '';
-
     if (feedback.length !== 0) {
         for (let i = 0; i < feedback.length; i++) {
             const card = feedback[i];
             document.getElementById('await-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
-    }
-    else {
+    } else {
         document.getElementById('await-column').innerHTML += generateEmptyColumnHTML('await feedback');
     }
 }
@@ -96,17 +87,14 @@ function loadAwaitCards() {
  */
 function loadDoneCards() {
     let done = allTasks.filter(t => t['status'] == 'done');
-
     document.getElementById('done-column').innerHTML = '';
-
     if (done.length !== 0) {
         for (let i = 0; i < done.length; i++) {
             const card = done[i];
             document.getElementById('done-column').innerHTML += generateTaskHTML(card);
             calculateProgressBar(card);
         }
-    }
-    else {
+    } else {
         document.getElementById('done-column').innerHTML += generateEmptyColumnHTML('done');
     }
 }
@@ -138,28 +126,41 @@ function renderBigCard(cardId) {
  * @param {number} indexOfCurTask This contains the index of the respective task
  */
 async function editTask(indexOfCurTask) {
+    let taskInfo = getTaskInformations(indexOfCurTask);
+    for (let i = 0; i < taskInfo.oldSubtasks.length; i++) {
+        const subtask = taskInfo.oldSubtasks[i];
+        currentSubtasks.push(subtask);
+    }
+    let task = creatTask(taskInfo.assignedTo, taskInfo.category, taskInfo.date, taskInfo.description, taskInfo.prio, taskInfo.status, currentSubtasks, taskInfo.title
+    );
+    task['id'] = taskInfo.cardId;
+    await editTasks(indexOfCurTask, task);
+    await getAllTasks();
+    loadCards();
+    resetForm();
+    renderBigCard(taskInfo.cardId);
+}
+
+
+/**
+ * This function is used to get all the informations from the task with the specific index
+ * 
+ * @param {number} indexOfCurTask This contains the index of the respective task
+ * @returns 
+ */
+function getTaskInformations(indexOfCurTask) {
     let cardId = allTasks[indexOfCurTask]['id'];
     let title = document.getElementById("input-title" + indexOfCurTask).value;
     let description = document.getElementById("input-description" + indexOfCurTask).value;
-    let asigntTo = getAssigntContactsNames();
+    let assignedTo = getAssigntContactsNames();
     let date = document.getElementById("input-date" + indexOfCurTask).value;
     let category = allTasks[indexOfCurTask]['category'];
     let oldSubtasks = allTasks[indexOfCurTask]['subTasks'];
     let status = allTasks[indexOfCurTask]['status'];
     let prio = currentPrio;
 
-    for (let i = 0; i < oldSubtasks.length; i++) {
-        const subtask = oldSubtasks[i];
-        currentSubtasks.push(subtask);
-    }
-
-    let task = creatTask(asigntTo, category, date, description, prio, status, currentSubtasks, title);
-    task['id'] = cardId;
-    await editTasks(indexOfCurTask, task);
-    await getAllTasks();
-    loadCards();
-    resetForm();
-    renderBigCard(cardId);
+    return {cardId, title, description, assignedTo, date, category, oldSubtasks, status, prio
+    };
 }
 
 
@@ -172,7 +173,6 @@ function showEditTask(id) {
     let container = document.getElementById('big-card-container');
     let indexOfCurTask = allTasks.findIndex(t => t.id === id);
     currentPrio = allTasks[indexOfCurTask]['prio'];
-
     container.innerHTML = generateHTMLEditTask(indexOfCurTask);
     if (currentPrio == 'Low') {
         selectDefaultPrio('button-low');
@@ -215,7 +215,6 @@ function checkTasks(filter, filteredTasks) {
         const curTask = allTasks[i];
         const title = curTask['title'].toLowerCase();
         const description = curTask['description'].toLowerCase();
-
         if (title.includes(filter) || description.includes(filter)) {
             filteredTasks.push(curTask)
         }
@@ -258,17 +257,7 @@ function allowDrop(ev) {
  */
 async function moveTo(category) {
     const taskId = currentDraggedItem !== null ? currentDraggedItem : currentTouchedItem;
-    if (taskId === null) {
-        console.error('No task is being moved');
-        return;
-    }
-
     const indexOfTask = allTasks.findIndex(task => task.id === taskId);
-    if (indexOfTask === -1) {
-        console.error(`Task with id ${taskId} not found`);
-        return;
-    }
-
     let task = allTasks[indexOfTask];
     task.status = category;
     await editTasks(indexOfTask, task);
@@ -389,14 +378,11 @@ async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     let indexOfTask = allTasks.findIndex(task => task.id === cardId);
     let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
     let newSubtaskStatus = '';
-
     if (SubtaskStatus === 'unchecked') {
         newSubtaskStatus = 'checked';
-    }
-    else {
+    } else {
         newSubtaskStatus = 'unchecked';
     }
-
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);
     await getAllTasks();

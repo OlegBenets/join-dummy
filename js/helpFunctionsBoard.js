@@ -276,10 +276,10 @@ function startDragging(id, event) {
 
 
 /**
- * This function is used to start touching a task via touch
+ * This function is used to start touching a task via touch.
  * 
- * @param {number} id This contains the unique id of the task
- * @param {object} event The touch event object
+ * @param {number} id - The unique id of the task.
+ * @param {object} event - The touch event object.
  */
 function startTouching(id, event) {
     touchTimer = setTimeout(() => {
@@ -291,11 +291,21 @@ function startTouching(id, event) {
         }
         const touch = event.touches[0];
         const rect = draggedElement.getBoundingClientRect();
-        touchOffsetX = rect.right - 100;
-        touchOffsetY = rect.bottom - touch.clientY;
+        touchOffsetX = rect.width / 2;
+        touchOffsetY = rect.height / 2;
         touchStartX = touch.clientX;
         touchStartY = touch.clientY;
-    }, 500);
+    }, 1000);
+    
+    event.target.addEventListener('touchend', cancelTouching, { once: true });
+}
+
+
+/**
+ * Cancels the touch action if it ends before the timer triggers.
+ */
+function cancelTouching() {
+    clearTimeout(touchTimer);
 }
 
 
