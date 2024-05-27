@@ -7,7 +7,6 @@
 .navbar-title {
     align-items: flex-start;
     width: calc(367px - 48px);
-    height: calc(592px - 132px);
     padding: 66px 24px;
 }
 
