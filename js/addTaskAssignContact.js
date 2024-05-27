@@ -2,7 +2,8 @@
  * Sets up the event listeners for the document and the contacts list.
  */
 function setupEventListeners() {
-  if (window.location.pathname.includes("addTask.html")) {
+  let pathname = window.location.pathname;
+  if (pathname.includes("addTask.html") || pathname.includes("board.html")) {
   document.addEventListener("click", handleDocumentClick);
   document.getElementById("contacts-list").addEventListener("click", assignContactToTask);
   }
