@@ -182,7 +182,7 @@ function showEditTask(id) {
         selectDefaultPrio('button-urgent');
     }
     renderSelectedContacts();
-    showContactsToAssign();
+    showContactsToAssign(event);
 }
 
 

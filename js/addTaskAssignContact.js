@@ -30,6 +30,7 @@ function handleDocumentClick(event) {
  * @param {Event} event - The event object that triggers toggling the contacts list.
  */
 function toggleContactsToAssign(event) {
+  event.stopPropagation(); 
   let contactAssignList = document.getElementById("contacts-list");
   if (contactAssignList.classList.contains("hidden")) {
     showContactsToAssign(event);
@@ -45,6 +46,7 @@ function toggleContactsToAssign(event) {
  * @param {Event} event - The event object that triggers showing the contacts list.
  */
 function showContactsToAssign(event) {
+  event.stopPropagation(); 
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
 
@@ -55,12 +57,7 @@ function showContactsToAssign(event) {
 }
 
 
-/**
- * Hides the contacts list.
- *
- * @param {Event} event - The event object that triggers hiding the contacts list.
- */
-function hideContactsToAssign(event) {
+function hideContactsToAssign() {
   let contactAssignList = document.getElementById("contacts-list");
   let arrow = document.getElementById("drop-down-arrow");
 
