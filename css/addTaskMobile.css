@@ -1,0 +1,123 @@
+@media (max-width:1350px) {
+
+.main-container {
+    margin-left: 200px;
+    width: 800px;
+}
+
+.add-Task-container {
+    width: 800px;
+}
+
+.task-description {
+    width: 340px;
+}
+
+.task-deadline {
+    width: 340px;
+}
+
+.task-buttons {
+    left: 50%;
+}
+
+.contacts-list {
+    width: 97%;
+}
+}
+
+@media (max-width: 1023px) {  
+
+    .main-container {
+        margin-left: 0;
+        margin-top: 30px;
+        width: 100vw;
+    }
+    
+    .add-task-header {
+        text-align: center;
+        margin-left: 0;
+        padding: 0 12px;
+    }
+    
+    .seperate-description-deadline {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px;
+    }
+
+    .seperator {
+        display: none;
+    }
+
+    .add-Task-container {
+        width: 100%;
+    }
+
+    .alert {
+     top: unset;
+     bottom: -30%;
+     z-index: 10;
+    }
+
+    .task-buttons {
+        top: unset;
+        bottom: -32%;
+        left: 250px;
+    }
+
+    .clear-button {
+        display: none;
+    }
+
+    .task-description {
+        width: calc(100% - 12px);
+    }
+
+    .task-deadline {
+        width: calc(100% - 12px);
+    }
+
+    .prio-container {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .button-prio {
+        width: 30%;
+        font-size: 14px;
+    }
+
+    .prio-buttons {
+       width: 10px; 
+       height: 10px;
+    }
+
+    .prio-container {
+
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .add-task-header {
+        font-size: 40px;
+    }
+
+    .task-description-span {
+        font-size: 18px;
+    }
+
+    .task-description input {
+        font-size: 16px;
+    }
+
+    .task-description input::placeholder,
+     textarea::placeholder, 
+     select::placeholder {
+        font-size: 16px;
+    }
+}
