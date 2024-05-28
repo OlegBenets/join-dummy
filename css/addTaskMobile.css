@@ -132,6 +132,10 @@
         overflow-x: hidden;
     }
 
+    .subtask-edit-input {
+        width: 75%;
+    }
+
 }
 
 @media (max-width: 400px) {
