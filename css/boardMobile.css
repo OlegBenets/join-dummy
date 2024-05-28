@@ -175,6 +175,10 @@
 }
 
 @media (max-width: 1023px) {
+    .z-index-100 {
+        display: none;
+    }
+
     .board-header {
         flex-direction: column;
         margin-bottom: 0;
@@ -185,6 +189,7 @@
         margin-top: 80px;
         margin-bottom: 95px;
         width: 100%;
+        overflow-x: hidden;
     }
 
     .board-addTask-button-mobile {
