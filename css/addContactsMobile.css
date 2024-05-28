@@ -147,3 +147,17 @@
         padding: 18px 10px;
     }
 }
+
+@media (max-width: 400px) {
+    .button-container button {
+        font-size: 18px;
+      }
+
+      .input-container input {
+        font-size: 18px;
+    }
+
+    .input-container input::placeholder {
+        font-size: 18px;
+    }
+}

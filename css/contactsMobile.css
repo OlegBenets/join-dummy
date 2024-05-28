@@ -158,4 +158,8 @@ body {
     .contact-data {
         width: 150px;
     }
+
+    .border-container {
+        padding: 0;
+    }
 }

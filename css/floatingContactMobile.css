@@ -195,4 +195,34 @@
     white-space: wrap;
     overflow: hidden;
 }
+
+.contact-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.contact-icon h3 {
+  font-size: 28px;
+}
+
+.name h3 {
+  font-size: 28px;
+}
+
+.contact-information-title span {
+  font-size: 18px;
+}
+
+.contact-data h4 {
+  font-size: 18px;
+}
+
+.image-container span {
+  font-size: 16px;
+}
+
+.contact {
+  padding: 4px 24px;
+}
+
 }
