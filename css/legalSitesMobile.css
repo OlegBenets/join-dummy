@@ -1,16 +1,16 @@
+@media (max-width: 1460px) {
+    .main-container {
+        width: 75%;
+    }
+}
+
 @media (max-width: 1400px) {
-    @media (min-width: 1024px) {
         .main-container {
-            width: 100%;
+            width: 80%;
             margin-left: 200px;
             overflow: hidden;
         }
-
-        .content-container {
-            width: calc(100% - 200px);
-        }
     }
-}
 
 @media (max-width: 1023px) {
     .main-container {
