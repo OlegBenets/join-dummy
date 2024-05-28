@@ -175,7 +175,7 @@
 }
 
 @media (max-width: 1023px) {
-    .z-index-100 {
+    .display-mobile {
         display: none;
     }
 
