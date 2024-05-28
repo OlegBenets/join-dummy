@@ -11,6 +11,7 @@ async function init() {
   await loadAllData();
   contactList = await getContactsArray();
   loadContacts();
+  getProfileInitials();
 }
 
 

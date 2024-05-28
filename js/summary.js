@@ -1,6 +1,4 @@
 let dateArray = [];
-let logedUser = [];
-let logedUserDataArray = [];
 
 
 /**
@@ -11,8 +9,6 @@ async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
-    logedUserDataArray = await getLoginDataArray();
-    logedUser = loadLocal('activUser');
     loadAmountsInSummary();
     setDayTime();
     logedUserData();
@@ -180,25 +176,6 @@ function logedUserData() {
         greetingUserElement.textContent = name;
     } else {
         greetingUserElement.textContent = "Guest";
-    }
-}
-
-
-/**
- * This function is used to set the profile initials of the logged user.
- */
-function getProfileInitials() {
-    let container = document.getElementById('profile-initials');
-    let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
-    let user = logedUserDataArray[userIndex];
-
-    if (userIndex >= 0) {
-        let { name } = extractInitialsAndName(user);
-        let words = name.split(" ");
-        let initials = words.map(word => word[0]).join("");
-        container.innerHTML = initials;
-    } else {
-        container.innerHTML = 'G';
     }
 }
 

@@ -14,6 +14,7 @@ async function init() {
     await getAllTasks();
     await loadAllContacts();
     loadCards();
+    getProfileInitials();
 }
 
 
