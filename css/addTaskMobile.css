@@ -21,17 +21,35 @@
     left: 50%;
 }
 
+.drop-down-contacts {
+    width: calc(95% + 12px);
+    height: 180px;
+}
+
 .contacts-list {
-    width: 97%;
+    width: 100%;
+}
+
+.contacts-list {
+    max-height: 180px;
+}
+
+#selected-contacts {
+    width: calc(100% - 16px);
 }
 }
 
 @media (max-width: 1023px) {  
 
+    .add-Task-container::-webkit-scrollbar {
+        width: 6px;
+      }
+
     .main-container {
         margin-left: 0;
         margin-top: 30px;
-        width: 100vw;
+        width: calc(100vw - 24px);
+        padding: 12px;
     }
     
     .add-task-header {
@@ -43,7 +61,7 @@
     .seperate-description-deadline {
         flex-direction: column;
         align-items: center;
-        padding: 12px;
+        height: auto;
     }
 
     .seperator {
@@ -51,19 +69,23 @@
     }
 
     .add-Task-container {
-        width: 100%;
+        width: calc(100% + 6px);
     }
 
     .alert {
      top: unset;
-     bottom: -30%;
+     bottom: -46%;
      z-index: 10;
+     left: 20px;
     }
 
     .task-buttons {
         top: unset;
-        bottom: -32%;
-        left: 250px;
+        bottom: -48%;
+        left: unset;
+        right: 20px;
+        justify-content: flex-end;
+        width: 180px;
     }
 
     .clear-button {
@@ -82,6 +104,25 @@
         display: flex;
         gap: 24px;
         justify-content: center;
+    }
+
+    .contacts-list {
+        max-height: 106px;
+    }
+
+    .drop-down-contacts {
+        height: 106px;
+    }
+
+    .subtask-popup-edit-container {
+        margin-top: 0px;
+        height: 26px;
+    }
+
+    .subtasks-popup-section {
+        height: 250px;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
 }
@@ -111,13 +152,71 @@
         font-size: 18px;
     }
 
+    .task-deadline-span {
+        font-size: 18px;
+    }
+
     .task-description input {
         font-size: 16px;
     }
 
     .task-description input::placeholder,
-     textarea::placeholder, 
-     select::placeholder {
+     textarea::placeholder {
         font-size: 16px;
     }
+    
+    input[type="date"]::-webkit-datetime-edit {
+        font-size: 16px;
+    }
+    
+    select option {
+        font-size: 16px;
+    }
+
+    select option[hidden][disabled][selected] {
+        font-size: 16px;
+    }
+
+    .task-buttons {
+        width: 140px;
+        right: 0px;
+    }
+
+    .alert {
+        font-size: 14px;
+        left: 0px;
+       }
+
+       .assigned-contact-name {
+        font-size: 18px;
+    }
+
+    .assigned-contact-initials {
+        width: 32px;
+        height: 32px;
+    }
+
+    .uncheck-contact {
+        width: 16px;
+        height: 16px;
+    }
+
+    .check-contact {
+        width: 16px;
+        height: 16px;
+    }
+
+    .task-buttons button {
+        font-size: 16px;
+    }
+
+    .task-buttons img {
+        width: 14px;
+        height: 14px;
+    }
+
+    .create-button {
+        padding: 8px;
+    }
+
 }
