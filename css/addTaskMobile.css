@@ -226,4 +226,11 @@
         padding: 8px;
     }
 
+    .add-task-input-container input::placeholder {
+        font-size: 16px;
+    }
+
+    .add-task-input-container select {
+        font-size: 16px;
+    }
 }
