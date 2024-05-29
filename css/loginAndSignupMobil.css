@@ -132,6 +132,8 @@
         max-width: 396px;
         padding: 32px 16px 32px 16px;
         box-sizing: border-box;
+        height: 56%;
+        justify-content: flex-end;
     }
 
     .input {
@@ -163,12 +165,70 @@
 
     .backArrow {
         left: 10%;
+        top: 28px;
      
     }
 
     .logo {
         top: 24px;
         left: 30px;
+    }
+}
+
+@media (max-height: 900px) {
+    .signUpForm {
+        height: 61%;
+    }
+
+    .haedline h1 {
+        font-size: 40px;
+    }
+
+    .haedline {
+        gap: 0;
+    }
+
+    .backArrow {
+        top: 22px;
+    }
+}
+
+@media (max-height: 850px) {
+    .gap24 {
+        gap: 0;
+    }
+}
+
+@media (max-height: 790px) {
+    .signUpForm {
+        height: 67%;
+    }
+}
+
+@media (max-height: 720px) {
+    .signUpForm {
+        height: 74%;
+        margin-bottom: -55px;
+    }
+}
+
+@media (max-height: 650px) {
+    .login label {
+        margin-top: 0;
+    }
+
+    .logo img {
+        width: 44px;
+        height: 58px;
+    }
+
+    .signUpForm {
+        height: 80%;
+        margin-bottom: -46px;
+    }
+
+    .legalLinksBox {
+        bottom: 4px;
     }
 }
 
