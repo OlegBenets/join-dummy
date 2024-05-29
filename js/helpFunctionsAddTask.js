@@ -108,3 +108,13 @@ function unsetBorder(event) {
   let target = event.target;
   target.parentElement.classList.remove("focused");
 }
+
+
+/**
+ * Sets the minimum date for the date input field to today's date.
+ * This ensures that users cannot select a date in the past.
+ */
+function initializeDateInput() {
+  let today = new Date().toISOString().split('T')[0];
+  document.getElementById('input-date').setAttribute('min', today);
+}

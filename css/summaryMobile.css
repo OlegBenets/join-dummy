@@ -240,6 +240,12 @@
 }
 
 @media (max-width: 650px) {
+
+    .headline-container {
+        align-items: center;
+        margin-left: 0;
+    }
+
     .todo, .done {
         width: 148px;
         height: 34px;
@@ -256,13 +262,14 @@
         margin-top: 40px;
         margin-bottom: 30px;
         height: auto;
+        justify-content: center;
     }
 
     .prio-date {
         position: static;
         width: 291px;
-        margin-left: 16px;
-        margin-right: 16px;
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: 30px;
         height: calc(110px - 56px);
     }
@@ -271,6 +278,7 @@
         position: static;
         display: flex;
         width: 100%;
+        justify-content: center;
     }
 
     .amount-tasks, .tasks-progress, .tasks-feedback {

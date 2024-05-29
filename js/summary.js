@@ -170,8 +170,13 @@ function setDayTime() {
  */
 function logedUserData() {
     let greetingUserElement = document.getElementById('loged-user');
+    console.log('logedUser:', logedUser, typeof logedUser);
     let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
+    console.log(logedUserDataArray)
+    console.log(userIndex);
+    console.log(logedUserDataArray.map(u => u.id));
     let user = logedUserDataArray[userIndex];
+    console.log(user);
 
     if (userIndex >= 0) {
         let { name } = extractInitialsAndName(user);

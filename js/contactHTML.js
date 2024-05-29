@@ -7,7 +7,7 @@ function renderInitial(initial) {
   return /*html*/ `
   <div class="sort-contacts"><h4>${initial}</h4></div>
   <div class="border-container">
-  <div class="border-grey"></div>
+   <div class="border-grey"></div>
   </div>`;
 }
 
