@@ -1,4 +1,6 @@
 let allTasks = [];
+let scrollInterval;
+let scrollSpeed = 25;
 
 
 /**
@@ -214,16 +216,46 @@ function cancelTouching() {
  */
 function touchMove(ev) {
     if (!isTouchMoving) return;
-
-    ev.preventDefault();
     const touch = ev.touches[0];
     const draggedElement = document.getElementById(currentTouchedItem);
-
+    ev.preventDefault();
     if (draggedElement) {
+        const clientRect = draggedElement.getBoundingClientRect();
+        const screenHeight = window.innerHeight;
+        const scrollZoneHeight = screenHeight * 0.2; // Adjust scroll zone height as needed
+        if (touch.clientY < scrollZoneHeight && window.scrollY > 0) {
+            // Dragged to top scroll zone
+            startScrolling(-1); // Start scrolling upwards
+        } else if (touch.clientY > screenHeight - scrollZoneHeight && window.scrollY < document.body.scrollHeight - screenHeight) {
+            // Dragged to bottom scroll zone
+            startScrolling(1); // Start scrolling downwards
+        } else {
+            stopScrolling(); // Stop scrolling if not in top or bottom scroll zone
+        }
         moveDraggedElement(touch, draggedElement);
     }
-
     highlightTargetColumn(touch);
+}
+
+
+/**
+ * Start scrolling continuously in a specified direction.
+ * 
+ * @param {number} direction - The direction of scrolling (-1 for upwards, 1 for downwards).
+ */
+function startScrolling(direction) {
+    stopScrolling(); // Stop any ongoing scrolling first
+    scrollInterval = setInterval(() => {
+        window.scrollBy(0, direction * scrollSpeed);
+    }, 100); // Adjust scroll interval as needed
+}
+
+
+/**
+ * Stop any ongoing scrolling.
+ */
+function stopScrolling() {
+    clearInterval(scrollInterval);
 }
 
 
@@ -247,7 +279,6 @@ function moveDraggedElement(touch, draggedElement) {
  */
 function highlightTargetColumn(touch) {
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
-
     if (element) {
         if (element.classList.contains('todo-column')) {
             highlight('todo-column');
