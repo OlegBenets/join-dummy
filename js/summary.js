@@ -9,6 +9,7 @@ async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
+    await loadLoginData();
     loadAmountsInSummary();
     setDayTime();
     logedUserData();
@@ -151,7 +152,7 @@ function setDayTime() {
     let greeting;
   
     if (hours >= 5 && hours < 12) {
-      greeting = "Godd morning,";
+      greeting = "Good morning,";
     } else if (hours >= 12 && hours < 18) {
       greeting = "Good afternoon,";
     } else if (hours >= 18 && hours < 22) {
@@ -168,8 +169,13 @@ function setDayTime() {
  */
 function logedUserData() {
     let greetingUserElement = document.getElementById('loged-user');
+    console.log('logedUser:', logedUser, typeof logedUser);
     let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
+    console.log(logedUserDataArray)
+    console.log(userIndex);
+    console.log(logedUserDataArray.map(u => u.id));
     let user = logedUserDataArray[userIndex];
+    console.log(user);
 
     if (userIndex >= 0) {
         let { name } = extractInitialsAndName(user);
