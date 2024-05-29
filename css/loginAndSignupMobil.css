@@ -57,7 +57,7 @@
         top: unset;
         right: unset;
         left: calc(50% - 140px);
-        bottom: 70px;
+        bottom: 10%;
         font-size: 20px;
         font-weight: 400;
         color: black;
