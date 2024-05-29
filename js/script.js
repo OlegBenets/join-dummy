@@ -1,5 +1,5 @@
 window.onload = init();
-// window.addEventListener('orientationchange', rotatbody);
+window.addEventListener('orientationchange', rotatbody);
 
 
 /**

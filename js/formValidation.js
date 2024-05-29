@@ -311,7 +311,6 @@ async function signUpUser(event) {
     let form = event.target;
     let check = confirmPassword(form);
     if (check) {
-        console.log('alles richtig');
         await saveUserData(form);
         showSuccess();
     } else {
