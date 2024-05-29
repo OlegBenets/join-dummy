@@ -347,11 +347,14 @@
     .big-card-container {
         width: 320px;
         padding: 32px 24px 32px 24px;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .big-card-edit {
         width: 320px;
         padding: 32px 24px 32px 24px;
+        height: calc(100vh - 100px);
     }
 
     .input-title-field {
@@ -454,13 +457,10 @@
     }
 
     .big-card-assigned-container {
-        height: 134px;
-    }
-
-    .big-card-subtasks-container {
-        overflow-x: hidden;
-        overflow-y: auto;
-        min-height: 48px;
+        height: auto;
+        overflow-x: unset;
+        overflow-y: unset;
+        min-height: unset;
     }
 
     #selected-contacts {

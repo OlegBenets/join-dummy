@@ -138,15 +138,19 @@ async function getAllTasks() {
  */
 function showMovableContainer(parameter, container) {
     if (parameter == 'show' && container == 'addTask') {
+        document.body.style.overflow = 'hidden';
         document.getElementById('add-task-container').classList.add('show-moveable');
         document.getElementById('add-task-container').classList.remove('remove-moveable');
     } else if (parameter == 'remove' && container == 'addTask') {
+        document.body.style.overflow = '';
         document.getElementById('add-task-container').classList.add('remove-moveable');
         document.getElementById('add-task-container').classList.remove('show-moveable');
     } else if (parameter == 'show' && container == 'bigCard') {
+        document.body.style.overflow = 'hidden';
         document.getElementById('big-card-background').classList.add('show-moveable');
         document.getElementById('big-card-background').classList.remove('remove-moveable');
     } else if (parameter == 'remove' && container == 'bigCard') {
+        document.body.style.overflow = '';
         document.getElementById('big-card-background').classList.remove('show-moveable');
         document.getElementById('big-card-background').classList.add('remove-moveable');
     }
