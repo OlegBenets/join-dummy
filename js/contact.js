@@ -8,6 +8,7 @@ let contactListUnsorted = [];
  * Initializes the application by loading all data and contacts.
  */
 async function init() {
+  await initInclude();
   await loadAllData();
   contactList = await getContactsArray();
   loadContacts();

@@ -9,6 +9,8 @@ async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
+    logedUserDataArray = await getLoginDataArray();
+    logedUser = loadLocal('activUser');
     loadAmountsInSummary();
     setDayTime();
     logedUserData();
@@ -151,7 +153,7 @@ function setDayTime() {
     let greeting;
   
     if (hours >= 5 && hours < 12) {
-      greeting = "Godd morning,";
+      greeting = "Good morning,";
     } else if (hours >= 12 && hours < 18) {
       greeting = "Good afternoon,";
     } else if (hours >= 18 && hours < 22) {

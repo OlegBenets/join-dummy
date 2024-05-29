@@ -453,6 +453,23 @@
         width: 0;
     }
 
+    .big-card-assigned-container {
+        height: 134px;
+    }
+
+    .big-card-subtasks-container {
+        overflow-x: hidden;
+        overflow-y: auto;
+        min-height: 48px;
+    }
+
+    #selected-contacts {
+        width: 93%;
+    }
+
+    .big-card-assigned-container::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 @media (max-width: 430px) {
