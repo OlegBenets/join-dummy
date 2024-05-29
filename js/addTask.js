@@ -17,6 +17,7 @@ async function initPage() {
   filteredContactsList = assignedContactsList;
   setEventlister();
   setupEventListeners();
+  initializeDateInput();
   getProfileInitials();
 }
 
