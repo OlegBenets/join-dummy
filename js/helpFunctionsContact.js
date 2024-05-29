@@ -6,6 +6,7 @@ function setErrorBorder(elements) {
   elements.classList.add("error");
 }
 
+
 /**
  * Removes the error class from the specified element.
  * @param {HTMLElement} elements - The HTML element from which the error class will be removed.
@@ -13,6 +14,7 @@ function setErrorBorder(elements) {
 function removeErrorBorder(elements) {
   elements.classList.remove("error");
 }
+
 
 /**
  * Validates the input fields for adding a contact and displays error messages if validation fails.
@@ -35,6 +37,7 @@ function testAddContactsInput() {
   );
 }
 
+
 /**
  * Validates the input fields for editing a contact and displays error messages if validation fails.
  */
@@ -56,6 +59,7 @@ function testEditContactsInput() {
   );
 }
 
+
 /**
  * Validates if the text length of value is within the speciied range.
  * @param {string} value - The text value to be validated.
@@ -66,6 +70,7 @@ function testEditContactsInput() {
 function validateTextLenght(value, minlength, maxlength) {
   return value.trim().length >= minlength && value.trim().length <= maxlength;
 }
+
 
 /**
  * Validates if the number length of a value is within the specified range and consists of digits only.
@@ -78,6 +83,7 @@ function validateNumberLength(value, minlength, maxlength) {
   let numValue = value.trim();
   return (numValue.length >= minlength && numValue.length <= maxlength && /^\d{3,12}$/.test(numValue));
 }
+
 
 /**
  * Checks the validation of input fields and displays or hides error messages accordingly.
@@ -103,6 +109,7 @@ function checkInputValidation(
   validateInput(isEmailValid, emailInput, "edit-email-error");
   validateInput(isTelValid, telInput, "edit-tel-error");
 }
+
 
 /**
  * Displays or hides the error message for a specific input based on its validation status.

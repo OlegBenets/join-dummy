@@ -30,7 +30,6 @@ function createShortDescription(cardId) {
         if (lastSpaceIndex > 0) {
             shortTxt = shortTxt.substr(0, lastSpaceIndex);
         }
-
         return shortTxt + '...';
     }
 }
@@ -65,45 +64,70 @@ function checkSubtasks(card, whichCard) {
 
 
 /**
- * This function checks the contacts who assigned to the task and generates the assign to section HTML for 
- * small task and big task view
+ * This function is used to check the contacts assigned to the task and generates the assign-to section HTML for small 
+ * and big task views.
  * 
- * @param {object} card This is the task object which includes all relevant informations for one task
- * @param {string} whichCard This contains the relevant task view as a string. small-card or big-card
- * @returns HTML of assign to section
+ * @param {object} card - The task object which includes all relevant information for one task.
+ * @param {string} whichCard - Indicates the relevant task view as a string: 'small-card' or 'big-card'.
+ * @returns {string} HTML of the assign-to section.
  */
 function checkAssignedTo(card, whichCard) {
     let allContactsId = card['asigntTo'];
     getContactsNames(allContactsId);
-    allContacts = contactsNames;
-    if (allContacts.length !== 0) {
-        let initials = [];
-        let colors = [];
-        
-        for (let i = 0; i < allContacts.length; i++) {
-            let words = allContacts[i].split(' ');
-            let initialsForName = '';
-            let name = allContacts[i];
-            let indexOfContact = assignedContactsList.findIndex(n => n.name == name);
-            let curColor = assignedContactsList[indexOfContact]['color'];
+    let allContacts = contactsNames;
 
-            for (let j = 0; j < words.length && j < 2; j++) {
-                initialsForName += words[j].charAt(0);
-            }
-            initials.push(initialsForName);
-            colors.push(curColor);
-            
-        }
-        if (whichCard == 'small-card') {
+    if (allContacts.length !== 0) {
+        let { initials, colors } = processContacts(allContacts);
+
+        if (whichCard === 'small-card') {
             return generateHTMLAssignedTo(initials, colors);
-        }
-        else if (whichCard == 'big-card') {
+        } else if (whichCard === 'big-card') {
             return generateHTMLAssignedToBigCard(initials, card, colors);
-        } 
-    }
-    else {
+        }
+    } else {
         return '';
     }
+}
+
+
+/**
+ * This function is used to processe the contacts to extract initials and colors.
+ * 
+ * @param {string[]} allContacts - Array of contact names.
+ * @returns {object} Object containing arrays of initials and colors.
+ */
+function processContacts(allContacts) {
+    let initials = [];
+    let colors = [];
+
+    for (let i = 0; i < allContacts.length; i++) {
+        let { initialsForName, curColor } = getInitialsAndColor(allContacts[i]);
+        initials.push(initialsForName);
+        colors.push(curColor);
+    }
+
+    return { initials, colors };
+}
+
+
+/**
+ * This function is used to get the initials and color for a given contact name.
+ * 
+ * @param {string} contactName - The contact name.
+ * @returns {object} Object containing the initials and color for the contact.
+ */
+function getInitialsAndColor(contactName) {
+    let words = contactName.split(' ');
+    let initialsForName = '';
+    let name = contactName;
+    let indexOfContact = assignedContactsList.findIndex(n => n.name == name);
+    let curColor = assignedContactsList[indexOfContact]['color'];
+
+    for (let j = 0; j < words.length && j < 2; j++) {
+        initialsForName += words[j].charAt(0);
+    }
+
+    return { initialsForName, curColor };
 }
 
 
@@ -273,119 +297,4 @@ function startDragging(id, event) {
     if (draggedElement) {
         draggedElement.classList.add('dragging');
     }
-}
-
-
-/**
- * This function is used to start touching a task via touch.
- * 
- * @param {number} id - The unique id of the task.
- * @param {object} event - The touch event object.
- */
-function startTouching(id, event) {
-    touchTimer = setTimeout(() => {
-        isTouchMoving = true;
-        currentTouchedItem = id;
-        const draggedElement = document.getElementById(id);
-        if (draggedElement) {
-            draggedElement.classList.add('dragging');
-        }
-        const touch = event.touches[0];
-        const rect = draggedElement.getBoundingClientRect();
-        touchOffsetX = rect.width / 2;
-        touchOffsetY = rect.height / 2;
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
-    }, 1000);
-    
-    event.target.addEventListener('touchend', cancelTouching, { once: true });
-}
-
-
-/**
- * Cancels the touch action if it ends before the timer triggers.
- */
-function cancelTouching() {
-    clearTimeout(touchTimer);
-}
-
-
-/**
- * This function is used to handle the touch move event to drag the task element.
- * 
- * @param {TouchEvent} ev The touch event object.
- */
-function touchMove(ev) {
-    if (!isTouchMoving) return;
-
-    ev.preventDefault();
-    const touch = ev.touches[0];
-    const draggedElement = document.getElementById(currentTouchedItem);
-    if (draggedElement) {
-        draggedElement.style.position = 'absolute';
-        draggedElement.style.left = `${touch.clientX -   touchOffsetX}px`;
-        draggedElement.style.top = `${touch.clientY -   touchOffsetY + window.scrollY}px`;
-    }
-
-    const element = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (element) {
-    }
-    if (element && element.classList.contains('todo-column')) {
-        highlight('todo-column');
-    } else if (element && element.classList.contains('progress-column')) {
-        highlight('progress-column');
-    } else if (element && element.classList.contains('await-column')) {
-        highlight('await-column');
-    } else if (element && element.classList.contains('done-column')) {
-        highlight('done-column');
-    } else {
-        removeHighlight('todo-column');
-        removeHighlight('progress-column');
-        removeHighlight('await-column');
-        removeHighlight('done-column');
-    }
-}
-
-
-/**
- * This function is used to handle the touch end event to finalize the task movement.
- * 
- * @param {TouchEvent} ev The touch event object.
- */
-async function touchEnd(ev) {
-    if (!isTouchMoving) {
-        clearTimeout(touchTimer);
-        return;
-    }
-
-    const touch = ev.changedTouches[0];
-    const element = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (element && element.classList.contains('todo-column')) {
-        await moveTo('todo');
-    } else if (element && element.classList.contains('progress-column')) {
-        await moveTo('progress');
-    } else if (element && element.classList.contains('await-column')) {
-        await moveTo('await');
-    } else if (element && element.classList.contains('done-column')) {
-        await moveTo('done');
-    }
-
-    const draggedElement = document.getElementById(currentTouchedItem);
-    if (draggedElement) {
-        draggedElement.classList.remove('dragging');
-        draggedElement.style.transform = 'none';
-        draggedElement.style.position = 'static';
-    }
-
-    currentTouchedItem = null;
-    currentDraggedItem = null;
-    touchStartX = 0;
-    touchStartY = 0;
-    touchOffsetX = 0;
-    touchOffsetY = 0;
-    isTouchMoving = false;
-    removeHighlight('todo-column');
-    removeHighlight('progress-column');
-    removeHighlight('await-column');
-    removeHighlight('done-column');
 }

@@ -23,49 +23,96 @@ async function initPage() {
 
 
 /**
- * Adds a task with the provided details.
+ * This function is used to add a task with the provided details.
+ * 
  * @param {string} parameter - The parameter indicating the type of task to add.
  * @returns {Promise<void>}
  */
 async function addTask(parameter) {
-  if (parameter == "addTask") {
-    currentStatus = "todo";
-  }
-  let title = document.getElementById("input-title").value;
-  let description = document.getElementById("input-description").value;
-  let asigntTo = getAssigntContactsNames();
-  let date = document.getElementById("input-date").value;
-  let categoryTxt = document.getElementById("input-category").value;
-  let category;
-  let prio = currentPrio;
-  let status = currentStatus;
-
-  if (categoryTxt == "User Story") {
-    category = true;
-  } else {
-    category = false;
-  }
+  setCurrentStatus(parameter);
+  const taskDetails = getTaskDetails();
+  taskDetails.category = determineCategory(taskDetails.categoryTxt);
 
   testTask();
-  let task = creatTask(asigntTo, category, date, description, prio, status, currentSubtasks, title);
+  const task = creatTask(taskDetails.assignTo, taskDetails.category, taskDetails.date, taskDetails.description, taskDetails.prio, taskDetails.status, currentSubtasks, taskDetails.title);
+
   await addTasks(task);
   resetForm();
 
-  if (parameter == "board") {
-    await getAllTasks();
-    loadCards();
-    showAddTaskConfirmation("board");
+  if (parameter === "board") {
+      await handleBoardRedirection();
   } else {
-    showAddTaskConfirmation("");
-    setTimeout(function () {
-      window.location.href = "/html/board.html";
-    }, 1000);
+      handleDefaultRedirection();
   }
 }
 
 
 /**
- * Adds a task to the board.
+* This function is used to set the current status based on the parameter.
+*
+* @param {string} parameter - The parameter indicating the type of task to add.
+*/
+function setCurrentStatus(parameter) {
+  if (parameter === "addTask") {
+      currentStatus = "todo";
+  }
+}
+
+
+/**
+* This function is used to retrieve task details from the form inputs.
+*
+* @returns {Object} An object containing the task details.
+*/
+function getTaskDetails() {
+  return {
+      title: document.getElementById("input-title").value,
+      description: document.getElementById("input-description").value,
+      assignTo: getAssigntContactsNames(),
+      date: document.getElementById("input-date").value,
+      categoryTxt: document.getElementById("input-category").value,
+      prio: currentPrio,
+      status: currentStatus
+  };
+}
+
+
+/**
+* This function is used to determine the category based on the category text.
+*
+* @param {string} categoryTxt - The category text from the input.
+* @returns {boolean} The determined category.
+*/
+function determineCategory(categoryTxt) {
+  return categoryTxt === "User Story";
+}
+
+
+/**
+* This function is used to handle redirection when the parameter is "board".
+*
+* @returns {Promise<void>}
+*/
+async function handleBoardRedirection() {
+  await getAllTasks();
+  loadCards();
+  showAddTaskConfirmation("board");
+}
+
+
+/**
+* This function is used to handle the default redirection.
+*/
+function handleDefaultRedirection() {
+  showAddTaskConfirmation("");
+  setTimeout(() => {
+      window.location.href = "/html/board.html";
+  }, 1000);
+}
+
+
+/**
+ * This function is used to add a task to the board.
  */
 function addTaskToBoard() {
   getCurrentStatus("todo");
@@ -74,7 +121,8 @@ function addTaskToBoard() {
 
 
 /**
- * Retrieves the names of assigned contacts.
+ * This function is used to retrieve the names of assigned contacts.
+ * 
  * @returns {Array<string>} An array of assigned contact names.
  */
 function getAssigntContactsNames() {
@@ -90,7 +138,8 @@ function getAssigntContactsNames() {
 
 
 /**
- * Displays the task confirmation message.
+ * This function is used to display the task confirmation message.
+ * 
  * @param {string} parameter - The parameter indicating the context of the task addition.
  */
 function showAddTaskConfirmation(parameter) {
@@ -114,7 +163,7 @@ function showAddTaskConfirmation(parameter) {
 
 
 /**
- * Resets the form fields after submitting the task.
+ * This function is used to reset the form fields after submitting the task.
  */
 function resetForm() {
   let title = (document.getElementById("input-title").value = "");
@@ -130,7 +179,8 @@ function resetForm() {
 
 
 /**
- * Adds a subtask to the task popup.
+ * This function is used to add a subtask to the task popup.
+ * 
  * @param {string} parameter - The parameter indicating the type of task.
  * @param {number} index - The index of the task.
  */
@@ -149,7 +199,8 @@ function addSubtaskToPopup(parameter, index) {
 
 
 /**
- * Renders the subtasks in the task popup.
+ * This function is used to render the subtasks in the task popup.
+ * 
  * @param {string} parameter - The parameter indicating the type of task.
  * @param {number} index - The index of the task.
  */
@@ -171,7 +222,8 @@ function renderSubtasksInPopup(parameter, index) {
 
 
 /**
- * Edits a subtask.
+ * This function is used to edit a subtask.
+ * 
  * @param {string} subtaskTitle - The title of the subtask.
  * @param {number} id - The ID of the subtask.
  */
@@ -183,7 +235,8 @@ function editSubtask(subtaskTitle, id) {
 
 
 /**
- * Saves the changes made to a subtask.
+ * This function is used to save the changes made to a subtask.
+ * 
  * @param {number} id - The ID of the subtask.
  */
 function saveChangedSubtask(id) {
@@ -196,7 +249,8 @@ function saveChangedSubtask(id) {
 
 
 /**
- * Deletes a subtask.
+ * This function is used to delete a subtask.
+ * 
  * @param {object} subtask - The subtask to be deleted.
  */
 function deleteSubtask(subtask) {
@@ -207,7 +261,8 @@ function deleteSubtask(subtask) {
 
 
 /**
- * Clears the subtask input field.
+ * This function is used to clear the subtask input field.
+ * 
  * @param {string} parameter - The parameter indicating the type of task.
  * @param {number} index - The index of the task.
  */
@@ -221,39 +276,74 @@ function clearSubtaskInput(parameter, index) {
 
 
 /**
- * Checks if the subtask input field is empty.
+ * This function is used to check if the subtask input field is empty.
+ * 
  * @param {string} parameter - The parameter indicating the type of task.
  * @param {number} index - The index of the task.
  */
 function checkInput(parameter, index) {
-  let inputField;
-  let emptyInputImg;
-  let fullInputImgs;
-  if (parameter === "addTask") {
-    inputField = document.getElementById("subtasks-input");
-    emptyInputImg = document.getElementById("subtasks-popup-empty-img");
-    fullInputImgs = document.getElementById("subtasks-popup-full-img");
-  } else {
-    inputField = document.getElementById("subtasks-input" + index);
-    emptyInputImg = document.getElementById("subtasks-popup-empty-img" + index);
-    fullInputImgs = document.getElementById("subtasks-popup-full-img" + index);
-  }
+  const elements = getInputElements(parameter, index);
+  updateInputImages(elements.inputField, elements.emptyInputImg, elements.fullInputImgs);
+}
 
-  if (inputField.value.trim() !== "") {
-    emptyInputImg.classList.add("display-none");
-    fullInputImgs.style.display = "flex";
+
+/**
+* This function is used to retrieve the necessary input elements based on the parameter and index.
+*
+* @param {string} parameter - The parameter indicating the type of task.
+* @param {number} index - The index of the task.
+* @returns {Object} An object containing the input elements.
+*/
+function getInputElements(parameter, index) {
+  if (parameter === "addTask") {
+      return {
+          inputField: document.getElementById("subtasks-input"),
+          emptyInputImg: document.getElementById("subtasks-popup-empty-img"),
+          fullInputImgs: document.getElementById("subtasks-popup-full-img")
+      };
   } else {
-    emptyInputImg.classList.remove("display-none");
-    fullInputImgs.style.display = "none";
+      return {
+          inputField: document.getElementById("subtasks-input" + index),
+          emptyInputImg: document.getElementById("subtasks-popup-empty-img" + index),
+          fullInputImgs: document.getElementById("subtasks-popup-full-img" + index)
+      };
   }
 }
 
 
 /**
- * Sets the priority of the task.
- * @param {string} prio - The priority of the task.
- */
+* This function is used to update the display of input images based on the input field value.
+*
+* @param {HTMLElement} inputField - The input field element.
+* @param {HTMLElement} emptyInputImg - The empty input image element.
+* @param {HTMLElement} fullInputImgs - The full input image element.
+*/
+function updateInputImages(inputField, emptyInputImg, fullInputImgs) {
+  if (inputField.value.trim() !== "") {
+      emptyInputImg.classList.add("display-none");
+      fullInputImgs.style.display = "flex";
+  } else {
+      emptyInputImg.classList.remove("display-none");
+      fullInputImgs.style.display = "none";
+  }
+}
+
+
+/**
+* This function is used to set the priority of the task.
+*
+* @param {string} prio - The priority of the task.
+*/
 function getPrio(prio) {
+  resetPrioButtons();
+  updatePrioButton(prio);
+}
+
+
+/**
+* This function is used to reset the priority buttons to their default state.
+*/
+function resetPrioButtons() {
   const BUTTON_URGENT = document.getElementById("button-urgent");
   const BUTTON_MEDIUM = document.getElementById("button-medium");
   const BUTTON_LOW = document.getElementById("button-low");
@@ -267,19 +357,59 @@ function getPrio(prio) {
   IMG_URGENT.src = "/assets/img/urgent.svg";
   IMG_MEDIUM.src = "/assets/img/medium.svg";
   IMG_LOW.src = "/assets/img/low.svg";
+}
 
-  if (prio == "Low") {
-    currentPrio = "Low";
-    BUTTON_LOW.classList.add("button-low-active");
-    IMG_LOW.src = "/assets/img/prio_low_white.svg";
-  } else if (prio == "Medium") {
-    currentPrio = "Medium";
-    BUTTON_MEDIUM.classList.add("button-medium-active");
-    IMG_MEDIUM.src = "/assets/img/prio_medium_white.svg";
-  } else if (prio == "Urgent") {
-    currentPrio = "Urgent";
-    BUTTON_URGENT.classList.add("button-urgent-active");
-    IMG_URGENT.src = "/assets/img/prio_urgent_white.svg";
+
+/**
+* This function is used to update the priority button based on the selected priority.
+*
+* @param {string} prio - The selected priority.
+*/
+function updatePrioButton(prio) {
+  if (prio === "Low") {
+      setPrioLow();
+  } else if (prio === "Medium") {
+      setPrioMedium();
+  } else if (prio === "Urgent") {
+      setPrioUrgent();
   }
 }
 
+
+/**
+* This function is used to set the priority to Low and updates the corresponding button and image.
+*/
+function setPrioLow() {
+  currentPrio = "Low";
+  const BUTTON_LOW = document.getElementById("button-low");
+  const IMG_LOW = document.getElementById("img-low");
+
+  BUTTON_LOW.classList.add("button-low-active");
+  IMG_LOW.src = "/assets/img/prio_low_white.svg";
+}
+
+
+/**
+* This function is used to set the priority to Medium and updates the corresponding button and image.
+*/
+function setPrioMedium() {
+  currentPrio = "Medium";
+  const BUTTON_MEDIUM = document.getElementById("button-medium");
+  const IMG_MEDIUM = document.getElementById("img-medium");
+
+  BUTTON_MEDIUM.classList.add("button-medium-active");
+  IMG_MEDIUM.src = "/assets/img/prio_medium_white.svg";
+}
+
+
+/**
+* This function is used to set the priority to Urgent and updates the corresponding button and image.
+*/
+function setPrioUrgent() {
+  currentPrio = "Urgent";
+  const BUTTON_URGENT = document.getElementById("button-urgent");
+  const IMG_URGENT = document.getElementById("img-urgent");
+
+  BUTTON_URGENT.classList.add("button-urgent-active");
+  IMG_URGENT.src = "/assets/img/prio_urgent_white.svg";
+}

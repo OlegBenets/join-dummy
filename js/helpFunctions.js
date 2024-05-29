@@ -38,54 +38,88 @@ function getCurrentStatus(state) {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    /**
-     * This function is used to add event listeners to the relevant form and input elements.
-     */
-    function addEventListeners() {
-      const addTaskForm = document.getElementById('add-task-form');
-      const subtasksInput = document.getElementById('subtasks-input');
-      
-      if (addTaskForm) {
-        addTaskForm.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-          }
-        });
-      }
-      
-      if (subtasksInput) {
-        subtasksInput.addEventListener('keydown', function(e) {
-          let inputValue = subtasksInput.value;
-          if (e.key === 'Enter' && inputValue != '') {
-            addSubtaskToPopup('addTask', '');
-            clearSubtaskInput('addTask', '');
-            checkInput('addTask', '');
-          }
-        });
-      }
-    }
-  
-    // Set up a MutationObserver to watch for changes in the DOM
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          if (document.getElementById('add-task-form')) {
-            addEventListeners();
-            observer.disconnect();
-          }
-        }
-      });
-    });
-  
-    // Configuration for the observer
-    const config = {
-      childList: true, 
-      subtree: true
-    };
-  
-    // Start observing the entire document
-    observer.observe(document.body, config);
+  initialize();
+
+  const observer = createMutationObserver();
+  const config = { childList: true, subtree: true };
+  observer.observe(document.body, config);
 });
+
+
+/**
+* This function is used to initialize event listeners.
+*/
+function initialize() {
+  addEventListeners();
+}
+
+
+/**
+* This function is used to add event listeners to the form and input elements.
+*/
+function addEventListeners() {
+  const addTaskForm = document.getElementById('add-task-form');
+  const subtasksInput = document.getElementById('subtasks-input');
+  
+  if (addTaskForm) {
+      preventFormSubmitOnEnter(addTaskForm);
+  }
+  
+  if (subtasksInput) {
+      handleSubtasksInput(subtasksInput);
+  }
+}
+
+
+/**
+* This function is used to prevent the form from submitting when the Enter key is pressed.
+*
+* @param {HTMLElement} formElement - The form element.
+*/
+function preventFormSubmitOnEnter(formElement) {
+  formElement.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+      }
+  });
+}
+
+
+/**
+* This function is used to handle the Enter key press event for the subtasks input.
+*
+* @param {HTMLElement} inputElement - The input element for subtasks.
+*/
+function handleSubtasksInput(inputElement) {
+  inputElement.addEventListener('keydown', function(e) {
+      let inputValue = inputElement.value;
+      if (e.key === 'Enter' && inputValue !== '') {
+          addSubtaskToPopup('addTask', '');
+          clearSubtaskInput('addTask', '');
+          checkInput('addTask', '');
+      }
+  });
+}
+
+
+/**
+* This function is used to create a MutationObserver to monitor changes in the DOM.
+*
+* @returns {MutationObserver} The configured MutationObserver instance.
+*/
+function createMutationObserver() {
+  const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+              if (document.getElementById('add-task-form')) {
+                  addEventListeners();
+                  observer.disconnect();
+              }
+          }
+      });
+  });
+  return observer;
+}
 
 
 /**
@@ -106,16 +140,13 @@ function showMovableContainer(parameter, container) {
     if (parameter == 'show' && container == 'addTask') {
         document.getElementById('add-task-container').classList.add('show-moveable');
         document.getElementById('add-task-container').classList.remove('remove-moveable');
-    }
-    else if (parameter == 'remove' && container == 'addTask') {
+    } else if (parameter == 'remove' && container == 'addTask') {
         document.getElementById('add-task-container').classList.add('remove-moveable');
         document.getElementById('add-task-container').classList.remove('show-moveable');
-    }
-    else if (parameter == 'show' && container == 'bigCard') {
+    } else if (parameter == 'show' && container == 'bigCard') {
         document.getElementById('big-card-background').classList.add('show-moveable');
         document.getElementById('big-card-background').classList.remove('remove-moveable');
-    }
-    else if (parameter == 'remove' && container == 'bigCard') {
+    } else if (parameter == 'remove' && container == 'bigCard') {
         document.getElementById('big-card-background').classList.remove('show-moveable');
         document.getElementById('big-card-background').classList.add('remove-moveable');
     }
@@ -136,4 +167,177 @@ function resetAssignTo() {
  */
 function selectDefaultPrio(buttonId) {
   simulateClickButton(buttonId);
+}
+
+
+/**
+ * This function is used to start touching a task via touch.
+ * 
+ * @param {number} id - The unique id of the task.
+ * @param {object} event - The touch event object.
+ */
+function startTouching(id, event) {
+    touchTimer = setTimeout(() => {
+        isTouchMoving = true;
+        currentTouchedItem = id;
+        const draggedElement = document.getElementById(id);
+        if (draggedElement) {
+            draggedElement.classList.add('dragging');
+        }
+        const touch = event.touches[0];
+        const rect = draggedElement.getBoundingClientRect();
+        touchOffsetX = rect.width / 2;
+        touchOffsetY = rect.height / 2;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, 1000);
+    event.target.addEventListener('touchend', cancelTouching, { once: true });
+}
+
+
+/**
+ * This function is used to cancel the touch action if it ends before the timer triggers.
+ */
+function cancelTouching() {
+    clearTimeout(touchTimer);
+}
+
+
+/**
+ * This function is used to handle the touch move event to drag the task element.
+ * 
+ * @param {TouchEvent} ev - The touch event object.
+ */
+function touchMove(ev) {
+    if (!isTouchMoving) return;
+
+    ev.preventDefault();
+    const touch = ev.touches[0];
+    const draggedElement = document.getElementById(currentTouchedItem);
+
+    if (draggedElement) {
+        moveDraggedElement(touch, draggedElement);
+    }
+
+    highlightTargetColumn(touch);
+}
+
+
+/**
+ * This function is used to move the dragged element according to the touch position.
+ * 
+ * @param {Touch} touch - The touch object representing the touch position.
+ * @param {HTMLElement} draggedElement - The element being dragged.
+ */
+function moveDraggedElement(touch, draggedElement) {
+    draggedElement.style.position = 'absolute';
+    draggedElement.style.left = `${touch.clientX - touchOffsetX}px`;
+    draggedElement.style.top = `${touch.clientY - touchOffsetY + window.scrollY}px`;
+}
+
+
+/**
+ * This function is used to highlight the target column based on the touch position.
+ * 
+ * @param {Touch} touch - The touch object representing the touch position.
+ */
+function highlightTargetColumn(touch) {
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (element) {
+        if (element.classList.contains('todo-column')) {
+            highlight('todo-column');
+        } else if (element.classList.contains('progress-column')) {
+            highlight('progress-column');
+        } else if (element.classList.contains('await-column')) {
+            highlight('await-column');
+        } else if (element.classList.contains('done-column')) {
+            highlight('done-column');
+        } else {
+            removeHighlight('todo-column');
+            removeHighlight('progress-column');
+            removeHighlight('await-column');
+            removeHighlight('done-column');
+        }
+    }
+}
+
+
+/**
+ * This function is used to handle the touch end event to finalize the task movement.
+ * 
+ * @param {TouchEvent} ev - The touch event object.
+ */
+async function touchEnd(ev) {
+    if (!isTouchMoving) {
+        clearTimeout(touchTimer);
+        return;
+    }
+    const touch = ev.changedTouches[0];
+    const targetColumn = findTargetColumn(touch);
+    await moveTo(targetColumn);
+    resetDraggedElement();
+    resetTouchVariables();
+    removeHighlightFromColumns();
+}
+
+
+/**
+ * This function is used to find the target column based on the touch position.
+ * 
+ * @param {Touch} touch - The touch object representing the touch position.
+ * @returns {string} The class name of the target column.
+ */
+function findTargetColumn(touch) {
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (element && element.classList.contains('todo-column')) {
+        return 'todo';
+    } else if (element && element.classList.contains('progress-column')) {
+        return 'progress';
+    } else if (element && element.classList.contains('await-column')) {
+        return 'await';
+    } else if (element && element.classList.contains('done-column')) {
+        return 'done';
+    }
+    return '';
+}
+
+
+/**
+ * This function is used to reset the dragged element's styles and touch related variables.
+ */
+function resetDraggedElement() {
+    const draggedElement = document.getElementById(currentTouchedItem);
+
+    if (draggedElement) {
+        draggedElement.classList.remove('dragging');
+        draggedElement.style.transform = 'none';
+        draggedElement.style.position = 'static';
+    }
+}
+
+
+/**
+ * This function is used to reset touch related variables after touch end event.
+ */
+function resetTouchVariables() {
+    currentTouchedItem = null;
+    currentDraggedItem = null;
+    touchStartX = 0;
+    touchStartY = 0;
+    touchOffsetX = 0;
+    touchOffsetY = 0;
+    isTouchMoving = false;
+}
+
+
+/**
+ * This function is used to remove highlight from all task columns.
+ */
+function removeHighlightFromColumns() {
+    removeHighlight('todo-column');
+    removeHighlight('progress-column');
+    removeHighlight('await-column');
+    removeHighlight('done-column');
 }

@@ -2,26 +2,55 @@
  * This function is used to update the navigation menu to highlight the selected menu item based on the current page.
  */
 function selectMenu() {
-    const SUMMARY_MENU = document.getElementById('summary-menu');
-    const ADDTASK_MENU = document.getElementById('addTask-menu');
-    const BOARD_MENU = document.getElementById('board-menu');
-    const CONTACTS_MENU = document.getElementById('contacts-menu');
+    const menuItems = getMenuItems();
 
-    SUMMARY_MENU.classList.remove('selected-menu');
-    ADDTASK_MENU.classList.remove('selected-menu');
-    BOARD_MENU.classList.remove('selected-menu');
-    CONTACTS_MENU.classList.remove('selected-menu');
+    removeSelectionFromMenuItems(menuItems);
+    highlightSelectedMenuItem(menuItems);
+}
 
-    const PATH = window.location.pathname;
 
-    if (PATH.includes("summary.html")) {
-        SUMMARY_MENU.classList.add('selected-menu');
-    } else if (PATH.includes("addTask.html")) {
-        ADDTASK_MENU.classList.add('selected-menu');
-        selectDefaultPrio('button-medium');
-    } else if (PATH.includes("board.html")) {
-        BOARD_MENU.classList.add('selected-menu');
-    } else if (PATH.includes("contacts.html")) {
-        CONTACTS_MENU.classList.add('selected-menu');
-    }
+/**
+ * This function is used to retrieve all menu items from the navigation menu.
+ * 
+ * @returns {HTMLElement[]} An array containing all menu item elements.
+ */
+function getMenuItems() {
+    return [
+        document.getElementById('summary-menu'),
+        document.getElementById('addTask-menu'),
+        document.getElementById('board-menu'),
+        document.getElementById('contacts-menu')
+    ];
+}
+
+
+/**
+ * This function is used to remove the 'selected-menu' class from all menu items.
+ * 
+ * @param {HTMLElement[]} menuItems - An array containing all menu item elements.
+ */
+function removeSelectionFromMenuItems(menuItems) {
+    menuItems.forEach(item => {
+        item.classList.remove('selected-menu');
+    });
+}
+
+
+/**
+ * This function is used to highlight the menu item corresponding to the current page.
+ * 
+ * @param {HTMLElement[]} menuItems - An array containing all menu item elements.
+ */
+function highlightSelectedMenuItem(menuItems) {
+    const currentPagePath = window.location.pathname;
+
+    menuItems.forEach(item => {
+        const pageName = item.id.replace('-menu', '');
+        if (currentPagePath.includes(`${pageName}.html`)) {
+            item.classList.add('selected-menu');
+            if (pageName === 'addTask') {
+                selectDefaultPrio('button-medium');
+            }
+        }
+    });
 }

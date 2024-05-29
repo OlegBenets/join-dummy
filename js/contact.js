@@ -23,12 +23,9 @@ async function loadContacts() {
   contactList = await getContactsArray();
   contactListUnsorted = await getContactsArray();
   sortContacts();
-
   let allContacts = document.getElementById("all-contacts");
   allContacts.innerHTML = "";
-
   let previousInitial = "";
-
   for (let i = 0; i < contactList.length; i++) {
     const contact = contactList[i];
     const initial = contact.name.charAt(0).toUpperCase();
@@ -37,7 +34,6 @@ async function loadContacts() {
       allContacts.innerHTML += renderInitial(initial);
       previousInitial = initial;
     }
-
     allContacts.innerHTML += renderContacts(contact, i);
   }
 }
@@ -255,27 +251,52 @@ function showContact(i) {
   let contact = document.getElementById(`contact${i}`);
 
   if (previousContactIndex === i) {
-    contact.style.backgroundColor =
-      contact.style.backgroundColor === "var(--customized_darkblue)"
-        ? ""
-        : "var(--customized_darkblue)";
-    contact.style.color = contact.style.color === "white" ? "" : "white";
-    menu.classList.toggle("remove-contact-detail");
+      toggleContactSelection(contact, menu);
   } else {
-    contact.style.backgroundColor = "var(--customized_darkblue)";
-    contact.style.color = "white";
-    if (previousContactIndex !== null) {
-      let previousContact = document.getElementById(
-        `contact${previousContactIndex}`
-      );
+      highlightNewContact(contact, menu, i);
+      previousContactIndex = i;
+      renderFloatingContact(contactList[i]);
+  }
+}
+
+
+/**
+* Toggles the visual selection state of the contact and the menu.
+* @param {HTMLElement} contact - The contact element.
+* @param {HTMLElement} menu - The menu element.
+*/
+function toggleContactSelection(contact, menu) {
+  contact.style.backgroundColor =
+      contact.style.backgroundColor === "var(--customized_darkblue)" ? "" : "var(--customized_darkblue)";
+  contact.style.color = contact.style.color === "white" ? "" : "white";
+  menu.classList.toggle("remove-contact-detail");
+}
+
+
+/**
+* Highlights the new contact and resets the previous contact's style.
+* @param {HTMLElement} contact - The new contact element.
+* @param {HTMLElement} menu - The menu element.
+* @param {number} i - The index of the new contact.
+*/
+function highlightNewContact(contact, menu, i) {
+  contact.style.backgroundColor = "var(--customized_darkblue)";
+  contact.style.color = "white";
+  resetPreviousContactStyle();
+  menu.classList.remove("remove-contact-detail");
+}
+
+
+/**
+* Resets the style of the previously selected contact.
+*/
+function resetPreviousContactStyle() {
+  if (previousContactIndex !== null) {
+      let previousContact = document.getElementById(`contact${previousContactIndex}`);
       if (previousContact) {
-        previousContact.style.backgroundColor = "";
-        previousContact.style.color = "";
+          previousContact.style.backgroundColor = "";
+          previousContact.style.color = "";
       }
-    }
-    menu.classList.remove("remove-contact-detail");
-    previousContactIndex = i;
-    renderFloatingContact(contactList[i]);
   }
 }
 
@@ -304,16 +325,7 @@ async function deleteContactsFromTasks(contactNameId) {
     const newTask = updatedTasks[i];
     let indexOfCurTask = allTasks.findIndex((t) => t.id == newTask.id);
 
-    let newUpdatedTask = creatTask(
-      newTask["asigntTo"],
-      newTask["category"],
-      newTask["date"],
-      newTask["description"],
-      newTask["prio"],
-      newTask["status"],
-      newTask["subTasks"],
-      newTask["title"]
-    );
+    let newUpdatedTask = creatTask(newTask["asigntTo"], newTask["category"], newTask["date"], newTask["description"], newTask["prio"],newTask["status"], newTask["subTasks"], newTask["title"]);
     await editTasks(indexOfCurTask, newUpdatedTask);
   }
 }
