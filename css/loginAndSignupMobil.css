@@ -1,3 +1,15 @@
+@media (max-width:1055px) {
+    .logo {
+        top: 37px;
+        left: 38px;
+    }
+
+    .logo img {
+        width: 64px;
+        height: 78px;
+    }
+}
+
 @media (max-width:700px) {
 
     body {
@@ -28,6 +40,12 @@
         max-width: 396px;
         padding: 32px 16px 32px 16px;
         box-sizing: border-box;
+        height: 62vh;
+    }
+
+    .login-input {
+        position: absolute;
+        top: 25%;
     }
 
     .signUpLink {
@@ -35,16 +53,18 @@
         justify-content: center;
         align-items: center;
         gap: 35px;
-
         position: fixed;
         top: unset;
         right: unset;
         left: calc(50% - 140px);
-        bottom: 99px;
-
+        bottom: 70px;
         font-size: 20px;
         font-weight: 400;
         color: black;
+    }
+
+    .gap32 {
+        gap: 0;
     }
 
     .legalLinksBox {
@@ -64,6 +84,8 @@
         justify-content: center;
         align-items: center;
         gap: 16px;
+        position: absolute;
+        top: 2%;
     }
 
     .haedline h1 {
@@ -134,23 +156,19 @@
     .buttonbox {
         display: flex;
         flex-direction: column;
-        gap: 21px;
+        gap: 8px;
+        position: absolute;
+        bottom: 5%;
     }
 
     .backArrow {
         left: 10%;
      
     }
-}
 
-@media (max-width:1055px) {
     .logo {
-        top: 37px;
-        left: 38px;
-    }
-
-    .logo img {
-        width: 64px;
-        height: 78px;
+        top: 24px;
+        left: 30px;
     }
 }
+
