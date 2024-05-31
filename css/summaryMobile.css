@@ -23,6 +23,16 @@
 
 @media (max-width: 1230px) {
     @media (min-width: 1024px) {
+        .done-svg {
+            width: 28px;
+            height: 20px;
+        }
+
+        .todo-svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .main-container {
             width: 70%;
             margin-left: 200px;
@@ -240,7 +250,16 @@
 }
 
 @media (max-width: 650px) {
+    .done-svg {
+        width: 28px;
+        height: 20px;
+    }
 
+    .todo-svg {
+        width: 20px;
+        height: 20px;
+    }
+    
     .headline-container {
         align-items: center;
         margin-left: 0;

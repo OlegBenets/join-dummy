@@ -47,6 +47,10 @@
 }
 
 @media (max-width: 1023px) {  
+    body {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 
     .add-Task-container::-webkit-scrollbar {
         width: 6px;
@@ -77,22 +81,37 @@
 
     .add-Task-container {
         width: calc(100% + 6px);
+        height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .alert-mobile {
+        display: flex;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        top: 565px;
     }
 
     .alert {
-     top: unset;
-     bottom: -46%;
-     z-index: 10;
-     left: 20px;
+        position: unset;
+        z-index: 10;
+        margin-left: 16px;
+    }
+
+    .task-buttons-mobile {
+        position: relative;
+        top: -193px;
+        display: flex;
+        justify-content: flex-end;
+        height: 100px;
     }
 
     .task-buttons {
-        top: unset;
-        bottom: -48%;
-        left: unset;
-        right: 20px;
-        justify-content: flex-end;
         width: 180px;
+        top: 0;
+        left: unset;
+        margin-right: 16px;
     }
 
     .clear-button {
