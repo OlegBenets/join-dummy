@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 32px;
+    height: auto;
     margin-top: 0;
     margin-bottom: 0;
     cursor: pointer;
@@ -47,7 +47,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 33px;
+    height: auto;
     margin-top: 8px;
   }
   
@@ -275,7 +275,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
     gap: 4px;
-    height: 48px;
+    height: auto;
     width: calc(420px - 16px);
     margin-top: 4px;
     z-index: 0;

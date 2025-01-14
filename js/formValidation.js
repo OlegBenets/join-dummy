@@ -10,8 +10,11 @@ let formActiv = false;
  * @returns {Promise<void>} A promise that resolves once all data is loaded.
  */
 async function startPage() {
-    await loadAllData('loginData');
-    await loadAllData('contacts');
+    let token = loadLocal('authToken');
+    if (token) {
+        await loadAllData('login');
+        await loadAllData('contacts');
+    }
 }
 
 
@@ -350,9 +353,14 @@ async function saveUserData(form) {
     let email = form.elements['email'].value;
     let password = await encrypt(form.elements['password'].value);
     let userData = creatUser(name, password, email);
-    await addLoginData(userData);
-    let contactData = creatContact(name, email, 'no Number', 'C3FF2B');
-    await addContacts(contactData);
+
+    let response = await postData('signup/', userData);
+    if (response.token) {
+        saveLocal('authToken', response.token);
+        await addLoginData(userData);
+    }
+    // let contactData = creatContact(name, email, 'no Number', 'C3FF2B');
+    // await addContacts(contactData);
 }
 
 

@@ -251,6 +251,14 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
+/**
+ * Prevents the event from propagating.
+ * @param {Event} event - The event object.
+ */
+function doNotClose(event) {
+    event.stopPropagation();
+  }
+
 
 /**
  * This function is used to move the task to the specified category column.

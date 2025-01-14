@@ -12,7 +12,6 @@
  */
 function creatContact(name, email, phone, color) {
     let contact = {
-        "id": idGenerator(),
         "name": name,
         "email": email,
         "phone": phone,
@@ -306,7 +305,6 @@ function creatUser(user, password, email) {
         "name": user,
         "password": password,
         "email": email,
-        "id": idGenerator()
     };
     return userData;
 }
@@ -321,7 +319,10 @@ function creatUser(user, password, email) {
 async function addLoginData(userData) {
     let buffer = JSON.stringify(userData);
     loginData.push(await JSON.parse(buffer));
-    await saveAllData('loginData');
+    let token = loadLocal('authToken');
+    if (token) {
+        await saveAllData('login');
+    }
 }
 
 
@@ -335,7 +336,7 @@ async function deleteLoginData(index) {
     if (index < loginData.length) {
         loginData.splice(index, 1);
     }
-    await saveAllData('loginData');
+    await saveAllData('login');
 }
 
 
@@ -351,7 +352,7 @@ async function editLoginData(index, userData) {
         let buffer = JSON.stringify(userData);
         loginData[index] = await JSON.parse(buffer);
     }
-    await saveAllData('loginData');
+    await saveAllData('login');
 }
 
 

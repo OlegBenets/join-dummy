@@ -3,7 +3,7 @@ let tasks = [];
 let loginData = [];
 let lastPage = loadSession('page');
 
-const BASE_URL = 'https://join-storage-default-rtdb.europe-west1.firebasedatabase.app/';
+const BASE_URL = 'http://127.0.0.1:8000/api/';
 
 window.addEventListener('beforeunload', function () { saveLastPath() });
 
@@ -88,11 +88,9 @@ function deleteLocal(key) {
  * and redirecting to the login page.
  */
 function userLogout() {
-    deleteLocal('activUser');
-    deleteLocal('saveuser');
-    window.location.href = '../html/login.html';
+    deleteLocal('authToken');
+    window.location.href = '/html/login.html'; 
 }
-
 
 /**
  * Loads data from the server based on the specified path.
@@ -102,13 +100,20 @@ function userLogout() {
  *                                          or null if no data is available.
  */
 async function loadData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json");
-    let responseAsJson = await response.json();
+    const token = loadLocal('authToken'); 
+    const response = await fetch(BASE_URL + path, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": token ? `Token ${token}` : ""
+        }
+    });
+    const responseAsJson = await response.json();
     if (path === 'tasks' && responseAsJson) {
-            responseAsJson.forEach(task => {
-                task.subTasks = task.subTasks || [];
-                task.asigntTo = task.asigntTo || [];
-            });
+        responseAsJson.forEach(task => {
+            task.subTasks = task.subTasks || [];
+            task.asigntTo = task.asigntTo || [];
+        });
     }
     return checkIfEmpty(responseAsJson);
 }
@@ -130,6 +135,31 @@ function checkIfEmpty(data) {
     };
 }
 
+/**
+ * Sends data to the server using the HTTP POST method.
+ * 
+ * @param {string} [path=""] - The path to which the data will be sent.
+ * @param {Object} [data={}] - The data to be sent to the server.
+ * @returns {Promise<Object>} A promise that resolves to the response from the server.
+ */
+async function postData(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    let responseData = await response.json();
+
+    if (response.ok && path === 'signup/' && responseData.token) {
+        saveLocal('authToken', responseData.token);
+    }
+
+    return responseData;
+}
+
 
 /**
  * Sends data to the server using the HTTP PUT method.
@@ -139,14 +169,14 @@ function checkIfEmpty(data) {
  * @returns {Promise<Object>} A promise that resolves to the response from the server.
  */
 async function putData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
+    let response = await fetch(BASE_URL + path, {
         method: "PUT",
-        header: {
+        headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     });
-    return responseAsJson = response.json();
+    return response.json();
 }
 
 
@@ -157,20 +187,21 @@ async function putData(path = "", data = {}) {
  * @returns {Promise<void>} A promise that resolves once the data is loaded and variables are updated.
  */
 async function loadAllData(target = "all") {
+
     switch (target) {
         case "all":
-            contacts = await loadData("contacts");
-            tasks = await loadData("tasks");
-            loginData = await loadData("loginData");
+            contacts = await loadData("contacts/");
+            tasks = await loadData("tasks/");
+            loginData = await loadData("login/");
             break;
         case "contacts":
-            contacts = await loadData("contacts");
+            contacts = await loadData("contacts/");
             break;
         case "tasks":
-            tasks = await loadData("tasks");
+            tasks = await loadData("tasks/");
             break;
-        case "loginData":
-            loginData = await loadData("loginData");
+        case "login":
+            loginData = await loadData("login/");
             break;
     }
 }
@@ -185,19 +216,47 @@ async function loadAllData(target = "all") {
 async function saveAllData(target = "all") {
     switch (target) {
         case "all":
-            await putData("contacts", contacts);
-            await putData("tasks", tasks);
-            await putData("loginData", loginData);
+            await saveData("contacts/", contacts);
+            await saveData("tasks/", tasks);
+            await saveData("login/", loginData);
             break;
         case "contacts":
-            await putData("contacts", contacts);
+            await saveData("contacts/", contacts);
             break;
         case "tasks":
-            await putData("tasks", tasks);
+            await saveData("tasks/", tasks);
             break;
-        case "loginData":
-            await putData("loginData", loginData);
+        case "login":
+            await saveData("login/", loginData);
             break;
+    }
+}
+
+
+/**
+ * Saves data to the server using POST or PUT based on the presence of an ID.
+ * This function is generalized to handle any target (e.g., contacts, tasks, login).
+ *
+ * @param {string} target - The target data type ("contacts", "tasks", "login").
+ * @param {Array} data - The data array to be saved.
+ * @returns {Promise<void>} A promise that resolves once the data is saved.
+ */
+async function saveData(target, data) {
+    const token = loadLocal('authToken'); 
+    
+    for (let item of data) {
+        const method = item.id ? "PUT" : "POST";
+        
+        const response = await fetch(BASE_URL + target + (item.id ? `${item.id}/` : ""), {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            },
+            body: JSON.stringify(item)
+        });
+        
+        await response.json();
     }
 }
 
