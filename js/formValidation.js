@@ -262,7 +262,7 @@ function ermenmberMe(id, checked) {
 async function encryptIput(form) {
     let user = form.elements['email'];
     let passwordElement = form.elements['password'];
-    let password = await encrypt(form.elements['password'].value);
+    let password = form.elements['password'].value;
     let logindata = {
         "userElement": user,
         "email": user.value,
@@ -289,17 +289,17 @@ async function encryptIput(form) {
  * @returns {Promise<number|boolean>} - A promise that resolves to the user ID if login is successful, otherwise false.
  */
 async function validateLogin(userData) {
-    let logindata = await getLoginDataArray();
-    let userIndex = logindata.findIndex(function (login) { return login.email === userData.email });
-    let userFound = userIndex != -1;
-    let passwordMatch = false;
-    setErrorHighlight(userData.userElement, selectErrorMsg(userFound ? 'none' : 'user'));
-    if (userFound) {
-        passwordMatch = logindata[userIndex].password == userData.password;
-        setErrorHighlight(userData.passwordElement, selectErrorMsg(passwordMatch ? 'none' : 'password'));
+    const email = userData.email;
+    const password = userData.password;
+    const userDataObj = { email, password };
+
+    const response = await postData('login/', userDataObj, false);
+    console.log("API-Antwort:", response);
+    if (response.token) {
+        saveLocal('authToken', response.token); 
+        return response.userId || true;
     }
-    let result = userFound && passwordMatch ? logindata[userIndex].id : false;
-    return result;
+    return false;
 }
 
 
@@ -315,7 +315,7 @@ async function signUpUser(event) {
     let check = confirmPassword(form);
     if (check) {
         await saveUserData(form);
-        showSuccess();
+        // showSuccess();
     } else {
         formActiv = false;
     }
@@ -349,18 +349,17 @@ function confirmPassword(form) {
  * @returns {Promise<void>} - A promise that resolves when the user data has been saved.
  */
 async function saveUserData(form) {
+    deleteLocal('authToken');
+
     let name = form.elements['name'].value;
     let email = form.elements['email'].value;
-    let password = await encrypt(form.elements['password'].value);
+    let password = form.elements['password'].value;
     let userData = creatUser(name, password, email);
 
-    let response = await postData('signup/', userData);
+    let response = await postData('signup/', userData, false);
     if (response.token) {
-        saveLocal('authToken', response.token);
-        await addLoginData(userData);
+        showSuccess();
     }
-    // let contactData = creatContact(name, email, 'no Number', 'C3FF2B');
-    // await addContacts(contactData);
 }
 
 
@@ -393,6 +392,7 @@ function loginAsGuest(event) {
  * @param {number|string} id - The ID of the user to log in.
  */
 function loginAsUser(id) {
+    console.log("Benutzer-ID:", id);
     if (id) {
         saveLocal('activUser', id);
         window.location.href = '../html/summary.html';

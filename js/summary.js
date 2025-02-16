@@ -9,7 +9,6 @@ async function initSummary() {
     await initInclude();
     await loadAllData();
     await getAllTasks();
-    logedUserDataArray = await getLoginDataArray();
     logedUser = loadLocal('activUser');
     loadAmountsInSummary();
     setDayTime();

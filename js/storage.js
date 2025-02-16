@@ -1,6 +1,6 @@
 let contacts = [];
 let tasks = [];
-let loginData = [];
+// let loginData = [];
 let lastPage = loadSession('page');
 
 const BASE_URL = 'http://127.0.0.1:8000/api/';
@@ -100,14 +100,24 @@ function userLogout() {
  *                                          or null if no data is available.
  */
 async function loadData(path = "") {
-    const token = loadLocal('authToken'); 
+    if (path === "login" || path === "signup") {
+        return null; 
+    }
+
+    const authToken = loadLocal('authToken');
+    if (!authToken) {
+        return null;
+    }
+
     const response = await fetch(BASE_URL + path, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": token ? `Token ${token}` : ""
+            "Authorization": `Token ${authToken}`
         }
     });
+    console.log(response);
+    
     const responseAsJson = await response.json();
     if (path === 'tasks' && responseAsJson) {
         responseAsJson.forEach(task => {
@@ -142,18 +152,37 @@ function checkIfEmpty(data) {
  * @param {Object} [data={}] - The data to be sent to the server.
  * @returns {Promise<Object>} A promise that resolves to the response from the server.
  */
-async function postData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path, {
+async function postData(path = "", data = {}, requireAuth = true) {
+    const headers = {
+        "Content-Type": "application/json",
+    };
+
+    if (requireAuth) {
+        const token = loadLocal('authToken');
+        if (token) {
+            headers["Authorization"] = `Token ${token}`;
+        } else {
+            console.warn("No auth token found in local storage.");
+        }
+    }
+
+    const response = await fetch(BASE_URL + path, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: headers,
         body: JSON.stringify(data),
     });
 
-    let responseData = await response.json();
+    console.log(response);
 
-    if (response.ok && path === 'signup/' && responseData.token) {
+    let responseData;
+    try {
+        responseData = await response.json();
+    } catch (error) {
+        console.error("Error parsing response JSON:", error);
+        responseData = null;
+    }
+
+    if (response.ok && path === 'signup/' && responseData?.token) {
         saveLocal('authToken', responseData.token);
     }
 
@@ -192,7 +221,7 @@ async function loadAllData(target = "all") {
         case "all":
             contacts = await loadData("contacts/");
             tasks = await loadData("tasks/");
-            loginData = await loadData("login/");
+            // loginData = await loadData("login/");
             break;
         case "contacts":
             contacts = await loadData("contacts/");
@@ -200,9 +229,9 @@ async function loadAllData(target = "all") {
         case "tasks":
             tasks = await loadData("tasks/");
             break;
-        case "login":
-            loginData = await loadData("login/");
-            break;
+        // case "login":
+        //     loginData = await loadData("login/");
+        //     break;
     }
 }
 
@@ -218,7 +247,7 @@ async function saveAllData(target = "all") {
         case "all":
             await saveData("contacts/", contacts);
             await saveData("tasks/", tasks);
-            await saveData("login/", loginData);
+            // await saveData("login/", loginData);
             break;
         case "contacts":
             await saveData("contacts/", contacts);
@@ -226,9 +255,9 @@ async function saveAllData(target = "all") {
         case "tasks":
             await saveData("tasks/", tasks);
             break;
-        case "login":
-            await saveData("login/", loginData);
-            break;
+        // case "login":
+        //     await saveData("login/", loginData);
+        //     break;
     }
 }
 
@@ -242,21 +271,21 @@ async function saveAllData(target = "all") {
  * @returns {Promise<void>} A promise that resolves once the data is saved.
  */
 async function saveData(target, data) {
-    const token = loadLocal('authToken'); 
     
     for (let item of data) {
         const method = item.id ? "PUT" : "POST";
-        
+
         const response = await fetch(BASE_URL + target + (item.id ? `${item.id}/` : ""), {
             method: method,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${token}`
+                "Authorization": `Token ${loadLocal('authToken')}`,
             },
             body: JSON.stringify(item)
         });
         
-        await response.json();
+        const responseData = await response.json();
+        console.log(responseData);
     }
 }
 
@@ -270,20 +299,4 @@ function idGenerator() {
     let date = new Date;
     let id = date.getTime();
     return id;
-}
-
-
-/**
- * Encrypts the given data using the SHA-256 hashing algorithm.
- *
- * @param {string} data - The data to be encrypted.
- * @returns {Promise<string>} A promise that resolves to the encrypted data as a hexadecimal string.
- */
-async function encrypt(data) {
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(data);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashedData = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    return hashedData;
 }

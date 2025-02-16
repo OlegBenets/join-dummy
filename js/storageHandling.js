@@ -111,7 +111,6 @@ function creatTask(asigntTo, category, date, description, prio, status, subTasks
         "category": category,
         "date": date,
         "description": description,
-        "id": idGenerator(),
         "prio": prio,
         "status": status,
         "subTasks": subTasks,
@@ -202,7 +201,6 @@ function creatSubTask(subtitle, checked = "unchecked") {
     let subtask = {
         "subtitle": subtitle,
         "checked": checked,
-        "id": idGenerator()
     }
     return subtask;
 }
@@ -302,8 +300,9 @@ async function getSubTasks(index) {
  */
 function creatUser(user, password, email) {
     let userData = {
-        "name": user,
+        "username": user,
         "password": password,
+        "repeated_passwort": password,
         "email": email,
     };
     return userData;
@@ -316,14 +315,16 @@ function creatUser(user, password, email) {
  * @param {Object} userData - The user data object containing name, password, email, and id.
  * @returns {Promise<void>} A Promise that resolves when the login data is successfully added.
  */
-async function addLoginData(userData) {
-    let buffer = JSON.stringify(userData);
-    loginData.push(await JSON.parse(buffer));
-    let token = loadLocal('authToken');
-    if (token) {
-        await saveAllData('login');
-    }
-}
+// async function addLoginData(userData) {
+//     if (!Array.isArray(loginData)) {
+//         loginData = [];
+//     }
+//     loginData.push(userData);
+//     let token = loadLocal('authToken');
+//     if (token) {
+//         await saveAllData('login');
+//     }
+// }
 
 
 /**
@@ -367,15 +368,4 @@ async function getLoginData(index) {
         let buffer = JSON.stringify(loginData[index]);
         return await JSON.parse(buffer);
     }
-}
-
-
-/**
- * Retrieves the entire array of login data.
- *
- * @returns {Promise<Array<Object>>} A Promise that resolves with the array of login data.
- */
-async function getLoginDataArray() {
-    let buffer = JSON.stringify(loginData);
-    return await JSON.parse(buffer);
 }
