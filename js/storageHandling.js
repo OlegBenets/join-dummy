@@ -28,9 +28,10 @@ function creatContact(name, email, phone, color) {
  * @returns {Promise<void>} A promise that resolves once the contact has been added and saved.
  */
 async function addContacts(contact) {
-    let buffer = JSON.stringify(contact);
-    contacts.push(await JSON.parse(buffer));
-    await saveAllData('contacts');
+    let response = await postData('contacts/', contact);
+    if (response && response.id) { 
+        contacts.push(response); 
+    }
 }
 
 
@@ -42,9 +43,12 @@ async function addContacts(contact) {
  */
 async function deleteContacts(index) {
     if (index < contacts.length) {
-        contacts.splice(index, 1);
+        let contactId = contacts[index].id;  
+        let response = await deleteData(`contacts/${contactId}/`);  
+        if (response.success) { 
+            contacts.splice(index, 1);  
+        }
     }
-    await saveAllData('contacts');
 }
 
 
@@ -57,10 +61,12 @@ async function deleteContacts(index) {
  */
 async function editContacts(index, contact) {
     if (index < contacts.length) {
-        let buffer = JSON.stringify(contact);
-        contacts[index] = await JSON.parse(buffer);
+        let contactId = contacts[index].id; 
+        let response = await putData(`contacts/${contactId}/`, contact); 
+        if (response && response.id) { 
+            contacts[index] = response;  
+        }
     }
-    await saveAllData('contacts');
 }
 
 
@@ -127,9 +133,10 @@ function creatTask(asigntTo, category, date, description, prio, status, subTasks
  * @returns {Promise<void>} A promise that resolves once the task has been added and saved.
  */
 async function addTasks(task) {
-    let buffer = JSON.stringify(task);
-    tasks.push(await JSON.parse(buffer));
-    await saveAllData('tasks');
+    let response = await postData('tasks/', task);
+    if (response && response.id) { 
+        tasks.push(response); 
+    }
 }
 
 
@@ -141,9 +148,12 @@ async function addTasks(task) {
  */
 async function deleteTasks(index) {
     if (index < tasks.length) {
-        tasks.splice(index, 1);
+        let taskId = tasks[index].id;  
+        let response = await deleteData(`tasks/${taskId}/`);  
+        if (response.success) { 
+            tasks.splice(index, 1);  
+        }
     }
-    await saveAllData('tasks');
 }
 
 
@@ -156,10 +166,12 @@ async function deleteTasks(index) {
  */
 async function editTasks(index, task) {
     if (index < tasks.length) {
-        let buffer = JSON.stringify(task);
-        tasks[index] = await JSON.parse(buffer);
+        let taskId = tasks[index].id;  
+        let response = await putData(`tasks/${taskId}/`, task); 
+        if (response && response.id) { 
+            tasks[index] = response;  
+        }
     }
-    await saveAllData('tasks');
 }
 
 
@@ -214,9 +226,10 @@ function creatSubTask(subtitle, checked = "unchecked") {
  * @returns {Promise<void>} A promise that resolves once the subtask has been added and saved.
  */
 async function addSubTasks(index, subtask) {
-    let buffer = JSON.stringify(subtask);
-    tasks[index].subTasks.push(await JSON.parse(buffer));
-    await saveAllData('tasks');
+    let response = await postData(`tasks/${tasks[index].id}/subtasks`, subtask);
+    if (response && response.id) { 
+        tasks[index].subTasks.push(response); 
+    }
 }
 
 
@@ -229,11 +242,12 @@ async function addSubTasks(index, subtask) {
  */
 async function deleteSubTasks(index, subindex) {
     if (index < tasks.length) {
-        if (subindex < tasks[index].subTasks.length) {
+        let subtaskId = tasks[index].subTasks[subindex].id;
+        let response = await deleteData(`tasks/${tasks[index].id}/subtasks/${subtaskId}`);
+        if (response.success) {
             tasks[index].subTasks.splice(subindex, 1);
         }
     }
-    await saveAllData('tasks');
 }
 
 
@@ -247,12 +261,12 @@ async function deleteSubTasks(index, subindex) {
  */
 async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
-        if (subindex < tasks[index].subTasks.length) {
-            let buffer = JSON.stringify(subtask);
-            tasks[index].subTasks[subindex] = await JSON.parse(buffer);
+        let subtaskId = tasks[index].subTasks[subindex].id;
+        let response = await putData(`tasks/${tasks[index].id}/subtasks/${subtaskId}`, subtask); 
+        if (response && response.id) { 
+            tasks[index].subTasks[subindex] = response;  
         }
     }
-    await saveAllData('tasks');
 }
 
 
@@ -310,24 +324,6 @@ function creatUser(user, password, email) {
 
 
 /**
- * Adds login data for a new user to the login data array.
- *
- * @param {Object} userData - The user data object containing name, password, email, and id.
- * @returns {Promise<void>} A Promise that resolves when the login data is successfully added.
- */
-// async function addLoginData(userData) {
-//     if (!Array.isArray(loginData)) {
-//         loginData = [];
-//     }
-//     loginData.push(userData);
-//     let token = loadLocal('authToken');
-//     if (token) {
-//         await saveAllData('login');
-//     }
-// }
-
-
-/**
  * Deletes login data for a user at the specified index from the login data array.
  *
  * @param {number} index - The index of the login data to delete.
@@ -335,9 +331,12 @@ function creatUser(user, password, email) {
  */
 async function deleteLoginData(index) {
     if (index < loginData.length) {
-        loginData.splice(index, 1);
+        let userId = loginData[index].id;
+        let response = await deleteData(`login/${userId}`);
+        if (response.success) { 
+            loginData.splice(index, 1);  
+        }
     }
-    await saveAllData('login');
 }
 
 
@@ -350,10 +349,12 @@ async function deleteLoginData(index) {
  */
 async function editLoginData(index, userData) {
     if (index < loginData.length) {
-        let buffer = JSON.stringify(userData);
-        loginData[index] = await JSON.parse(buffer);
+        let userId = loginData[index].id;
+        let response = await putData(`login/${userId}`, userData); 
+        if (response && response.id) { 
+            loginData[index] = response;  
+        }
     }
-    await saveAllData('login');
 }
 
 

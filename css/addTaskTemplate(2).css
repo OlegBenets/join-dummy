@@ -157,7 +157,7 @@
     flex-direction: column;
   }
   
-  .contacts-list {
+.contacts-list {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -165,12 +165,12 @@
     background-color: #ffffff;
     width: 432px;
     max-height: 180px;
-    margin-top: -66px;
-    padding-top: 12px;
+    margin-top: -54px;
+    padding-top: 4px;
     border-radius: 10px;
     overflow-y: auto;
     overflow-x: hidden;
-  }
+}
   
   .hidden {
     display: none;

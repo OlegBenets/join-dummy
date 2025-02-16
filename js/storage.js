@@ -1,6 +1,5 @@
 let contacts = [];
 let tasks = [];
-// let loginData = [];
 let lastPage = loadSession('page');
 
 const BASE_URL = 'http://127.0.0.1:8000/api/';
@@ -193,19 +192,48 @@ async function postData(path = "", data = {}, requireAuth = true) {
 /**
  * Sends data to the server using the HTTP PUT method.
  * 
- * @param {string} [path=""] - The path to which the data will be sent.
- * @param {Object} [data={}] - The data to be sent to the server.
+ * @param {string} [path] - The path to which the data will be sent.
+ * @param {Object} [data] - The data to be sent to the server.
  * @returns {Promise<Object>} A promise that resolves to the response from the server.
  */
-async function putData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path, {
+async function putData(path, data) {
+    const response = await fetch(BASE_URL + path, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Token ${loadLocal('authToken')}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     });
     return response.json();
+}
+
+
+/**
+ * Löscht ein Element vom Server.
+ *
+ * @param {string} path - Der Pfad, der das Element identifiziert (z.B. "contacts/{id}").
+ * @returns {Promise<Object>} Das Antwortobjekt nach dem Löschen des Elements.
+ */
+async function deleteData(path) {
+    const response = await fetch(BASE_URL + path, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${loadLocal('authToken')}`,
+        }
+    });
+    if (response.status === 204) {
+       return { success: true };
+    }
+
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error parsing response JSON:', error);
+        return { success: false }; 
+    }
 }
 
 
@@ -221,7 +249,6 @@ async function loadAllData(target = "all") {
         case "all":
             contacts = await loadData("contacts/");
             tasks = await loadData("tasks/");
-            // loginData = await loadData("login/");
             break;
         case "contacts":
             contacts = await loadData("contacts/");
@@ -229,74 +256,5 @@ async function loadAllData(target = "all") {
         case "tasks":
             tasks = await loadData("tasks/");
             break;
-        // case "login":
-        //     loginData = await loadData("login/");
-        //     break;
     }
-}
-
-
-/**
- * Saves data to the server for specified targets.
- *
- * @param {string} [target="all"] - The target data to save ("all", "contacts", "tasks", "loginData").
- * @returns {Promise<void>} A promise that resolves once the data is saved.
- */
-async function saveAllData(target = "all") {
-    switch (target) {
-        case "all":
-            await saveData("contacts/", contacts);
-            await saveData("tasks/", tasks);
-            // await saveData("login/", loginData);
-            break;
-        case "contacts":
-            await saveData("contacts/", contacts);
-            break;
-        case "tasks":
-            await saveData("tasks/", tasks);
-            break;
-        // case "login":
-        //     await saveData("login/", loginData);
-        //     break;
-    }
-}
-
-
-/**
- * Saves data to the server using POST or PUT based on the presence of an ID.
- * This function is generalized to handle any target (e.g., contacts, tasks, login).
- *
- * @param {string} target - The target data type ("contacts", "tasks", "login").
- * @param {Array} data - The data array to be saved.
- * @returns {Promise<void>} A promise that resolves once the data is saved.
- */
-async function saveData(target, data) {
-    
-    for (let item of data) {
-        const method = item.id ? "PUT" : "POST";
-
-        const response = await fetch(BASE_URL + target + (item.id ? `${item.id}/` : ""), {
-            method: method,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${loadLocal('authToken')}`,
-            },
-            body: JSON.stringify(item)
-        });
-        
-        const responseData = await response.json();
-        console.log(responseData);
-    }
-}
-
-
-/**
- * Generates a unique identifier based on the current timestamp.
- *
- * @returns {number} A unique identifier as the number of milliseconds elapsed since January 1, 1970.
- */
-function idGenerator() {
-    let date = new Date;
-    let id = date.getTime();
-    return id;
 }

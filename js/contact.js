@@ -213,8 +213,10 @@ function contactCreatedHideMessage() {
  * @param {number} newIndex - The index of the new contact.
  */
 function scrollToAddedContact(newIndex) {
-  let newContactElement = document.getElementById(`contact${newIndex}`);
-  newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    let newContactElement = document.getElementById(`contact${newIndex}`);
+    if (newContactElement) {
+      newContactElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 }
 
 
@@ -280,10 +282,12 @@ function toggleContactSelection(contact, menu) {
 * @param {number} i - The index of the new contact.
 */
 function highlightNewContact(contact, menu, i) {
-  contact.style.backgroundColor = "var(--customized_darkblue)";
-  contact.style.color = "white";
-  resetPreviousContactStyle();
-  menu.classList.remove("remove-contact-detail");
+  if (contact) {
+    contact.style.backgroundColor = "var(--customized_darkblue)";
+    contact.style.color = "white";
+    resetPreviousContactStyle();
+    menu.classList.remove("remove-contact-detail");
+  }
 }
 
 

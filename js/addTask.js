@@ -34,7 +34,16 @@ async function addTask(parameter) {
   taskDetails.category = determineCategory(taskDetails.categoryTxt);
 
   testTask();
-  const task = creatTask(taskDetails.assignTo, taskDetails.category, taskDetails.date, taskDetails.description, taskDetails.prio, taskDetails.status, currentSubtasks, taskDetails.title);
+  const task = creatTask(
+    taskDetails.assignTo,
+    taskDetails.category, 
+    taskDetails.date, 
+    taskDetails.description, 
+    taskDetails.prio.toLowerCase(),
+    taskDetails.status, 
+    formatSubtasks(currentSubtasks),
+    taskDetails.title
+);
 
   await addTasks(task);
   resetForm();
@@ -84,7 +93,7 @@ function getTaskDetails() {
 * @returns {boolean} The determined category.
 */
 function determineCategory(categoryTxt) {
-  return categoryTxt === "User Story";
+  return categoryTxt === "User Story" ? "user_story" : "technical_task";
 }
 
 
@@ -134,6 +143,19 @@ function getAssigntContactsNames() {
     assigntToNames.push(assigntToName);
   }
   return assigntToNames;
+}
+
+/**
+ * Formats subtasks to match the expected Django format.
+ *
+ * @param {Array} subTasks - List of subtasks.
+ * @returns {Array} Formatted subtasks.
+ */
+function formatSubtasks(subTasks) {
+  return subTasks.map(subTask => ({
+      title: subTask.subtitle,
+      checked: subTask.checked === "checked" // Ensure Boolean
+  }));
 }
 
 
