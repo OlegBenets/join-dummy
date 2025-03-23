@@ -103,7 +103,7 @@ function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
     let circlesHTML = '';
 
     for (let i = 0; i < initialsArray.length; i++) {
-        let contactIndex = everyContactList.findIndex(c => c.id == card['asigntTo'][i]);
+        let contactIndex = everyContactList.findIndex(c => c.id == card['assigned_to'][i]);
         let contactName = everyContactList[contactIndex]['name'];
         circlesHTML += `
         <div class='big-card-one-assign'>
@@ -126,13 +126,13 @@ function generateHTMLAssignedToBigCard(initialsArray, card, colors) {
  */
 function setPrio(card) {
     switch (card.prio) {
-        case 'Low':
+        case 'low':
             return `<img src='/assets/img/prio_small_cards_low.svg'>`
             break;
-        case 'Medium':
+        case 'medium':
             return `<img src='/assets/img/prio_small_cards_medium.svg'>`
             break;
-        case 'Urgent':
+        case 'urgent':
             return `<img src='/assets/img/prio_small_cards_urgent.svg'>`
             break;
     }
@@ -329,10 +329,10 @@ function generateHTMLsubtasksEdit(subtask, cardId) {
     <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
         <ul class='subtask-popup-ul-container'>
             <li>
-                ${subtask["subtitle"]}  
+                ${subtask["title"]}  
             </li>
             <div class='subtasks-edit-delete-container'>
-                <div class='subtasks-edit-container' onclick="editSubtaskBigCard('${subtask["subtitle"]}', '${subtask["id"]}', ${cardId})">
+                <div class='subtasks-edit-container' onclick="editSubtaskBigCard('${subtask["title"]}', '${subtask["id"]}', ${cardId})">
                     <img src='/assets/img/edit_normal.svg'>
                 </div>
                 <div class='subtasks-seperator'></div>
@@ -385,17 +385,16 @@ function generateHTMLsubtasksBig(amountOfSubtasks, card) {
     let subtasksHTML = '';
 
     for (let i = 0; i < amountOfSubtasks; i++) {
-        const subtask = card['subTasks'][i];
-        let checked = subtask['checked'];
+        const subtask = card['sub_tasks'][i];
 
         subtasksHTML += `
         <div class='big-card-one-subtask'>
-            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['subtitle']}')" ${checked}>
+            <input type='checkbox' id="myCheckbox${i}" onclick="saveCheckedSubtask(${card['id']}, ${i}, '${subtask['title']}')" ${subtask.checked}>
             <label for="myCheckbox${i}" class="checkbox-label">
                 <img src="/assets/img/checkbox_unselected.svg" class="checkbox-img unchecked">
                 <img src="/assets/img/checkbox_selected.svg" class="checkbox-img checked">
             </label>
-            <div class='subtasks-txt'>${subtask['subtitle']}</div>
+            <div class='subtasks-txt'>${subtask['title']}</div>
         </div>
     `
     }

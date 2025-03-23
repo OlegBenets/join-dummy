@@ -88,6 +88,7 @@ function deleteLocal(key) {
  */
 function userLogout() {
     deleteLocal('authToken');
+    deleteLocal('saveuser');
     window.location.href = '/html/login.html'; 
 }
 
@@ -228,11 +229,11 @@ async function deleteData(path) {
     }
 
     try {
-        const data = await response.json();
+        let data = await response.json();
         return data;
     } catch (error) {
         console.error('Error parsing response JSON:', error);
-        return { success: false }; 
+        return data
     }
 }
 

@@ -59,7 +59,7 @@ function getAmountOfDone() {
  * @returns {number} The number of urgent tasks.
  */
 function getUrgentDates() {
-    let allUrgent = allTasks.filter(t => t['prio'] == 'Urgent');
+    let allUrgent = allTasks.filter(t => t['prio'] == 'urgent');
     dateArray = [];
 
     for (let i = 0; i < allUrgent.length; i++) {
@@ -169,11 +169,15 @@ function setDayTime() {
  */
 function logedUserData() {
     let greetingUserElement = document.getElementById('loged-user');
-    let userIndex = logedUserDataArray.findIndex(u => u.id == logedUser);
-    let user = logedUserDataArray[userIndex];
+    const userData = loadLocal('activUser');
+    try {
+        logedUser = JSON.parse(userData);
+    } catch (e) {
+        logedUser = null;
+    }
 
-    if (userIndex >= 0) {
-        let { name } = extractInitialsAndName(user);
+    if (logedUser && logedUser.name) { 
+        let { name } = extractInitialsAndName(logedUser);
         greetingUserElement.textContent = name;
     } else {
         greetingUserElement.textContent = "Guest";

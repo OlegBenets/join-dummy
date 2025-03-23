@@ -43,7 +43,9 @@ function createShortDescription(cardId) {
  * @returns HTML of subtasks section
  */
 function checkSubtasks(card, whichCard) {
-    let allSubtasks = card['subTasks'];
+    let allSubtasks = card['sub_tasks'];
+    console.log('Subtasks:', allSubtasks);
+    console.log('card:', card);
     let amountOfCheckedSubtasks = checkCheckedSubtasks(allSubtasks);
     let amountOfSubtasks = 0;
 
@@ -72,7 +74,7 @@ function checkSubtasks(card, whichCard) {
  * @returns {string} HTML of the assign-to section.
  */
 function checkAssignedTo(card, whichCard) {
-    let allContactsId = card['asigntTo'];
+    let allContactsId = card['assigned_to'];
     getContactsNames(allContactsId);
     let allContacts = contactsNames;
 
@@ -161,7 +163,7 @@ async function loadAllContacts() {
  * @param {object} card This is the task object which includes all relevant informations for one task
  */
 function calculateProgressBar(card) {
-    let allSubtasks = card['subTasks'];
+    let allSubtasks = card['sub_tasks'];
     let progressValue = checkCheckedSubtasks(allSubtasks);
 
     if (allSubtasks.length !== 0) {
@@ -249,6 +251,7 @@ function removeHighlight(id) {
  * @returns amount of all checked subtasks as a number
  */
 function checkCheckedSubtasks(allSubtasks) {
+    
     let checkedSubtasks = allSubtasks.filter(t => t['checked'] == 'checked');
     let amountOfCheckedSubtasks = checkedSubtasks.length;
     return amountOfCheckedSubtasks;
@@ -263,7 +266,7 @@ function checkCheckedSubtasks(allSubtasks) {
 function getAssigntContactsFromTask(cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
     let card = allTasks[indexOfCurTask];
-    let contactsIds = card['asigntTo'];
+    let contactsIds = card['assigned_to'];
 
     for (let i = 0; i < contactsIds.length; i++) {
         const contactId = contactsIds[i];

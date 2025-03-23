@@ -19,11 +19,16 @@ function showProfileSidebar() {
  * This function is used to set the profile initials of the logged user.
  */
 async function getProfileInitials() {
-    logedUser = loadLocal('activUser');
+    const userData = loadLocal('activUser');
+    try {
+        logedUser = JSON.parse(userData);
+    } catch (e) {
+        logedUser = null;
+    }
 
     let container = document.getElementById('profile-initials');
 
-    if (logedUser && logedUser.name) {
+    if (logedUser) {
         let { name } = extractInitialsAndName(logedUser);
         let words = name.split(" ");
         let initials = words.map(word => word[0]).join("");

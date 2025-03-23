@@ -150,17 +150,18 @@ async function editTask(indexOfCurTask) {
  * @returns 
  */
 function getTaskInformations(indexOfCurTask) {
-    let cardId = allTasks[indexOfCurTask]['id'];
-    let title = document.getElementById("input-title" + indexOfCurTask).value;
-    let description = document.getElementById("input-description" + indexOfCurTask).value;
-    let assignedTo = getAssigntContactsNames();
-    let date = document.getElementById("input-date" + indexOfCurTask).value;
-    let category = allTasks[indexOfCurTask]['category'];
-    let oldSubtasks = allTasks[indexOfCurTask]['subTasks'];
-    let status = allTasks[indexOfCurTask]['status'];
-    let prio = currentPrio;
-
-    return {cardId, title, description, assignedTo, date, category, oldSubtasks, status, prio
+    let task = allTasks[indexOfCurTask];
+    
+    return {
+        cardId: task.id,
+        title: document.getElementById("input-title" + indexOfCurTask)?.value || task.title,
+        description: document.getElementById("input-description" + indexOfCurTask)?.value || task.description,
+        assignedTo: getAssigntContactsNames(),
+        date: document.getElementById("input-date" + indexOfCurTask)?.value || task.date,
+        category: task.category,
+        oldSubtasks: task.sub_tasks || [],
+        status: task.status,
+        prio: currentPrio.toLowerCase() || task.prio.toLowerCase(),
     };
 }
 
@@ -175,9 +176,9 @@ function showEditTask(id) {
     let indexOfCurTask = allTasks.findIndex(t => t.id === id);
     currentPrio = allTasks[indexOfCurTask]['prio'];
     container.innerHTML = generateHTMLEditTask(indexOfCurTask);
-    if (currentPrio == 'Low') {
+    if (currentPrio == 'low') {
         selectDefaultPrio('button-low');
-    } else if (currentPrio == 'Medium') {
+    } else if (currentPrio == 'medium') {
         selectDefaultPrio('button-medium');
     } else {
         selectDefaultPrio('button-urgent');
@@ -304,8 +305,8 @@ function renderEditBigCardSubtasks(cardId) {
     let container = document.getElementById('subtasks-popup-section' + indexOfCurTask);
     container.innerHTML = '';
 
-    for (let i = 0; i < subtasks['subTasks'].length; i++) {
-        const subtask = subtasks['subTasks'][i];
+    for (let i = 0; i < subtasks['sub_tasks'].length; i++) {
+        const subtask = subtasks['sub_tasks'][i];
 
         container.innerHTML += generateHTMLsubtasksEdit(subtask, cardId);
     }
@@ -335,7 +336,7 @@ function editSubtaskBigCard(subtaskTitle, id, cardId) {
  */
 async function saveChangedSubtaskInEditor(id, cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == id);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['sub_tasks'].findIndex(s => s.id == id);
     let newTitle = document.getElementById('subtaskInput'+id).value;
     let subtask = creatSubTask(newTitle, checked = "unchecked");
 
@@ -369,7 +370,7 @@ async function addSubtaskInEditor(indexOfCurTask) {
  */
 async function deleteEditSubtask(SubtaskId, cardId) {
     let indexOfCurTask = allTasks.findIndex(t => t.id == cardId);
-    let indexOfCurSubTask = allTasks[indexOfCurTask]['subTasks'].findIndex(s => s.id == SubtaskId);
+    let indexOfCurSubTask = allTasks[indexOfCurTask]['sub_tasks'].findIndex(s => s.id == SubtaskId);
 
     await deleteSubTasks(indexOfCurTask, indexOfCurSubTask);
     await getAllTasks();
@@ -386,12 +387,12 @@ async function deleteEditSubtask(SubtaskId, cardId) {
  */
 async function saveCheckedSubtask(cardId, subtaskIndex, subtaskName) {
     let indexOfTask = allTasks.findIndex(task => task.id === cardId);
-    let SubtaskStatus = allTasks[indexOfTask]['subTasks'][subtaskIndex]['checked'];
+    let SubtaskStatus = allTasks[indexOfTask]['sub_tasks'][subtaskIndex]['checked'];
     let newSubtaskStatus = '';
-    if (SubtaskStatus === 'unchecked') {
-        newSubtaskStatus = 'checked';
+    if (SubtaskStatus === "unchecked") {
+        newSubtaskStatus = "checked";
     } else {
-        newSubtaskStatus = 'unchecked';
+        newSubtaskStatus = "unchecked";
     }
     let changedSubtask = creatSubTask(subtaskName, newSubtaskStatus);
     await editSubTasks(indexOfTask, subtaskIndex, changedSubtask);

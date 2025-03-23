@@ -3,14 +3,14 @@ function generateHTMLsubtasksPopup(subtask) {
       <div class='subtask-popup-edit-container' id='subtask-popup-edit-container${subtask["id"]}'>
           <ul class='subtask-popup-ul-container'>
               <li>
-                  ${subtask["subtitle"]}  
+                  ${subtask["title"]}  
               </li>
               <div class='subtasks-edit-delete-container'>
-                  <div class='subtasks-edit-container' onclick="editSubtask('${subtask["subtitle"]}', '${subtask["id"]}')">
+                  <div class='subtasks-edit-container' onclick="editSubtask('${subtask["title"]}', '${subtask["id"]}')">
                       <img src='/assets/img/edit_normal.svg'>
                   </div>
                   <div class='subtasks-seperator'></div>
-                  <div onclick="deleteSubtask('${subtask["subtitle"]}')" class='subtasks-delete-container'>
+                  <div onclick="deleteSubtask('${subtask["title"]}')" class='subtasks-delete-container'>
                       <img src='/assets/img/delete.svg'>
                   </div>
               </div>

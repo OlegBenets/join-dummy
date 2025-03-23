@@ -246,7 +246,7 @@ async function passwordValidation(event) {
  */
 function ermenmberMe(id, checked) {
     if (id && checked) {
-        saveLocal('saveuser', id);
+        saveLocal('saveuser', id.name);
     } else {
         deleteLocal('saveuser');
     }
@@ -297,7 +297,7 @@ async function validateLogin(userData) {
     console.log("API-Antwort:", response);
     if (response.token) {
         saveLocal('authToken', response.token); 
-        return response.userId || true;
+        return response;
     }
     return false;
 }
@@ -387,14 +387,14 @@ function loginAsGuest(event) {
 
 
 /**
- * Logs in a user by their ID.
+ * Logs in a user by their name.
  * 
- * @param {number|string} id - The ID of the user to log in.
+ * @param {number|string} user - The user object to log in.
  */
-function loginAsUser(id) {
-    console.log("Benutzer-ID:", id);
-    if (id) {
-        saveLocal('activUser', id);
+function loginAsUser(user) {
+    console.log("Benutzer-Object:", user);
+    if (user) {
+        saveLocal('activUser', JSON.stringify(user));
         window.location.href = '../html/summary.html';
     }
 }

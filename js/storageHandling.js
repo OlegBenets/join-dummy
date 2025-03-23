@@ -113,13 +113,13 @@ async function getContactsArray() {
  */
 function creatTask(asigntTo, category, date, description, prio, status, subTasks, title) {
     let task = {
-        "asigntTo": asigntTo,
+        "assigned_to": asigntTo,
         "category": category,
         "date": date,
         "description": description,
         "prio": prio,
         "status": status,
-        "subTasks": subTasks,
+        "sub_tasks": subTasks,
         "title": title
     };
     return task;
@@ -211,7 +211,7 @@ async function getTasksArray() {
  */
 function creatSubTask(subtitle, checked = "unchecked") {
     let subtask = {
-        "subtitle": subtitle,
+        "title": subtitle,
         "checked": checked,
     }
     return subtask;
@@ -226,9 +226,12 @@ function creatSubTask(subtitle, checked = "unchecked") {
  * @returns {Promise<void>} A promise that resolves once the subtask has been added and saved.
  */
 async function addSubTasks(index, subtask) {
-    let response = await postData(`tasks/${tasks[index].id}/subtasks`, subtask);
+    let task = tasks[index];
+    task.sub_tasks.push(subtask);
+
+    let response = await postData(`tasks/${task.id}/sub_tasks/`, subtask); 
     if (response && response.id) { 
-        tasks[index].subTasks.push(response); 
+        tasks[index] = task; 
     }
 }
 
@@ -242,10 +245,14 @@ async function addSubTasks(index, subtask) {
  */
 async function deleteSubTasks(index, subindex) {
     if (index < tasks.length) {
-        let subtaskId = tasks[index].subTasks[subindex].id;
-        let response = await deleteData(`tasks/${tasks[index].id}/subtasks/${subtaskId}`);
-        if (response.success) {
-            tasks[index].subTasks.splice(subindex, 1);
+        let task = tasks[index];
+        let subtaskId = task.sub_tasks[subindex].id;
+
+        task.sub_tasks.splice(subindex, 1);
+
+        let response = await deleteData(`tasks/${task.id}/sub_tasks/${subtaskId}/`);
+        if (response && response.id) { 
+            tasks[index] = response; 
         }
     }
 }
@@ -261,10 +268,16 @@ async function deleteSubTasks(index, subindex) {
  */
 async function editSubTasks(index, subindex, subtask) {
     if (index < tasks.length) {
-        let subtaskId = tasks[index].subTasks[subindex].id;
-        let response = await putData(`tasks/${tasks[index].id}/subtasks/${subtaskId}`, subtask); 
-        if (response && response.id) { 
-            tasks[index].subTasks[subindex] = response;  
+        let task = tasks[index];
+        if (task.sub_tasks && task.sub_tasks[subindex]) {
+            let subtaskId = task.sub_tasks[subindex].id;
+
+            let response = await putData(`tasks/${task.id}/sub_tasks/${subtaskId}/`, subtask);
+            
+            if (response && response.id) {
+                task.sub_tasks[subindex] = response;
+                tasks[index] = task;
+            }
         }
     }
 }
@@ -279,13 +292,13 @@ async function editSubTasks(index, subindex, subtask) {
  */
 async function getSubTasks(index, subindex) {
     if (index < tasks.length) {
-        if (subindex < tasks[index].subtask.length) {
-            let buffer = JSON.stringify(tasks[index].subtask[subindex]);
-            return await JSON.parse(buffer);
-        }
+        let task = tasks[index];
+        let subtaskId = task.sub_tasks[subindex].id;
+
+        let response = await getData(`tasks/${task.id}/sub_tasks/${subtaskId}/`);
+        return response;  
     }
 }
-
 
 /**
  * Retrieves all subtasks of a specific task from the tasks array at the specified index.
@@ -293,15 +306,14 @@ async function getSubTasks(index, subindex) {
  * @param {number} index - The index of the parent task.
  * @returns {Promise<Array>} A promise that resolves to an array of subtask objects.
  */
-async function getSubTasks(index) {
+async function getAllSubTasks(index) {
     if (index < tasks.length) {
-        let buffer = JSON.stringify(tasks[index].subtask);
-        return await JSON.parse(buffer);
+        let task = tasks[index];
+
+        let response = await getData(`tasks/${task.id}/sub_tasks/`);
+        return response || [];
     }
 }
-
-
-//Validation handling functions
 
 
 /**
@@ -323,50 +335,50 @@ function creatUser(user, password, email) {
 }
 
 
-/**
- * Deletes login data for a user at the specified index from the login data array.
- *
- * @param {number} index - The index of the login data to delete.
- * @returns {Promise<void>} A Promise that resolves when the login data is successfully deleted.
- */
-async function deleteLoginData(index) {
-    if (index < loginData.length) {
-        let userId = loginData[index].id;
-        let response = await deleteData(`login/${userId}`);
-        if (response.success) { 
-            loginData.splice(index, 1);  
-        }
-    }
-}
+// /**
+//  * Deletes login data for a user at the specified index from the login data array.
+//  *
+//  * @param {number} index - The index of the login data to delete.
+//  * @returns {Promise<void>} A Promise that resolves when the login data is successfully deleted.
+//  */
+// async function deleteLoginData(index) {
+//     if (index < loginData.length) {
+//         let userId = loginData[index].id;
+//         let response = await deleteData(`login/${userId}`);
+//         if (response.success) { 
+//             loginData.splice(index, 1);  
+//         }
+//     }
+// }
 
 
-/**
- * Edits login data for a user at the specified index in the login data array.
- *
- * @param {number} index - The index of the login data to edit.
- * @param {Object} userData - The updated user data to replace the existing data.
- * @returns {Promise<void>} A Promise that resolves when the login data is successfully edited.
- */
-async function editLoginData(index, userData) {
-    if (index < loginData.length) {
-        let userId = loginData[index].id;
-        let response = await putData(`login/${userId}`, userData); 
-        if (response && response.id) { 
-            loginData[index] = response;  
-        }
-    }
-}
+// /**
+//  * Edits login data for a user at the specified index in the login data array.
+//  *
+//  * @param {number} index - The index of the login data to edit.
+//  * @param {Object} userData - The updated user data to replace the existing data.
+//  * @returns {Promise<void>} A Promise that resolves when the login data is successfully edited.
+//  */
+// async function editLoginData(index, userData) {
+//     if (index < loginData.length) {
+//         let userId = loginData[index].id;
+//         let response = await putData(`login/${userId}`, userData); 
+//         if (response && response.id) { 
+//             loginData[index] = response;  
+//         }
+//     }
+// }
 
 
-/**
- * Retrieves the login data for a user at the specified index in the login data array.
- *
- * @param {number} index - The index of the login data to retrieve.
- * @returns {Promise<Object|undefined>} A Promise that resolves with the user data if found, otherwise undefined.
- */
-async function getLoginData(index) {
-    if (index < loginData.length) {
-        let buffer = JSON.stringify(loginData[index]);
-        return await JSON.parse(buffer);
-    }
-}
+// /**
+//  * Retrieves the login data for a user at the specified index in the login data array.
+//  *
+//  * @param {number} index - The index of the login data to retrieve.
+//  * @returns {Promise<Object|undefined>} A Promise that resolves with the user data if found, otherwise undefined.
+//  */
+// async function getLoginData(index) {
+//     if (index < loginData.length) {
+//         let buffer = JSON.stringify(loginData[index]);
+//         return await JSON.parse(buffer);
+//     }
+// }

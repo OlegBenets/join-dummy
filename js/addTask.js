@@ -32,7 +32,6 @@ async function addTask(parameter) {
   setCurrentStatus(parameter);
   const taskDetails = getTaskDetails();
   taskDetails.category = determineCategory(taskDetails.categoryTxt);
-
   testTask();
   const task = creatTask(
     taskDetails.assignTo,
@@ -135,15 +134,10 @@ function addTaskToBoard() {
  * @returns {Array<string>} An array of assigned contact names.
  */
 function getAssigntContactsNames() {
-  let assigntToNames = [];
-  for (let i = 0; i < assignedContacts.length; i++) {
-    const contact = assignedContacts[i];
-    let assigntToName = contact.id;
-
-    assigntToNames.push(assigntToName);
-  }
-  return assigntToNames;
+  let assigntToNames = assignedContacts.map(contact => contact.id);
+  return assigntToNames
 }
+
 
 /**
  * Formats subtasks to match the expected Django format.
@@ -153,8 +147,8 @@ function getAssigntContactsNames() {
  */
 function formatSubtasks(subTasks) {
   return subTasks.map(subTask => ({
-      title: subTask.subtitle,
-      checked: subTask.checked === "checked" // Ensure Boolean
+      title: subTask.title,
+      checked: subTask.checked,
   }));
 }
 
@@ -265,7 +259,7 @@ function saveChangedSubtask(id) {
   let indexOfCurSubTask = currentSubtasks.findIndex((i) => i.id == id);
   let newTitle = document.getElementById("subtaskInput" + id).value;
 
-  currentSubtasks[indexOfCurSubTask]["subtitle"] = newTitle;
+  currentSubtasks[indexOfCurSubTask]["title"] = newTitle;
   renderSubtasksInPopup("addTask", "");
 }
 
