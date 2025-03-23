@@ -142,7 +142,7 @@ function getAssigntContactsNames() {
 /**
  * Formats subtasks to match the expected Django format.
  *
- * @param {Array} subTasks - List of subtasks.
+ * @param {Array} subTasks - List of subtask.
  * @returns {Array} Formatted subtasks.
  */
 function formatSubtasks(subTasks) {
