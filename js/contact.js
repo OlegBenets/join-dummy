@@ -329,7 +329,7 @@ async function deleteContactsFromTasks(contactNameId) {
     const newTask = updatedTasks[i];
     let indexOfCurTask = allTasks.findIndex((t) => t.id == newTask.id);
 
-    let newUpdatedTask = creatTask(newTask["asigntTo"], newTask["category"], newTask["date"], newTask["description"], newTask["prio"],newTask["status"], newTask["subTasks"], newTask["title"]);
+    let newUpdatedTask = creatTask(newTask["assigned_to"], newTask["category"], newTask["date"], newTask["description"], newTask["prio"],newTask["status"], newTask["sub_tasks"], newTask["title"]);
     await editTasks(indexOfCurTask, newUpdatedTask);
   }
 }
@@ -344,10 +344,10 @@ function sortMatchingNames(contactNameId) {
   let filtered = [];
   for (let i = 0; i < allTasks.length; i++) {
     const task = allTasks[i];
-    for (let j = 0; j < task.asigntTo.length; j++) {
-      const element = task.asigntTo[j];
+    for (let j = 0; j < task.sub_tasks.length; j++) {
+      const element = task.sub_tasks[j];
       if (element == contactNameId) {
-        allTasks[i].asigntTo.splice(j, 1);
+        allTasks[i].sub_tasks.splice(j, 1);
         filtered.push(allTasks[i]);
       }
     }
